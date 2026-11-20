@@ -3,9 +3,10 @@
 # Etapas, na ordem:
 #   1. importacao  : godot --headless --path game --import
 #   2. arc04       : parse e compilacao de todos os scripts de game/ (ARC-04), num processo
-#   3. runner      : godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd
-#                    (unit, integration, scenarios, architecture)
-#   4. runner-meta : o mesmo runner com -- --level=meta (meta-testes do proprio runner)
+#   3. runner          : godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd
+#                        (unit, integration, scenarios, architecture; alvo: menos de 10 s)
+#   4. runner-property : o mesmo runner com -- --level=property (varreduras longas e deterministicas)
+#   5. runner-meta     : o mesmo runner com -- --level=meta (meta-testes do proprio runner)
 #
 # Uma etapa falha se o codigo de saida for diferente de 0 ou se "SCRIPT ERROR" aparecer na saida
 # (erro de script em tempo de execucao, erro de parse ou aviso tratado como erro).
@@ -80,8 +81,9 @@ Write-Host ('Projeto: ' + $GamePath)
 $ok1 = Invoke-Step -Name 'importacao' -Arguments @('--headless', '--path', $GamePath, '--import')
 $ok2 = Invoke-Step -Name 'arc04' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=architecture', '--filter=arc04')
 $ok3 = Invoke-Step -Name 'runner' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd')
-$ok4 = Invoke-Step -Name 'runner-meta' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=meta')
-$allOk = $ok1 -and $ok2 -and $ok3 -and $ok4
+$ok4 = Invoke-Step -Name 'runner-property' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=property')
+$ok5 = Invoke-Step -Name 'runner-meta' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=meta')
+$allOk = $ok1 -and $ok2 -and $ok3 -and $ok4 -and $ok5
 
 Write-Host ''
 Write-Host '=== Resumo do pipeline ==='

@@ -12,7 +12,8 @@
 | Campo | Valor |
 |---|---|
 | Severidade | **ALTO**: cada tick sem chão pode gerar `landed` e quebrar a cadência de passos. Na F3, isso vira ruído falso para a IA (pilar "inimigos justos") |
-| Estado | **REABERTO** em 2026-11-20 pela revisão F1-010 (R1-01): a correção cobre só as 12 fases testadas. No ciclo completo do passo, a escada da sandbox ainda perde o chão por 2–3 ticks em 6 de 72 fases, e a escada sintética de piso 0,30 m por 1 tick em 4 de 60. Em correção (Gameplay Engineer) |
+| Estado | **CORRIGIDO (2ª vez)** em 2026-11-20; aguarda a nova verificação do revisor e a F1-011. Histórico: reaberto pela revisão F1-010 (R1-01), porque a 1ª correção cobria só as 12 fases testadas |
+| Causa raiz real (2ª correção) | A sondagem de 0,27 m alcançava o degrau seguinte e o corpo subia para até 0,36 m, sem limite superior. Com a borda exatamente sobre a quina, faltava sobreposição por 1 tick. Correção: sondagem = movimento do tick + 0,03 m; pouso limitado a `step_height`; avanço de 0,03 m ao subir. Coberto por `tests/property/player/test_escada_propriedade.gd` (ciclo inteiro a 5 mm, subida e descida, 3 escadas, um mundo por fase) |
 | Encontrado por | `scenarios/test_mot04_sandbox.gd` (Level Designer, F1-009); diagnóstico do Gameplay Engineer em 2026-11-20 |
 | Componente | `game/components/player/player_motor.gd` (step-up, F1-006) |
 | Reprodução | Escada da sandbox (espelho 0,18 m, piso ~0,28 m), bot subindo e descendo com `--fixed-fps 60`: 2 ticks seguidos com `is_on_floor() == false` |
@@ -25,7 +26,7 @@
 | Campo | Valor |
 |---|---|
 | Severidade | **ALTO**: 16 ticks (~0,27 s) sem chão, queda de ~0,33 m com vy até −2,45 m/s; gera `landed` falso |
-| Estado | ABERTO, em correção (Gameplay Engineer) |
+| Estado | **CORRIGIDO** em 2026-11-20; aguarda a nova verificação do revisor e a F1-011. Causa: a base do cilindro no nível da quina gerava contato tangente com a face do degrau, e o snap não achava piso. Correção: assentamento explícito no piso até `floor_snap_length` abaixo (`_settle_on_ground`). Coberto pela mesma propriedade (descida natural e sistemática, `landed == 0`) |
 | Encontrado por | Revisão F1-010 (R1-02), varredura do ciclo completo na descida (3 de 56 fases; ex.: `start_z=0.395`) |
 | Componente | `player_motor.gd` (step-up e snap ao descer) |
 | Critério de correção | Teste de propriedade sobre o ciclo inteiro do passo (passo de 5 mm), subida e descida, escadas 0,18/0,28, 0,18/0,30 e a da sandbox: 0 ticks sem chão |
@@ -34,7 +35,7 @@
 | Campo | Valor |
 |---|---|
 | Severidade | MÉDIO: a compensação visual do step-up é aplicada a toda variação vertical; em rampa de 30° correndo, a câmera fica até 18,7 cm abaixo da altura dos olhos |
-| Estado | ABERTO, em correção (Gameplay Engineer) |
+| Estado | **CORRIGIDO** em 2026-11-20; aguarda a nova verificação. A compensação só absorve a variação de altura não explicada pela inclinação do piso. `test_camera_rampa.gd`: 10°/20°/30°, andando e correndo, subindo e descendo, erro ≤ 1 cm; a versão antiga reprova as 12 medições |
 | Encontrado por | Revisão F1-010 (R1-03) |
 | Critério de correção | Teste de câmera em rampa (10°, 20°, 30°; andando e correndo; subindo e descendo): erro ≤ 1 cm |
 

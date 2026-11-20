@@ -22,7 +22,7 @@ func _key_entry(code: int) -> Dictionary:
 
 
 func test_validate_aceita_listas_de_eventos_validos() -> void:
-	assert_true(InputBindings.validate([]), "lista vazia = ação sem ligação")
+	assert_false(InputBindings.validate([]), "lista vazia é inválida: não pode gravar ação sem ligação (R1-06)")
 	assert_true(InputBindings.validate([_key_entry(KEY_CROUCH_TEST)]), "tecla válida")
 	assert_true(InputBindings.validate([{"type": "mouse_button", "button_index": 1}]), "botão do mouse válido")
 
@@ -100,3 +100,38 @@ func test_apply_nao_mexe_nas_acoes_ui() -> void:
 	InputBindings.apply({})
 	InputBindings.apply({"ui_accept": [_key_entry(KEY_CROUCH_TEST)]})
 	assert_eq(InputMap.action_get_events(&"ui_accept").size(), before, "ui_accept mantém as ligações padrão após apply")
+
+
+func test_rebind_recusa_entrada_invalida_sem_alterar_nada() -> void:
+	var before: int = InputBindings.action_entries(ACTION_INTERACT).size()
+	assert_false(InputBindings.rebind(ACTION_INTERACT, {"type": "key", "physical_keycode": 0}), "código zero é recusado")
+	assert_false(InputBindings.rebind(ACTION_INTERACT, {"type": "mouse_button", "button_index": 10}), "botão 10 é recusado")
+	assert_eq(InputBindings.action_entries(ACTION_INTERACT).size(), before, "a ação mantém as ligações")
+	assert_eq(InputBindings.current_overrides().size(), 0, "nada foi gravado como sobreposição")
+
+
+func test_current_overrides_nunca_grava_acao_vazia() -> void:
+	# Nenhuma ação pode ser serializada como lista vazia nas sobreposições, mesmo que o InputMap esteja vazio.
+	InputMap.action_erase_events(ACTION_INTERACT)
+	var overrides: Dictionary = InputBindings.current_overrides()
+	assert_false(overrides.has(String(ACTION_INTERACT)), "ação sem eventos não entra nas sobreposições")
+	InputBindings.apply({})
+	assert_true(InputMap.action_get_events(ACTION_INTERACT).size() > 0, "apply restaura o padrão de interact")
+
+
+func test_controls_menu_rejeita_tecla_sem_codigo_fisico_e_mouse_fora_de_faixa() -> void:
+	var menu: ControlsMenu = ControlsMenu.new()
+	var key: InputEventKey = InputEventKey.new()
+	key.physical_keycode = 0 as Key
+	key.pressed = true
+	menu.begin_capture(ACTION_INTERACT)
+	assert_eq(menu.capture_event(key), ControlsMenu.STATUS_INVALID, "tecla com physical_keycode 0 é inválida")
+	assert_true(menu.is_capturing(), "a captura continua para o jogador tentar de novo")
+	var mouse: InputEventMouseButton = InputEventMouseButton.new()
+	mouse.button_index = 10 as MouseButton
+	mouse.pressed = true
+	assert_eq(menu.capture_event(mouse), ControlsMenu.STATUS_INVALID, "botão 10 do mouse é inválido")
+	assert_true(InputMap.action_get_events(ACTION_INTERACT).size() > 0, "interact continua com a ligação")
+	assert_eq(InputBindings.current_overrides().size(), 0, "nada foi gravado")
+	menu.free()
+

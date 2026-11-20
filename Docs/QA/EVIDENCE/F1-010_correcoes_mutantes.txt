@@ -1,0 +1,31 @@
+F1-010 - correcoes do motor (R1-01/BUG-001, R1-02/BUG-002, R1-03/BUG-003). Saidas reais.
+Mutantes sao copias descartaveis em scratchpad; o repositorio nao foi alterado por eles.
+
+1) Experimento do revisor (scratchpad/exp/game/exp_tests/test_sweep_full.gd) no motor ANTES do assentamento de descida (com a sondagem de 0,03 m e o avanco do step-up ja presentes):
+FAIL  test_ciclo_piso_028_a: fase start_z=0.475: ticks no ar subida=0 descida=16
+FAIL  test_ciclo_piso_028_b: fase start_z=0.395: ticks no ar subida=0 descida=16
+FAIL  test_ciclo_piso_028_c: fase start_z=0.315: ticks no ar subida=0 descida=16
+FAIL  test_ciclo_piso_028_d: fase start_z=0.235: ticks no ar subida=0 descida=16
+RESUMO: total=8 passou=4 falhou=4
+
+2) O mesmo experimento do revisor no motor ATUAL (correcoes deste relatorio):
+PASS  test_ciclo_piso_028_a..d, test_ciclo_piso_030_a..d (8/8)
+RESUMO: total=8 passou=8 falhou=0 sem_assert=0
+
+3) Mutante: avanco do step-up zerado (STEP_FORWARD_EXTRA_M = 0), propriedade de ciclo:
+FAIL  test_ciclo_sandbox_fases_00_a_13 .. 42_a_55 (4 de 4; ex.: sandbox fase 1 s=0.005: subida ar=3)
+PASS  test_ciclo_piso_0_28 e 0_30 (8/8)
+RESUMO: total=12 passou=8 falhou=4
+
+4) Mutante: sem assentamento (_settle_on_ground desligado):
+FAIL  test_ciclo_piso_0_30_fases_00_a_14: piso 0,30 fase 1 (s=0.005): descida ok=true ar=16 landed=1
+RESUMO: total=1 passou=0 falhou=1
+
+5) Mutante: compensacao da camera com dy inteiro (sem o residual de inclinacao), rampas:
+FAIL  rampa 10 graus correndo, subindo: erro 0.0618 m
+FAIL  rampa 20 graus correndo, subindo: erro 0.1161 m
+FAIL  rampa 30 graus correndo, subindo: erro 0.1565 m
+FAIL  rampa 30 graus correndo, descendo: erro 0.0715 m
+(as 12 medicoes de andando/correndo, subindo/descendo, em 10/20/30 graus, reprovam; erros de 2 a 16 cm)
+
+6) Motor atual, camera em rampa: PASS 3/3 (10, 20 e 30 graus, cada um com 4 medicoes andando/correndo subindo/descendo).

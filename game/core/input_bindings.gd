@@ -63,7 +63,7 @@ static func current_overrides() -> Dictionary:
 	var out: Dictionary = {}
 	for key: String in _defaults.keys():
 		var current: Array = _serialize_action(StringName(key))
-		if current != (_defaults[key] as Array):
+		if not current.is_empty() and current != (_defaults[key] as Array):
 			out[key] = current
 	return out
 
@@ -74,8 +74,12 @@ static func action_entries(action: StringName) -> Array:
 
 
 ## Troca a ligação de uma ação por um único evento serializado (sem salvar; quem chama persiste).
-static func rebind(action: StringName, entry: Dictionary) -> void:
+## Devolve false, sem alterar nada, se o evento não for válido (R1-06).
+static func rebind(action: StringName, entry: Dictionary) -> bool:
+	if not is_valid_entry(entry):
+		return false
 	_set_action(action, [entry])
+	return true
 
 
 ## True se entry é um evento serializado válido.
@@ -91,9 +95,10 @@ static func is_valid_entry(entry: Variant) -> bool:
 	return false
 
 
-## True se value é um Array só com eventos válidos (vazio = ação sem ligação).
+## True se value é um Array não vazio só com eventos válidos. Lista vazia é inválida: gravar uma ação sem ligação
+## deixaria o jogador sem o controle (R1-06).
 static func validate(value: Variant) -> bool:
-	if typeof(value) != TYPE_ARRAY:
+	if typeof(value) != TYPE_ARRAY or (value as Array).is_empty():
 		return false
 	for entry: Variant in value as Array:
 		if not is_valid_entry(entry):

@@ -10,6 +10,7 @@ const STATUS_APPLIED: String = "applied"
 const STATUS_CONFLICT: String = "conflict"
 const STATUS_CANCELLED: String = "cancelled"
 const STATUS_IGNORED: String = "ignored"
+const STATUS_INVALID: String = "invalid"
 const CANCEL_KEY: int = KEY_ESCAPE
 
 var _capturing_action: StringName = &""
@@ -59,7 +60,7 @@ func begin_capture(action: StringName) -> void:
 	_set_status("Pressione a nova tecla ou botão para '%s'. Esc cancela." % String(action))
 
 
-## Trata um evento de captura. Devolve STATUS_APPLIED, STATUS_CONFLICT, STATUS_CANCELLED ou STATUS_IGNORED.
+## Trata um evento de captura. Devolve STATUS_APPLIED, STATUS_CONFLICT, STATUS_CANCELLED, STATUS_INVALID ou STATUS_IGNORED.
 func capture_event(event: InputEvent) -> String:
 	if not is_capturing():
 		return STATUS_IGNORED
@@ -73,12 +74,17 @@ func capture_event(event: InputEvent) -> String:
 	var entry: Dictionary = InputBindings.entry_from_event(event)
 	if entry.is_empty():
 		return STATUS_IGNORED
+	if not InputBindings.is_valid_entry(entry):
+		_set_status("Tecla ou botão não suportado: a ligação não foi alterada.")
+		return STATUS_INVALID
 	var action: StringName = _capturing_action
 	var conflicts: PackedStringArray = InputBindings.find_conflicts(entry, action)
 	if not conflicts.is_empty():
 		_set_status("Conflito: %s já usa %s. Remova essa ligação antes." % [", ".join(conflicts), InputBindings.describe(entry)])
 		return STATUS_CONFLICT
-	InputBindings.rebind(action, entry)
+	if not InputBindings.rebind(action, entry):
+		_set_status("Ligação inválida: a ligação não foi alterada.")
+		return STATUS_INVALID
 	_capturing_action = &""
 	Settings.set_value(&"input_bindings", InputBindings.current_overrides())
 	_rebuild_rows()

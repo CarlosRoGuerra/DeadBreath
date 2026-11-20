@@ -1,0 +1,60 @@
+﻿F1-010 (QA) - R1-07: investigacao da dependencia de historico da fisica (2026-11-20)
+Metodo: copias de investigacao em scratchpad (nao tocam o repositorio). Experimentos com --fixed-fps 60 quando
+indicado (e o modo oficial do run_tests.ps1). Saidas copiadas das execucoes reais.
+
+1. REPRODUCAO DO REVISOR (codigo do revisor, copia exp/ com framework atual por cima; sem --fixed-fps)
+   R-A  sweep sozinho (piso 0,28, fases 0..13, inicio 0,5 a 0,435):
+        PASS  test_zz_sweep_full.gd::test_ciclo_piso_028_a  83732 ms
+        nota: piso 0.28 fases 0..13: falhas=0
+   R-B  sandbox (test_aa, um teste por fase) e depois o sweep, no mesmo processo:
+        FAIL  test_zz_sweep_full.gd::test_ciclo_piso_028_a  83773 ms
+        - ... fase start_z=0.475: ticks no ar subida=0 descida=16
+   Conclusao: reproduzido, como relatado.
+
+2. TESTE DE ORDEM SEM SANDBOX (codigo do revisor, sem --fixed-fps)
+   Alvo 0,475 (piso 0,28) em processo novo, depois de 1 fase, depois de 5 fases no mesmo teste e depois de
+   escadas, sandbox, quedas curtas (5 e 10) e esperas de 150/600 frames: descida=16 em todos, EXCETO
+   "5 fases no mesmo teste" (descida=0). Esperas de tempo e alocacao previa (9 e 45 corpos) nao mudam o resultado.
+
+3. MAPA DE SENSIBILIDADE (alvo 0,475 depois de n fases anteriores no mesmo mundo, free() direto, sem flush)
+   Codigo do revisor:  n=0..7: descida=16 | n=8: 0 | n=9..10: 16 | n=11: 0 | n=12: 16
+   Codigo atual:       n=0..12: descida=0 (ver item 6)
+   Conclusao: o resultado depende do historico exato, e nao e monotono no numero de fases.
+
+4. TRAJETORIAS TICK A TICK (--fixed-fps 60; codigo do revisor)
+   Mundo compartilhado, fresco:  306-311 ticks; descida com floor=0 nos ticks 108..123.
+   Mundo compartilhado, depois de 5 fases sem flush: trajetoria IDENTICA ate o tick 278 e diferente no tick 108 da
+   descida: fresco "z=-1.31000 y=0.54112 floor=0" contra "z=-1.31000 y=0.36066 floor=1".
+   Posicao, velocidade e floor eram iguais no tick anterior: o estado que diverge esta oculto no motor de fisica.
+   Mundo isolado (SubViewport own_world_3d), fresco e depois de 5 fases: IDENTICAIS (311 ticks).
+   Mundo compartilhado fresco e mundo isolado fresco: IDENTICAIS. Ou seja, o isolamento devolve o resultado fresco.
+
+5. CORRECOES TESTADAS (--fixed-fps 60; codigo do revisor)
+   Flush de 2 frames de fisica depois de cada free() (5 fases): descida=16 (igual ao fresco).
+   Mundo isolado por fase: trajetoria igual ao fresco, em todos os casos testados.
+   Quedas curtas (5 e 10, sem flush) NAO reproduzem; so a sequencia de fases de escada reproduz.
+
+6. CODIGO ATUAL (commits posteriores; BUG-002 corrigido pelo Gameplay Engineer)
+   Alvo 0,475 fresco e depois de 5 fases: 306 ticks identicos; descida com 0 ticks no ar nos dois.
+   Varredura do ciclo do degrau (60 fases de 5 mm, piso 0,28), mundo compartilhado sem flush vs isolado por fase:
+   0 ticks no ar em todas as fases nos dois modos; "fases que diferem entre os modos: 0".
+   Conclusao: o efeito de historico NAO se manifesta mais no codigo atual. A causa anterior de BUG-002 (perda de
+   chao na quina do degrau) e a condicao que deixava o resultado sensivel ao historico.
+
+7. ANTES E DEPOIS (meta-teste de regressao, tests/meta/test_r107_historico_no_mundo.gd)
+   Codigo do revisor, ANTES (free() direto, sem flush):
+     FAIL  test_r107_mundo_compartilhado_com_flush_nao_depende_do_historico  2835 ms (asserts: 52)
+     - alvo apos 4 fases anteriores: ticks no ar na descida, esperado 16, obtido 0
+   Codigo do revisor, DEPOIS (versao do repositorio: flush entre fases):
+     PASS  test_r107_mundo_compartilhado_com_flush_nao_depende_do_historico  2790 ms (asserts: 52)
+   Codigo atual, ANTES e DEPOIS: PASS nos dois (o efeito nao existe mais; ver item 6).
+
+8. O QUE FOI PROVADO E O QUE NAO FOI
+   Provado: o resultado de uma fase depende do historico do processo quando as fases compartilham o mundo
+   de fisica sem sincronizacao (codigo do revisor). Nao e tempo real (--fixed-fps 60 mantem o efeito).
+   Nao depende do codigo do jogador (o mesmo codigo, mudando so o historico do espaco). Isolar o mundo por fase
+   ou esperar flush de fisica elimina o efeito, nos casos medidos.
+   Nao provado: o mecanismo interno no GodotPhysics3D (cache de contato ou reuso de ID/RID). Nao instrumentei o motor.
+   Limite: o efeito era sensivel a sequencia exata de fases; no codigo atual nao foi reproduzido em nenhum caso medido.
+   Recomendacao: usar add_isolated_world() ou release_and_flush() em testes que repetem fases (test_escada_sem_chao.gd,
+   varreduras do Gameplay). Mudanca nesses arquivos e do Gameplay Engineer; nao foi feita por QA.

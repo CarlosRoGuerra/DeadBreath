@@ -171,24 +171,31 @@ Contrato de integração definido pelo Director antes da implementação, para q
 | `game/tests/unit/<área>/test_*.gd`, `game/tests/integration/<área>/test_*.gd` | Implementador do módulo (o QA pode acrescentar testes próprios em arquivos separados) |
 
 **Como escrever um teste**
-- Arquivo `test_<nome>.gd` em `tests/unit`, `tests/integration`, `tests/scenarios` ou `tests/architecture` (busca recursiva), com `extends TestCase`.
+- Arquivo `test_<nome>.gd` em `tests/unit`, `tests/integration`, `tests/scenarios` ou `tests/architecture` (busca recursiva), com `extends TestCase`. Nível `property` (varreduras longas): `tests/property/` (recursivo). Meta-testes do runner: `tests/meta/`.
 - Cada teste é um método `func test_<nome>() -> void`, sem argumentos; pode usar `await`.
 - Ganchos opcionais (`-> void`, podem usar `await`): `before_all()`, `after_all()`, `before_each()`, `after_each()`.
 
 **Asserts** (registram a falha e seguem; o teste falha se houver ao menos uma):
 `assert_true(cond, msg := "")`, `assert_false(cond, msg := "")`, `assert_eq(actual, expected, msg := "")`, `assert_ne(actual, expected, msg := "")`, `assert_almost_eq(actual: float, expected: float, tolerance: float, msg := "")`, `assert_null(value, msg := "")`, `assert_not_null(value, msg := "")`, `fail(msg)`.
+**Teste sem nenhum assert reprova** (F1-010, R1-10). Vacuidade justificada usa um assert explícito, por exemplo `assert_true(true, "vacuo: <motivo>")`.
 
 **Utilidades**
 - `add_child_autofree(node: Node) -> Node`: adiciona à árvore; liberado ao fim do teste.
 - `await wait_physics_frames(n: int)` e `await wait_process_frames(n: int)`.
 - `tmp_dir() -> String`: diretório vazio exclusivo do teste em `user://test_tmp/...`, apagado ao fim.
+- `add_isolated_world() -> Node3D`: mundo 3D próprio (`SubViewport` com `own_world_3d`), liberado ao fim do teste; devolve o nó de cenário dentro dele. Use uma fase por mundo quando um teste repete fases (F1-010, R1-07).
+- `await release_and_flush(node)`: remove da árvore, libera e espera `FLUSH_PHYSICS_FRAMES` (2) frames de física. Use em vez de `free()` direto quando o nó tem corpos físicos e o teste monta outro cenário em seguida.
 
 **Runner**
-- `godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd -- [--filter=<texto>] [--level=unit|integration|scenarios|architecture|meta]`
+- `godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd -- [--filter=<texto>] [--level=unit|integration|scenarios|architecture|property|meta]`
+- **Níveis e alvo de tempo** (decisão do Director, F1-010): a execução padrão (sem `--level`) roda `unit`, `integration`, `scenarios` e `architecture`, com alvo de **menos de 10 s**. `property` (varreduras longas e determinísticas, por exemplo a varredura de degrau a 5 mm) não entra na padrão: roda com `--level=property`, com etapa própria no pipeline. `meta` (meta-testes do runner) roda com `--level=meta`.
 - **`--fixed-fps 60` é obrigatório** (decisão do Director, 2026-11-20): cada frame avança exatamente 1/60 s sem esperar o relógio. A suíte com os testes do jogador caiu de 28 s para 1,2 s, com resultados idênticos. Testes nunca dependem de tempo real.
 - Uma linha por teste (`PASS` ou `FAIL`, `<arquivo>::<teste>`, tempo em ms, mensagens das falhas) e um resumo final.
 - Código de saída 0 só se houver ≥ 1 teste e nenhuma falha; 1 nos demais casos.
 - Erro de script (tipo SCRIPT: execução ou parse de GDScript) durante um teste reprova esse teste, com mensagem e `arquivo:linha`, via `Logger` (`OS.add_logger`, `tests/framework/error_capture.gd`); a não ser que o teste o declare com `expect_script_error(trecho)`. Erro de engine (`push_error`, `ConfigFile`) não reprova: vira nota, a não ser que o teste o declare com `expect_engine_error(trecho)`; um erro declarado que não ocorre reprova. O `tools/run_tests.ps1` ainda trata qualquer linha `SCRIPT ERROR` da saída como falha (segunda linha de defesa).
 - Os autoloads (F1-004) precisam estar disponíveis quando os testes rodam.
 
-**Pipeline `tools/run_tests.ps1`:** importação headless → parse de todos os scripts de `game/` (ARC-04) → runner. Sai com 0 ou 1 e imprime o comando exato de cada etapa.
+- **Watchdog por progresso** (R1-10, F1-010): o teste é reprovado após `STALL_PHYSICS_FRAMES` (600 = 10 s de física) sem `wait_*` nem fim de fase. Há um teto de tempo de parede de 300 s por fase, como rede de segurança. Opções para meta-testes: `--stall-frames=<n>` e `--wall-ms=<n>`. Uma corrotina travada não pode ser cancelada em GDScript, então o disparo encerra a execução. Um laço síncrono sem `await` não é pego.
+- **Isolamento de física** (R1-07, F1-010): entre dois testes o runner espera `FLUSH_PHYSICS_FRAMES` (2) frames de física, para que os nós do teste anterior saiam do espaço de física. Dentro de um teste, fases que compartilham o mesmo mundo sem flush mudam de resultado: medido com `--fixed-fps 60`, 5 fases antes da fase 0,475 (piso 0,28) mudam a descida no tick 108. Use `add_isolated_world()` ou `release_and_flush()`. Regressão: `tests/meta/test_r107_historico_no_mundo.gd`.
+
+**Pipeline `tools/run_tests.ps1`:** importação headless → arc04 (parse de todos os scripts de `game/`) → runner (padrão) → runner-property → runner-meta. Cada etapa reprova com código diferente de 0 ou com linha `SCRIPT ERROR`. Sai com 0 ou 1 e imprime o comando exato de cada etapa.

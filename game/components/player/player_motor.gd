@@ -24,6 +24,17 @@ const FLOOR_PROBE_M: float = 0.05
 ## Folga para o corpo passar por cima de um degrau de exatamente step_height: sem ela, o topo do
 ## degrau toca a base elevada e a sondagem horizontal acusa colisão. Degraus de 0,31 m continuam bloqueados.
 const STEP_CLEARANCE_M: float = 0.002
+## Sondagem do degrau: o corpo é cilíndrico (base plana), então basta alcançar a borda do degrau seguinte
+## com uma folga pequena além do deslocamento do tick. Sondar 0,27 m à frente pegava degraus de dois níveis.
+const STEP_PROBE_EXTRA_M: float = 0.03
+## Velocidade de aderência usada no move_and_slide de assentamento (m/s, para baixo, sem movimento horizontal).
+const GROUND_STICK_SPEED_MS: float = 1.0
+## Deslocamento da sondagem do assentamento no sentido do movimento (m). Ver _settle_on_ground.
+const SETTLE_PROBE_SHIFT_M: float = 0.0025
+## Avanço horizontal extra no instante em que o degrau é subido. O movimento do tick termina exatamente com a borda
+## frontal sobre a quina do degrau novo; sem folga, a sobreposição é zero e o tick fica sem chão (BUG-001).
+## A sondagem já garante que este trecho está livre na altura de subida.
+const STEP_FORWARD_EXTRA_M: float = 0.03
 ## Folga para consultas de teto e de piso (evita contato com o próprio chão).
 const MOVE_EPSILON: float = 0.0001
 ## Velocidade com que o head bob acompanha a velocidade (1/s).
@@ -189,10 +200,20 @@ func step(dt: float) -> void:
 	_body.velocity = velocity
 	_body.move_and_slide()
 	var now_grounded: bool = _body.is_on_floor()
+	if grounded and not now_grounded:
+		_settle_on_ground(Vector3(velocity.x, 0.0, velocity.z).normalized() if planar.length_squared() > MOVE_EPSILON else Vector3.ZERO)
+		now_grounded = _body.is_on_floor()
 	var dy: float = _body.global_position.y - start.y
 	if grounded and now_grounded:
-		# Degrau subido ou descido: a câmera absorve a variação e converge (spike V6).
-		_step_visual_offset += dy
+		# Só o resíduo que não vem da inclinação do piso é absorvido pela câmera (BUG-003). Em rampa, a altura
+		# muda de acordo com o plano do chão e a cabeça acompanha; só degraus (step-up e snap) são suavizados.
+		var floor_normal: Vector3 = _body.get_floor_normal()
+		var planar_move: Vector3 = _body.global_position - start
+		planar_move.y = 0.0
+		var expected_dy: float = 0.0
+		if floor_normal.y > MOVE_EPSILON:
+			expected_dy = -(planar_move.x * floor_normal.x + planar_move.z * floor_normal.z) / floor_normal.y
+		_step_visual_offset += dy - expected_dy
 	if not grounded and now_grounded:
 		landed.emit(fall_speed)
 	_was_on_floor = now_grounded
@@ -441,7 +462,7 @@ func _try_step_up(motion: Vector3) -> void:
 	var raised: Transform3D = start.translated(up)
 	if _body.test_move(start, up, up_hit):
 		raised = start.translated(up_hit.get_travel())
-	var probe: Vector3 = motion.normalized() * maxf(motion.length(), cfg.step_probe_distance)
+	var probe: Vector3 = motion.normalized() * (motion.length() + STEP_PROBE_EXTRA_M)
 	if _body.test_move(raised, probe):
 		return
 	var forward: Transform3D = raised.translated(probe)
@@ -452,11 +473,31 @@ func _try_step_up(motion: Vector3) -> void:
 		return
 	var landing_y: float = forward.translated(down_hit.get_travel()).origin.y
 	var rise: float = landing_y - start.origin.y
-	if rise <= 0.01:
+	if rise <= 0.01 or rise > cfg.step_height + STEP_CLEARANCE_M + 0.001:
 		return
-	# Elevação exata até o topo do degrau de destino. Uma folga aqui deixava o corpo suspenso 5 mm sobre o
-	# degrau (BUG-001): com a borda sobre o degrau novo, o move_and_slide do mesmo tick precisa registrar o contato.
-	_body.global_transform = start.translated(Vector3.UP * rise)
+	# Elevação exata até o topo do degrau de destino e um pequeno avanço já na altura nova (ver STEP_FORWARD_EXTRA_M).
+	var landing: Transform3D = start.translated(Vector3.UP * rise)
+	landing = landing.translated(motion.normalized() * STEP_FORWARD_EXTRA_M)
+	_body.global_transform = landing
+
+
+## BUG-002: quando o tick termina no ar mas há superfície voltada para cima até floor_snap_length abaixo, leva o
+## corpo até ela e faz um move_and_slide parado para o contato de piso ser registrado. O snap do move_and_slide
+## falha quando a base do cilindro está na quina do degrau (contato lateral), e o corpo cai pelos degraus.
+func _settle_on_ground(move_dir: Vector3) -> void:
+	var cfg: PlayerMotorConfig = _cfg()
+	# A sondagem sai 2,5 mm à frente do corpo: a borda do cilindro não pode ficar no plano de uma face de degrau
+	# (contato tangente dá normal lateral). 2,5 mm não é múltiplo do passo de 5 mm da propriedade, então não cai em
+	# nenhuma fase exata. O corpo não sai da posição: só desce até a superfície achada.
+	var origin: Transform3D = _body.global_transform.translated(move_dir * SETTLE_PROBE_SHIFT_M)
+	var hit: KinematicCollision3D = KinematicCollision3D.new()
+	if not _body.test_move(origin, Vector3.DOWN * cfg.floor_snap_length, hit):
+		return
+	if hit.get_normal().y <= 0.0:
+		return
+	_body.global_transform = _body.global_transform.translated(hit.get_travel())
+	_body.velocity = Vector3(0.0, -GROUND_STICK_SPEED_MS, 0.0)
+	_body.move_and_slide()
 
 
 func _probe_floor() -> bool:

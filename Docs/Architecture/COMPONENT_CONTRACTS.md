@@ -113,6 +113,87 @@ func get_focused() -> Interactable
 - **Door (F1):** começa no estado `initial_state`; se for `OPEN`, o painel já nasce no ângulo de abertura.
 - **LevelSlots (L2, `components/world/level_slots.gd`, integração F1-009):** instancia Door e Pickup nos marcadores do Level Designer. `door_slot` = `Marker3D` no centro do vão, 1,0 m acima do piso, +Z local ao longo da largura; metadados `door_id`, `start_state` (`closed`/`open`/`locked`), `opening_width_m`. `pickup_slot` = `Marker3D` na posição do item; metadados `persist_id`, `item_id`. `persist_id` repetido gera `Log.error`.
 
+### 3.1 API pública acrescentada na Fase 1 (revisão F1-010, R1-12) — v1.0
+
+Acréscimos feitos durante a implementação e aceitos pelo Director. Mudanças posteriores seguem a regra geral de alteração de contrato.
+
+```gdscript
+## PlayerRoot (mediador; grupo "player")
+func apply_limits(coupling: CouplingFactors) -> void
+func get_motor() -> PlayerMotor
+func get_interaction() -> InteractionComponent
+func get_camera() -> Camera3D
+func set_mouse_captured(captured: bool) -> void
+func is_mouse_capture_requested() -> bool
+func on_menu_resumed() -> void           ## contrato de GRUPO: o PauseMenu chama em "player" ao continuar
+func teleport_to(position: Vector3) -> void   ## só debug (F1-008)
+func set_noclip(enabled: bool) -> void        ## só debug (F1-008)
+func is_noclip() -> bool
+
+## PlayerMotor (além do §2)
+@export var config: PlayerMotorConfig
+static func exertion_for(gait: Enums.Gait, stance: Enums.Stance) -> float
+static func speed_for(gait: Enums.Gait, stance: Enums.Stance, cfg: PlayerMotorConfig, sprint_multiplier: float) -> float
+static func stride_for(gait: Enums.Gait, stance: Enums.Stance, cfg: PlayerMotorConfig) -> float
+func set_noclip(enabled: bool) -> void
+func is_noclip() -> bool
+func notify_teleported() -> void         ## zera velocidade e a compensação visual
+func get_collider_height() -> float
+func get_sprint_speed_limit() -> float
+func is_sprint_allowed() -> bool
+
+## InteractionComponent (além do §3)
+signal interaction_failed(target: Interactable)   ## soltou antes do tempo ou perdeu o foco; base do ruído na F3
+@export var reach_m: float = 2.0
+func setup(camera: Camera3D, body: CollisionObject3D) -> void
+func step(delta: float, context: InteractionContext) -> void   ## chamado pelo PlayerRoot (§1, passo 6)
+func press_interact() -> void
+func release_interact() -> void
+func is_holding() -> bool
+func get_hold_progress() -> float
+static func required_hold_time(target: Interactable, steadiness: float) -> float
+
+## Interactable: @export var tap_completes: bool   ## toque completa a ação mesmo com hold_time > 0 (porta)
+## InteractionContext: var actor: Node; var steadiness: float; var is_hidden: bool; var held: bool
+
+## Door
+enum State { CLOSED, OPEN, LOCKED }
+signal state_changed(old_state: State, new_state: State)
+signal opened(slow: bool)                ## a F3 liga o NoiseEmitter aqui
+signal locked_feedback(actor: Node)
+## @export: initial_state, open_time_fast_s, open_time_slow_s, open_angle_deg
+func get_state() -> State
+func is_moving() -> bool
+func get_panel_angle_deg() -> float
+func lock() -> void
+func unlock() -> void
+
+## Pickup: @export var persist_id: StringName; item_id: StringName; quantity: int
+
+## L3 (presentation)
+## DebugOverlay: is_debug_enabled, set_player, get_player (acha o grupo "player"), is_overlay_visible,
+##   get_overlay_text, toggle_overlay, toggle_noclip, teleport_to_aim. Desligado em produção.
+## DebugCommands (estático): is_allowed, set_noclip, teleport_to_aim, floor_point_under_aim.
+## PauseMenu: signal resumed; is_open, is_controls_visible, open_menu, continue_game, show_controls, show_main.
+## ControlsMenu: signal closed; is_capturing, get_status_text, get_button_text, begin_capture,
+##   capture_event(event) -> String (status; STATUS_INVALID para tecla sem código ou botão fora de 1..9).
+
+## L0 core/input_bindings.gd (InputBindings, estático)
+## Formato de Settings.input_bindings: { "<acao>": [ {"type": "key", "physical_keycode": int}
+##   | {"type": "mouse_button", "button_index": int (1..9)} ] }. Ações ui_* ficam fora. Lista vazia é inválida.
+static func capture_defaults() -> void
+static func rebindable_actions() -> PackedStringArray
+static func apply(overrides: Dictionary) -> void        ## padrões + sobreposições; chamado pelo Settings
+static func current_overrides() -> Dictionary
+static func action_entries(action: StringName) -> Array
+static func rebind(action: StringName, entry: Dictionary) -> bool   ## false e nada muda se a entrada for inválida
+static func is_valid_entry(entry: Variant) -> bool
+static func validate(value: Variant) -> bool
+static func find_conflicts(entry: Dictionary, except_action: StringName) -> PackedStringArray
+static func describe(entry: Dictionary) -> String
+static func entry_from_event(event: InputEvent) -> Dictionary
+```
+
 ## 4. Fisiologia — Physiological Systems Engineer — Fase 2
 
 ### 4.1 PhysiologyComponent (L2)

@@ -16,6 +16,14 @@ const RUNTIME_ERROR_SRC: String = "extends TestCase\n\nfunc _provoca() -> void:\
 const EXPECTATIONS_SRC: String = "extends TestCase\n\nfunc _provoca() -> void:\n\tvar obj: Object = Object.new()\n\tobj.call(\"metodo_que_nao_existe\")\n\tobj.free()\n\nfunc test_erro_de_script_esperado() -> void:\n\texpect_script_error(\"metodo_que_nao_existe\")\n\t_provoca()\n\tassert_true(true, \"continua apos o erro esperado\")\n\nfunc test_erro_de_engine_esperado() -> void:\n\texpect_engine_error(\"erro declarado de proposito\")\n\tpush_error(\"erro declarado de proposito\")\n\tassert_true(true)\n\nfunc test_erro_de_engine_nao_declarado() -> void:\n\tpush_error(\"erro nao declarado\")\n\tassert_true(true)\n\nfunc test_expectativa_nao_cumprida() -> void:\n\texpect_engine_error(\"nunca_acontece\")\n\tassert_true(true)\n"
 
 
+## Teste sem nenhum assert reprova (R1-10); o irmão com assert passa.
+const ZERO_ASSERT_SRC: String = "extends TestCase\n\nfunc test_sem_assert() -> void:\n\tpass\n\nfunc test_com_assert() -> void:\n\tassert_true(true)\n"
+## Await que nunca termina: o watchdog reprova por frames sem progresso (R1-10).
+const STALL_SRC: String = "extends TestCase\n\nfunc test_parado() -> void:\n\tvar no: Node = Node.new()\n\tawait no.tree_exited\n"
+## Progresso normal, mas tempo de parede acima do teto: a rede de segurança reprova (R1-10).
+const WALL_SRC: String = "extends TestCase\n\nfunc test_lento() -> void:\n\tOS.delay_msec(2100)\n\tawait wait_physics_frames(3)\n\tassert_true(true)\n"
+
+
 class RunOutcome:
 	extends RefCounted
 	var code: int = -999
@@ -106,6 +114,29 @@ func test_declaracoes_de_erro_esperado_no_runner() -> void:
 	assert_false(outcome.output.contains("FAIL  test_expectativas.gd::test_erro_de_script_esperado"), "o teste de script esperado não falha")
 	assert_true(outcome.output.contains("FAIL  test_expectativas.gd::test_expectativa_nao_cumprida"), "expectativa não cumprida reprova")
 	assert_true(outcome.output.contains("erro de engine esperado nao ocorreu: 'nunca_acontece'"), "a falha diz qual expectativa faltou")
+
+
+func test_teste_sem_assert_reprova_e_watchdog_reprova_por_frames() -> void:
+	var dir: String = tmp_dir()
+	_write(dir, "test_a_zero.gd", ZERO_ASSERT_SRC)
+	_write(dir, "test_b_parado.gd", STALL_SRC)
+	var outcome: RunOutcome = _run(dir, PackedStringArray(["--stall-frames=30"]))
+	assert_eq(outcome.code, 1, "codigo de saida do runner")
+	assert_true(outcome.output.contains("PASS  test_a_zero.gd::test_com_assert"), "o teste com assert passa")
+	assert_true(outcome.output.contains("FAIL  test_a_zero.gd::test_sem_assert"), "teste sem assert reprova")
+	assert_true(outcome.output.contains("teste sem nenhum assert"), "a mensagem diz que nao ha assert")
+	assert_true(outcome.output.contains("FAIL  test_b_parado.gd::test_parado"), "await parado reprova")
+	assert_true(outcome.output.contains("sem progresso por"), "o watchdog mede frames sem progresso")
+	assert_true(outcome.output.contains("RESULTADO: REPROVADO"), "resultado REPROVADO")
+
+
+func test_teto_de_tempo_de_parede_reprova_mesmo_com_progresso() -> void:
+	var dir: String = tmp_dir()
+	_write(dir, "test_c_lento.gd", WALL_SRC)
+	var outcome: RunOutcome = _run(dir, PackedStringArray(["--wall-ms=1500"]))
+	assert_eq(outcome.code, 1, "codigo de saida do runner")
+	assert_true(outcome.output.contains("FAIL  test_c_lento.gd::test_lento"), "o teste lento reprova")
+	assert_true(outcome.output.contains("teto de tempo de parede"), "a mensagem diz que o teto foi excedido")
 
 
 ## Executa o runner como subprocesso sobre root_dir, com argumentos extras.

@@ -22,6 +22,12 @@ var notes: PackedStringArray = PackedStringArray()
 var expected_script_errors: PackedStringArray = PackedStringArray()
 ## Trechos de mensagens de erro de engine esperados neste teste.
 var expected_engine_errors: PackedStringArray = PackedStringArray()
+## Contador de progresso: cada frame esperado por wait_physics_frames/wait_process_frames soma 1.
+## O runner usa o contador (e não o relógio) para detectar um teste parado.
+var harness_progress: int = 0
+
+## Frames de física aguardados depois de liberar nós com corpos físicos (ver release_and_flush).
+const FLUSH_PHYSICS_FRAMES: int = 2
 
 var _test_label: String = ""
 var _autofree_nodes: Array[Node] = []
@@ -136,6 +142,30 @@ func add_child_autofree(node: Node) -> Node:
 	return node
 
 
+## Cria um mundo 3D próprio para o teste (SubViewport com own_world_3d): espaço de física e cena
+## separados do viewport raiz e dos outros testes. Devolve um Node3D dentro desse mundo; coloque o
+## cenário nele. Liberado ao fim do teste. Use uma fase por mundo quando um teste repete fases.
+func add_isolated_world() -> Node3D:
+	var viewport: SubViewport = SubViewport.new()
+	viewport.own_world_3d = true
+	add_child_autofree(viewport)
+	var container: Node3D = Node3D.new()
+	viewport.add_child(container)
+	return container
+
+
+## Remove o nó da árvore, libera e espera FLUSH_PHYSICS_FRAMES frames de física, para que o espaço
+## de física esteja limpo antes da próxima montagem. Use em vez de free() direto quando o nó tem corpos
+## físicos e o teste monta outro cenário logo em seguida (F1-010, R1-07).
+func release_and_flush(node: Node) -> void:
+	if is_instance_valid(node):
+		var parent: Node = node.get_parent()
+		if parent != null:
+			parent.remove_child(node)
+		node.free()
+	await wait_physics_frames(FLUSH_PHYSICS_FRAMES)
+
+
 ## Espera n frames de física (o teste precisa estar na árvore de cena).
 func wait_physics_frames(n: int) -> void:
 	var tree: SceneTree = get_tree()
@@ -144,6 +174,7 @@ func wait_physics_frames(n: int) -> void:
 		return
 	for _i: int in n:
 		await tree.physics_frame
+		harness_progress += 1
 
 
 ## Espera n frames de processo (o teste precisa estar na árvore de cena).
@@ -154,6 +185,7 @@ func wait_process_frames(n: int) -> void:
 		return
 	for _i: int in n:
 		await tree.process_frame
+		harness_progress += 1
 
 
 ## Diretório vazio exclusivo do teste em user://test_tmp/. Apagado ao fim do teste.

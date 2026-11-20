@@ -32,12 +32,22 @@ func is_debug_enabled() -> bool:
 	return DebugCommands.is_allowed()
 
 
+## Injeção explícita (testes e cenas que já têm a referência). Sem injeção, o overlay acha o jogador sozinho.
 func set_player(player: PlayerRoot) -> void:
 	_player = player
 
 
+## Jogador do overlay: o injetado, ou o primeiro no grupo "player" (R1-04: a cena jogável não injeta).
 func get_player() -> PlayerRoot:
+	if _player == null or not is_instance_valid(_player):
+		_player = _find_player_in_group()
 	return _player
+
+
+func _find_player_in_group() -> PlayerRoot:
+	if not is_inside_tree():
+		return null
+	return get_tree().get_first_node_in_group(PlayerRoot.PLAYER_GROUP) as PlayerRoot
 
 
 func is_overlay_visible() -> bool:
@@ -60,15 +70,17 @@ func toggle_overlay() -> bool:
 
 
 func toggle_noclip() -> bool:
-	if _player == null:
+	var player: PlayerRoot = get_player()
+	if player == null:
 		return false
-	return DebugCommands.set_noclip(_player, not _player.is_noclip())
+	return DebugCommands.set_noclip(player, not player.is_noclip())
 
 
 func teleport_to_aim() -> bool:
-	if _player == null:
+	var player: PlayerRoot = get_player()
+	if player == null:
 		return false
-	return DebugCommands.teleport_to_aim(_player)
+	return DebugCommands.teleport_to_aim(player)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -96,9 +108,10 @@ func _process(delta: float) -> void:
 
 
 func _build_text() -> String:
-	if _player == null:
+	var player: PlayerRoot = get_player()
+	if player == null:
 		return "debug: sem jogador"
-	var motor: PlayerMotor = _player.get_motor()
+	var motor: PlayerMotor = player.get_motor()
 	var lines: PackedStringArray = PackedStringArray()
 	lines.append("fps: %d   frame: %.2f ms" % [int(Engine.get_frames_per_second()), _frame_ms])
 	lines.append("postura: %s" % STANCE_NAMES[int(motor.get_stance())])
@@ -106,13 +119,13 @@ func _build_text() -> String:
 	lines.append("esforço: %.2f" % motor.get_exertion())
 	lines.append("velocidade: %.2f m/s" % motor.get_horizontal_speed())
 	lines.append("foco: %s" % _focus_text())
-	lines.append("noclip: %s" % ("ligado" if _player.is_noclip() else "desligado"))
+	lines.append("noclip: %s" % ("ligado" if player.is_noclip() else "desligado"))
 	lines.append("[N] noclip   [T] teleporte para a mira   [F3] fecha")
 	return "\n".join(lines)
 
 
 func _focus_text() -> String:
-	var target: Interactable = _player.get_interaction().get_focused()
+	var target: Interactable = get_player().get_interaction().get_focused()
 	if target == null:
 		return "nenhum"
 	if not target.prompt_key.is_empty():
