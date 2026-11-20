@@ -81,8 +81,8 @@ func get_bool(key: StringName) -> bool:
 	return bool(get_value(key))
 
 
-## Valida tipo e faixa. Valor de tipo errado ou chave desconhecida é rejeitado com Log.warn.
-## Números fora da faixa são limitados a ela.
+## Valida tipo e faixa. Valor de tipo errado, número não finito (NaN/INF) ou chave desconhecida
+## é rejeitado com Log.warn. Números finitos fora da faixa são limitados a ela.
 func set_value(key: StringName, value: Variant) -> void:
 	if not SCHEMA.has(key):
 		Log.warn(LOG_CATEGORY, "chave desconhecida: '%s'" % key)
@@ -97,6 +97,10 @@ func set_value(key: StringName, value: Variant) -> void:
 		Log.warn(LOG_CATEGORY, "tipo inválido para '%s': esperado %s, recebido %s" % [key, type_string(expected), type_string(actual)])
 		return
 	if expected == TYPE_FLOAT:
+		# clampf(NaN, ...) devolve NaN: não finitos precisam ser rejeitados antes (revisão F1-010, R1-05).
+		if not is_finite(float(coerced)):
+			Log.warn(LOG_CATEGORY, "valor não finito rejeitado para '%s': %s" % [key, coerced])
+			return
 		coerced = clampf(float(coerced), float(entry[2]), float(entry[3]))
 	if _values.has(key) and _values[key] == coerced:
 		return

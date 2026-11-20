@@ -117,6 +117,36 @@ func test_corrupt_file_falls_back_to_defaults() -> void:
 		assert_eq(s.get_value(key), s.get_default(key), "padrão em " + String(key))
 
 
+## Revisão F1-010, R1-05: clampf(NaN) devolve NaN, então não finitos precisam ser rejeitados.
+func test_rejects_non_finite_numbers() -> void:
+	var s: SettingsScript = _new_settings(tmp_dir().path_join("s.cfg"))
+	var warnings: Array[String] = []
+	var listener: Callable = func(level: int, category: StringName, message: String) -> void:
+		if level == Log.WARN and category == &"settings":
+			warnings.append(message)
+	Log.message_logged.connect(listener)
+	s.set_value(&"fov", NAN)
+	s.set_value(&"mouse_sensitivity", INF)
+	s.set_value(&"master_volume", -INF)
+	Log.message_logged.disconnect(listener)
+	assert_almost_eq(s.get_float(&"fov"), 75.0, 0.0001, "fov segue no padrão")
+	assert_almost_eq(s.get_float(&"mouse_sensitivity"), 0.12, 0.0001, "sensibilidade segue no padrão")
+	assert_almost_eq(s.get_float(&"master_volume"), 1.0, 0.0001, "volume segue no padrão")
+	assert_eq(warnings.size(), 3, "um aviso por valor não finito")
+
+
+func test_non_finite_value_in_file_is_ignored_on_load() -> void:
+	var path: String = tmp_dir().path_join("settings.cfg")
+	var f: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+	f.store_string("[settings]\nfov=nan\ninvert_y=true\n")
+	f.close()
+	var s: SettingsScript = _new_settings(path)
+	assert_eq(s.load_from_disk(), OK)
+	assert_true(is_finite(s.get_float(&"fov")), "fov não pode virar NaN ao carregar")
+	assert_almost_eq(s.get_float(&"fov"), 75.0, 0.0001, "fov fica no padrão")
+	assert_true(s.get_bool(&"invert_y"), "as demais chaves válidas do arquivo continuam carregando")
+
+
 func test_get_value_returns_copy_of_collections() -> void:
 	var s: SettingsScript = _new_settings(tmp_dir().path_join("s.cfg"))
 	var bindings: Dictionary = s.get_value(&"input_bindings")

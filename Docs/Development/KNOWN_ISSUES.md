@@ -37,4 +37,8 @@
 
 ## Jogo
 
-Nenhum, porque ainda não há código.
+| ID | Problema | Severidade | Situação |
+|---|---|---|---|
+| GAME-001 | **Durabilidade do save sem fsync** (F1-010, R1-15): o `AtomicFile` grava `.tmp`, confere os bytes e renomeia, mas o Godot não expõe `FlushFileBuffers`. Numa queda de energia logo depois do `rename`, o arquivo novo pode não estar em disco. A leitura com validador cai para o `.tmp` ou o `.bak`, então não há corrupção silenciosa, mas a última gravação pode se perder | Baixa | Aceito; reavaliar na F5 (checkpoints) |
+| GAME-002 | **Rotação do log com outro processo vivo** (F1-010, R1-08): no Windows, o `rename` do `game.log` aberto por outra instância funciona, e essa instância passa a escrever no `game.prev.log`. Sem perda de linhas. Agora o retorno do `rename` é conferido: se falhar, o arquivo é aberto em modo de anexar | Baixa | Mitigado; aceito |
+| GAME-003 | **Iluminação da sandbox mais clara que o alvo** (ART_DIRECTION §3): 87–90% das amostras acima de 0,05, alvo de 40–70% | Baixa | Ajuste na F5 |

@@ -29,6 +29,7 @@ class_name PlayerRoot extends CharacterBody3D
 ## 3. physiology.step(dt, inputs)
 ## 4. motor.apply_limits(physiology.get_coupling())   -> vale a partir do próximo tick
 ## 5. breath_emitter.step(dt, physiology.get_snapshot())
+## 6. interaction.step(dt, context)                   -> InteractionContext montado pelo PlayerRoot (F1)
 ```
 
 **Ligações feitas pelo PlayerRoot em `_ready()`**

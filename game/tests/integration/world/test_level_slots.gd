@@ -64,6 +64,35 @@ func test_pickups_have_unique_non_empty_ids() -> void:
 		seen[p.persist_id] = true
 
 
+## Revisão F1-010, R1-14: o painel tem 0,9 m fixos; outro vão precisa ser denunciado.
+func test_opening_width_different_from_panel_logs_error() -> void:
+	var holder: Node = Node.new()
+	var level: Node3D = Node3D.new()
+	level.name = "WideLevel"
+	var slot: Marker3D = Marker3D.new()
+	slot.add_to_group(&"door_slot")
+	slot.set_meta(&"door_id", &"door_wide")
+	slot.set_meta(&"start_state", &"closed")
+	slot.set_meta(&"opening_width_m", 1.2)
+	slot.position = Vector3(100.0, 1.0, 100.0)
+	level.add_child(slot)
+	holder.add_child(level)
+	var slots: LevelSlots = LevelSlots.new()
+	slots.level_path = NodePath("../WideLevel")
+	holder.add_child(slots)
+	var errors: Array[String] = []
+	var listener: Callable = func(log_level: int, category: StringName, message: String) -> void:
+		if log_level == Log.ERROR and category == &"level":
+			errors.append(message)
+	Log.message_logged.connect(listener)
+	add_child_autofree(holder)
+	Log.message_logged.disconnect(listener)
+	assert_eq(slots.get_doors().size(), 1, "a porta é criada mesmo assim")
+	assert_eq(errors.size(), 1, "um Log.error para o vão fora da medida")
+	if errors.size() == 1:
+		assert_true(errors[0].contains("1.20"), "mensagem cita a largura: " + errors[0])
+
+
 func test_playable_scene_has_player_pause_menu_and_debug_overlay() -> void:
 	assert_not_null(_root.get_node_or_null("PauseMenu") as PauseMenu, "menu de pausa")
 	assert_not_null(_root.get_node_or_null("DebugOverlay") as DebugOverlay, "overlay de debug")

@@ -148,8 +148,8 @@ Física a 60 Hz. `process_physics_priority`: valores menores rodam antes.
 
 | Ordem | Prioridade | Etapa |
 |---|---|---|
-| 1 | -90 | `PlayerRoot`: motor (amostra input e move) → ameaça percebida → fisiologia → limites → BreathEmitter |
-| 2 | -80 | Interações e mundo disparados pelo jogador (portas, pickups); emitem ruído |
+| 1 | -90 | `PlayerRoot`: motor (amostra input e move) → ameaça percebida → fisiologia → limites → BreathEmitter → **interação** (`InteractionComponent.step` com o `InteractionContext`; portas e pickups reagem aqui e emitem seus sinais/ruído no mesmo tick) |
+| 2 | -80 | Reservado para objetos do mundo com lógica própria disparada pelo jogador que precisem rodar antes da acústica. Hoje vazio: a animação de abertura da porta avança na prioridade 0, e o sinal `opened` (base do ruído na F3) já sai na etapa 1 |
 | 3 | -60 | `AcousticWorld`: processa a fila de ruídos, propaga e entrega `HeardNoise` aos `HearingSensor` e `PlayerHeardNoise` ao `PlayerThreatMonitor` |
 | 4 | -50 | Nó `Squad` (`SquadCoordinator`): libera mensagens cujo `deliver_at` venceu |
 | 5 | -40 | `EnemyController`: percepts (visão, audição, esquadrão) → `EnemyBrain` → intenção → navegação; fala via `NoiseEmitter` filho |
@@ -157,6 +157,7 @@ Física a 60 Hz. `process_physics_priority`: valores menores rodam antes.
 | 7 | 0 | Props físicos, luzes e roteiro de nível |
 | — | `_process` | Apresentação (áudio, câmera, UI) |
 
+- **Decisão F1 (revisão F1-010, R1-13):** a interação é um passo do mediador, em -90, e não um nó próprio em -80. O ator é sempre o jogador, e assim o `InteractionContext` usa os dados do mesmo tick (postura, firmeza das mãos, esconderijo).
 - O input é amostrado em `PlayerMotor.step()` (`Input.is_action_pressed`). O movimento do mouse é acumulado em `_unhandled_input` e consumido no step.
 - Ruídos emitidos depois da etapa 3 (por exemplo, por props na prioridade 0 ou pela fala de inimigos na etapa 5) são propagados no tick seguinte. Latência máxima: 1 tick (≈ 16,7 ms).
 - O `PlayerThreatMonitor.sample()` é lido na etapa 1 e usa os `PlayerHeardNoise` entregues na etapa 3 do tick **anterior**: latência de 1 tick para a reação do estresse ao som. Isso é imperceptível e aceito.

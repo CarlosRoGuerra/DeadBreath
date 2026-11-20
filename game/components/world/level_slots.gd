@@ -15,6 +15,9 @@ const DOOR_SLOT_GROUP: StringName = &"door_slot"
 const PICKUP_SLOT_GROUP: StringName = &"pickup_slot"
 const SLOT_HEIGHT_ABOVE_FLOOR_M: float = 1.0
 const DEFAULT_OPENING_WIDTH_M: float = 0.9
+## Largura fixa do painel de door.tscn. Vãos com outra largura geram Log.error (F1-010, R1-14).
+const DOOR_PANEL_WIDTH_M: float = 0.9
+const WIDTH_TOLERANCE_M: float = 0.01
 const LOG_CATEGORY: StringName = &"level"
 
 ## Nó raiz do nível que contém os marcadores.
@@ -55,6 +58,8 @@ func get_pickups() -> Array[Pickup]:
 func _spawn_door(slot: Marker3D) -> void:
 	var door: Door = DOOR_SCENE.instantiate() as Door
 	var width: float = float(slot.get_meta(&"opening_width_m", DEFAULT_OPENING_WIDTH_M))
+	if absf(width - DOOR_PANEL_WIDTH_M) > WIDTH_TOLERANCE_M:
+		Log.error(LOG_CATEGORY, "vão de %.2f m em %s, mas o painel da porta tem %.2f m (sobra folga ou o painel atravessa a parede)" % [width, slot.get_path(), DOOR_PANEL_WIDTH_M])
 	door.name = str(slot.get_meta(&"door_id", slot.name))
 	door.initial_state = _parse_state(str(slot.get_meta(&"start_state", "closed")), slot)
 	# O painel cresce em +X local da porta; girar -90° em Y alinha esse eixo ao +Z do marcador.

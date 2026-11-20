@@ -118,3 +118,15 @@ Controlador mínimo do spike (`spikes/disc003/mover.gd`), 60 Hz, `floor_snap_len
 
 - Evidências visuais inspecionadas: `EVIDENCE/F1-009_sandbox_pov_sala.png`, `F1-009_sandbox_pov_escada.png`, `F1-009_playable_portas.png` (porta aberta para a cozinha e porta fechada para o corredor, renderizadas na cena jogável).
 - Achado visual (ART_DIRECTION §3): a sandbox está mais clara do que o alvo (87–90% das amostras acima de 0,05 contra 40–70%). Ajuste previsto para a F5.
+
+---
+
+## Cobertura pendente de fase (registrada na revisão F1-010, R1-16)
+
+| Teste | Situação na F1 |
+|---|---|
+| ARC-01 (firewall de percepção) | Passa por **vacuidade**: as pastas de IA e percepção ainda não existem. Ganha alvo real na F4 |
+| ARC-02 (`persist_id` único) | Parcial: `test_level_slots.gd` confere unicidade dos pickups da sandbox. A versão completa (grupo `saveable` de cada nível) depende do Saveable (F5) |
+| ARC-07 (config ausente) | Parcial: config ausente do motor → padrões + `Log.error`. O comportamento de falha imediata em debug ainda não existe |
+| ACC-01 | Só o head bob (`motion_reduction`). Tremor e efeitos de câmera chegam na F2 |
+| ACC-02, ACC-03, ACC-04 | Sem cobertura: `effects_intensity`, indicador respiratório e legendas são das F2/F3 |

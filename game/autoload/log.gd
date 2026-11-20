@@ -92,7 +92,12 @@ func _open_file() -> void:
 	if FileAccess.file_exists(path):
 		if FileAccess.file_exists(prev):
 			DirAccess.remove_absolute(prev)
-		DirAccess.rename_absolute(path, prev)
+		if DirAccess.rename_absolute(path, prev) != OK:
+			# Não deu para rotacionar (arquivo em uso): anexa ao atual em vez de truncá-lo (F1-010, R1-08).
+			_file = FileAccess.open(path, FileAccess.READ_WRITE)
+			if _file != null:
+				_file.seek_end()
+				return
 	_file = FileAccess.open(path, FileAccess.WRITE)
 	if _file == null:
 		printerr("[Log] não foi possível abrir %s (erro %d); seguindo só no console" % [path, FileAccess.get_open_error()])
