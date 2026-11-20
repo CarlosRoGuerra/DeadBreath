@@ -5,15 +5,27 @@ extends CharacterBody3D
 ## Não trata a tecla pause: o menu de pausa (presentation/ui) pausa a árvore e chama on_menu_resumed().
 ## Ordem do tick: process_physics_priority = -90 (SYSTEM_ARCHITECTURE §6; COMPONENT_CONTRACTS §1):
 ##   motor.step → inputs → physiology.step → apply_limits(physiology.get_coupling()) → interaction.step(steadiness)
+## Uso da bombinha (F2-005, tecla use_item / Q): try_use_inhaler() consome uma dose do inventário e aplica o efeito na
+## fisiologia. Os sinais item_use_failed e inhaler_used são para a apresentação (viewmodel, UI e som).
 
 const PHYSICS_PRIORITY: int = -90
 const HEADLESS_DISPLAY_NAME: String = "headless"
 ## Grupo usado pelo menu de pausa para devolver o controle ao jogador (captura do mouse).
 const PLAYER_GROUP: StringName = &"player"
+const INHALER_ITEM: StringName = &"inhaler"
+
+## Uso da bombinha falhou: &"no_doses" (sem cargas) ou &"cooldown" (em cooldown; nada é consumido).
+signal item_use_failed(reason: StringName)
+## Bombinha usada com sucesso (uma dose consumida). A apresentação e o som se ligam aqui.
+signal inhaler_used()
+
+## Perfil da bombinha (DATA_STRUCTURES §1.7). Vem da cena do jogador.
+@export var inhaler_profile: MedicationProfile
 
 @onready var _motor: PlayerMotor = $PlayerMotor
 @onready var _interaction: InteractionComponent = $InteractionComponent
 @onready var _physiology: PhysiologyComponent = $PhysiologyComponent
+@onready var _inventory: InventoryComponent = $InventoryComponent
 @onready var _head: Node3D = $Head
 @onready var _camera: Camera3D = $Head/Camera3D
 
@@ -30,6 +42,8 @@ func _ready() -> void:
 	_motor.setup(self, _head)
 	_interaction.setup(_camera, self)
 	_motor.landed.connect(_on_motor_landed)
+	_inventory.doses_changed.connect(_on_doses_changed)
+	_physiology.set_medication_charges(_inventory.get_doses(INHALER_ITEM))
 	_context = InteractionContext.new()
 	_context.actor = self
 	apply_limits(_physiology.get_coupling())
@@ -53,6 +67,47 @@ func _physics_process(delta: float) -> void:
 	_context.steadiness = coupling.steadiness
 	_context.is_hidden = inputs.is_hidden
 	_interaction.step(delta, _context)
+
+
+## Tecla use_item (Q): tenta usar a bombinha.
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"use_item"):
+		try_use_inhaler()
+		get_viewport().set_input_as_handled()
+
+
+## Usa uma dose da bombinha. Falha sem consumir nada se não há doses ou se a bombinha está em cooldown.
+func try_use_inhaler() -> bool:
+	if _inventory.get_doses(INHALER_ITEM) <= 0:
+		item_use_failed.emit(&"no_doses")
+		return false
+	if inhaler_profile == null:
+		Log.error(&"player", "PlayerRoot sem inhaler_profile; a bombinha não é usada")
+		item_use_failed.emit(&"no_profile")
+		return false
+	if not _physiology.apply_medication(inhaler_profile):
+		item_use_failed.emit(&"cooldown")
+		return false
+	_inventory.consume_dose(INHALER_ITEM)
+	_on_inhaler_used()
+	inhaler_used.emit()
+	return true
+
+
+func get_inventory() -> InventoryComponent:
+	return _inventory
+
+
+## Ponto ÚNICO de integração do som da bombinha (F2, Audio Engineer). Quando o BreathEmitter estiver integrado, a
+## chamada entra aqui: BreathEmitter.emit_body_sound(Enums.NoiseCategory.MEDICATION, 38.0, &"inhaler_puff").
+## Não é chamada nesta entrega: o emissor de som do corpo ainda não existe no jogador (F2-006b).
+func _on_inhaler_used() -> void:
+	pass
+
+
+func _on_doses_changed(item_id: StringName, doses: int) -> void:
+	if item_id == INHALER_ITEM:
+		_physiology.set_medication_charges(doses)
 
 
 ## Repassa os limites da fisiologia ao motor (só reduzem; MOT-INV-3).
