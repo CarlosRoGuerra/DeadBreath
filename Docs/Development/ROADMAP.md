@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 1 — Foundation: concluída; Gate F1 aguardando aprovação do usuário** |
+| Fase atual | **FASE 2 — Fisiologia** (Gate F1 aprovado em 2026-11-20) |
 | Responsável | Project Director |
 
 Cada fase termina num **gate**. A fase seguinte só começa com o gate aprovado: critérios cumpridos, testes executados com evidência, revisão técnica concluída, documentação atualizada e aprovação do usuário.
@@ -66,7 +66,7 @@ Protótipo controlável em primeira pessoa numa sandbox greybox.
 
 **Gate F1:** cards F1 em APPROVED; MOT-01..04, ACC-05, ACC-06 e ARC-01..06 verdes; screenshot da sandbox; PLAYER_CONTROLLER.md escrito.
 
-**Situação do Gate F1 (2026-11-20): critérios cumpridos; aguarda aprovação do usuário.**
+**Gate F1: APROVADO pelo usuário em 2026-11-20** (critérios abaixo cumpridos, com as ressalvas registradas).
 1. Cards F1 em APPROVED: ✔ (F1-D02 NARRATIVE fica em REVIEW: aguarda as respostas N-01..N-05 do usuário; não bloqueia).
 2. MOT-01..04, ACC-05, ACC-06 verdes: ✔. ARC-03..06 verdes com alvo real. **ARC-01 passa por vacuidade** (pastas de IA ainda vazias; alvo real na F4). **ARC-02 parcial** (unicidade dos pickups da sandbox; versão completa na F5). Ver TEST_RESULTS, "Cobertura pendente de fase".
 3. Screenshots da sandbox inspecionados: ✔ (`EVIDENCE/F1-009_*`, `F1-011_captura_*`).

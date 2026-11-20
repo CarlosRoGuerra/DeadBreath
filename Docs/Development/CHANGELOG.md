@@ -4,7 +4,7 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
 ## [Não lançado]
 
-### Fase 1 — Foundation (2026-11-20; Gate F1 aguardando aprovação do usuário)
+### Fase 1 — Foundation (2026-11-20; Gate F1 aprovado pelo usuário)
 
 #### Adicionado
 - Projeto Godot em `game/`: Forward+, GodotPhysics3D a 60 Hz, warnings de tipagem como erro, input map (12 ações), 8 camadas de física.

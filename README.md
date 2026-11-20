@@ -7,7 +7,7 @@ Survival horror psicológico em primeira pessoa. Um homem comum, sedentário e a
 | Gênero | Survival Horror · Psychological Horror · Stealth |
 | Plataforma inicial | PC Windows |
 | Engine | Godot 4.7.2 + GDScript tipado + GodotPhysics3D (ADR-001 aprovada) |
-| Fase atual | **FASE 1 — Foundation: concluída; Gate F1 aguardando aprovação** |
+| Fase atual | **FASE 2 — Fisiologia** (Gate F1 aprovado) |
 | Código de jogo | Protótipo jogável em `game/` (sandbox greybox: movimento, posturas, portas, pickups, pausa, remapeamento) |
 
 ## Documentação

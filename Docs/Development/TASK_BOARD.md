@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 1 — Foundation: concluída; Gate F1 aguardando aprovação do usuário** |
+| Fase atual | **FASE 2 — Fisiologia** (Gate F1 aprovado pelo usuário em 2026-11-20) |
 | Estados | BACKLOG · READY · IN_PROGRESS · REVIEW · TESTING · APPROVED · BLOCKED |
 
 Uma tarefa só fica **APPROVED** com: implementação concluída, critérios atendidos, testes executados (com saída registrada), revisão técnica concluída e documentação atualizada.
@@ -20,7 +20,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 | D-04 | Instalação do Godot | Autorizar o download do binário oficial (GitHub, 82 MB) para `D:\DevTools\Godot\4.7.2\`, **ou** baixar manualmente e informar o caminho | **APROVADA e executada** (SHA-512 conferido) |
 | D-05 | Personagens 3D e animações | Instalar o **Blender** (gratuito, scriptável por Python) + bases CC0; freelancer pontual para os 3 criminosos na F6/F7 | Pendente; bloqueia a partir da F4 (até lá, cápsulas) |
 | D-06 | Assets externos | Permitir assets **CC0** (Poly Haven, ambientCG, Quaternius, Kenney), registrados em `ASSET_LICENSES.md` | **APROVADA** (2026-11-20). CC0 entra com registro; outras licenças exigem aprovação do Director e do usuário |
-| D-07 | Áudio de respiração | Opcional: gravar respiração, chiado e tosse reais com microfone. Alternativa: síntese procedural + CC0 | Pendente; bloqueia a partir da F2 |
+| D-07 | Áudio de respiração | Opcional: gravar respiração, chiado e tosse reais com microfone. Alternativa: síntese procedural + CC0 | **DECIDIDA** (2026-11-20): **síntese procedural** (+ CC0 se preciso). Se o resultado não ficar bom, o usuário grava |
 
 ## 2. Propostas de funcionalidade (MASTER §18)
 
