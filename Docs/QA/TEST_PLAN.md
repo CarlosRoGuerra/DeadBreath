@@ -158,3 +158,36 @@ Na F2 e na F3, os testes PHY usam `ThreatSample` construído no próprio teste o
 - Ponto flutuante pode variar entre máquinas. Mitigação: determinismo exigido só na mesma máquina e build (KNOWN_ISSUES RSK-06).
 - Testes de experiência são subjetivos. Mitigação: métricas automáticas + questionário padronizado.
 - Testes visuais dependem da GPU. Servem como evidência de inspeção, não como comparação pixel a pixel.
+
+## 4. Contrato do framework de testes (F1-005, v1.0, 2026-11-20)
+
+Contrato de integração definido pelo Director antes da implementação, para que o QA (framework) e os implementadores (testes dos seus módulos) trabalhem em paralelo.
+
+**Arquivos e escritores**
+
+| Arquivo | Escritor |
+|---|---|
+| `game/tests/framework/*`, `game/tests/run_all.gd`, `game/tests/architecture/*`, `game/tests/meta/*`, `tools/run_tests.ps1` | QA Engineer |
+| `game/tests/unit/<área>/test_*.gd`, `game/tests/integration/<área>/test_*.gd` | Implementador do módulo (o QA pode acrescentar testes próprios em arquivos separados) |
+
+**Como escrever um teste**
+- Arquivo `test_<nome>.gd` em `tests/unit`, `tests/integration`, `tests/scenarios` ou `tests/architecture` (busca recursiva), com `extends TestCase`.
+- Cada teste é um método `func test_<nome>() -> void`, sem argumentos; pode usar `await`.
+- Ganchos opcionais (`-> void`, podem usar `await`): `before_all()`, `after_all()`, `before_each()`, `after_each()`.
+
+**Asserts** (registram a falha e seguem; o teste falha se houver ao menos uma):
+`assert_true(cond, msg := "")`, `assert_false(cond, msg := "")`, `assert_eq(actual, expected, msg := "")`, `assert_ne(actual, expected, msg := "")`, `assert_almost_eq(actual: float, expected: float, tolerance: float, msg := "")`, `assert_null(value, msg := "")`, `assert_not_null(value, msg := "")`, `fail(msg)`.
+
+**Utilidades**
+- `add_child_autofree(node: Node) -> Node`: adiciona à árvore; liberado ao fim do teste.
+- `await wait_physics_frames(n: int)` e `await wait_process_frames(n: int)`.
+- `tmp_dir() -> String`: diretório vazio exclusivo do teste em `user://test_tmp/...`, apagado ao fim.
+
+**Runner**
+- `godot --headless --path game -s res://tests/run_all.gd -- [--filter=<texto>] [--level=unit|integration|scenarios|architecture|meta]`
+- Uma linha por teste (`PASS` ou `FAIL`, `<arquivo>::<teste>`, tempo em ms, mensagens das falhas) e um resumo final.
+- Código de saída 0 só se houver ≥ 1 teste e nenhuma falha; 1 nos demais casos.
+- O Godot não lança exceções em erro de script. O `tools/run_tests.ps1` trata qualquer `SCRIPT ERROR` na saída como falha.
+- Os autoloads (F1-004) precisam estar disponíveis quando os testes rodam.
+
+**Pipeline `tools/run_tests.ps1`:** importação headless → parse de todos os scripts de `game/` (ARC-04) → runner. Sai com 0 ou 1 e imprime o comando exato de cada etapa.

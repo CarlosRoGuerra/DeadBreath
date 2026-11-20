@@ -1,0 +1,19 @@
+F1-002 - tools/godot.ps1 (2026-11-20, Windows PowerShell 5.1.26100.9818)
+Saida copiada da execucao real:
+
+PS> Set-Location D:\Dev\DeadBreath
+== caminho valido ==
+PS> .\tools\godot.ps1 --version
+4.7.2.stable.official.ed1daf0bf
+exit=0
+== caminho inexistente ==
+PS> $env:DEADBREATH_GODOT_PATH = 'D:\nao\existe\godot.exe'; .\tools\godot.ps1 --version
+[godot.ps1] ERRO: Executavel do Godot nao encontrado: 'D:\nao\existe\godot.exe'. Corrija tools/godot_path.txt ou DEADBREATH_GODOT_PATH.
+exit=2
+== versao errada (notepad.exe) ==
+PS> $env:DEADBREATH_GODOT_PATH = 'C:\Windows\System32\notepad.exe'; .\tools\godot.ps1 --version
+[godot.ps1] ERRO: Versao do Godot inesperada: '10.0.26100.9949' em 'C:\Windows\System32\notepad.exe'. Esperado: 4.7.2.stable (ENGINE_DECISION).
+exit=2
+== dot-source ==
+PS> . .\tools\godot.ps1 -LoadOnly; Get-GodotPath
+Get-GodotPath -> D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe

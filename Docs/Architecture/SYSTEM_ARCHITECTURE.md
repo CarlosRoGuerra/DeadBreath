@@ -203,6 +203,29 @@ DeadBreath/
     └── tests/                framework/, unit/, integration/, scenarios/, architecture/, run_all.gd
 ```
 
+### 11.1 Camadas de física e input map (F1-003, 2026-11-20)
+
+| Camada | Nome | Uso |
+|---|---|---|
+| 1 | `world_static` | Paredes, pisos, móveis fixos |
+| 2 | `world_dynamic` | Portas, móveis empurráveis, objetos arremessáveis |
+| 3 | `player` | Corpo do jogador |
+| 4 | `enemy` | Corpos dos inimigos |
+| 5 | `interactable` | Alvos do raio de interação |
+| 6 | `hideable` | Volumes de esconderijo |
+| 7 | `vision_occluder` | Bloqueia a linha de visão sem bloquear movimento (ex.: cortinas) |
+| 8 | `trigger` | `RoomVolume`, áreas de captura, gatilhos de checkpoint |
+
+| Ação | Tecla padrão | | Ação | Tecla padrão |
+|---|---|---|---|---|
+| `move_forward/back/left/right` | W/S/A/D | | `interact` | E |
+| `slow_walk` | Alt | | `use_item` | Q |
+| `sprint` | Shift | | `debug_overlay` | F3 (desligado em produção) |
+| `crouch` | Ctrl | | `pause` | Esc |
+| `crawl` | Z | | | |
+
+As ligações padrão ficam em `project.godot`; as do usuário, em `Settings.input_bindings` (F1-013).
+
 Convenções: `snake_case` para arquivos e pastas; `PascalCase` com `class_name` para classes; sinais no passado; constantes em `UPPER_SNAKE_CASE`; identificadores em inglês; documentação em pt-BR; chaves de texto traduzíveis (`prompt_key`, `name_key`) desde o início, o que é barato mesmo sem localização aprovada.
 
 ## 12. Arquitetura de testes
