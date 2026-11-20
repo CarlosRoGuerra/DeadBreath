@@ -138,7 +138,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 |---|---|---|---|---|
 | F1-D01 | GAME_DESIGN_DOCUMENT v0.1 (pilares, loop, mecânicas, capítulos, itens) | Project Director | MEDIUM | REVIEW (Docs/Design/GAME_DESIGN_DOCUMENT.md) |
 | F1-D02 | NARRATIVE v0.1 (mistério, objeto procurado, moradores anteriores, pistas por capítulo) | Level Designer | MEDIUM | BACKLOG |
-| F1-D03 | ART_DIRECTION v0.1 (paleta, luz, materiais, orçamento de polígonos) | Art & Environment | MEDIUM | BACKLOG |
+| F1-D03 | ART_DIRECTION v0.1 (paleta, luz, materiais, orçamento de polígonos) | Art & Environment | MEDIUM | REVIEW (Docs/Design/ART_DIRECTION.md; 5 materiais CC0 em game/content/materials/, licenças conferidas; captura em EVIDENCE/F1-D03_materials.png) |
 
 **Desvios de esforço em relação à matriz do MASTER §7.1 (justificados):**
 - F1-009 sandbox: MEDIUM (level design é HIGH). É uma cena de teste descartável, não level design de produção.
