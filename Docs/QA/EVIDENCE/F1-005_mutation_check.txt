@@ -1,0 +1,250 @@
+﻿F1-005 - verificacao de sensibilidade do pipeline (2026-11-20)
+Metodo: copia de game/ e tools/ em scratchpad; violacoes injetadas em arquivos novos da copia (nao no repositorio):
+  sim/ai/bad_firewall.gd      ARC-01 (literal "player")
+  sim/bad_base.gd             ARC-03 (extends Node) e sim/bad_l1.gd (tipo Node)
+  sim/bad_dep.gd              ARC-05 (caminho res://components/ a partir de sim/)
+  components/bad_layer.gd     ARC-05 (caminho res://presentation/ a partir de components/)
+  components/bad_layer2.gd    ARC-05 (classe Hud de presentation/)
+  components/player/*         ARC-06 (PhysiologyX usa PlayerMotorX e o mediador PlayerRoot)
+  sim/bad_untyped.gd          warning untyped_declaration como erro (ARC-04)
+  tests/unit/bad_parse.gd     erro de parse (ARC-04 e carga do runner)
+Esperado: pipeline com codigo 1; ARC-01, ARC-03, ARC-04, ARC-05 e ARC-06 reprovam; meta-testes continuam passando.
+Saida real (filtrada pelo proprio run_tests.ps1, sem ANSI):
+
+Godot: D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe
+Projeto: C:\Users\crrob\AppData\Local\Temp\claude\719382d52c74f652\0492a466-b7ea-4ad4-afc8-9754b2365002\scratchpad\mut\game
+
+=== Etapa [importacao] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --path C:\Users\crrob\AppData\Local\Temp\claude\719382d52c74f652\0492a466-b7ea-4ad4-afc8-9754b2365002\scratchpad\mut\game --import
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Inicialização do Projeto (5 steps)
+[   0% ] first_scan_filesystem | Escaneando estrutura de arquivos...
+[  16% ] first_scan_filesystem | Carregando nomes de classe globais...
+[  33% ] first_scan_filesystem | Verificando GDExtensions...
+[  50% ] first_scan_filesystem | Criando scripts autoload...
+[  66% ] first_scan_filesystem | Inicializando plugins...
+[  83% ] first_scan_filesystem | Iniciando escaneamento de arquivos...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registrando classes globais... (13 steps)
+[   0% ] update_scripts_classes | PhysiologyX
+[   7% ] update_scripts_classes | PlayerMotorX
+[  14% ] update_scripts_classes | PlayerRoot
+[  21% ] update_scripts_classes | 
+[  28% ] update_scripts_classes | 
+[  35% ] update_scripts_classes | Hud
+[  42% ] update_scripts_classes | 
+[  50% ] update_scripts_classes | 
+[  57% ] update_scripts_classes | 
+[  64% ] update_scripts_classes | 
+[  71% ] update_scripts_classes | 
+[  78% ] update_scripts_classes | 
+[  85% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Carregando editor (5 steps)
+[   0% ] loading_editor_layout | Carregando layout do editor...
+[  16% ] loading_editor_layout | Carregando abas...
+[ DONE ] loading_editor_layout
+
+--- Etapa [importacao]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=2052 -> OK
+
+=== Etapa [arc04] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --path C:\Users\crrob\AppData\Local\Temp\claude\719382d52c74f652\0492a466-b7ea-4ad4-afc8-9754b2365002\scratchpad\mut\game -s res://tests/run_all.gd -- --level=architecture --filter=arc04
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 07:47:32 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 5 arquivo(s) de teste em: res://tests/architecture
+SCRIPT ERROR: Parse Error: Variable "x" has no static type. (Warning treated as error.)
+   at: GDScript::reload (res://sim/bad_untyped.gd:4)
+   GDScript backtrace (most recent call first):
+       [0] test_todos_os_scripts_compilam (res://tests/architecture/test_arc04_parse.gd:20)
+       [1] _run_file (res://tests/run_all.gd:183)
+       [2] _execute (res://tests/run_all.gd:93)
+       [3] _process (res://tests/run_all.gd:65)
+ERROR: Failed to load script "res://sim/bad_untyped.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] test_todos_os_scripts_compilam (res://tests/architecture/test_arc04_parse.gd:20)
+       [1] _run_file (res://tests/run_all.gd:183)
+       [2] _execute (res://tests/run_all.gd:93)
+       [3] _process (res://tests/run_all.gd:65)
+SCRIPT ERROR: Parse Error: Expected parameter name.
+   at: GDScript::reload (res://tests/unit/bad_parse.gd:3)
+   GDScript backtrace (most recent call first):
+       [0] test_todos_os_scripts_compilam (res://tests/architecture/test_arc04_parse.gd:20)
+       [1] _run_file (res://tests/run_all.gd:183)
+       [2] _execute (res://tests/run_all.gd:93)
+       [3] _process (res://tests/run_all.gd:65)
+ERROR: Failed to load script "res://tests/unit/bad_parse.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] test_todos_os_scripts_compilam (res://tests/architecture/test_arc04_parse.gd:20)
+       [1] _run_file (res://tests/run_all.gd:183)
+       [2] _execute (res://tests/run_all.gd:93)
+       [3] _process (res://tests/run_all.gd:65)
+FAIL  architecture/test_arc04_parse.gd::test_todos_os_scripts_compilam  135 ms  (asserts: 2)
+      nota: scripts verificados em res://: 38
+      - res://tests/architecture/test_arc04_parse.gd:23 -> assert_eq: esperado 0, obtido 2 | scripts que nao compilam: res://sim/bad_untyped.gd, res://tests/unit/bad_parse.gd
+
+RESUMO: total=1 passou=0 falhou=1 sem_assert=0 tempo_total_ms=157
+  falhou: architecture/test_arc04_parse.gd::test_todos_os_scripts_compilam
+RESULTADO: REPROVADO (codigo de saida 1)
+--- Etapa [arc04]: codigo=1 SCRIPT_ERROR=2 ERROR_engine=2 tempo_ms=361 -> FALHOU
+
+=== Etapa [runner] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --path C:\Users\crrob\AppData\Local\Temp\claude\719382d52c74f652\0492a466-b7ea-4ad4-afc8-9754b2365002\scratchpad\mut\game -s res://tests/run_all.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 07:47:32 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 11 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/autoload/test_game_state.gd::test_production_flag_follows_build_and_argument  0 ms  (asserts: 1)
+PASS  unit/autoload/test_game_state.gd::test_set_chapter_emits_once_per_change  0 ms  (asserts: 2)
+2026-11-20 07:47:32 [WARN] [ai] passa
+2026-11-20 07:47:32 [INFO] [core] passa também
+2026-11-20 07:47:32 [ERROR] [core] erro
+PASS  unit/autoload/test_log.gd::test_filters_by_category_level  2 ms  (asserts: 1)
+2026-11-20 07:47:32 [WARN] [teste] execução anterior
+PASS  unit/autoload/test_log.gd::test_rotates_previous_file  6 ms  (asserts: 1)
+PASS  unit/autoload/test_log.gd::test_set_level_is_clamped  2 ms  (asserts: 3)
+2026-11-20 07:47:32 [WARN] [teste] linha gravada no arquivo
+PASS  unit/autoload/test_log.gd::test_writes_log_file  4 ms  (asserts: 2)
+PASS  unit/autoload/test_settings.gd::test_acc06_all_keys_survive_restart  5 ms  (asserts: 24)
+PASS  unit/autoload/test_settings.gd::test_changed_signal_only_on_real_change  2 ms  (asserts: 1)
+PASS  unit/autoload/test_settings.gd::test_clamps_numbers_and_accepts_int_for_float  2 ms  (asserts: 4)
+ERROR: ConfigFile parse error at <string>:0: Expected value, got ''=''.
+   at: _parse (core/io/config_file.cpp:293)
+   GDScript backtrace (most recent call first):
+       [0] _is_config_text (res://autoload/settings.gd:180)
+       [1] read_text (res://core/atomic_file.gd:74)
+       [2] load_from_disk (res://autoload/settings.gd:130)
+       [3] test_corrupt_file_falls_back_to_defaults (res://tests/unit/autoload/test_settings.gd:114)
+       [4] _run_file (res://tests/run_all.gd:183)
+       [5] _execute (res://tests/run_all.gd:93)
+       [6] _process (res://tests/run_all.gd:65)
+2026-11-20 07:47:32 [INFO] [settings] sem arquivo de opções válido em user://test_tmp/008_test_corrupt_file_falls_back_to_defaults/settings.cfg; usando padrões
+PASS  unit/autoload/test_settings.gd::test_corrupt_file_falls_back_to_defaults  4 ms  (asserts: 12)
+PASS  unit/autoload/test_settings.gd::test_get_value_returns_copy_of_collections  2 ms  (asserts: 1)
+2026-11-20 07:47:32 [WARN] [settings] tipo inválido para 'fov': esperado float, recebido String
+2026-11-20 07:47:32 [WARN] [settings] chave desconhecida: 'chave_inexistente'
+PASS  unit/autoload/test_settings.gd::test_rejects_wrong_type_and_unknown_key_with_warning  2 ms  (asserts: 3)
+PASS  unit/autoload/test_settings.gd::test_schema_has_exactly_the_contract_keys  2 ms  (asserts: 1)
+PASS  unit/core/test_atomic_file.gd::test_read_missing_file_is_not_ok  2 ms  (asserts: 2)
+PASS  unit/core/test_atomic_file.gd::test_recovers_from_tmp_when_swap_was_interrupted  7 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_second_write_keeps_previous_as_backup  7 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_simulated_crash_keeps_previous_version  6 ms  (asserts: 5)
+PASS  unit/core/test_atomic_file.gd::test_validator_falls_back_to_backup_when_main_is_corrupt  8 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_write_then_read_roundtrip  4 ms  (asserts: 5)
+PASS  integration/autoload/test_event_bus.gd::test_catalog_matches_contract  0 ms  (asserts: 18)
+PASS  integration/autoload/test_event_bus.gd::test_emit_reaches_listener_with_payload  0 ms  (asserts: 2)
+PASS  integration/autoload/test_event_bus.gd::test_enum_payload_round_trip  0 ms  (asserts: 1)
+PASS  integration/autoload/test_event_bus.gd::test_payloads_use_only_native_types  0 ms  (asserts: 12)
+2026-11-20 07:47:32 [WARN] [save] slot 'slot_b' recuperado da cópia 'bak'
+PASS  integration/autoload/test_save_service.gd::test_corrupt_main_recovers_from_backup_with_warning  8 ms  (asserts: 4)
+2026-11-20 07:47:32 [ERROR] [save] slot 'quebrado' inválido ou corrompido; nenhuma cópia legível
+PASS  integration/autoload/test_save_service.gd::test_corrupt_slot_without_copies_returns_empty_and_logs_error  4 ms  (asserts: 2)
+2026-11-20 07:47:32 [INFO] [save] slot 'nao_existe' ausente
+PASS  integration/autoload/test_save_service.gd::test_missing_slot_returns_empty  2 ms  (asserts: 2)
+2026-11-20 07:47:32 [ERROR] [save] falha ao gravar o slot 'checkpoint': Can't write file
+PASS  integration/autoload/test_save_service.gd::test_per09_simulated_crash_keeps_previous_file_readable  7 ms  (asserts: 3)
+2026-11-20 07:47:32 [ERROR] [save] nome de slot inválido: '../fora'
+2026-11-20 07:47:32 [ERROR] [save] nome de slot inválido: 'Maiuscula'
+2026-11-20 07:47:32 [ERROR] [save] nome de slot inválido: ''
+2026-11-20 07:47:32 [ERROR] [save] nome de slot inválido: 'com espaço'
+2026-11-20 07:47:32 [ERROR] [save] nome de slot inválido: 'a/b'
+PASS  integration/autoload/test_save_service.gd::test_rejects_invalid_slot_names  2 ms  (asserts: 11)
+PASS  integration/autoload/test_save_service.gd::test_round_trip_keeps_values  5 ms  (asserts: 6)
+FAIL  architecture/test_arc01_perception_firewall.gd::test_firewall_sem_referencias_ao_jogador  3 ms  (asserts: 1)
+      nota: arquivos varridos pelo firewall: 1
+      - res://tests/architecture/test_arc01_perception_firewall.gd:40 -> assert_eq: esperado 0, obtido 1 | violacoes de ARC-01: res://sim/ai/bad_firewall.gd linha 3: "player"
+SCRIPT ERROR: Parse Error: Variable "x" has no static type. (Warning treated as error.)
+   at: GDScript::reload (res://sim/bad_untyped.gd:4)
+   GDScript backtrace (most recent call first):
+       [0] test_sim_estende_apenas_classes_nao_node (res://tests/architecture/test_arc03_l1_purity.gd:37)
+       [1] _run_file (res://tests/run_all.gd:183)
+       [2] _execute (res://tests/run_all.gd:93)
+       [3] _process (res://tests/run_all.gd:65)
+ERROR: Failed to load script "res://sim/bad_untyped.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] test_sim_estende_apenas_classes_nao_node (res://tests/architecture/test_arc03_l1_purity.gd:37)
+       [1] _run_file (res://tests/run_all.gd:183)
+       [2] _execute (res://tests/run_all.gd:93)
+       [3] _process (res://tests/run_all.gd:65)
+FAIL  architecture/test_arc03_l1_purity.gd::test_sim_estende_apenas_classes_nao_node  14 ms  (asserts: 1)
+      nota: scripts de L1 verificados por reflexao: 6
+      - res://tests/architecture/test_arc03_l1_purity.gd:44 -> assert_eq: esperado 0, obtido 2 | L1 deve estender apenas RefCounted, Resource ou Object: res://sim/bad_base.gd estende 'Node'; res://sim/bad_untyped.gd (nao compila)
+FAIL  architecture/test_arc03_l1_purity.gd::test_sim_sem_get_node_get_tree_node_ou_autoloads  9 ms  (asserts: 1)
+      nota: arquivos varridos em res://sim/: 6
+      - res://tests/architecture/test_arc03_l1_purity.gd:28 -> assert_eq: esperado 0, obtido 2 | violacoes de ARC-03: res://sim/bad_base.gd linha 1: Node; res://sim/bad_l1.gd linha 3: Node
+SCRIPT ERROR: Parse Error: Expected parameter name.
+   at: GDScript::reload (res://tests/unit/bad_parse.gd:3)
+   GDScript backtrace (most recent call first):
+       [0] test_todos_os_scripts_compilam (res://tests/architecture/test_arc04_parse.gd:20)
+       [1] _run_file (res://tests/run_all.gd:183)
+       [2] _execute (res://tests/run_all.gd:93)
+       [3] _process (res://tests/run_all.gd:65)
+ERROR: Failed to load script "res://tests/unit/bad_parse.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] test_todos_os_scripts_compilam (res://tests/architecture/test_arc04_parse.gd:20)
+       [1] _run_file (res://tests/run_all.gd:183)
+       [2] _execute (res://tests/run_all.gd:93)
+       [3] _process (res://tests/run_all.gd:65)
+FAIL  architecture/test_arc04_parse.gd::test_todos_os_scripts_compilam  84 ms  (asserts: 2)
+      nota: scripts verificados em res://: 38
+      - res://tests/architecture/test_arc04_parse.gd:23 -> assert_eq: esperado 0, obtido 2 | scripts que nao compilam: res://sim/bad_untyped.gd, res://tests/unit/bad_parse.gd
+FAIL  architecture/test_arc05_layers.gd::test_dependencias_so_para_baixo  61 ms  (asserts: 1)
+      nota: arquivos varridos nas camadas de origem: 18
+      - res://tests/architecture/test_arc05_layers.gd:57 -> assert_eq: esperado 0, obtido 3 | violacoes de ARC-05: res://sim/bad_dep.gd referencia res://components/ (linha 3: res://components/); res://components/bad_layer.gd referencia res://presentation/ (linha 3: res://presentation/); res://components/bad_layer2.gd usa a classe 'Hud' da camada presentation (linha 3: Hud)
+FAIL  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  4 ms  (asserts: 1)
+      nota: componentes do jogador varridos: 3; mediador: res://components/player/player_root.gd
+      - res://tests/architecture/test_arc06_player_mediator.gd:44 -> assert_eq: esperado 0, obtido 2 | violacoes de ARC-06: res://components/player/physiology_x.gd usa a classe 'PlayerMotorX' de res://components/player/player_motor_x.gd (linha 4: PlayerMotorX); res://components/player/physiology_x.gd usa a classe 'PlayerRoot' de res://components/player/player_root.gd (linha 5: PlayerRoot)
+
+RESUMO: total=35 passou=29 falhou=6 sem_assert=0 tempo_total_ms=345
+  falhou: architecture/test_arc01_perception_firewall.gd::test_firewall_sem_referencias_ao_jogador
+  falhou: architecture/test_arc03_l1_purity.gd::test_sim_estende_apenas_classes_nao_node
+  falhou: architecture/test_arc03_l1_purity.gd::test_sim_sem_get_node_get_tree_node_ou_autoloads
+  falhou: architecture/test_arc04_parse.gd::test_todos_os_scripts_compilam
+  falhou: architecture/test_arc05_layers.gd::test_dependencias_so_para_baixo
+  falhou: architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam
+RESULTADO: REPROVADO (codigo de saida 1)
+--- Etapa [runner]: codigo=1 SCRIPT_ERROR=2 ERROR_engine=3 tempo_ms=553 -> FALHOU
+
+=== Etapa [runner-meta] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --path C:\Users\crrob\AppData\Local\Temp\claude\719382d52c74f652\0492a466-b7ea-4ad4-afc8-9754b2365002\scratchpad\mut\game -s res://tests/run_all.gd -- --level=meta
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 07:47:33 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 4 arquivo(s) de teste em: res://tests/meta
+PASS  meta/test_runner_context.gd::test_autoloads_registrados_estao_na_arvore  1 ms  (asserts: 1)
+      nota: autoloads registrados em project.godot: 5 (Log, EventBus, Settings, SaveService, GameState)
+PASS  meta/test_runner_context.gd::test_identificador_global_visivel_em_script_carregado  7 ms  (asserts: 4)
+PASS  meta/test_runner_outcomes.gd::test_aviso_tratado_como_erro_sai_com_1  258 ms  (asserts: 4)
+PASS  meta/test_runner_outcomes.gd::test_filtro_executa_so_o_teste_pedido  260 ms  (asserts: 5)
+PASS  meta/test_runner_outcomes.gd::test_fixture_que_falha_sai_com_1_e_mostra_a_mensagem  255 ms  (asserts: 7)
+PASS  meta/test_runner_outcomes.gd::test_fixture_que_passa_sai_com_0_e_resume  253 ms  (asserts: 6)
+PASS  meta/test_runner_outcomes.gd::test_raiz_sem_testes_sai_com_1  251 ms  (asserts: 3)
+PASS  meta/test_runner_outcomes.gd::test_script_com_erro_de_parse_sai_com_1_e_vira_falha  263 ms  (asserts: 5)
+PASS  meta/test_source_scan.gd::test_caminho_de_camada_so_aparece_com_strings_mantidas  1 ms  (asserts: 2)
+PASS  meta/test_source_scan.gd::test_class_name_declarado_e_extraido  0 ms  (asserts: 3)
+PASS  meta/test_source_scan.gd::test_comentarios_e_strings_nao_contam_como_codigo  0 ms  (asserts: 3)
+PASS  meta/test_source_scan.gd::test_regras_do_firewall_pegam_casos_proibidos  6 ms  (asserts: 7)
+PASS  meta/test_source_scan.gd::test_violacao_real_e_achada_com_numero_de_linha  0 ms  (asserts: 2)
+PASS  meta/test_testcase_contract.gd::test_asserts_registram_falhas_e_seguem  0 ms  (asserts: 3)
+PASS  meta/test_testcase_contract.gd::test_utilitarios_tmp_dir_autofree_e_frames  5 ms  (asserts: 8)
+
+RESUMO: total=15 passou=15 falhou=0 sem_assert=0 tempo_total_ms=1594
+RESULTADO: APROVADO (codigo de saida 0)
+--- Etapa [runner-meta]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=1852 -> OK
+
+=== Resumo do pipeline ===
+  importacao   codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=   2052  OK
+  arc04        codigo=1    SCRIPT_ERROR=2 ERROR_engine=2 tempo_ms=    361  FALHOU
+  runner       codigo=1    SCRIPT_ERROR=2 ERROR_engine=3 tempo_ms=    553  FALHOU
+  runner-meta  codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=   1852  OK
+Tempo total do pipeline: 5.02 s
+RESULTADO DO PIPELINE: REPROVADO (codigo de saida 1)
+
+PIPELINE_EXIT=1

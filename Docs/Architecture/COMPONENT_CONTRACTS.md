@@ -59,6 +59,30 @@ func set_input_locked(locked: bool) -> void   ## captura, esconderijo, transiç�
 - Parâmetros em `PlayerMotorConfig` (DATA_STRUCTURES §1.1).
 - O input é **amostrado** dentro de `step()` (`Input.is_action_pressed`). O movimento do mouse é acumulado em `_unhandled_input` e consumido em `step()`.
 
+**Complemento v1.0 (congelado para a F1-006, 2026-11-20)**
+
+```gdscript
+class_name MotorInput extends RefCounted      ## comandos de um tick
+var move: Vector2                             ## x = direita, y = frente; comprimento ≤ 1
+var sprint: bool
+var slow_walk: bool
+var crouch_pressed: bool                      ## borda (só no tick em que foi apertado)
+var crawl_pressed: bool                       ## borda
+var look_delta: Vector2                       ## pixels de mouse acumulados no tick
+
+## PlayerMotor (acréscimos)
+func set_scripted_input(input: MotorInput) -> void   ## testes e bots; null = volta aos dispositivos
+```
+
+- **Colisor:** `CylinderShape3D` com raio `capsule_radius` (o nome do parâmetro fica por compatibilidade) e altura da postura. Motivo: spike V6 (ENGINE_DECISION §7.1); a cápsula perde o chão em ~28% dos ticks ao descer escadas.
+- **Step-up:** implementado pelo motor até `step_height`, com sondagem horizontal ≥ raio do colisor. A elevação brusca é compensada na câmera (a altura visual converge suavemente; a física não).
+- **Posturas:** `crouch` alterna STAND ↔ CROUCH; `crawl` alterna CROUCH/STAND → CRAWL e CRAWL → CROUCH. Subir de postura só acontece com espaço livre (MOT-INV-1); sem espaço, o comando é ignorado. Sprint só em pé, andando para a frente, e se `sprint_allowed`.
+- **Passos:** `footstep` a cada passada (distância por marcha/postura na config), só no chão. A superfície vem do metadado `surface` (StringName: `wood`, `carpet`, `tile`, `concrete`) do colisor sob o jogador; sem metadado, `default`.
+- **`landed(fall_speed)`:** emitido na transição ar → chão, com a velocidade vertical do impacto (m/s, positiva).
+- **Head bob:** amplitude `head_bob_amplitude × (1 − Settings.motion_reduction)`.
+- **Config ausente:** sem `PlayerMotorConfig`, usa os padrões e registra `Log.error` (o comportamento de debug do ARC-07 fica para quando o ARC-07 for implementado).
+- **Sem fisiologia (F1):** o PlayerRoot chama `apply_limits` com `CouplingFactors` neutros (multiplicadores 1, sprint permitido).
+
 **Invariantes**
 - MOT-INV-1: não fica em pé (nem agachado) se não houver espaço livre acima.
 - MOT-INV-2: `get_exertion()` = 0 parado; ≈ 0.2 andando; 1.0 em sprint; agachado ≤ 0.15; rastejando ≤ 0.25.
@@ -434,35 +458,57 @@ func compute() -> DifficultyModifiers
 | `AdaptiveMusic` | `PlayerThreatMonitor.threat_changed` | Usa **apenas** a ameaça percebida pelo jogador. Não assina estados reais de inimigos. |
 | `CameraEffects` | Sinais do PhysiologyComponent | Tremor, balanço respiratório e efeitos de tosse, escalados pelas opções de acessibilidade. |
 
-## 15. Serviços L0 (autoloads)
+## 15. Serviços L0 (autoloads) — **v1.0, congelado na F1-004 (2026-11-20)**
+
+Os scripts de autoload não declaram `class_name` (o Godot proíbe nome igual ao do autoload). Testes criam instâncias próprias com `const X := preload("res://autoload/<arquivo>.gd")`.
 
 ```gdscript
-## Log
+## Log — console + user://logs/game.log (execução anterior em game.prev.log)
+signal message_logged(level: int, category: StringName, message: String)   ## acrescentado na F1-004
+const DEBUG := 0, INFO := 1, WARN := 2, ERROR := 3
+var default_level: int          ## INFO
+var file_enabled: bool          ## desligar antes de entrar na árvore (instâncias de teste)
+var log_dir: String             ## "user://logs"
 func debug(category: StringName, message: String) -> void
 func info(category: StringName, message: String) -> void
 func warn(category: StringName, message: String) -> void
 func error(category: StringName, message: String) -> void
 func set_level(category: StringName, level: int) -> void
+func get_level(category: StringName) -> int
+func get_file_path() -> String
 
-## Settings — persistido em user://settings.cfg
+## Settings — persistido em user://settings.cfg; esquema em DATA_STRUCTURES §10
 signal changed(key: StringName)
-func get_value(key: StringName) -> Variant
-func set_value(key: StringName, value: Variant) -> void
-## chaves: mouse_sensitivity, invert_y, fov, motion_reduction, tremor_reduction,
-## effects_intensity, respiratory_indicator, subtitles_enabled, subtitles_size,
-## master_volume, input_bindings
+var file_path: String           ## padrão "user://settings.cfg"
+var autosave: bool              ## grava no fim do frame após set_value (só dentro da árvore)
+func get_value(key: StringName) -> Variant      ## cópia (coleções duplicadas)
+func set_value(key: StringName, value: Variant) -> void   ## valida tipo e faixa; rejeita com Log.warn
+func get_float(key: StringName) -> float
+func get_bool(key: StringName) -> bool
+func keys() -> Array[StringName]
+func has_key(key: StringName) -> bool
+func get_default(key: StringName) -> Variant
+func reset_to_defaults(emit_changes: bool = true) -> void
+func save_to_disk() -> Error
+func load_from_disk() -> Error
 
 ## SaveService — I/O genérico; não conhece tipos de jogo
-func write_json(slot: StringName, data: Dictionary) -> Error    ## escrita atômica: .tmp e depois renomeia
+var base_dir: String            ## padrão "user://saves"
+func write_json(slot: StringName, data: Dictionary) -> Error    ## escrita atômica (core/atomic_file.gd)
 func read_json(slot: StringName) -> Dictionary                  ## {} se ausente ou inválido (com log)
 func has_slot(slot: StringName) -> bool
+func get_slot_path(slot: StringName) -> String
+func is_valid_slot(slot: StringName) -> bool    ## [a-z0-9_], 1–64 caracteres
 
 ## GameState
 var chapter_id: StringName
-var is_production_build: bool
+var is_production_build: bool   ## build de release ou argumento de usuário --production
+func set_chapter(id: StringName) -> void        ## emite EventBus.chapter_changed se mudar
 
-## EventBus — ver §16
+## EventBus — ver §16 (CATALOG e ALLOWED_ARG_TYPES expostos para o teste de reflexão)
 ```
+
+**`core/atomic_file.gd` (`AtomicFile`)**: `write_text(path, text) -> Error` grava `.tmp`, confere os bytes, move o atual para `.bak` e renomeia. `read_text(path, validator) -> ReadResult` usa o principal; se faltar ou for inválido, usa o `.tmp` e depois o `.bak`. Em build de debug, `simulate_failure_after_bytes` simula uma queda no meio da gravação (PER-09).
 
 **Regra L0:** autoloads só dependem de tipos nativos do Godot e de `core/`. Nunca de `sim/`, `components/` ou `presentation/` (teste ARC-05).
 

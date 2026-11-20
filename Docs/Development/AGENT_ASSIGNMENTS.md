@@ -42,6 +42,12 @@ Verificado nesta sessão (Claude Code, extensão VS Code):
 
 **Nota sobre a restrição de escrita (achado R-47):** o subagente `general-purpose` tem ferramentas de edição. A restrição "só criar o relatório" é **por instrução**, não técnica. `Plan` e `Explore` não têm Edit/Write, mas mantêm Bash, que também pode escrever; não há garantia técnica completa. Nesse caso o Director grava o relatório devolvido. Depois de cada revisão, o Director confere com `git status` (a partir da F1) que nenhum outro arquivo foi alterado. Na DISC-006, o revisor criou apenas o próprio relatório.
 
+**Checklist fixo do Technical Reviewer** (além do escopo de cada revisão):
+- Contratos e invariantes de COMPONENT_CONTRACTS respeitados; dependências proibidas ausentes.
+- Testes do card existem, rodaram (saída real) e cobrem os critérios de aceitação.
+- **Licenças:** todo asset externo novo tem linha em `ASSET_LICENSES.md` e respeita a regra 2 do arquivo (F1-014).
+- Documentação atualizada sem registrar como implementado o que não foi validado.
+
 ## 3. Mapeamento de esforço
 
 | Prompt mestre | Parâmetro `effort` | Observação |

@@ -71,6 +71,16 @@ var medication_relief_remaining: float
 
 Esforço por marcha/postura (MOT-INV-2): IDLE 0 · SLOW 0.1 · WALK 0.2 · SPRINT 1.0 · agachado andando 0.15 · rastejando 0.25.
 
+Parâmetros acrescentados na F1-006 (pontos de partida, ajustáveis no `.tres`):
+
+| Parâmetro | Valor | | Parâmetro | Valor |
+|---|---|---|---|---|
+| `eye_offset` | 0.10 m (topo do colisor → olhos) | | `gravity` | 9.8 m/s² |
+| `stance_transition_time_s` | 0.25 s | | `floor_snap_length` | 0.30 m |
+| `step_probe_distance` | 0.27 m (≥ raio, spike V6) | | `pitch_limit_deg` | 85° |
+| `camera_step_smoothing` | 12 /s (decaimento exponencial da altura visual) | | `stride_slow` / `stride_walk` / `stride_sprint` | 0.5 / 0.7 / 1.1 m |
+| `stride_crouch` / `stride_crawl` | 0.5 / 0.4 m | | `head_bob_frequency_per_stride` | 0.5 ciclo por passada |
+
 ### 1.2 StaminaConfig
 
 | Parâmetro | Valor |
@@ -617,3 +627,21 @@ class_name EnemyCaptureArea extends Area3D
 signal player_caught()
 @export var controller: NodePath     ## EnemyController dono; a captura só vale em CHASE
 ```
+
+## 10. Esquema do Settings (F1-004, 2026-11-20)
+
+Persistido em `user://settings.cfg` (ConfigFile, seção `settings`) com escrita atômica (`core/atomic_file.gd`). Valor de tipo errado ou chave desconhecida → rejeitado com `Log.warn`. Número fora da faixa → limitado à faixa. `int` é aceito onde se espera `float`.
+
+| Chave | Tipo | Padrão | Faixa | Significado |
+|---|---|---|---|---|
+| `mouse_sensitivity` | float | 0.12 | 0.02–0.6 | Graus de rotação por pixel de mouse |
+| `invert_y` | bool | false | — | Inverte o eixo vertical da câmera |
+| `fov` | float | 75.0 | 60–100 | Campo de visão vertical (graus) |
+| `motion_reduction` | float | 0.0 | 0–1 | Redução do movimento de câmera (head bob, balanço). **1 = sem movimento** |
+| `tremor_reduction` | float | 0.0 | 0–1 | Redução de tremores (crise, pânico). **1 = sem tremor** |
+| `effects_intensity` | float | 1.0 | 0–1 | Escala linear de todos os efeitos de câmera e tela (ACC-02) |
+| `respiratory_indicator` | bool | false | — | Indicador visual de condição respiratória (ACC-03, desligado por padrão) |
+| `subtitles_enabled` | bool | true | — | Legendas de sons relevantes e falas |
+| `subtitles_size` | float | 1.0 | 0.75–2.0 | Escala do texto das legendas |
+| `master_volume` | float | 1.0 | 0–1 | Volume linear do barramento Master (0 = mudo). Aplicado pelo próprio Settings no AudioServer |
+| `input_bindings` | Dictionary | `{}` | — | Ligações do usuário por ação; `{}` = padrões do `project.godot`. Formato definido na F1-013 |

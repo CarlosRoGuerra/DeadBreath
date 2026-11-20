@@ -10,6 +10,14 @@ config/name="DEAD BREATH"
 config/description="Survival horror psicológico em primeira pessoa."
 config/features=PackedStringArray("4.7", "Forward Plus")
 
+[autoload]
+
+Log="*res://autoload/log.gd"
+EventBus="*res://autoload/event_bus.gd"
+Settings="*res://autoload/settings.gd"
+SaveService="*res://autoload/save_service.gd"
+GameState="*res://autoload/game_state.gd"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=2

@@ -30,7 +30,7 @@
 | RSK-08 | Migração de esquema de save | Média | `schema_version`, migrações sequenciais, PER-08 | Primeira mudança de esquema |
 | RSK-09 | Medição V5 afetada por vsync ou limite do monitor | Baixa | Vsync desligado e p95 especificados. No spike: `vsync_mode=0`, `max_fps=0`, janela 1920×1080 confirmados no log | — |
 | RSK-10 | Áudio nativo insuficiente para música adaptativa | Baixa | Reavaliar FMOD (licença e compatibilidade não verificadas) | F3/F7 |
-| RSK-11 | Licenciamento de assets externos | Média | `ASSET_LICENSES.md` (F1-014); só CC0 sem aprovação extra | Primeiro asset externo |
+| RSK-11 | Licenciamento de assets externos | Média | `ASSET_LICENSES.md` (F1-014); D-06 aprovada: só CC0 sem aprovação extra; checklist do Technical Reviewer confere | Primeiro asset externo |
 | RSK-12 | Custo e perda de contexto entre subagentes | Média | Documentos como memória do projeto; política de custo em AGENT_ASSIGNMENTS §1 | Contínuo |
 | RSK-13 | Física reavaliada com corpos dinâmicos | Baixa | GodotPhysics3D escolhido pelo comportamento do CharacterBody3D (V6). Objetos arremessáveis (F3) podem favorecer o Jolt | F3-004: rodar de novo o spike V6 + teste com RigidBody3D |
 | RSK-14 | Variação entre execuções do V5 | Baixa | p95 variou de 1,21 a 1,92 ms (Vulkan) em 2 execuções; margem grande frente ao limite de 6,9 ms. Medições de desempenho futuras usam ao menos 3 execuções | Medição perto do limite |

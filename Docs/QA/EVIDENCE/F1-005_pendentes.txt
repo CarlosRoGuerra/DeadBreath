@@ -1,0 +1,27 @@
+﻿F1-005 - pendencias e pontos para decisao do Director (2026-11-20)
+
+PENDENTES (ainda nao implementados, conforme o card e o TEST_PLAN §2.10):
+  ARC-02  persist_id unico e nao vazio: depende de niveis carregaveis (F1-009 e seguintes). Sem teste ainda.
+  ARC-07  config ausente: depende de configs .tres (classes de config em L1, F2 em diante). Sem teste ainda.
+  Nenhum teste fake foi criado para eles; passar a verificar exige o nivel ou o .tres correspondente.
+
+DECISOES TOMADAS QUE PEDEM CONFIRMACAO (registradas no relatorio do QA):
+  1. Etapa de parse (ARC-04) no pipeline: teste in-process (load + can_instantiate), nao --check-only por arquivo.
+     Motivo: --check-only falha com "Identifier not found: Log" em scripts que usam autoload (verificado).
+  2. Runner padrao roda unit, integration, scenarios e architecture (texto literal do contrato); meta roda so com --level=meta.
+     O run_tests.ps1 roda as duas execucoes.
+  3. Opcao extra --root=<pasta> (usada so pelos meta-testes); --filter e --level como no contrato.
+  4. Utilitario extra TestCase.note(text): informa vacuidade e contagens na saida, sem afetar o resultado.
+  5. Teste sem nenhum assert passa, mas o runner imprime AVISO (contrato literal: so falha com falha registrada).
+  6. Erro de script em tempo de execucao NAO e interceptado pelo runner (verificado: o teste pode passar com 0 asserts).
+     Quem reprova e o run_tests.ps1, pela linha SCRIPT ERROR. Opcao para o Director: reprovar teste com 0 asserts.
+  7. Linhas "ERROR:" do engine nao reprovam a etapa (o teste intencional de corrupcao em test_settings gera uma).
+  8. Meta-testes gravam fixtures em user:// (fora de res://), nunca em game/tests; a pasta fixtures/ tambem e ignorada.
+
+PONTOS DE ATENCAO PARA O DIRECTOR (fora da lista de escrita do QA, nao alterados):
+  a. Os .uid gerados pela importacao em game/autoload/, game/core/ e game/sim/physiology/ estao sem commit (versionar junto).
+  b. Tempo: runner padrao ~0,9 s de parede (275 ms internos); runner-meta 2 a 6,5 s (cada caso sobe um Godot filho);
+     importacao ~3 s; ARC-04 em processo proprio ~0,8 a 2 s. Pipeline completo: 10,8 a 12,8 s. Alvo "< 10 s" vale para o runner.
+     Se o alvo for apertado: remover a etapa arc04 (ja roda no runner padrao) economiza ~1 s.
+  c. O runner carrega cada arquivo de teste com CACHE_MODE_REUSE. Com CACHE_MODE_IGNORE o processo caiu (segfault / Internal script error)
+     ao recarregar o proprio script em execucao (verificado). Outros scripts nao foram testados com IGNORE.

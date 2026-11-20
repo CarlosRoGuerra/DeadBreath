@@ -7,6 +7,11 @@
 #        tools/godot.ps1 --headless --path game --import
 # Em outro script:  . tools/godot.ps1 -LoadOnly ; $exe = Get-GodotPath
 #
+# ATENCAO: o PowerShell remove o "--" nu ao chamar um .ps1. Para passar argumentos
+# de usuario ao Godot pelo wrapper, use '--' entre aspas:
+#        tools/godot.ps1 --headless --path game -s res://tests/run_all.gd '--' --filter=x
+# Em scripts, prefira a chamada nativa:  & (Get-GodotPath) ... -- --filter=x
+#
 # Arquivo mantido em ASCII: o Windows PowerShell 5.1 le UTF-8 sem BOM como ANSI.
 
 $ExpectedVersionPrefix = '4.7.2.stable'

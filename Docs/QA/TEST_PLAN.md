@@ -122,7 +122,7 @@ Na F2 e na F3, os testes PHY usam `ThreatSample` construído no próprio teste o
 
 | ID | Requisito (MASTER §11) | Critério |
 |---|---|---|
-| ACC-01 | Redução de tremores e de movimento da câmera | Com as opções em 0, `CameraEffects` aplica amplitude 0 |
+| ACC-01 | Redução de tremores e de movimento da câmera | Com `motion_reduction` e `tremor_reduction` em 1,0 (redução total), `CameraEffects` aplica amplitude 0; em 0,0, amplitude normal (DATA_STRUCTURES §10) |
 | ACC-02 | Ajuste de intensidade dos efeitos | `effects_intensity` escala todos os efeitos de câmera e tela linearmente |
 | ACC-03 | Indicador visual de condição respiratória | Com a opção ligada, o indicador reflete `respiratory_state` em ≤ 1 frame; desligado por padrão |
 | ACC-04 | Legendas | Sons relevantes (tosse, porta, passos próximos, falas) geram `subtitle_requested`; tamanho configurável |

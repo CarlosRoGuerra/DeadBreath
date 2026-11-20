@@ -19,7 +19,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 | D-03 | Controle de versão | **`git init` local agora**; remoto privado opcional depois | **APROVADA**. O usuário já tinha criado o repositório com remoto `origin` no GitHub. Commits são locais; push só quando o usuário pedir |
 | D-04 | Instalação do Godot | Autorizar o download do binário oficial (GitHub, 82 MB) para `D:\DevTools\Godot\4.7.2\`, **ou** baixar manualmente e informar o caminho | **APROVADA e executada** (SHA-512 conferido) |
 | D-05 | Personagens 3D e animações | Instalar o **Blender** (gratuito, scriptável por Python) + bases CC0; freelancer pontual para os 3 criminosos na F6/F7 | Pendente; bloqueia a partir da F4 (até lá, cápsulas) |
-| D-06 | Assets externos | Permitir assets **CC0** (Poly Haven, ambientCG, Quaternius, Kenney), registrados em `ASSET_LICENSES.md` | Pendente; sem isso, só procedural |
+| D-06 | Assets externos | Permitir assets **CC0** (Poly Haven, ambientCG, Quaternius, Kenney), registrados em `ASSET_LICENSES.md` | **APROVADA** (2026-11-20). CC0 entra com registro; outras licenças exigem aprovação do Director e do usuário |
 | D-07 | Áudio de respiração | Opcional: gravar respiração, chiado e tosse reais com microfone. Alternativa: síntese procedural + CC0 | Pendente; bloqueia a partir da F2 |
 
 ## 2. Propostas de funcionalidade (MASTER §18)
@@ -56,37 +56,37 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 ## 4. FASE 1 — Foundation (detalhada)
 
 ### F1-001 · Repositório e local do projeto
-- **Responsável:** Project Director · **Esforço:** MEDIUM · **Depende de:** D-02, D-03, Gate F0 · **Status:** BACKLOG
+- **Responsável:** Project Director · **Esforço:** MEDIUM · **Depende de:** D-02, D-03, Gate F0 · **Status:** REVIEW. Repositório em `D:\Dev\DeadBreath`, `.gitignore`/`.gitattributes`, commits `57ce276` e seguintes; `git status` limpo após cada commit e `.godot/` ignorado (conferido)
 - **Descrição:** mover para o local aprovado, `git init`, `.gitignore` padrão do Godot 4 (ignora `.godot/` e builds; versiona arquivos `.import`), `.gitattributes` (LF para texto) e README.
 - **Aceitação:** `git status` limpo após o commit inicial; `.godot/` ignorado.
 - **Testes:** saída dos comandos git registrada.
 
 ### F1-002 · Integração do Godot às ferramentas
-- **Responsável:** Project Director · **Esforço:** LOW · **Depende de:** DISC-003 · **Status:** BACKLOG
+- **Responsável:** Project Director · **Esforço:** LOW · **Depende de:** DISC-003 · **Status:** REVIEW. Evidência: Docs/QA/EVIDENCE/F1-002_godot_wrapper.txt (caminho válido → exit 0; inexistente e versão errada → exit 2)
 - **Descrição:** registrar o caminho do Godot em `tools/godot_path.txt` (lido pelos scripts) e criar `tools/godot.ps1` (wrapper com caminho e versão verificados).
 - **Aceitação:** `tools/godot.ps1 --version` imprime 4.7.2 e falha com mensagem clara se o caminho estiver errado.
 - **Testes:** execução com caminho válido e inválido.
 
 ### F1-003 · Esqueleto do projeto Godot
-- **Responsável:** Software Architect · **Esforço:** HIGH · **Depende de:** F1-002 · **Status:** BACKLOG
+- **Responsável:** Software Architect · **Esforço:** HIGH · **Depende de:** F1-002 · **Status:** REVIEW. `project.godot`, pastas, input map e camadas conferidos por script; ARC-03, ARC-04 e ARC-05 verdes no pipeline (Docs/QA/EVIDENCE/F1-005_run_tests.txt)
 - **Descrição:** `game/project.godot` (Forward+, motor de física escolhido em V6, física a 60 Hz), estrutura de pastas (SYSTEM_ARCHITECTURE §11), camadas de física nomeadas, input map (move, slow_walk, sprint, crouch, crawl, interact, use_item, debug) e warnings `untyped_declaration`, `unsafe_method_access` e `unsafe_property_access` como erro.
 - **Aceitação:** importação headless sem erros; input map completo; ARC-04 verde.
 - **Testes:** ARC-03, ARC-04, ARC-05.
 
 ### F1-004 · Núcleo L0
-- **Responsável:** Software Architect · **Esforço:** HIGH · **Depende de:** F1-003 · **Status:** BACKLOG
+- **Responsável:** Software Architect · **Esforço:** HIGH · **Depende de:** F1-003 · **Status:** REVIEW. 29 testes (unit + integration, incluindo ACC-06 e PER-09 versão L0) verdes no pipeline, execução própria do Director em 2026-11-20
 - **Descrição:** `Enums`, `Log` (categorias, níveis, arquivo em `user://logs/`), `EventBus` (catálogo de COMPONENT_CONTRACTS §16), `Settings` com todas as chaves de COMPONENT_CONTRACTS §15 (inclui `effects_intensity`, `tremor_reduction`, `motion_reduction`, `respiratory_indicator`, `subtitles_enabled`, `subtitles_size`, `input_bindings`), `SaveService` (JSON com escrita atômica) e `GameState`.
 - **Aceitação:** settings sobrevivem a reiniciar; o log grava arquivo; o EventBus só aceita payloads nativos; SaveService passa no teste de escrita atômica.
 - **Testes:** ACC-06, PER-09 (versão L0), unit de Log e integration do EventBus.
 
 ### F1-005 · Framework de testes headless
-- **Responsável:** QA Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F1-003 · **Status:** BACKLOG
+- **Responsável:** QA Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F1-003 · **Status:** REVIEW, com ajuste em andamento: o runner passa a reprovar o teste quando há erro de script durante ele. Entrega: runner, TestCase, ARC-01/03/04/05/06, 15 meta-testes, `tools/run_tests.ps1` (pipeline 10,8 s; runner < 1 s). ARC-02 e ARC-07 pendentes (dependem de níveis e configs)
 - **Descrição:** runner `game/tests/run_all.gd` (descobre `test_*.gd`, asserts com tolerância, isolamento, resumo, código de saída 0/1); suporte a integração com frames de física simulados; testes de arquitetura (varredura de texto e reflexão); `tools/run_tests.ps1` (importação → parse por arquivo → testes).
 - **Aceitação:** teste propositalmente falho → código 1; resumo com nome, status e tempo; suíte da F1 em < 10 s.
 - **Testes:** meta-testes do runner (passa, falha, erro de script).
 
 ### F1-006 · PlayerRoot e PlayerMotor
-- **Responsável:** Gameplay Engineer · **Esforço:** HIGH · **Depende de:** F1-004 · **Status:** BACKLOG
+- **Responsável:** Gameplay Engineer · **Esforço:** HIGH · **Depende de:** F1-004 · **Status:** IN_PROGRESS (subagente Gameplay; contrato §2 v1.0)
 - **Descrição:** PlayerRoot (mediador, COMPONENT_CONTRACTS §1) e PlayerMotor (§2) com `PlayerMotorConfig`: mouse look, andar, andar devagar, correr, agachar, rastejar, checagem de teto, aceleração, head bob (desligável), `footstep` por superfície e `get_exertion()`.
 - **Aceitação:** critérios de MOT-01..04.
 - **Testes:** MOT-01..04, ARC-06.
@@ -116,7 +116,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 - **Testes:** ACC-05.
 
 ### F1-014 · Registro de licenças de assets
-- **Responsável:** Art & Environment · **Esforço:** LOW · **Depende de:** D-06 · **Status:** BACKLOG
+- **Responsável:** Art & Environment · **Esforço:** LOW · **Depende de:** D-06 · **Status:** REVIEW. Feito pelo Director: `ASSET_LICENSES.md` + regra no checklist do Reviewer (AGENT_ASSIGNMENTS §2). D-06 aprovada em 2026-11-20: CC0 permitido com registro
 - **Descrição:** `ASSET_LICENSES.md` (asset, fonte, licença, data, URL) + regra: nenhum asset externo entra sem registro.
 - **Aceitação:** arquivo criado; regra adicionada ao checklist do Technical Reviewer.
 
@@ -136,7 +136,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 
 | ID | Tarefa de design | Responsável | Esforço | Status |
 |---|---|---|---|---|
-| F1-D01 | GAME_DESIGN_DOCUMENT v0.1 (pilares, loop, mecânicas, capítulos, itens) | Project Director | MEDIUM | BACKLOG |
+| F1-D01 | GAME_DESIGN_DOCUMENT v0.1 (pilares, loop, mecânicas, capítulos, itens) | Project Director | MEDIUM | REVIEW (Docs/Design/GAME_DESIGN_DOCUMENT.md) |
 | F1-D02 | NARRATIVE v0.1 (mistério, objeto procurado, moradores anteriores, pistas por capítulo) | Level Designer | MEDIUM | BACKLOG |
 | F1-D03 | ART_DIRECTION v0.1 (paleta, luz, materiais, orçamento de polígonos) | Art & Environment | MEDIUM | BACKLOG |
 

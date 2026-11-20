@@ -1,0 +1,80 @@
+﻿F1-005 - verificacao da API do Godot 4.7.2 (2026-11-20)
+Projeto descartavel em scratchpad (nao toca game/). Saida copiada da execucao real.
+
+== A. Sonda -s: autoloads, await em call(), erro de runtime, get_instance_base_type, OS.execute, carga de scripts com erro
+PS> godot --headless --path <scratch>\probe -s res://probe_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROBE_INIT root_is_null=false
+PROBE_AUTOLOAD_root_has_node=true
+PROBE_AUTOLOAD_via_root_ping=pong
+PROBE_LATE_SCRIPT_GLOBAL_AUTOLOAD=pong
+PROBE_USER_ARGS=[]
+PROBE_BASE_TYPE=Node
+PROBE_AWAIT_CALL_RESULT=42
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+   at: sync_runtime_error (res://probe_case.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] sync_runtime_error (res://probe_case.gd:15)
+       [1] _run (res://probe_runner.gd:35)
+       [2] co_value (res://probe_case.gd:5)
+PROBE_CALLER_CONTINUED_AFTER_SYNC_ERROR
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+   at: co_runtime_error (res://probe_case.gd:10)
+   GDScript backtrace (most recent call first):
+       [0] co_runtime_error (res://probe_case.gd:10)
+PROBE_CALLER_CONTINUED_AFTER_COROUTINE_ERROR
+PROBE_MKDIR=0 exists=true
+PROBE_FILE_EXISTS=true
+PROBE_EXEC_CODE=0 OUT=["4.7.2.stable.official.ed1daf0bf\r\n"]
+SCRIPT ERROR: Parse Error: Expected parameter name.
+   at: GDScript::reload (res://probe_parse_error.gd:3)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://probe_runner.gd:51)
+       [1] co_runtime_error (res://probe_case.gd:10)
+ERROR: Failed to load script "res://probe_parse_error.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://probe_runner.gd:51)
+       [1] co_runtime_error (res://probe_case.gd:10)
+PROBE_PARSE_ERROR_LOAD_IS_NULL=false CAN_INSTANTIATE=false
+SCRIPT ERROR: Parse Error: Variable "x" has no static type. (Warning treated as error.)
+   at: GDScript::reload (res://probe_untyped.gd:4)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://probe_runner.gd:53)
+       [1] co_runtime_error (res://probe_case.gd:10)
+ERROR: Failed to load script "res://probe_untyped.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://probe_runner.gd:53)
+       [1] co_runtime_error (res://probe_case.gd:10)
+PROBE_UNTYPED_LOAD_IS_NULL=false CAN_INSTANTIATE=false
+PROBE_TYPED_OK_CAN_INSTANTIATE=true
+ERROR: Cannot reload script while instances exist.
+   at: reload (modules/gdscript/gdscript.cpp:754)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://probe_runner.gd:58)
+       [1] co_runtime_error (res://probe_case.gd:10)
+PROBE_AUTOLOAD_SCRIPT_CAN_INSTANTIATE=true reload=22
+exit=0
+
+== B. --check-only em script do projeto real que usa autoload (autoload/settings.gd)
+PS> godot --headless --path game --check-only --script res://autoload/settings.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Compile Error: Identifier not found: Log
+   at: GDScript::reload (res://autoload/settings.gd:69)
+ERROR: Failed to load script "res://autoload/settings.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+exit=1
+
+== C. --check-only em script sem autoload (core/enums.gd)
+PS> godot --headless --path game --check-only --script res://core/enums.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+exit=0
+
+== D. Passagem de argumentos de usuario: chamada nativa com "--" (PowerShell 5.1, sem wrapper .ps1)
+PS> godot --headless --path <scratch>\probe -s res://probe_runner.gd -- --filter=abc --level=unit
+PROBE_USER_ARGS=["--filter=abc", "--level=unit"]
+exit=0
