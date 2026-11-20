@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 1 — Foundation** (Gate F0 aprovado em 2026-11-20) |
+| Fase atual | **FASE 1 — Foundation: concluída; Gate F1 aguardando aprovação do usuário** |
 | Responsável | Project Director |
 
 Cada fase termina num **gate**. A fase seguinte só começa com o gate aprovado: critérios cumpridos, testes executados com evidência, revisão técnica concluída, documentação atualizada e aprovação do usuário.
@@ -65,6 +65,13 @@ Protótipo controlável em primeira pessoa numa sandbox greybox.
 - Sandbox greybox.
 
 **Gate F1:** cards F1 em APPROVED; MOT-01..04, ACC-05, ACC-06 e ARC-01..06 verdes; screenshot da sandbox; PLAYER_CONTROLLER.md escrito.
+
+**Situação do Gate F1 (2026-11-20): critérios cumpridos; aguarda aprovação do usuário.**
+1. Cards F1 em APPROVED: ✔ (F1-D02 NARRATIVE fica em REVIEW: aguarda as respostas N-01..N-05 do usuário; não bloqueia).
+2. MOT-01..04, ACC-05, ACC-06 verdes: ✔. ARC-03..06 verdes com alvo real. **ARC-01 passa por vacuidade** (pastas de IA ainda vazias; alvo real na F4). **ARC-02 parcial** (unicidade dos pickups da sandbox; versão completa na F5). Ver TEST_RESULTS, "Cobertura pendente de fase".
+3. Screenshots da sandbox inspecionados: ✔ (`EVIDENCE/F1-009_*`, `F1-011_captura_*`).
+4. PLAYER_CONTROLLER.md v1.0: ✔.
+5. Revisão técnica F1-010 APROVADA COM RESSALVAS e validação QA F1-011 APROVADA COM RESSALVAS; pipeline 2× com código 0 (`EVIDENCE/F1-GATE_pipeline_run1.txt`, `_run2.txt`).
 
 ## FASE 2 — Fisiologia · EXTRA HIGH · G
 

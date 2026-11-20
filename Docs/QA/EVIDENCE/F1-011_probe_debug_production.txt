@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:19:34 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+PROBE producao=true overlay_habilitado=false argumentos=["--production"]
+PROBE F3 overlay_visivel=false
+PROBE N noclip_antes=false depois=false
+PROBE T posicao_mudou=false
+PROBE API toggle_overlay=false toggle_noclip=false teleport_to_aim=false
+PROBE FIM

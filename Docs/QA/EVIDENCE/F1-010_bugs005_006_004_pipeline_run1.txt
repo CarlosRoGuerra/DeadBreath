@@ -1,0 +1,409 @@
+Godot: D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe
+Projeto: D:\Dev\DeadBreath\game
+
+=== Etapa [importacao] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --path D:\Dev\DeadBreath\game --import
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Inicialização do Projeto (5 steps)
+[   0% ] first_scan_filesystem | Escaneando estrutura de arquivos...
+[  16% ] first_scan_filesystem | Carregando nomes de classe globais...
+[  33% ] first_scan_filesystem | Verificando GDExtensions...
+[  50% ] first_scan_filesystem | Criando scripts autoload...
+[  66% ] first_scan_filesystem | Inicializando plugins...
+[  83% ] first_scan_filesystem | Iniciando escaneamento de arquivos...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registrando classes globais... (3 steps)
+[   0% ] update_scripts_classes | InteractionComponent
+[  25% ] update_scripts_classes | PlayerMotor
+[  50% ] update_scripts_classes | Door
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Carregando editor (5 steps)
+[   0% ] loading_editor_layout | Carregando layout do editor...
+[  16% ] loading_editor_layout | Carregando abas...
+[ DONE ] loading_editor_layout
+
+--- Etapa [importacao]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=2533 -> OK
+
+=== Etapa [arc04] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --fixed-fps 60 --path D:\Dev\DeadBreath\game -s res://tests/run_all.gd -- --level=architecture --filter=arc04
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:46:59 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 5 arquivo(s) de teste em: res://tests/architecture
+PASS  architecture/test_arc04_parse.gd::test_todos_os_scripts_compilam  746 ms  (asserts: 2)
+      nota: scripts verificados em res://: 83
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=771
+RESULTADO: APROVADO (codigo de saida 0)
+--- Etapa [arc04]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=1002 -> OK
+
+=== Etapa [runner] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --fixed-fps 60 --path D:\Dev\DeadBreath\game -s res://tests/run_all.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:47:00 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 35 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/autoload/test_game_state.gd::test_production_flag_follows_build_and_argument  0 ms  (asserts: 1)
+PASS  unit/autoload/test_game_state.gd::test_set_chapter_emits_once_per_change  0 ms  (asserts: 2)
+2026-11-20 14:47:00 [INFO] [core] passa também
+2026-11-20 14:47:00 [WARN] [ai] passa
+2026-11-20 14:47:00 [ERROR] [core] erro
+PASS  unit/autoload/test_log.gd::test_filters_by_category_level  3 ms  (asserts: 1)
+2026-11-20 14:47:00 [WARN] [teste] execução anterior
+PASS  unit/autoload/test_log.gd::test_rotates_previous_file  5 ms  (asserts: 1)
+PASS  unit/autoload/test_log.gd::test_set_level_is_clamped  2 ms  (asserts: 3)
+2026-11-20 14:47:00 [WARN] [teste] linha gravada no arquivo
+PASS  unit/autoload/test_log.gd::test_writes_log_file  4 ms  (asserts: 2)
+PASS  unit/autoload/test_settings.gd::test_acc06_all_keys_survive_restart  5 ms  (asserts: 24)
+PASS  unit/autoload/test_settings.gd::test_changed_signal_only_on_real_change  2 ms  (asserts: 1)
+PASS  unit/autoload/test_settings.gd::test_clamps_numbers_and_accepts_int_for_float  2 ms  (asserts: 4)
+ERROR: ConfigFile parse error at <string>:0: Expected value, got ''=''.
+   at: _parse (core/io/config_file.cpp:293)
+   GDScript backtrace (most recent call first):
+       [0] _is_config_text (res://autoload/settings.gd:189)
+       [1] read_text (res://core/atomic_file.gd:74)
+       [2] load_from_disk (res://autoload/settings.gd:136)
+       [3] test_corrupt_file_falls_back_to_defaults (res://tests/unit/autoload/test_settings.gd:115)
+       [4] _run_file (res://tests/run_all.gd:243)
+       [5] wait_physics_frames (res://tests/framework/test_case.gd:177)
+2026-11-20 14:47:00 [INFO] [settings] sem arquivo de opções válido em user://test_tmp/008_test_corrupt_file_falls_back_to_defaults/settings.cfg; usando padrões
+PASS  unit/autoload/test_settings.gd::test_corrupt_file_falls_back_to_defaults  4 ms  (asserts: 12)
+PASS  unit/autoload/test_settings.gd::test_get_value_returns_copy_of_collections  2 ms  (asserts: 1)
+2026-11-20 14:47:00 [WARN] [settings] valor não finito rejeitado para 'fov': nan
+PASS  unit/autoload/test_settings.gd::test_non_finite_value_in_file_is_ignored_on_load  3 ms  (asserts: 4)
+2026-11-20 14:47:00 [WARN] [settings] valor não finito rejeitado para 'fov': nan
+2026-11-20 14:47:00 [WARN] [settings] valor não finito rejeitado para 'mouse_sensitivity': inf
+2026-11-20 14:47:00 [WARN] [settings] valor não finito rejeitado para 'master_volume': -inf
+PASS  unit/autoload/test_settings.gd::test_rejects_non_finite_numbers  2 ms  (asserts: 4)
+2026-11-20 14:47:00 [WARN] [settings] tipo inválido para 'fov': esperado float, recebido String
+2026-11-20 14:47:00 [WARN] [settings] chave desconhecida: 'chave_inexistente'
+PASS  unit/autoload/test_settings.gd::test_rejects_wrong_type_and_unknown_key_with_warning  3 ms  (asserts: 3)
+PASS  unit/autoload/test_settings.gd::test_schema_has_exactly_the_contract_keys  2 ms  (asserts: 1)
+PASS  unit/core/test_atomic_file.gd::test_read_missing_file_is_not_ok  3 ms  (asserts: 2)
+PASS  unit/core/test_atomic_file.gd::test_recovers_from_tmp_when_swap_was_interrupted  5 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_second_write_keeps_previous_as_backup  6 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_simulated_crash_keeps_previous_version  5 ms  (asserts: 5)
+PASS  unit/core/test_atomic_file.gd::test_validator_falls_back_to_backup_when_main_is_corrupt  8 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_write_then_read_roundtrip  17 ms  (asserts: 5)
+2026-11-20 14:47:00 [WARN] [settings] input_bindings: ação desconhecida 'acao_inexistente' ignorada
+2026-11-20 14:47:00 [WARN] [settings] input_bindings: ligações inválidas para 'crouch' ignoradas
+PASS  unit/input/test_input_bindings.gd::test_apply_ignora_acao_desconhecida_e_ligacao_invalida  1 ms  (asserts: 2)
+2026-11-20 14:47:00 [WARN] [settings] input_bindings: ação desconhecida 'ui_accept' ignorada
+PASS  unit/input/test_input_bindings.gd::test_apply_nao_mexe_nas_acoes_ui  0 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_apply_sempre_parte_dos_padroes  0 ms  (asserts: 1)
+PASS  unit/input/test_input_bindings.gd::test_controls_menu_rejeita_tecla_sem_codigo_fisico_e_mouse_fora_de_faixa  0 ms  (asserts: 5)
+PASS  unit/input/test_input_bindings.gd::test_current_overrides_nunca_grava_acao_vazia  0 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_describe_le_teclas_e_mouse  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_entry_from_event_e_round_trip_com_o_inputmap  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_find_conflicts_aponta_a_outra_acao  0 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_rebind_e_current_overrides_refletem_so_o_que_mudou  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_rebind_recusa_entrada_invalida_sem_alterar_nada  0 ms  (asserts: 4)
+PASS  unit/input/test_input_bindings.gd::test_rebindable_actions_exclui_ui_e_inclui_as_do_jogo  0 ms  (asserts: 14)
+PASS  unit/input/test_input_bindings.gd::test_validate_aceita_listas_de_eventos_validos  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_validate_rejeita_formatos_invalidos  0 ms  (asserts: 6)
+PASS  unit/interaction/test_required_hold.gd::test_com_maos_firmes_e_steadiness_um_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_meio_o_multiplicador_e_um_e_tres_quartos  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_zero_o_tempo_e_duas_vezes_e_meia  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_sem_maos_firmes_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_steadiness_fora_da_faixa_e_limitada  0 ms  (asserts: 2)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_em_pe_por_marcha  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_limites_nao_mudam_a_velocidade_de_caminhada  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_abaixo_de_um_reduz_o_sprint  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  1 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_neutro_mantem_a_config  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_sprint_proibido_pelo_acoplamento_fica_proibido  0 ms  (asserts: 2)
+2026-11-20 14:47:00 [ERROR] [player] PlayerMotorConfig ausente; usando os padrões do código
+PASS  unit/player/test_motor_config.gd::test_config_ausente_usa_padroes_e_registra_erro  0 ms  (asserts: 3)
+PASS  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  0 ms  (asserts: 27)
+PASS  unit/player/test_motor_config.gd::test_config_padrao_do_codigo_tem_os_valores_da_tabela  0 ms  (asserts: 26)
+PASS  integration/autoload/test_event_bus.gd::test_catalog_matches_contract  0 ms  (asserts: 18)
+PASS  integration/autoload/test_event_bus.gd::test_emit_reaches_listener_with_payload  0 ms  (asserts: 2)
+PASS  integration/autoload/test_event_bus.gd::test_enum_payload_round_trip  0 ms  (asserts: 1)
+PASS  integration/autoload/test_event_bus.gd::test_payloads_use_only_native_types  0 ms  (asserts: 12)
+2026-11-20 14:47:00 [WARN] [save] slot 'slot_b' recuperado da cópia 'bak'
+PASS  integration/autoload/test_save_service.gd::test_corrupt_main_recovers_from_backup_with_warning  7 ms  (asserts: 4)
+2026-11-20 14:47:00 [ERROR] [save] slot 'quebrado' inválido ou corrompido; nenhuma cópia legível
+PASS  integration/autoload/test_save_service.gd::test_corrupt_slot_without_copies_returns_empty_and_logs_error  3 ms  (asserts: 2)
+2026-11-20 14:47:00 [INFO] [save] slot 'nao_existe' ausente
+PASS  integration/autoload/test_save_service.gd::test_missing_slot_returns_empty  2 ms  (asserts: 2)
+2026-11-20 14:47:00 [ERROR] [save] falha ao gravar o slot 'checkpoint': Can't write file
+PASS  integration/autoload/test_save_service.gd::test_per09_simulated_crash_keeps_previous_file_readable  6 ms  (asserts: 3)
+2026-11-20 14:47:00 [ERROR] [save] nome de slot inválido: '../fora'
+2026-11-20 14:47:00 [ERROR] [save] nome de slot inválido: 'Maiuscula'
+2026-11-20 14:47:00 [ERROR] [save] nome de slot inválido: ''
+2026-11-20 14:47:00 [ERROR] [save] nome de slot inválido: 'com espaço'
+2026-11-20 14:47:00 [ERROR] [save] nome de slot inválido: 'a/b'
+PASS  integration/autoload/test_save_service.gd::test_rejects_invalid_slot_names  2 ms  (asserts: 11)
+PASS  integration/autoload/test_save_service.gd::test_round_trip_keeps_values  5 ms  (asserts: 6)
+PASS  integration/debug/test_debug_overlay.gd::test_f3_pela_acao_alterna_o_overlay  5 ms  (asserts: 2)
+PASS  integration/debug/test_debug_overlay.gd::test_noclip_atravessa_parede_e_desliga  18 ms  (asserts: 5)
+PASS  integration/debug/test_debug_overlay.gd::test_overlay_mostra_postura_marcha_e_esforco  9 ms  (asserts: 7)
+PASS  integration/debug/test_debug_overlay.gd::test_producao_desliga_overlay_e_comandos  1 ms  (asserts: 8)
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_para_o_chao_na_mira  2 ms  (asserts: 2)
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_recusado_sem_chao_na_mira  1 ms  (asserts: 2)
+PASS  integration/debug/test_overlay_cena_jogavel.gd::test_overlay_da_cena_jogavel_acha_o_jogador_sem_injecao  242 ms  (asserts: 7)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_botao_do_mouse_persiste_depois_de_reiniciar  8 ms  (asserts: 2)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_conflito_e_avisado_e_nao_aplica  3 ms  (asserts: 5)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_esc_cancela_a_captura  2 ms  (asserts: 4)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_remapeia_reinicia_e_a_ligacao_persiste  8 ms  (asserts: 6)
+PASS  integration/input/test_pause_menu.gd::test_controles_abre_a_tela_e_pause_volta_ao_menu_principal  2 ms  (asserts: 3)
+PASS  integration/input/test_pause_menu.gd::test_esc_abre_e_fecha_pela_acao_pause  2 ms  (asserts: 4)
+PASS  integration/input/test_pause_menu.gd::test_pausa_e_continuar_devolvem_o_controle_ao_jogador  2 ms  (asserts: 6)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_foco_em_item_a_menos_de_2_m_na_altura_dos_olhos  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_item_alem_do_alcance_nao_tem_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_mundo_sem_interactable_nao_tem_foco  2 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_bloqueia_o_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_impede_o_aperto_e_o_item_fica  2 ms  (asserts: 2)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_item_de_segurar_conclui_so_depois_do_tempo  8 ms  (asserts: 2)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_maos_firmes_neutras_mantem_o_tempo_de_segurar  7 ms  (asserts: 1)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pegar_item_emite_item_picked_e_some  1 ms  (asserts: 6)
+2026-11-20 14:47:00 [ERROR] [interaction] pickup 'Pickup' sem persist_id; fica inerte e não é salvo
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pickup_sem_persist_id_fica_inerte  2 ms  (asserts: 3)
+PASS  integration/interaction/test_porta.gd::test_porta_fechada_bloqueia_e_aberta_libera  38 ms  (asserts: 3)
+PASS  integration/interaction/test_porta.gd::test_porta_trancada_dá_feedback_e_nao_abre  11 ms  (asserts: 6)
+PASS  integration/interaction/test_porta.gd::test_segurar_abre_a_porta_devagar  34 ms  (asserts: 5)
+PASS  integration/interaction/test_porta.gd::test_toque_abre_a_porta_rapido  8 ms  (asserts: 5)
+PASS  integration/interaction/test_segurar_falha.gd::test_foco_que_sai_do_alvo_no_meio_do_segurar_falha  20 ms  (asserts: 3)
+PASS  integration/interaction/test_segurar_falha.gd::test_soltar_antes_do_tempo_falha_e_nao_conclui  11 ms  (asserts: 3)
+PASS  integration/player/test_camera_rampa.gd::test_camera_rampa_10_graus  183 ms  (asserts: 8)
+      nota: erro máximo da câmera em regime: 0.0038 m (193 amostras)
+      nota: erro máximo da câmera em regime: 0.0001 m (64 amostras)
+      nota: erro máximo da câmera em regime: 0.0029 m (187 amostras)
+      nota: erro máximo da câmera em regime: 0.0029 m (187 amostras)
+PASS  integration/player/test_camera_rampa.gd::test_camera_rampa_20_graus  189 ms  (asserts: 8)
+      nota: erro máximo da câmera em regime: 0.0000 m (212 amostras)
+      nota: erro máximo da câmera em regime: 0.0002 m (70 amostras)
+      nota: erro máximo da câmera em regime: 0.0003 m (186 amostras)
+      nota: erro máximo da câmera em regime: 0.0003 m (186 amostras)
+PASS  integration/player/test_camera_rampa.gd::test_camera_rampa_30_graus  192 ms  (asserts: 8)
+      nota: erro máximo da câmera em regime: 0.0000 m (250 amostras)
+      nota: erro máximo da câmera em regime: 0.0002 m (83 amostras)
+      nota: erro máximo da câmera em regime: 0.0026 m (185 amostras)
+      nota: erro máximo da câmera em regime: 0.0026 m (185 amostras)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_da_sandbox_sem_ticks_no_ar  257 ms  (asserts: 6)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_28_sem_ticks_no_ar  55 ms  (asserts: 4)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_30_sem_ticks_no_ar  57 ms  (asserts: 4)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_28  330 ms  (asserts: 1)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_30  353 ms  (asserts: 1)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_nao_dispara_no_ar  8 ms  (asserts: 2)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_sem_metadado_usa_default  12 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  13 ms  (asserts: 5)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_informa_a_velocidade_de_impacto_de_uma_queda  6 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_nao_dispara_quando_nasce_no_chao  5 ms  (asserts: 1)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_agachado_nao_entra_sob_a_laje  17 ms  (asserts: 3)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  24 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  27 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_fov_vem_das_opcoes_e_acompanha_a_mudanca  0 ms  (asserts: 2)
+PASS  integration/player/test_motor_controls.gd::test_head_bob_zerado_com_reducao_total_de_movimento  21 ms  (asserts: 3)
+PASS  integration/player/test_motor_controls.gd::test_mouse_look_usa_sensibilidade_inversao_e_limite_de_pitch  4 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  31 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  27 ms  (asserts: 12)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_botao_do_mouse_fora_da_faixa_e_recusado  3 ms  (asserts: 4)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_clique_durante_captura_vira_ligacao_observacao  3 ms  (asserts: 2)
+      nota: clique durante a captura: status=applied; crouch agora=Mouse botão 1
+PASS  integration/qa/test_f1011_remap.gd::test_remap_conflito_com_a_pausa_e_recusado  2 ms  (asserts: 4)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_conflito_com_outra_acao_e_recusado  2 ms  (asserts: 2)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_esc_cancela_a_captura  1 ms  (asserts: 3)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_tecla_sem_codigo_e_recusada  1 ms  (asserts: 3)
+PASS  integration/world/test_level_slots.gd::test_closed_doors_block_the_opening_and_open_door_frees_it  235 ms  (asserts: 4)
+PASS  integration/world/test_level_slots.gd::test_one_door_per_slot_with_slot_state  223 ms  (asserts: 9)
+PASS  integration/world/test_level_slots.gd::test_open_door_starts_with_panel_open  225 ms  (asserts: 4)
+2026-11-20 14:47:03 [ERROR] [level] vão de 1.20 m em /root/@Node@858/@Node@957/WideLevel/@Marker3D@955, mas o painel da porta tem 0.90 m (sobra folga ou o painel atravessa a parede)
+PASS  integration/world/test_level_slots.gd::test_opening_width_different_from_panel_logs_error  224 ms  (asserts: 3)
+PASS  integration/world/test_level_slots.gd::test_pickups_have_unique_non_empty_ids  224 ms  (asserts: 7)
+PASS  integration/world/test_level_slots.gd::test_playable_scene_has_player_pause_menu_and_debug_overlay  230 ms  (asserts: 3)
+PASS  scenarios/test_mot04_route.gd::test_mot04_passa_pelo_vao_de_0_6_m_rastejando  37 ms  (asserts: 10)
+PASS  scenarios/test_mot04_route.gd::test_mot04_sobe_escada_de_8_degraus_nao_atravessa_parede_e_desce  72 ms  (asserts: 8)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_contrato_de_marcadores_e_superficies  227 ms  (asserts: 43)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_a_parede_do_corredor_fora_do_vao  259 ms  (asserts: 3)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_paredes_da_sala_e_do_hall  290 ms  (asserts: 4)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_levanta_sob_a_mesa  251 ms  (asserts: 5)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_rasteja_sob_a_mesa_de_0_6_m  272 ms  (asserts: 11)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_sobe_a_escada_ate_o_mezanino_e_desce  256 ms  (asserts: 10)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_corredor_hall  297 ms  (asserts: 5)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_cozinha_corredor  259 ms  (asserts: 4)
+PASS  scenarios/qa/test_f1011_interacao.gd::test_interacao_controle_segurar_sem_pausa_abre_rapido  247 ms  (asserts: 1)
+      nota: controle sem pausa: estado=1; aberturas=[false]
+PASS  scenarios/qa/test_f1011_interacao.gd::test_interacao_pickup_atras_da_porta_trancada_nao_e_alcancado  235 ms  (asserts: 6)
+PASS  scenarios/qa/test_f1011_interacao.gd::test_interacao_raios_nao_atravessam_paredes_nem_portas_fechadas  232 ms  (asserts: 2)
+      nota: raios testados=1076; passando pelo vão aberto=124; vazamentos=0
+PASS  scenarios/qa/test_f1011_interacao.gd::test_interacao_segurada_com_menu_de_pausa_nao_vaza_para_depois  245 ms  (asserts: 5)
+      nota: segurar com pausa: estado da porta=0; aberturas=[]; em movimento=false
+PASS  architecture/test_arc01_perception_firewall.gd::test_firewall_sem_referencias_ao_jogador  2 ms  (asserts: 1)
+      nota: arquivos varridos pelo firewall: 0 (pastas-alvo vazias ou inexistentes: passa por vacuidade)
+PASS  architecture/test_arc03_l1_purity.gd::test_sim_estende_apenas_classes_nao_node  2 ms  (asserts: 1)
+      nota: scripts de L1 verificados por reflexao: 1
+PASS  architecture/test_arc03_l1_purity.gd::test_sim_sem_dependencias_de_cena_dinamicas_ou_autoloads  4 ms  (asserts: 1)
+      nota: arquivos varridos em res://sim/: 1
+PASS  architecture/test_arc04_parse.gd::test_todos_os_scripts_compilam  244 ms  (asserts: 2)
+      nota: scripts verificados em res://: 83
+PASS  architecture/test_arc05_layers.gd::test_dependencias_so_para_baixo  129 ms  (asserts: 1)
+      nota: arquivos varridos nas camadas de origem: 19
+PASS  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  50 ms  (asserts: 1)
+      nota: scripts em components/player: 4; componentes (base Node): 2; mediador: res://components/player/player_root.gd
+
+RESUMO: total=143 passou=143 falhou=0 sem_assert=0 tempo_total_ms=7877
+RESULTADO: APROVADO (codigo de saida 0)
+--- Etapa [runner]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=1 tempo_ms=8140 -> OK
+
+=== Etapa [runner-property] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --fixed-fps 60 --path D:\Dev\DeadBreath\game -s res://tests/run_all.gd -- --level=property
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:47:08 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 6 arquivo(s) de teste em: res://tests/property
+PASS  property/nivel/test_property_probe.gd::test_property_probe_descoberto  0 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_28_fases_00_a_13  993 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_28_fases_14_a_27  936 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_28_fases_28_a_41  976 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_28_fases_42_a_55  992 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_30_fases_00_a_14  1037 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_30_fases_15_a_29  1015 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_30_fases_30_a_44  1011 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_30_fases_45_a_59  1312 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_sandbox_fases_00_a_13  1084 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_sandbox_fases_14_a_27  1103 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_sandbox_fases_28_a_41  1089 ms  (asserts: 1)
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_sandbox_fases_42_a_55  1112 ms  (asserts: 1)
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_agachado_varredura_de_fase  5763 ms  (asserts: 1)
+      nota: agachado: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_andando_devagar_varredura_de_fase  5816 ms  (asserts: 1)
+      nota: devagar: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_correndo_varredura_de_fase  5589 ms  (asserts: 1)
+      nota: correndo: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_rastejando_varredura_de_fase  3379 ms  (asserts: 1)
+      nota: rastejando: 10 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_diagonal_suave_sobe_e_desce_sem_queda  1766 ms  (asserts: 1)
+      nota: diagonal 14°: 6 passagens; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_entrada_dentro_da_abertura_sobe_sem_queda  1104 ms  (asserts: 1)
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_entrada_pela_borda_e_guarda_do_mezanino  1540 ms  (asserts: 1)
+      nota: entrada x=16.30: parou em z=-2.388 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=16.45: parou em z=-2.394 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=17.55: parou em z=-2.394 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=17.70: parou em z=-2.388 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_parada_no_meio_da_subida_nao_cai  315 ms  (asserts: 3)
+      nota: parada na subida: queda parado (após 12 ticks)=0.0000 m; subida[ticks=372 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_parede_lateral_da_escada_bloqueia_sem_atravessar  261 ms  (asserts: 3)
+      nota: encosto lateral no degrau de 0,72 m: x final=16.150; ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_troca_de_postura_no_meio_da_subida  282 ms  (asserts: 3)
+      nota: troca de postura na subida: mudanças de postura=5; subida[ticks=179 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]; descida[ticks=137 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_a_partir_do_mezanino_andando_devagar  5107 ms  (asserts: 1)
+      nota: descida devagar: 20 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_agachado_a_partir_do_mezanino  5066 ms  (asserts: 1)
+      nota: descida agachado: 20 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_rastejando_a_partir_do_mezanino  2832 ms  (asserts: 1)
+      nota: descida rastejando: 10 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_parada_no_meio_da_descida_nao_cai  292 ms  (asserts: 3)
+      nota: parada na descida: queda parado (após 12 ticks)=0.0000 m; descida[ticks=334 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_saida_lateral_do_degrau_de_0_18_nao_gera_queda  255 ms  (asserts: 5)
+      nota: saída lateral do degrau de 0,18 m: x final=18.369 y=0.000; ticks=123 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_inversao_no_meio_da_rampa_30_graus  92 ms  (asserts: 2)
+      nota: inversão na rampa 30°: erro depois de inverter=0.0000 m (36 amostras); ticks=450 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_parada_na_rampa_30_graus_nao_escorrega  49 ms  (asserts: 4)
+      nota: parada na rampa 30° em z=-1.507 (y=1.049): erro da câmera parada=0.0000 m; deslize após assentar=0.0000 m; ticks=240 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_agachado_30_graus  184 ms  (asserts: 3)
+      nota: rampa 30° agachado: subida erro=0.0000 m (288 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0017 m (199 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_andando_devagar_10_20_30_graus  553 ms  (asserts: 1)
+      nota: rampa 10° devagar: subida erro=0.0021 m (296 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0026 m (277 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+      nota: rampa 20° devagar: subida erro=0.0000 m (289 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0000 m (256 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+      nota: rampa 30° devagar: subida erro=0.0070 m (275 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0024 m (224 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_diagonal_20_graus  97 ms  (asserts: 2)
+      nota: rampa 20° diagonal: subida erro=0.0001 m (285 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); x final=1.068
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_rastejando_20_graus  96 ms  (asserts: 2)
+      nota: rampa 20° rastejando: subida erro=0.0025 m (187 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_saida_da_rampa_para_o_plano_30_graus  97 ms  (asserts: 4)
+      nota: saída para o plano 30°: chegou ao plano=true; z=-8.020 y=3.000; erro no plano=0.0000 m (69 amostras); ticks=459 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_troca_de_postura_no_meio_da_rampa_30_graus  76 ms  (asserts: 2)
+      nota: troca na rampa 30°: postura=1, olhos=1.00 m, erro=0.0000 m, amostras=31
+      nota: troca na rampa 30°: postura=2, olhos=0.45 m, erro=0.0000 m, amostras=31
+      nota: troca na rampa 30°: postura=2, olhos=0.45 m, erro=0.0000 m, amostras=31
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_borda_do_mezanino_com_spam_parado  283 ms  (asserts: 3)
+      nota: borda do mezanino parado com spam: y0=1.080 menor y=1.080; ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+FAIL  property/qa/test_f1011_exploits_geometria.gd::test_exploit_cantos_nao_prendem_nem_atravessam  1275 ms  (asserts: 1)
+      nota: sala SO (0,0): canto em (0.351116, 0.000941, -0.351116); afastou 2.29 m ao voltar; ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: sala NO (0,-6): canto em (0.351116, 0.000941, -5.64888); afastou 2.29 m ao voltar; ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall NE (20,-6): canto em (19.65004, 0.000941, -5.253934); afastou 0.74 m ao voltar; ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall SE (20,0): canto em (19.64891, 0.000941, -0.351116); afastou 2.29 m ao voltar; ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      - res://tests/property/qa/test_f1011_exploits_geometria.gd:96 -> assert_eq: esperado 0, obtido 1 | cantos: hall NE (20,-6): penetração=0 afastou=0.74 (início (19.0, 0.000941, -5.0))
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_entrada_do_vao_correndo_com_spam_de_postura  290 ms  (asserts: 2)
+      nota: correndo com spam na entrada do vão: postura errada dentro=0; z final=-4.086; ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_pilares_do_mezanino_rastejando  1081 ms  (asserts: 1)
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_sob_a_mesa_spam_de_postura_nao_levanta  354 ms  (asserts: 2)
+      nota: sob a mesa com spam: ticks dentro=300, postura errada=0; ticks=390 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_sob_o_mezanino_so_entra_rastejando  861 ms  (asserts: 1)
+      nota: agachado em direção ao vão de 1,02 m: parou em z=-2.389; ticks=200 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: correndo em direção ao vão de 1,02 m: parou em z=-2.389; ticks=200 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: rastejando no vão, spam: ticks dentro=300, postura errada=0; z final=-3.197; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_spam_de_postura_em_espaco_aberto_sem_queda  348 ms  (asserts: 3)
+      nota: spam de postura na sala: ticks=600 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_vao_aberto_passa_em_todas_as_posicoes_e_posturas  4127 ms  (asserts: 1)
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_painel_aberto_bloqueia_o_corpo  330 ms  (asserts: 2)
+      nota: painel aberto: corpo parou em z=-1.050; ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+FAIL  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_aberta_com_toque_nao_atravessa_o_corpo  259 ms  (asserts: 6)
+      nota: porta com toque: ângulo final=17.1°; corpo deslocou 0.0000 m; câmera dentro do painel em 0 ticks; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      - res://tests/property/qa/test_f1011_exploits_portas.gd:83 -> assert_true: esperado verdadeiro | a porta abriu (ângulo 17.1°)
+FAIL  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_aberta_segurando_nao_atravessa_o_corpo  261 ms  (asserts: 3)
+      nota: porta segurada: ângulo final=26.3°; corpo deslocou 0.0763 m; câmera dentro do painel em 0 ticks; ticks=150 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      - res://tests/property/qa/test_f1011_exploits_portas.gd:111 -> assert_true: esperado verdadeiro | a porta abriu devagar (ângulo 26.3°)
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_fechada_bloqueia_com_spam_de_postura  312 ms  (asserts: 3)
+      nota: porta fechada com spam de postura: corpo x=6.282 (painel em x=6,03); ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+
+RESUMO: total=48 passou=45 falhou=3 sem_assert=0 tempo_total_ms=63216
+  falhou: property/qa/test_f1011_exploits_geometria.gd::test_exploit_cantos_nao_prendem_nem_atravessam
+  falhou: property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_aberta_com_toque_nao_atravessa_o_corpo
+  falhou: property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_aberta_segurando_nao_atravessa_o_corpo
+RESULTADO: REPROVADO (codigo de saida 1)
+--- Etapa [runner-property]: codigo=1 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=63452 -> FALHOU
+
+=== Etapa [runner-meta] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --fixed-fps 60 --path D:\Dev\DeadBreath\game -s res://tests/run_all.gd -- --level=meta
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:48:11 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 7 arquivo(s) de teste em: res://tests/meta
+PASS  meta/test_arc03_regras_dinamicas.gd::test_autoload_injetado_e_pego  0 ms  (asserts: 1)
+PASS  meta/test_arc03_regras_dinamicas.gd::test_cada_dependencia_dinamica_e_pega  0 ms  (asserts: 1)
+PASS  meta/test_arc03_regras_dinamicas.gd::test_controles_negativos_nao_geram_achado  0 ms  (asserts: 1)
+PASS  meta/test_property_level.gd::test_execucao_padrao_nao_descobre_o_nivel_property  708 ms  (asserts: 3)
+PASS  meta/test_property_level.gd::test_nivel_property_descobre_a_sonda_recursivamente  341 ms  (asserts: 3)
+PASS  meta/test_r107_historico_no_mundo.gd::test_r107_mundo_compartilhado_com_flush_nao_depende_do_historico  2750 ms  (asserts: 52)
+PASS  meta/test_r107_historico_no_mundo.gd::test_r107_mundo_isolado_por_fase_nao_depende_do_historico  687 ms  (asserts: 4)
+PASS  meta/test_runner_context.gd::test_autoloads_registrados_estao_na_arvore  2 ms  (asserts: 1)
+      nota: autoloads registrados em project.godot: 5 (Log, EventBus, Settings, SaveService, GameState)
+PASS  meta/test_runner_context.gd::test_identificador_global_visivel_em_script_carregado  9 ms  (asserts: 4)
+PASS  meta/test_runner_outcomes.gd::test_aviso_tratado_como_erro_sai_com_1  252 ms  (asserts: 4)
+PASS  meta/test_runner_outcomes.gd::test_declaracoes_de_erro_esperado_no_runner  346 ms  (asserts: 9)
+PASS  meta/test_runner_outcomes.gd::test_erro_de_script_em_tempo_de_execucao_reprova_o_teste  253 ms  (asserts: 7)
+PASS  meta/test_runner_outcomes.gd::test_filtro_executa_so_o_teste_pedido  255 ms  (asserts: 5)
+PASS  meta/test_runner_outcomes.gd::test_fixture_que_falha_sai_com_1_e_mostra_a_mensagem  252 ms  (asserts: 7)
+PASS  meta/test_runner_outcomes.gd::test_fixture_que_passa_sai_com_0_e_resume  252 ms  (asserts: 6)
+PASS  meta/test_runner_outcomes.gd::test_raiz_sem_testes_sai_com_1  258 ms  (asserts: 3)
+PASS  meta/test_runner_outcomes.gd::test_script_com_erro_de_parse_sai_com_1_e_vira_falha  261 ms  (asserts: 5)
+PASS  meta/test_runner_outcomes.gd::test_teste_sem_assert_reprova_e_watchdog_reprova_por_frames  809 ms  (asserts: 9)
+PASS  meta/test_runner_outcomes.gd::test_teto_de_tempo_de_parede_reprova_mesmo_com_progresso  2291 ms  (asserts: 4)
+PASS  meta/test_source_scan.gd::test_caminho_de_camada_so_aparece_com_strings_mantidas  0 ms  (asserts: 2)
+PASS  meta/test_source_scan.gd::test_class_name_declarado_e_extraido  0 ms  (asserts: 3)
+PASS  meta/test_source_scan.gd::test_comentarios_e_strings_nao_contam_como_codigo  0 ms  (asserts: 3)
+PASS  meta/test_source_scan.gd::test_regras_do_firewall_pegam_casos_proibidos  7 ms  (asserts: 7)
+PASS  meta/test_source_scan.gd::test_violacao_real_e_achada_com_numero_de_linha  0 ms  (asserts: 2)
+PASS  meta/test_testcase_contract.gd::test_asserts_registram_falhas_e_seguem  0 ms  (asserts: 3)
+PASS  meta/test_testcase_contract.gd::test_utilitarios_tmp_dir_autofree_e_frames  4 ms  (asserts: 8)
+
+RESUMO: total=26 passou=26 falhou=0 sem_assert=0 tempo_total_ms=9839
+RESULTADO: APROVADO (codigo de saida 0)
+--- Etapa [runner-meta]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=10071 -> OK
+
+=== Resumo do pipeline ===
+  importacao   codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=   2533  OK
+  arc04        codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=   1002  OK
+  runner       codigo=0    SCRIPT_ERROR=0 ERROR_engine=1 tempo_ms=   8140  OK
+  runner-property codigo=1    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=  63452  FALHOU
+  runner-meta  codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=  10071  OK
+Tempo total do pipeline: 85.46 s
+RESULTADO DO PIPELINE: REPROVADO (codigo de saida 1)

@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 15:01:08 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 8 arquivo(s) de teste em: res://tests/property
+DIAG porta global=(6.0, 0.0, -1.15) rot_y_deg=-90.0
+DIAG painel local_pos=(0.0, 0.0, 0.0)
+DIAG shape local=[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.45, 1.0, 0.0)]
+DIAG ang=0 ponta=(6.000,-0.250) dobradica=(6.000,-1.150) bloqueio=nenhum
+DIAG ang=5 ponta=(6.078,-0.253) dobradica=(6.000,-1.150) bloqueio=nenhum
+DIAG ang=15 ponta=(6.233,-0.281) dobradica=(6.000,-1.150) bloqueio=nenhum
+DIAG ang=25 ponta=(6.380,-0.334) dobradica=(6.000,-1.150) bloqueio=nenhum
+DIAG ang=45 ponta=(6.636,-0.514) dobradica=(6.000,-1.150) bloqueio=Div_sala_corredor_0 (StaticBody3D)
+DIAG ang=90 ponta=(6.900,-1.150) dobradica=(6.000,-1.150) bloqueio=Div_sala_corredor_0 (StaticBody3D)
+DIAG antes de empurrar: corpo=(6.450,-0.700) porta=17.1 bloqueada=true
+DIAG oeste t=0 corpo=(6.444,-0.700) porta=17.1 pen=false
+DIAG oeste t=1 corpo=(6.433,-0.700) porta=17.1 pen=false
+DIAG oeste t=2 corpo=(6.432,-0.705) porta=17.1 pen=false
+DIAG oeste t=3 corpo=(6.430,-0.710) porta=17.1 pen=false
+DIAG oeste t=4 corpo=(6.428,-0.717) porta=17.1 pen=false
+DIAG oeste t=5 corpo=(6.426,-0.725) porta=17.1 pen=false
+DIAG oeste t=6 corpo=(6.423,-0.733) porta=17.1 pen=false
+DIAG oeste t=7 corpo=(6.420,-0.743) porta=17.1 pen=false
+DIAG oeste t=8 corpo=(6.417,-0.752) porta=17.1 pen=false
+DIAG oeste t=9 corpo=(6.414,-0.763) porta=17.1 pen=false
+DIAG oeste t=10 corpo=(6.411,-0.774) porta=17.1 pen=false
+DIAG oeste t=11 corpo=(6.407,-0.785) porta=17.1 pen=false
+DIAG oeste t=12 corpo=(6.404,-0.797) porta=17.1 pen=false
+DIAG oeste t=13 corpo=(6.400,-0.809) porta=17.1 pen=false
+DIAG oeste t=14 corpo=(6.396,-0.821) porta=17.1 pen=false
+DIAG oeste t=15 corpo=(6.392,-0.834) porta=17.1 pen=false
+DIAG oeste t=16 corpo=(6.390,-0.840) porta=17.1 pen=false
+DIAG oeste t=17 corpo=(6.388,-0.847) porta=17.1 pen=false
+DIAG oeste t=18 corpo=(6.386,-0.854) porta=17.1 pen=false
+DIAG oeste t=19 corpo=(6.384,-0.860) porta=17.1 pen=false
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_painel  1287 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=1568
+RESULTADO: APROVADO (codigo de saida 0)

@@ -60,10 +60,10 @@ STAIR_STEPS: int = 6
 STAIR_RISE: float = 0.18
 STAIR_TREAD: float = 0.28
 STAIR_NEAR_Z: float = -1.0
-MEZZ_TOP: float = STAIR_RISE * STAIR_STEPS  # 1,44 m
+MEZZ_TOP: float = STAIR_RISE * STAIR_STEPS  # 1,08 m (6 × 0,18)
 MEZZ_SLAB_T: float = 0.06
 MEZZ_Z0: float = -6.0
-MEZZ_Z1: float = STAIR_NEAR_Z - STAIR_TREAD * STAIR_STEPS  # -2,8
+MEZZ_Z1: float = STAIR_NEAR_Z - STAIR_TREAD * STAIR_STEPS  # -2,68 (-1,0 - 6 × 0,28)
 
 # Mesa com vão de 0,6 m: tampo em 0,60..0,65 m; pernas nos cantos (passagem livre de 0,7 m entre pernas).
 TABLE_X: float = 3.0

@@ -4,6 +4,27 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
 ## [Não lançado]
 
+### Fase 1 — Foundation (2026-11-20; Gate F1 aguardando aprovação do usuário)
+
+#### Adicionado
+- Projeto Godot em `game/`: Forward+, GodotPhysics3D a 60 Hz, warnings de tipagem como erro, input map (12 ações), 8 camadas de física.
+- Núcleo L0: Log, EventBus, Settings (11 opções de jogo e acessibilidade, com validação), SaveService com escrita atômica, GameState, Enums, AtomicFile, InputBindings.
+- Jogador: PlayerRoot (mediador), PlayerMotor (andar, devagar, correr, agachar, rastejar, step-up até 0,30 m com colisor cilíndrico, câmera com compensação de degrau, head bob, passos por superfície, aterrissagem).
+- Interação por raio da câmera (tocar e segurar), porta (lenta/normal/trancada, para sem empurrar) e pickup.
+- Overlay de debug (F3, noclip, teleporte; desligado em produção), menu de pausa e remapeamento de controles.
+- Sandbox greybox jogável (4 salas, corredor, escada, mezanino, mesa para rastejar, 4 pisos com materiais CC0) como cena principal.
+- Framework de testes headless próprio (runner, níveis padrão/property/meta, captura de erros de script, isolamento de física) e `tools/run_tests.ps1`.
+- Documentos: GDD v0.1, NARRATIVE v0.1, ART_DIRECTION v0.1, PLAYER_CONTROLLER v1.0, BUG_REPORTS, ASSET_LICENSES.
+
+#### Corrigido (achados de revisão e QA)
+- BUG-001/002: perda de chão e queda ao subir/descer escadas, em qualquer fase do passo (testes de propriedade a 5 mm).
+- BUG-003: câmera afundando em rampas. BUG-004: travar no canto de pilar. BUG-005: "segurar" atravessando a pausa. BUG-006/009/010: porta empurrando o jogador, regressão no batente e sinal duplicado.
+- Settings aceitava NaN; remapeamento podia deixar ação sem tecla; overlay sem jogador na cena real; porta "aberta" nascia fechada.
+
+#### Decisões
+- Física GodotPhysics3D (spike V6); colisor cilíndrico; nível de teste `property`; runner com `--fixed-fps 60`; porta só para diante de corpos móveis.
+
+
 ### Fase 0 — Discovery (2026-11-20)
 
 #### Adicionado

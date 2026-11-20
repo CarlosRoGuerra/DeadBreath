@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 15:05:22 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 8 arquivo(s) de teste em: res://tests/property
+DIAG t=11 corpo (6.4500,-0.7000)->(6.4582,-0.7029) porta=19.69 bloqueada=true
+DIAG t=13 corpo (6.4582,-0.7029)->(6.4670,-0.7063) porta=20.63 bloqueada=true
+DIAG t=15 corpo (6.4670,-0.7063)->(6.4759,-0.7098) porta=21.56 bloqueada=true
+DIAG t=17 corpo (6.4759,-0.7098)->(6.4848,-0.7134) porta=22.50 bloqueada=true
+DIAG t=19 corpo (6.4848,-0.7134)->(6.4936,-0.7173) porta=23.44 bloqueada=true
+DIAG t=21 corpo (6.4936,-0.7173)->(6.5025,-0.7213) porta=24.38 bloqueada=true
+DIAG t=23 corpo (6.5025,-0.7213)->(6.5114,-0.7255) porta=25.31 bloqueada=true
+DIAG t=25 corpo (6.5114,-0.7255)->(6.5203,-0.7299) porta=26.25 bloqueada=true
+DIAG total deslocado=0.0763 m
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_segurar_deslocamento  617 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=872
+RESULTADO: APROVADO (codigo de saida 0)

@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PERSIST modo=read arquivo=user://settings.cfg
+PERSIST lido fov=90.0 sensibilidade=0.33 inverter_y=true legenda=1.50
+PERSIST lido input_bindings={ "interact": [{ "physical_keycode": 70, "type": "key" }] } interact_no_inputmap=70
+PERSIST resultado=OK
+PERSIST FIM

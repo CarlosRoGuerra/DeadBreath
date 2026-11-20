@@ -1,0 +1,12 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:05:54 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 7 arquivo(s) de teste em: res://tests/property
+DIAG inicio=(6.50,-0.50) aberta=(7.145037, 0.00094, -1.0499) ang=90.0 pen_ticks=15 saida_oeste_m=0.699
+DIAG inicio=(6.60,-0.40) aberta=(7.084645, 0.00094, -0.754772) ang=90.0 pen_ticks=7 saida_oeste_m=0.403
+DIAG inicio=(6.30,-0.60) aberta=(7.146561, 0.00094, -1.049167) ang=90.0 pen_ticks=19 saida_oeste_m=0.699
+DIAG inicio=(6.45,-0.90) aberta=(7.146451, 0.00094, -1.04959) ang=90.0 pen_ticks=14 saida_oeste_m=0.699
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_prensa  1207 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=1445
+RESULTADO: APROVADO (codigo de saida 0)

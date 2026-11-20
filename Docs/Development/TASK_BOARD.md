@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 1 — Foundation** (Gate F0 aprovado em 2026-11-20) |
+| Fase atual | **FASE 1 — Foundation: concluída; Gate F1 aguardando aprovação do usuário** |
 | Estados | BACKLOG · READY · IN_PROGRESS · REVIEW · TESTING · APPROVED · BLOCKED |
 
 Uma tarefa só fica **APPROVED** com: implementação concluída, critérios atendidos, testes executados (com saída registrada), revisão técnica concluída e documentação atualizada.
@@ -56,67 +56,67 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 ## 4. FASE 1 — Foundation (detalhada)
 
 ### F1-001 · Repositório e local do projeto
-- **Responsável:** Project Director · **Esforço:** MEDIUM · **Depende de:** D-02, D-03, Gate F0 · **Status:** REVIEW. Repositório em `D:\Dev\DeadBreath`, `.gitignore`/`.gitattributes`, commits `57ce276` e seguintes; `git status` limpo após cada commit e `.godot/` ignorado (conferido)
+- **Responsável:** Project Director · **Esforço:** MEDIUM · **Depende de:** D-02, D-03, Gate F0 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. Repositório em `D:\Dev\DeadBreath`, `.gitignore`/`.gitattributes`, commits `57ce276` e seguintes; `git status` limpo após cada commit e `.godot/` ignorado (conferido)
 - **Descrição:** mover para o local aprovado, `git init`, `.gitignore` padrão do Godot 4 (ignora `.godot/` e builds; versiona arquivos `.import`), `.gitattributes` (LF para texto) e README.
 - **Aceitação:** `git status` limpo após o commit inicial; `.godot/` ignorado.
 - **Testes:** saída dos comandos git registrada.
 
 ### F1-002 · Integração do Godot às ferramentas
-- **Responsável:** Project Director · **Esforço:** LOW · **Depende de:** DISC-003 · **Status:** REVIEW. Evidência: Docs/QA/EVIDENCE/F1-002_godot_wrapper.txt (caminho válido → exit 0; inexistente e versão errada → exit 2)
+- **Responsável:** Project Director · **Esforço:** LOW · **Depende de:** DISC-003 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. Evidência: Docs/QA/EVIDENCE/F1-002_godot_wrapper.txt (caminho válido → exit 0; inexistente e versão errada → exit 2)
 - **Descrição:** registrar o caminho do Godot em `tools/godot_path.txt` (lido pelos scripts) e criar `tools/godot.ps1` (wrapper com caminho e versão verificados).
 - **Aceitação:** `tools/godot.ps1 --version` imprime 4.7.2 e falha com mensagem clara se o caminho estiver errado.
 - **Testes:** execução com caminho válido e inválido.
 
 ### F1-003 · Esqueleto do projeto Godot
-- **Responsável:** Software Architect · **Esforço:** HIGH · **Depende de:** F1-002 · **Status:** REVIEW. `project.godot`, pastas, input map e camadas conferidos por script; ARC-03, ARC-04 e ARC-05 verdes no pipeline (Docs/QA/EVIDENCE/F1-005_run_tests.txt)
+- **Responsável:** Software Architect · **Esforço:** HIGH · **Depende de:** F1-002 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. `project.godot`, pastas, input map e camadas conferidos por script; ARC-03, ARC-04 e ARC-05 verdes no pipeline (Docs/QA/EVIDENCE/F1-005_run_tests.txt)
 - **Descrição:** `game/project.godot` (Forward+, motor de física escolhido em V6, física a 60 Hz), estrutura de pastas (SYSTEM_ARCHITECTURE §11), camadas de física nomeadas, input map (move, slow_walk, sprint, crouch, crawl, interact, use_item, debug) e warnings `untyped_declaration`, `unsafe_method_access` e `unsafe_property_access` como erro.
 - **Aceitação:** importação headless sem erros; input map completo; ARC-04 verde.
 - **Testes:** ARC-03, ARC-04, ARC-05.
 
 ### F1-004 · Núcleo L0
-- **Responsável:** Software Architect · **Esforço:** HIGH · **Depende de:** F1-003 · **Status:** REVIEW. 29 testes (unit + integration, incluindo ACC-06 e PER-09 versão L0) verdes no pipeline, execução própria do Director em 2026-11-20
+- **Responsável:** Software Architect · **Esforço:** HIGH · **Depende de:** F1-003 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. 29 testes (unit + integration, incluindo ACC-06 e PER-09 versão L0) verdes no pipeline, execução própria do Director em 2026-11-20
 - **Descrição:** `Enums`, `Log` (categorias, níveis, arquivo em `user://logs/`), `EventBus` (catálogo de COMPONENT_CONTRACTS §16), `Settings` com todas as chaves de COMPONENT_CONTRACTS §15 (inclui `effects_intensity`, `tremor_reduction`, `motion_reduction`, `respiratory_indicator`, `subtitles_enabled`, `subtitles_size`, `input_bindings`), `SaveService` (JSON com escrita atômica) e `GameState`.
 - **Aceitação:** settings sobrevivem a reiniciar; o log grava arquivo; o EventBus só aceita payloads nativos; SaveService passa no teste de escrita atômica.
 - **Testes:** ACC-06, PER-09 (versão L0), unit de Log e integration do EventBus.
 
 ### F1-005 · Framework de testes headless
-- **Responsável:** QA Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F1-003 · **Status:** REVIEW, com ajuste em andamento: o runner passa a reprovar o teste quando há erro de script durante ele. Entrega: runner, TestCase, ARC-01/03/04/05/06, 15 meta-testes, `tools/run_tests.ps1` (pipeline 10,8 s; runner < 1 s). ARC-02 e ARC-07 pendentes (dependem de níveis e configs)
+- **Responsável:** QA Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F1-003 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW, com ajuste em andamento: o runner passa a reprovar o teste quando há erro de script durante ele. Entrega: runner, TestCase, ARC-01/03/04/05/06, 15 meta-testes, `tools/run_tests.ps1` (pipeline 10,8 s; runner < 1 s). ARC-02 e ARC-07 pendentes (dependem de níveis e configs)
 - **Descrição:** runner `game/tests/run_all.gd` (descobre `test_*.gd`, asserts com tolerância, isolamento, resumo, código de saída 0/1); suporte a integração com frames de física simulados; testes de arquitetura (varredura de texto e reflexão); `tools/run_tests.ps1` (importação → parse por arquivo → testes).
 - **Aceitação:** teste propositalmente falho → código 1; resumo com nome, status e tempo; suíte da F1 em < 10 s.
 - **Testes:** meta-testes do runner (passa, falha, erro de script).
 
 ### F1-006 · PlayerRoot e PlayerMotor
-- **Responsável:** Gameplay Engineer · **Esforço:** HIGH · **Depende de:** F1-004 · **Status:** REVIEW. 26 testes do jogador (MOT-01..04, step-up, landed, footstep, controles, config) verdes em 5 execuções seguidas; 7 mutações provaram que os testes reprovam quando o comportamento quebra (EVIDENCE/F1-006_*.txt)
+- **Responsável:** Gameplay Engineer · **Esforço:** HIGH · **Depende de:** F1-004 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. 26 testes do jogador (MOT-01..04, step-up, landed, footstep, controles, config) verdes em 5 execuções seguidas; 7 mutações provaram que os testes reprovam quando o comportamento quebra (EVIDENCE/F1-006_*.txt)
 - **Descrição:** PlayerRoot (mediador, COMPONENT_CONTRACTS §1) e PlayerMotor (§2) com `PlayerMotorConfig`: mouse look, andar, andar devagar, correr, agachar, rastejar, checagem de teto, aceleração, head bob (desligável), `footstep` por superfície e `get_exertion()`.
 - **Aceitação:** critérios de MOT-01..04.
 - **Testes:** MOT-01..04, ARC-06.
 
 ### F1-007 · Interação, porta e pickup
-- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-006 · **Status:** REVIEW. 20 testes de interação (3× estáveis); ARC-02 aguarda nível com portas/pickups
+- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-006 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. 20 testes de interação (3× estáveis); ARC-02 aguarda nível com portas/pickups
 - **Descrição:** InteractionComponent, Interactable (instantâneo e segurar, com `InteractionContext`), Door (lenta, normal, trancada) e Pickup (`persist_id`, `item_picked`).
 - **Aceitação:** a porta abre devagar ao segurar e rápido ao tocar; porta trancada dá feedback; o pickup some e emite o evento; não há interação através de paredes.
 - **Testes:** integration por interação; ARC-02.
 
 ### F1-008 · Overlay e comandos de debug
-- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-004 · **Status:** REVIEW. 6 testes, incluindo a flag de produção. Acréscimos de contrato: `PlayerMotor.set_noclip/is_noclip/notify_teleported`, `PlayerRoot.teleport_to/set_noclip/get_camera/get_interaction`
+- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-004 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. 6 testes, incluindo a flag de produção. Acréscimos de contrato: `PlayerMotor.set_noclip/is_noclip/notify_teleported`, `PlayerRoot.teleport_to/set_noclip/get_camera/get_interaction`
 - **Descrição:** overlay F3 (fps, frame time, postura, marcha, esforço, velocidade, foco) e comandos (noclip, teleporte), desligados em produção.
 - **Aceitação:** a flag de produção desliga overlay e comandos.
 - **Testes:** integration da flag de produção.
 
 ### F1-009 · Sandbox greybox
-- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F1-006 · **Status:** REVIEW. `sandbox.tscn` (gerada por `tools/level/gen_sandbox.py`), 8 testes MOT-04 na sandbox, capturas inspecionadas. Integração do Director: `LevelSlots` (portas e pickups nos marcadores), `sandbox_playable.tscn` como cena principal (com menu de pausa e overlay), 5 testes de integração; achado e corrigido: porta que começa aberta nascia com o painel fechado
+- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F1-006 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. `sandbox.tscn` (gerada por `tools/level/gen_sandbox.py`), 8 testes MOT-04 na sandbox, capturas inspecionadas. Integração do Director: `LevelSlots` (portas e pickups nos marcadores), `sandbox_playable.tscn` como cena principal (com menu de pausa e overlay), 5 testes de integração; achado e corrigido: porta que começa aberta nascia com o painel fechado
 - **Descrição:** `content/levels/sandbox.tscn` com 4 salas, corredor estreito, escada para mezanino, mesa para rastejar, portas e superfícies (madeira, tapete, azulejo, concreto) com metadado. Iluminação escura com névoa volumétrica. `RoomVolume` e `Portal` já posicionados para a F3.
 - **Aceitação:** todas as mecânicas da F1 são exercitáveis; screenshot por script (com janela) anexado.
 - **Testes:** MOT-04 roda nesta cena.
 
 ### F1-013 · Remapeamento de controles
-- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-004 · **Status:** REVIEW. 17 testes (ACC-05: remapear → reiniciar → persiste; conflito avisado e não aplicado); menu de pausa mínimo; `core/input_bindings.gd`
+- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-004 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. 17 testes (ACC-05: remapear → reiniciar → persiste; conflito avisado e não aplicado); menu de pausa mínimo; `core/input_bindings.gd`
 - **Descrição:** tela mínima para remapear as ações do input map, com aviso de conflito e persistência em `Settings.input_bindings`.
 - **Aceitação:** critérios de ACC-05.
 - **Testes:** ACC-05.
 
 ### F1-014 · Registro de licenças de assets
-- **Responsável:** Art & Environment · **Esforço:** LOW · **Depende de:** D-06 · **Status:** REVIEW. Feito pelo Director: `ASSET_LICENSES.md` + regra no checklist do Reviewer (AGENT_ASSIGNMENTS §2). D-06 aprovada em 2026-11-20: CC0 permitido com registro
+- **Responsável:** Art & Environment · **Esforço:** LOW · **Depende de:** D-06 · **Status:** APPROVED (Gate F1: revisão F1-010 e validação F1-011). Antes: REVIEW. Feito pelo Director: `ASSET_LICENSES.md` + regra no checklist do Reviewer (AGENT_ASSIGNMENTS §2). D-06 aprovada em 2026-11-20: CC0 permitido com registro
 - **Descrição:** `ASSET_LICENSES.md` (asset, fonte, licença, data, URL) + regra: nenhum asset externo entra sem registro.
 - **Aceitação:** arquivo criado; regra adicionada ao checklist do Technical Reviewer.
 
@@ -125,20 +125,20 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 - **Aceitação:** relatório com achados classificados; críticos e altos resolvidos ou aceitos pelo Director com justificativa.
 
 ### F1-011 · Validação de QA da Fase 1
-- **Responsável:** QA Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F1-010 · **Status:** BACKLOG
+- **Responsável:** QA Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F1-010 · **Status:** APPROVED (com ressalvas). Três rodadas: 5 bugs novos na 1ª (BUG-004..008), regressão BUG-009 na 2ª, BUG-010/011 na 3ª; todos fechados ou aceitos. Relatório: `Docs/QA/F1-011_VALIDATION.md`
 - **Aceitação:** suíte completa executada pelo QA, com saída em TEST_RESULTS.md; tentativas de exploit documentadas (prender-se na geometria, levantar no vão, interagir através de paredes).
 
 ### F1-012 · Documentação da Fase 1
-- **Responsável:** Project Director · **Esforço:** LOW · **Depende de:** F1-011 · **Status:** BACKLOG
+- **Responsável:** Project Director · **Esforço:** LOW · **Depende de:** F1-011 · **Status:** APPROVED. PLAYER_CONTROLLER.md v1.0, CHANGELOG, KNOWN_ISSUES, TEST_RESULTS (seção Gate F1) e ROADMAP atualizados
 - **Descrição:** PLAYER_CONTROLLER.md, CHANGELOG, KNOWN_ISSUES, TEST_RESULTS e ROADMAP atualizados.
 
 **Paralelismo na F1:** depois de F1-004, F1-005 ∥ F1-006 ∥ F1-008 ∥ F1-013. F1-009 começa com F1-006 em andamento. Os documentos de design rodam em paralelo, sem dependência de código:
 
 | ID | Tarefa de design | Responsável | Esforço | Status |
 |---|---|---|---|---|
-| F1-D01 | GAME_DESIGN_DOCUMENT v0.1 (pilares, loop, mecânicas, capítulos, itens) | Project Director | MEDIUM | REVIEW (Docs/Design/GAME_DESIGN_DOCUMENT.md) |
+| F1-D01 | GAME_DESIGN_DOCUMENT v0.1 (pilares, loop, mecânicas, capítulos, itens) | Project Director | MEDIUM | APPROVED como v0.1. Antes: REVIEW (Docs/Design/GAME_DESIGN_DOCUMENT.md) |
 | F1-D02 | NARRATIVE v0.1 (mistério, objeto procurado, moradores anteriores, pistas por capítulo) | Level Designer | MEDIUM | REVIEW (Docs/Design/NARRATIVE.md; questões N-01..N-05 em aberto) |
-| F1-D03 | ART_DIRECTION v0.1 (paleta, luz, materiais, orçamento de polígonos) | Art & Environment | MEDIUM | REVIEW (Docs/Design/ART_DIRECTION.md; 5 materiais CC0 em game/content/materials/, licenças conferidas; captura em EVIDENCE/F1-D03_materials.png) |
+| F1-D03 | ART_DIRECTION v0.1 (paleta, luz, materiais, orçamento de polígonos) | Art & Environment | MEDIUM | APPROVED como v0.1. Antes: REVIEW (Docs/Design/ART_DIRECTION.md; 5 materiais CC0 em game/content/materials/, licenças conferidas; captura em EVIDENCE/F1-D03_materials.png) |
 
 **Desvios de esforço em relação à matriz do MASTER §7.1 (justificados):**
 - F1-009 sandbox: MEDIUM (level design é HIGH). É uma cena de teste descartável, não level design de produção.

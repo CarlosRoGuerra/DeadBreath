@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 13:55:27 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 3 arquivo(s) de teste em: res://tests/property
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_agachado_varredura_de_fase  5798 ms  (asserts: 1)
+      nota: agachado: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_andando_devagar_varredura_de_fase  5926 ms  (asserts: 1)
+      nota: devagar: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_correndo_varredura_de_fase  5694 ms  (asserts: 1)
+      nota: correndo: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_rastejando_varredura_de_fase  3395 ms  (asserts: 1)
+      nota: rastejando: 10 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+FAIL  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_diagonal_suave_sobe_e_desce_sem_queda  2198 ms  (asserts: 1)
+      nota: diagonal 14°: 6 passagens; ticks sem chão=0; landed=0; penetrações=0
+      - res://tests/property/qa/test_f1011_bug001_002_escadas.gd:261 -> assert_eq: esperado 0, obtido 2 | diagonal suave: x0=17.00 fase 0: chegou=false/true subida[ticks=940 no_ar=0 (sequencia_max=0) landed=0 penetracao=0] descida[ticks=118 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]; x0=17.00 fase 1: chegou=false/true subida[ticks=940 no_ar=0 (sequencia_max=0) landed=0 penetracao=0] descida[ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_entrada_dentro_da_abertura_sobe_sem_queda  1085 ms  (asserts: 1)
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_entrada_pela_borda_e_guarda_do_mezanino  1512 ms  (asserts: 1)
+      nota: entrada x=16.30: parou em z=-2.388 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=16.45: parou em z=-2.394 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=17.55: parou em z=-2.394 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=17.70: parou em z=-2.388 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_parada_no_meio_da_subida_nao_cai  333 ms  (asserts: 3)
+      nota: parada na subida: queda parado (após 12 ticks)=0.0000 m; subida[ticks=373 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_parede_lateral_da_escada_bloqueia_sem_atravessar  264 ms  (asserts: 3)
+      nota: encosto lateral no degrau de 0,72 m: x final=16.150; ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_troca_de_postura_no_meio_da_subida  297 ms  (asserts: 3)
+      nota: troca de postura na subida: mudanças de postura=5; subida[ticks=179 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]; descida[ticks=137 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_a_partir_do_mezanino_andando_devagar  5263 ms  (asserts: 1)
+      nota: descida devagar: 20 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_agachado_a_partir_do_mezanino  5230 ms  (asserts: 1)
+      nota: descida agachado: 20 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_rastejando_a_partir_do_mezanino  2877 ms  (asserts: 1)
+      nota: descida rastejando: 10 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_parada_no_meio_da_descida_nao_cai  292 ms  (asserts: 3)
+      nota: parada na descida: queda parado (após 12 ticks)=0.0000 m; descida[ticks=335 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_saida_lateral_do_degrau_de_0_18_nao_gera_queda  257 ms  (asserts: 5)
+      nota: saída lateral do degrau de 0,18 m: x final=18.367 y=0.000; ticks=123 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+
+RESUMO: total=15 passou=14 falhou=1 sem_assert=0 tempo_total_ms=42061
+  falhou: property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_diagonal_suave_sobe_e_desce_sem_queda
+RESULTADO: REPROVADO (codigo de saida 1)

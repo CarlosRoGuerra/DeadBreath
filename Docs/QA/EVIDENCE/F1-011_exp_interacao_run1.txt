@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:07:56 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 3 arquivo(s) de teste em: res://tests/scenarios
+PASS  scenarios/qa/test_f1011_interacao.gd::test_interacao_pickup_atras_da_porta_trancada_nao_e_alcancado  260 ms  (asserts: 6)
+FAIL  scenarios/qa/test_f1011_interacao.gd::test_interacao_raios_nao_atravessam_paredes_nem_portas_fechadas  227 ms  (asserts: 2)
+      nota: raios testados=1076; passando pelo vão aberto=124; vazamentos=6
+      - res://tests/scenarios/qa/test_f1011_interacao.gd:113 -> assert_eq: esperado 0, obtido 6 | nenhum raio atravessa parede ou porta fechada: par 0: de (1.282553, 0.098097, -4.046207) a (9.648109, 1.190893, -4.428891) cruza em (6.0, 0.714339, -4.262008), primeiro acerto em (2.55, 0.263665, -4.104187); par 2: de (11.78286, 1.378693, -2.087574) a (16.50715, 1.532454, -0.644093) cruza em (14.0, 1.450854, -1.410139), primeiro acerto em (13.7059, 1.441282, -1.5); par 4: de (2.924217, 0.543732, -2.840731) a (-1.381758, 1.627025, -5.435803) cruza em (0.0, 1.279404, -4.603063), primeiro acerto em (2.700558, 0.6, -2.975523); par 1: de (2.406201, 0.152939, -3.057099) a (8.134208, 1.328165, -0.334647) cruza em (6.0, 0.890285, -1.34901), primeiro acerto em (2.631536, 0.199171, -2.95); par 2: de (9.753094, 1.346416, -3.187373) a (14.60761, 0.718241, -0.611238) cruza em (14.0, 0.796866, -0.933677), primeiro acerto em (12.93281, 0.934961, -1.5); par 1: de (0.52413, 0.161347, -3.627992) a (9.604512, 0.220316, -0.472497) cruza em (6.0, 0.196908, -1.72509), primeiro acerto em (2.55, 0.174503, -2.923988); ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; 
+FAIL  scenarios/qa/test_f1011_interacao.gd::test_interacao_segurada_com_menu_de_pausa_nao_vaza_para_depois  241 ms  (asserts: 5)
+      nota: segurar com pausa: estado da porta=1; aberturas=[true]; em movimento=true
+      - res://tests/scenarios/qa/test_f1011_interacao.gd:179 -> assert_false: esperado falso | a porta não abre devagar sem o botão apertado (aberturas=[true])
+
+RESUMO: total=3 passou=1 falhou=2 sem_assert=0 tempo_total_ms=1167
+  falhou: scenarios/qa/test_f1011_interacao.gd::test_interacao_raios_nao_atravessam_paredes_nem_portas_fechadas
+  falhou: scenarios/qa/test_f1011_interacao.gd::test_interacao_segurada_com_menu_de_pausa_nao_vaza_para_depois
+RESULTADO: REPROVADO (codigo de saida 1)

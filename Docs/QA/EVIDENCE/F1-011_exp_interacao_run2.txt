@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:09:18 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 3 arquivo(s) de teste em: res://tests/scenarios
+PASS  scenarios/qa/test_f1011_interacao.gd::test_interacao_controle_segurar_sem_pausa_abre_rapido  265 ms  (asserts: 1)
+      nota: controle sem pausa: estado=1; aberturas=[false]
+PASS  scenarios/qa/test_f1011_interacao.gd::test_interacao_pickup_atras_da_porta_trancada_nao_e_alcancado  227 ms  (asserts: 6)
+PASS  scenarios/qa/test_f1011_interacao.gd::test_interacao_raios_nao_atravessam_paredes_nem_portas_fechadas  224 ms  (asserts: 2)
+      nota: raios testados=1076; passando pelo vão aberto=124; vazamentos=0
+FAIL  scenarios/qa/test_f1011_interacao.gd::test_interacao_segurada_com_menu_de_pausa_nao_vaza_para_depois  239 ms  (asserts: 5)
+      nota: segurar com pausa: estado da porta=1; aberturas=[true]; em movimento=true
+      - res://tests/scenarios/qa/test_f1011_interacao.gd:181 -> assert_false: esperado falso | a porta não abre devagar sem o botão apertado (aberturas=[true])
+
+RESUMO: total=4 passou=3 falhou=1 sem_assert=0 tempo_total_ms=1514
+  falhou: scenarios/qa/test_f1011_interacao.gd::test_interacao_segurada_com_menu_de_pausa_nao_vaza_para_depois
+RESULTADO: REPROVADO (codigo de saida 1)

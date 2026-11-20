@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 15:21:59 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 7 arquivo(s) de teste em: res://tests/property
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_painel_aberto_bloqueia_o_corpo  313 ms  (asserts: 2)
+      nota: painel aberto: corpo parou em z=-0.869; ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_com_corpo_no_arco_segurando_para_e_retoma  290 ms  (asserts: 12)
+      nota: segurando: no arco, ângulo=15.9°, eventos blocked=1, primeiro bloqueio=Player, corpo deslocou 0.0000 m, penetração=0, câmera dentro=0
+      nota: segurando: saiu do arco; ângulo final=90.0°; último bloqueio=Player; bloqueada=false; corpo em x=7.622; penetração total=0
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_com_corpo_no_arco_toque_para_e_retoma  269 ms  (asserts: 12)
+      nota: toque: no arco, ângulo=12.9°, eventos blocked=1, primeiro bloqueio=Player, corpo deslocou 0.0000 m, penetração=0, câmera dentro=0
+      nota: toque: saiu do arco; ângulo final=90.0°; último bloqueio=Player; bloqueada=false; corpo em x=7.622; penetração total=0
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_fechada_bloqueia_com_spam_de_postura  300 ms  (asserts: 3)
+      nota: porta fechada com spam de postura: corpo x=6.282 (painel em x=6,03); ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+
+RESUMO: total=4 passou=4 falhou=0 sem_assert=0 tempo_total_ms=1800
+RESULTADO: APROVADO (codigo de saida 0)

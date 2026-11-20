@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 15:25:50 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 9 arquivo(s) de teste em: res://tests/property
+DIAG t60 em_espera ang=37.5
+DIAG t72 bloqueada=true ang=47.8 corpo=6.934
+DIAG t228 (saindo) bloqueada=false ang=48.8 corpo=6.959
+DIAG t229 (saindo) bloqueada=true ang=48.8 corpo=6.970
+DIAG t230 (saindo) bloqueada=false ang=49.7 corpo=6.984
+DIAG t0 blocked(Player) ang=47.8 pos=6.934
+DIAG t0 blocked(Player) ang=48.8 pos=6.970
+DIAG fim ang=87.2
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_blocked_duplo  570 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=851
+RESULTADO: APROVADO (codigo de saida 0)

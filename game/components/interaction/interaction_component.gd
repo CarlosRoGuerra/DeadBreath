@@ -27,11 +27,29 @@ var _pending_press: bool = false
 var _pending_release: bool = false
 
 
+## Recebe a entrada mesmo com a árvore pausada (PROCESS_MODE_ALWAYS): a soltura nunca se perde (BUG-005).
+## Aperto durante a pausa é ignorado. A soltura é registrada sempre.
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"interact"):
-		press_interact()
+		if not get_tree().paused:
+			press_interact()
 	elif event.is_action_released(&"interact"):
 		release_interact()
+
+
+## Pausa no meio do segurar cancela o segurar (interaction_failed). Para tentar de novo, é preciso apertar outra vez
+## depois de continuar. O progresso não é guardado nem retomado (BUG-005).
+func _process(_delta: float) -> void:
+	if get_tree().paused and _hold_target != null:
+		var lost: Interactable = _hold_target
+		_clear_hold()
+		_held = false
+		if is_instance_valid(lost):
+			interaction_failed.emit(lost)
 
 
 ## Injetado pelo PlayerRoot: câmera do raio e corpo excluído do raio.

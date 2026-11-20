@@ -29,6 +29,14 @@ const STEP_CLEARANCE_M: float = 0.002
 const STEP_PROBE_EXTRA_M: float = 0.03
 ## Velocidade de aderência usada no move_and_slide de assentamento (m/s, para baixo, sem movimento horizontal).
 const GROUND_STICK_SPEED_MS: float = 1.0
+## Abaixo desta fração do deslocamento pedido, o tick conta como travado (BUG-004).
+const UNSTICK_RATIO: float = 0.25
+## Deslocamento pedido mínimo (m) para o teste de travamento valer (rastejando, 0,5 m/s, dá 8 mm por tick).
+const UNSTICK_MIN_COMMAND_M: float = 0.0005
+## Variação vertical abaixo deste valor (m) não entra na compensação da câmera: é o balanço do assentamento (margem de 1 mm).
+const CAMERA_DEADBAND_M: float = 0.002
+## Altura do levantamento ao destravar (m). O assentamento traz o corpo de volta ao piso.
+const UNSTICK_LIFT_M: float = 0.01
 ## Deslocamento da sondagem do assentamento no sentido do movimento (m). Ver _settle_on_ground.
 const SETTLE_PROBE_SHIFT_M: float = 0.0025
 ## Avanço horizontal extra no instante em que o degrau é subido. O movimento do tick termina exatamente com a borda
@@ -198,7 +206,24 @@ func step(dt: float) -> void:
 	if grounded and planar.length_squared() > MOVE_EPSILON:
 		_try_step_up(Vector3(velocity.x, 0.0, velocity.z) * dt)
 	_body.velocity = velocity
+	var before_slide: Vector3 = _body.global_position
 	_body.move_and_slide()
+	var slid: Vector3 = _body.global_position - before_slide
+	var commanded: Vector2 = target_planar * dt
+	if grounded and commanded.length() > UNSTICK_MIN_COMMAND_M and Vector2(slid.x, slid.z).length() < UNSTICK_RATIO * commanded.length():
+		# Travado no piso (BUG-004): o corpo ficou parado contra o canto de um pilar com o comando de andar. Levanta
+		# 1 cm e refaz o movimento horizontal; o assentamento devolve o corpo ao piso. Não age num andar normal.
+		_body.global_position += Vector3.UP * UNSTICK_LIFT_M
+		_body.velocity = Vector3(velocity.x, 0.0, velocity.z)
+		var lifted_from: Vector3 = _body.global_position
+		_body.move_and_slide()
+		slid = _body.global_position - lifted_from
+	if dt > 0.0 and Vector2(slid.x, slid.z).length() < UNSTICK_RATIO * Vector2(velocity.x, velocity.z).length() * dt:
+		# Bloqueado: a velocidade horizontal guardada passa a ser o deslocamento realizado (sem isso, a próxima passada
+		# volta com a mesma força contra o obstáculo). Em rampa ou parede deslizada, o deslocamento é quase o pedido e a
+		# velocidade fica como está.
+		_body.velocity.x = slid.x / dt
+		_body.velocity.z = slid.z / dt
 	var now_grounded: bool = _body.is_on_floor()
 	if grounded and not now_grounded:
 		_settle_on_ground(Vector3(velocity.x, 0.0, velocity.z).normalized() if planar.length_squared() > MOVE_EPSILON else Vector3.ZERO)
@@ -213,7 +238,9 @@ func step(dt: float) -> void:
 		var expected_dy: float = 0.0
 		if floor_normal.y > MOVE_EPSILON:
 			expected_dy = -(planar_move.x * floor_normal.x + planar_move.z * floor_normal.z) / floor_normal.y
-		_step_visual_offset += dy - expected_dy
+		var residual: float = dy - expected_dy
+		if absf(residual) > CAMERA_DEADBAND_M:
+			_step_visual_offset += residual
 	if not grounded and now_grounded:
 		landed.emit(fall_speed)
 	_was_on_floor = now_grounded

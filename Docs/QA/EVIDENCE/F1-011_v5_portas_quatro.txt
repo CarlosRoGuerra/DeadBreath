@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 15:27:17 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 8 arquivo(s) de teste em: res://tests/property
+PASS  property/qa/test_f1011_portas_quatro.gd::test_brecha_no_encontro_do_painel_com_o_batente_nao_existe  1604 ms  (asserts: 1)
+      nota: batente em z=-1,32, painel a 0°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 15°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 27°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 45°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 60°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 90°: x máximo 5.65; penetração=0
+FAIL  property/qa/test_f1011_portas_quatro.gd::test_geometria_estatica_no_arco_nao_bloqueia_o_giro_aceito  257 ms  (asserts: 2)
+      nota: caixa estática no arco: ângulo final 0.0°; bloqueada=false; intrusão do painel na caixa (aprox.) 25.0 mm
+      - res://tests/property/qa/test_f1011_portas_quatro.gd:350 -> assert_true: esperado verdadeiro | geometria estática no arco não bloqueia o giro (ângulo 0.0°)
+PASS  property/qa/test_f1011_portas_quatro.gd::test_medicao_intrusao_do_painel_no_batente_por_angulo  225 ms  (asserts: 2)
+      nota: intrusão do painel no batente (encolhimento que libera a sobreposição): 0°: 0.0 mm; 10°: 4.5 mm; 20°: 8.0 mm; 27°: 10.1 mm; 35°: 12.4 mm; 45°: 15.0 mm; 60°: 19.0 mm; 75°: 23.7 mm; 90°: 25.0 mm | pior 25.0 mm a 90°
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_corredor_hall_corpo_no_arco_para_e_libera  578 ms  (asserts: 1)
+      nota: corredor-hall, corpo no arco: toque no arco: ângulo 12.9°, bloqueada=true, blocked emitido 1 vez(es), corpo deslocou 0.0000 m, penetração=0 | toque, depois de sair: ângulo 90.0°, bloqueada=false | segurar no arco: ângulo 15.9°, bloqueada=true, blocked emitido 1 vez(es), corpo deslocou 0.0000 m, penetração=0 | segurar, depois de sair: ângulo 90.0°, bloqueada=false
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_corredor_hall_sem_corpo_abre_por_inteiro  525 ms  (asserts: 1)
+      nota: corredor-hall, sem corpo: toque: 90.0°; segurar: 90.0°
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_cozinha_corredor_trancada_so_da_feedback  256 ms  (asserts: 3)
+      nota: cozinha-corredor (trancada): feedback=1, estado=2, ângulo 0.0 -> 0.0
+FAIL  property/qa/test_f1011_portas_quatro.gd::test_porta_sala_corredor_corpo_entra_no_arco_no_meio_da_abertura  283 ms  (asserts: 7)
+      nota: entrada no meio da abertura (segurar): entrou no arco em 6.96 m, bloqueou=true em 47.8°; deslocou 0.0000 m depois do contato; blocked emitido 2 vez(es); depois de sair: 90.0°, bloqueada=false; ticks=147 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      - res://tests/property/qa/test_f1011_portas_quatro.gd:236 -> assert_eq: esperado 1, obtido 2 | um único bloqueio contínuo emite blocked uma vez (regra 3; emitido 2)
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_sala_corredor_segurar_sem_corpo_abre_por_inteiro  260 ms  (asserts: 1)
+      nota: sala-corredor, segurar, sem corpo: ângulo 90.0°; bloqueada=false
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_sala_corredor_toque_sem_corpo_abre_por_inteiro  253 ms  (asserts: 1)
+      nota: sala-corredor, toque, sem corpo: ângulo 90.0°; bloqueada=false
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_sala_cozinha_aberta_nao_bloqueia  253 ms  (asserts: 3)
+      nota: sala-cozinha (aberta): estado=1, blocked=0, ângulo 90.0°
+
+RESUMO: total=10 passou=8 falhou=2 sem_assert=0 tempo_total_ms=5913
+  falhou: property/qa/test_f1011_portas_quatro.gd::test_geometria_estatica_no_arco_nao_bloqueia_o_giro_aceito
+  falhou: property/qa/test_f1011_portas_quatro.gd::test_porta_sala_corredor_corpo_entra_no_arco_no_meio_da_abertura
+RESULTADO: REPROVADO (codigo de saida 1)

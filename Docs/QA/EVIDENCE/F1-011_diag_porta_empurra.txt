@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:05:27 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 7 arquivo(s) de teste em: res://tests/property
+DIAG inicio pos=(6.450,0.000,-0.700) foco=door_sala_corredor:<Node3D#55247374178>
+DIAG t=0 pos=(6.450,0.000,-0.700) ang=4.3 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=1 pos=(6.450,0.000,-0.700) ang=8.6 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=2 pos=(6.450,0.000,-0.700) ang=12.9 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=3 pos=(6.450,0.000,-0.700) ang=17.1 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=4 pos=(6.450,0.000,-0.700) ang=21.4 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=5 pos=(6.474,0.001,-0.710) ang=25.7 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=6 pos=(6.507,0.001,-0.745) ang=30.0 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=7 pos=(6.545,0.001,-0.767) ang=34.3 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=8 pos=(6.574,0.001,-0.807) ang=38.6 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=9 pos=(6.609,0.001,-0.836) ang=42.9 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=10 pos=(6.632,0.001,-0.881) ang=47.1 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=11 pos=(6.664,0.001,-0.916) ang=51.4 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=12 pos=(6.682,0.001,-0.965) ang=55.7 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=13 pos=(6.709,0.001,-1.005) ang=60.0 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=14 pos=(6.726,0.001,-1.053) ang=64.3 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=15 pos=(6.771,0.001,-1.078) ang=68.6 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=16 pos=(6.833,0.001,-1.103) ang=72.9 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=17 pos=(6.905,0.001,-1.133) ang=77.1 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=18 pos=(6.997,0.001,-1.159) ang=81.4 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=19 pos=(7.141,0.001,-1.063) ang=85.7 pen=true vel=(-0.00,0.00) floor=true
+DIAG t=20 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=21 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=22 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=23 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=24 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=25 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=26 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=27 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=28 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=29 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=30 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=31 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=32 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=33 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=34 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=35 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=36 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=37 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=38 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+DIAG t=39 pos=(7.147,0.001,-1.049) ang=90.0 pen=false vel=(-0.00,0.00) floor=true
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_porta_empurra  1927 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=2165
+RESULTADO: APROVADO (codigo de saida 0)

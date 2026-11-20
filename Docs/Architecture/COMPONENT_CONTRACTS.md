@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.2 (DRAFT — Fase 0, revisado após DISC-006) |
+| Versão | 0.3: §1–§3, §3.1, §15 e §16 **congelados (v1.0) no Gate F1**, 2026-11-20; demais seções em draft até a fase de cada sistema |
 | Status | Proposta. Cada contrato é congelado (v1.0) antes da implementação do sistema na sua fase. |
 | Responsável | Software Architect |
 
@@ -111,6 +111,8 @@ func get_focused() -> Interactable
 - **Door:** estados `CLOSED`, `OPEN`, `LOCKED`. Segurar = abertura lenta (30 dB); toque = normal (50 dB). Atualiza o `Portal` acústico associado. É `Saveable`.
 - **Pickup:** tem `persist_id`, emite `EventBus.item_picked` e se remove. É `Saveable` (consumido ou não).
 - **Door (F1):** começa no estado `initial_state`; se for `OPEN`, o painel já nasce no ângulo de abertura.
+- **Door, painel que não empurra (F1-011, BUG-006 e BUG-009):** o painel avança no tick de física. Um incremento só vale se a caixa do painel, crescida em 2 cm por lado, não encosta em corpo móvel: objetos dinâmicos (camada 2), jogador (camada 3) ou inimigos (camada 4). O próprio painel não conta. Se o próximo passo encostaria em um desses corpos, o painel fica parado no ângulo atual, emite `blocked(body)` uma vez por bloqueio e retoma quando o caminho está livre. O estado continua `OPEN` durante o bloqueio. A porta nunca empurra o jogador. **Geometria estática (camada 1) não bloqueia o giro:** o arco livre (sem paredes ou quinas dentro do giro) é responsabilidade do level design. Um painel de 2,0 m de altura casa com o vão de `DOOR_H` do gerador.
+- **Interação e pausa (F1-011, BUG-005):** `InteractionComponent` usa `PROCESS_MODE_ALWAYS`, então recebe a soltura do botão mesmo com a árvore pausada. Aperto com a árvore pausada é ignorado. Pausar no meio do segurar cancela o segurar (`interaction_failed`). Para tentar de novo, é preciso apertar outra vez depois de continuar; o progresso não é guardado. O estado do segurar vem dos eventos de aperto e soltura, não do singleton `Input`, para que a entrada injetada pelos testes (`push_input`) funcione.
 - **LevelSlots (L2, `components/world/level_slots.gd`, integração F1-009):** instancia Door e Pickup nos marcadores do Level Designer. `door_slot` = `Marker3D` no centro do vão, 1,0 m acima do piso, +Z local ao longo da largura; metadados `door_id`, `start_state` (`closed`/`open`/`locked`), `opening_width_m`. `pickup_slot` = `Marker3D` na posição do item; metadados `persist_id`, `item_id`. `persist_id` repetido gera `Log.error`.
 
 ### 3.1 API pública acrescentada na Fase 1 (revisão F1-010, R1-12) — v1.0
@@ -161,9 +163,11 @@ enum State { CLOSED, OPEN, LOCKED }
 signal state_changed(old_state: State, new_state: State)
 signal opened(slow: bool)                ## a F3 liga o NoiseEmitter aqui
 signal locked_feedback(actor: Node)
+signal blocked(body: Node)               ## F1-011: o painel parou antes de encostar em corpo móvel (jogador, inimigo ou objeto dinâmico); uma vez por bloqueio
 ## @export: initial_state, open_time_fast_s, open_time_slow_s, open_angle_deg
 func get_state() -> State
 func is_moving() -> bool
+func is_blocked() -> bool                ## true enquanto o painel está parado por um corpo
 func get_panel_angle_deg() -> float
 func lock() -> void
 func unlock() -> void

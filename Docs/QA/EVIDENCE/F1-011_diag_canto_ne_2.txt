@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:01:57 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 6 arquivo(s) de teste em: res://tests/property
+DIAG preso em (19.3999, 0.0009, -5.2500)
+DIAG dir=(-1.00,0.00) deslocou=0.4583 m fim=(18.942, -5.250)
+DIAG dir=(1.00,0.00) deslocou=0.2750 m fim=(19.650, -5.250)
+DIAG dir=(0.00,1.00) deslocou=0.0193 m fim=(19.436, -5.249)
+DIAG dir=(0.00,-1.00) deslocou=0.0000 m fim=(19.400, -5.250)
+DIAG dir=(-0.71,-0.71) deslocou=0.0000 m fim=(19.400, -5.250)
+DIAG dir=(0.71,-0.71) deslocou=0.0000 m fim=(19.400, -5.250)
+DIAG dir=(-0.71,0.71) deslocou=0.0000 m fim=(19.400, -5.250)
+DIAG contatos no último move_and_slide: 6
+DIAG   contato 0: normal=(0.0, 1.0, 0.0) corpo=Floor_hall:<StaticBody3D#47311750824> pos=(19.64986, 0.0, -5.24996)
+DIAG   contato 1: normal=(0.0, 1.0, 0.0) corpo=Floor_hall:<StaticBody3D#47311750824> pos=(19.64986, 0.0, -5.24996)
+DIAG   contato 2: normal=(0.0, 1.0, 0.0) corpo=Floor_hall:<StaticBody3D#47311750824> pos=(19.64986, 0.0, -5.24996)
+DIAG   contato 3: normal=(0.0, 1.0, 0.0) corpo=Floor_hall:<StaticBody3D#47311750824> pos=(19.64986, 0.0, -5.24996)
+DIAG   contato 4: normal=(0.0, 1.0, 0.0) corpo=Floor_hall:<StaticBody3D#47311750824> pos=(19.64986, 0.0, -5.24996)
+DIAG   contato 5: normal=(0.0, 1.0, 0.0) corpo=Floor_hall:<StaticBody3D#47311750824> pos=(19.64986, 0.0, -5.24996)
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_canto_ne_hall  892 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=1117
+RESULTADO: APROVADO (codigo de saida 0)

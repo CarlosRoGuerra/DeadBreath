@@ -130,3 +130,26 @@ Controlador mínimo do spike (`spikes/disc003/mover.gd`), 60 Hz, `floor_snap_len
 | ARC-07 (config ausente) | Parcial: config ausente do motor → padrões + `Log.error`. O comportamento de falha imediata em debug ainda não existe |
 | ACC-01 | Só o head bob (`motion_reduction`). Tremor e efeitos de câmera chegam na F2 |
 | ACC-02, ACC-03, ACC-04 | Sem cobertura: `effects_intensity`, indicador respiratório e legendas são das F2/F3 |
+
+---
+
+## Gate F1 — execução consolidada
+
+| Campo | Valor |
+|---|---|
+| Data | 2026-11-20 |
+| Comando | `powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_tests.ps1` (2 execuções seguidas, Director) |
+| Evidência | `EVIDENCE/F1-GATE_pipeline_run1.txt`, `F1-GATE_pipeline_run2.txt` |
+| Resultado | **APROVADO nas duas** (código 0; ~99 s de parede) |
+
+| Etapa | Execução 1 | Execução 2 |
+|---|---|---|
+| Importação | OK | OK |
+| ARC-04 (compilação de todos os scripts) | 1/1 | 1/1 |
+| Suíte padrão (unit, integration, scenarios, architecture) | **146/146**, 8,7 s | **146/146**, 8,7 s |
+| Propriedade (varreduras de escada e exploits do QA) | **63/63**, 75 s | **63/63**, 75 s |
+| Meta (framework) | **26/26** | **26/26** |
+
+Validações independentes da fase:
+- **Revisão técnica F1-010** (`REVIEWS/F1-010.md`, `F1-010_VERIFICATION.md`): REPROVADA (2 ALTO) → correções → APROVADA COM RESSALVAS.
+- **Validação QA F1-011** (`F1-011_VALIDATION.md`): 3 rodadas; 33 tentativas de exploit; BUG-001..007 e 009/010 fechados por quem não corrigiu (BUG-010 pelo teste de reprodução do QA); BUG-008 e BUG-011 aceitos.

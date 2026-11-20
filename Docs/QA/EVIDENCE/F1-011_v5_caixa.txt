@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 15:27:47 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 8 arquivo(s) de teste em: res://tests/property
+PASS  property/qa/test_f1011_portas_quatro.gd::test_geometria_estatica_no_arco_nao_bloqueia_o_giro_aceito  293 ms  (asserts: 2)
+      nota: caixa estática no arco: ângulo final 90.0°; bloqueada=false; intrusão do painel na caixa (aprox.) 25.0 mm
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=603
+RESULTADO: APROVADO (codigo de saida 0)

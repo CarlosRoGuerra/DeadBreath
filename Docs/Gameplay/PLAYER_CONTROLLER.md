@@ -2,8 +2,8 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.9 (rascunho da F1-012, 2026-11-20) |
-| Estado | **Rascunho.** Descreve o código do commit `784360e`. Vira 1.0 depois da nova verificação da revisão F1-010 e da validação independente do QA (F1-011) |
+| Versão | 1.0 (F1-012, 2026-11-20) |
+| Estado | **Validado**: revisão técnica F1-010 e validação independente F1-011, ambas APROVADAS COM RESSALVAS; pipeline do Gate F1 verde |
 | Código | `game/components/player/` (PlayerRoot, PlayerMotor, PlayerMotorConfig, MotorInput, `player.tscn`), `game/components/interaction/`, `game/content/data/player_motor_config.tres` |
 | Contratos | COMPONENT_CONTRACTS §1, §2 (com o complemento v1.0), §3 e §3.1; DATA_STRUCTURES §1.1 e §10 |
 
@@ -42,6 +42,7 @@ O **PlayerRoot** é o único script que conhece os componentes (PLR-INV-1; ARC-0
 - **Assentamento** (BUG-002): se o tick termina no ar e existe piso voltado para cima até 0,30 m abaixo, o corpo é levado até ele. Isso evita a queda pela quina ao descer escadas.
 - Critério verificado por propriedade (`tests/property/player/test_escada_propriedade.gd`): **0 ticks sem chão e nenhum `landed`** subindo e descendo, em todo o ciclo do degrau a cada 5 mm, nas escadas 0,18/0,28, 0,18/0,30 e na da sandbox.
 - Rampas até 45° (`floor_max_angle`); parado numa rampa de 30°, o corpo não escorrega.
+- **Cantos (BUG-004, contorno):** se o corpo pede movimento no chão e o tick anda menos de 25% do pedido, a velocidade guardada vira o deslocamento real; travado, o motor levanta 1 cm, refaz o movimento horizontal e reassenta. A causa exata (contato dentro da margem de segurança do piso) não foi identificada; dívida técnica antes da F2.
 - `landed(fall_speed)` dispara na transição ar → chão de uma queda real, com a velocidade vertical do impacto em m/s. `fall_injury_height` (2,5 m) será usado pela fisiologia (F2).
 
 ## 4. Câmera
@@ -60,8 +61,10 @@ O **PlayerRoot** é o único script que conhece os componentes (PLR-INV-1; ARC-0
 
 - Raio da câmera de 2,0 m; foco só em alvos da camada 5 (`interactable`); paredes (camadas 1 e 2) bloqueiam. Não há interação através de paredes.
 - **Tocar** (E) executa ações instantâneas. **Segurar** executa ações com `hold_time`. Soltar antes do tempo, ou perder o foco, dispara `interaction_failed`.
+- **Pausa (BUG-005):** pausar no meio de um segurar cancela o segurar (`interaction_failed`); para tentar de novo, aperte depois de continuar.
 - Com `requires_steady_hands`, o tempo de segurar é multiplicado por `1 + 1,5 × (1 − firmeza)`. A firmeza vem da fisiologia (1,0 na F1).
 - **Porta:** segurar abre devagar (1,6 s, `opened(slow = true)`); tocar abre no tempo normal (0,35 s). Trancada: `locked_feedback`. Porta que começa aberta nasce com o painel aberto.
+- **A porta não empurra** (BUG-006/009/010): o painel só avança se mantiver 2 cm de folga de corpos móveis (jogador, inimigos, objetos dinâmicos). Se encostaria, espera e emite `blocked(body)` uma vez; volta a andar quando dois incrementos seguidos estão livres. Paredes não bloqueiam o giro: o arco livre é responsabilidade do level design.
 - **Pickup:** exige `persist_id`, emite `EventBus.item_picked` e some.
 
 ## 7. Input e opções

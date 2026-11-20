@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 13:58:10 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 4 arquivo(s) de teste em: res://tests/property
+FAIL  property/qa/test_f1011_bug003_camera.gd::test_bug003_inversao_no_meio_da_rampa_30_graus  68 ms  (asserts: 2)
+      nota: inversão na rampa 30°: erro depois de inverter=0.0000 m (0 amostras); ticks=360 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      - res://tests/property/qa/test_f1011_bug003_camera.gd:238 -> assert_true: esperado verdadeiro | amostras em regime depois de inverter (0)
+FAIL  property/qa/test_f1011_bug003_camera.gd::test_bug003_parada_na_rampa_30_graus_nao_escorrega  54 ms  (asserts: 4)
+      nota: parada na rampa 30° em z=-0.850 (y=0.636): erro da câmera parada=0.0000 m; deslize=0.0188 m; ticks=270 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      - res://tests/property/qa/test_f1011_bug003_camera.gd:220 -> assert_true: esperado verdadeiro | a caminhada até a parada subiu a rampa (z = -0.850)
+      - res://tests/property/qa/test_f1011_bug003_camera.gd:222 -> assert_true: esperado verdadeiro | parado na rampa de 30° o corpo não escorrega (deslize 0.0188 m)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_agachado_30_graus  176 ms  (asserts: 3)
+      nota: rampa 30° agachado: subida erro=0.0071 m (288 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0014 m (199 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_andando_devagar_10_20_30_graus  511 ms  (asserts: 1)
+      nota: rampa 10° devagar: subida erro=0.0021 m (296 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0017 m (277 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+      nota: rampa 20° devagar: subida erro=0.0044 m (289 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0059 m (256 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+      nota: rampa 30° devagar: subida erro=0.0003 m (275 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0021 m (224 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_diagonal_20_graus  92 ms  (asserts: 2)
+      nota: rampa 20° diagonal: subida erro=0.0002 m (285 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); x final=1.066
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_rastejando_20_graus  92 ms  (asserts: 2)
+      nota: rampa 20° rastejando: subida erro=0.0018 m (187 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+FAIL  property/qa/test_f1011_bug003_camera.gd::test_bug003_saida_da_rampa_para_o_plano_30_graus  114 ms  (asserts: 4)
+      nota: saída para o plano 30°: chegou ao plano=false; z=-5.335 y=3.001; erro no plano=0.0000 m (0 amostras); ticks=540 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      - res://tests/property/qa/test_f1011_bug003_camera.gd:285 -> assert_true: esperado verdadeiro | chegou ao plano do topo (z = -5.335)
+      - res://tests/property/qa/test_f1011_bug003_camera.gd:286 -> assert_true: esperado verdadeiro | amostras no plano depois da saída (0)
+FAIL  property/qa/test_f1011_bug003_camera.gd::test_bug003_troca_de_postura_no_meio_da_rampa_30_graus  55 ms  (asserts: 2)
+      nota: troca na rampa 30°: postura=1, olhos=1.00 m, erro=0.0000 m, amostras=0
+      nota: troca na rampa 30°: postura=2, olhos=0.45 m, erro=0.0001 m, amostras=29
+      nota: troca na rampa 30°: postura=2, olhos=0.45 m, erro=0.0001 m, amostras=31
+      - res://tests/property/qa/test_f1011_bug003_camera.gd:263 -> assert_eq: esperado 0, obtido 1 | troca de postura na rampa: postura 1: erro 0.0000 m (amostras 0)
+
+RESUMO: total=8 passou=4 falhou=4 sem_assert=0 tempo_total_ms=2168
+  falhou: property/qa/test_f1011_bug003_camera.gd::test_bug003_inversao_no_meio_da_rampa_30_graus
+  falhou: property/qa/test_f1011_bug003_camera.gd::test_bug003_parada_na_rampa_30_graus_nao_escorrega
+  falhou: property/qa/test_f1011_bug003_camera.gd::test_bug003_saida_da_rampa_para_o_plano_30_graus
+  falhou: property/qa/test_f1011_bug003_camera.gd::test_bug003_troca_de_postura_no_meio_da_rampa_30_graus
+RESULTADO: REPROVADO (codigo de saida 1)

@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:01:30 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 6 arquivo(s) de teste em: res://tests/property
+DIAG fwd t=0 pos=(19.002, 0.001, -5.002) stance=2 vel=(0.118, -0.118) floor=true
+DIAG fwd t=40 pos=(19.236, 0.001, -5.236) stance=2 vel=(0.354, -0.354) floor=true
+DIAG fwd t=80 pos=(19.396, 0.001, -5.248) stance=2 vel=(0.335, 0.008) floor=true
+DIAG fwd t=120 pos=(19.400, 0.001, -5.250) stance=2 vel=(0.354, -0.354) floor=true
+DIAG fwd t=160 pos=(19.400, 0.001, -5.250) stance=2 vel=(0.354, -0.354) floor=true
+DIAG fwd t=200 pos=(19.400, 0.001, -5.250) stance=2 vel=(0.354, -0.354) floor=true
+DIAG back t=0 pos=(19.400, 0.001, -5.250) stance=2 vel=(0.236, -0.236) floor=true
+DIAG back t=10 pos=(19.400, 0.001, -5.250) stance=2 vel=(-0.354, 0.354) floor=true
+DIAG back t=20 pos=(19.400, 0.001, -5.250) stance=2 vel=(-0.354, 0.354) floor=true
+DIAG back t=30 pos=(19.400, 0.001, -5.250) stance=2 vel=(-0.354, 0.354) floor=true
+DIAG back t=40 pos=(19.400, 0.001, -5.250) stance=2 vel=(-0.354, 0.354) floor=true
+DIAG back t=50 pos=(19.400, 0.001, -5.250) stance=2 vel=(-0.354, 0.354) floor=true
+DIAG back t=60 pos=(19.400, 0.001, -5.250) stance=2 vel=(-0.354, 0.354) floor=true
+DIAG back t=70 pos=(19.400, 0.001, -5.250) stance=2 vel=(-0.354, 0.354) floor=true
+DIAG back t=80 pos=(19.400, 0.001, -5.250) stance=2 vel=(-0.354, 0.354) floor=true
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_canto_ne_hall  836 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=1059
+RESULTADO: APROVADO (codigo de saida 0)

@@ -1,0 +1,132 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:58:48 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 7 arquivo(s) de teste em: res://tests/property
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_agachado_varredura_de_fase  6124 ms  (asserts: 1)
+      nota: agachado: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_andando_devagar_varredura_de_fase  6062 ms  (asserts: 1)
+      nota: devagar: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_correndo_varredura_de_fase  5679 ms  (asserts: 1)
+      nota: correndo: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_rastejando_varredura_de_fase  3502 ms  (asserts: 1)
+      nota: rastejando: 10 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_diagonal_suave_sobe_e_desce_sem_queda  1777 ms  (asserts: 1)
+      nota: diagonal 14°: 6 passagens; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_entrada_dentro_da_abertura_sobe_sem_queda  1094 ms  (asserts: 1)
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_entrada_pela_borda_e_guarda_do_mezanino  1547 ms  (asserts: 1)
+      nota: entrada x=16.30: parou em z=-2.388 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=16.45: parou em z=-2.394 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=17.55: parou em z=-2.394 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=17.70: parou em z=-2.388 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_parada_no_meio_da_subida_nao_cai  331 ms  (asserts: 3)
+      nota: parada na subida: queda parado (após 12 ticks)=0.0000 m; subida[ticks=372 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_parede_lateral_da_escada_bloqueia_sem_atravessar  273 ms  (asserts: 3)
+      nota: encosto lateral no degrau de 0,72 m: x final=16.150; ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_troca_de_postura_no_meio_da_subida  286 ms  (asserts: 3)
+      nota: troca de postura na subida: mudanças de postura=5; subida[ticks=179 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]; descida[ticks=137 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_a_partir_do_mezanino_andando_devagar  5141 ms  (asserts: 1)
+      nota: descida devagar: 20 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_agachado_a_partir_do_mezanino  5105 ms  (asserts: 1)
+      nota: descida agachado: 20 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_rastejando_a_partir_do_mezanino  2868 ms  (asserts: 1)
+      nota: descida rastejando: 10 fases; ticks sem chão=0; landed=0; penetrações=0
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_parada_no_meio_da_descida_nao_cai  296 ms  (asserts: 3)
+      nota: parada na descida: queda parado (após 12 ticks)=0.0000 m; descida[ticks=334 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_saida_lateral_do_degrau_de_0_18_nao_gera_queda  251 ms  (asserts: 5)
+      nota: saída lateral do degrau de 0,18 m: x final=18.369 y=0.000; ticks=123 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_inversao_no_meio_da_rampa_30_graus  101 ms  (asserts: 2)
+      nota: inversão na rampa 30°: erro depois de inverter=0.0000 m (36 amostras); ticks=450 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_parada_na_rampa_30_graus_nao_escorrega  55 ms  (asserts: 4)
+      nota: parada na rampa 30° em z=-1.507 (y=1.049): erro da câmera parada=0.0000 m; deslize após assentar=0.0000 m; ticks=240 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_agachado_30_graus  191 ms  (asserts: 3)
+      nota: rampa 30° agachado: subida erro=0.0000 m (288 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0017 m (199 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_andando_devagar_10_20_30_graus  590 ms  (asserts: 1)
+      nota: rampa 10° devagar: subida erro=0.0021 m (296 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0026 m (277 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+      nota: rampa 20° devagar: subida erro=0.0000 m (289 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0000 m (256 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+      nota: rampa 30° devagar: subida erro=0.0070 m (275 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0024 m (224 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_diagonal_20_graus  101 ms  (asserts: 2)
+      nota: rampa 20° diagonal: subida erro=0.0001 m (285 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); x final=1.068
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_rastejando_20_graus  103 ms  (asserts: 2)
+      nota: rampa 20° rastejando: subida erro=0.0025 m (187 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_saida_da_rampa_para_o_plano_30_graus  104 ms  (asserts: 4)
+      nota: saída para o plano 30°: chegou ao plano=true; z=-8.020 y=3.000; erro no plano=0.0000 m (69 amostras); ticks=459 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_troca_de_postura_no_meio_da_rampa_30_graus  82 ms  (asserts: 2)
+      nota: troca na rampa 30°: postura=1, olhos=1.00 m, erro=0.0000 m, amostras=31
+      nota: troca na rampa 30°: postura=2, olhos=0.45 m, erro=0.0000 m, amostras=31
+      nota: troca na rampa 30°: postura=2, olhos=0.45 m, erro=0.0000 m, amostras=31
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_borda_do_mezanino_com_spam_parado  295 ms  (asserts: 3)
+      nota: borda do mezanino parado com spam: y0=1.080 menor y=1.080; ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_cantos_nao_prendem_nem_atravessam  1358 ms  (asserts: 1)
+      nota: sala SO (0,0): canto em (0.351116, 0.000941, -0.351116); afastou 2.29 m ao voltar (mínimo 1.92 m = 80% de velocidade × tempo); ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: sala NO (0,-6): canto em (0.351116, 0.000941, -5.64888); afastou 2.29 m ao voltar (mínimo 1.92 m = 80% de velocidade × tempo); ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall NE (20,-6): canto em (19.65004, 0.000941, -5.253934); afastou 0.74 m ao voltar (mínimo 0.60 m = 80% de velocidade × tempo); ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall SE (20,0): canto em (19.64891, 0.000941, -0.351116); afastou 2.29 m ao voltar (mínimo 1.92 m = 80% de velocidade × tempo); ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_entrada_do_vao_correndo_com_spam_de_postura  291 ms  (asserts: 2)
+      nota: correndo com spam na entrada do vão: postura errada dentro=0; z final=-4.086; ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_pilares_do_mezanino_rastejando  1087 ms  (asserts: 1)
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_sob_a_mesa_spam_de_postura_nao_levanta  301 ms  (asserts: 2)
+      nota: sob a mesa com spam: ticks dentro=300, postura errada=0; ticks=390 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_sob_o_mezanino_so_entra_rastejando  889 ms  (asserts: 1)
+      nota: agachado em direção ao vão de 1,02 m: parou em z=-2.389; ticks=200 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: correndo em direção ao vão de 1,02 m: parou em z=-2.389; ticks=200 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: rastejando no vão, spam: ticks dentro=300, postura errada=0; z final=-3.197; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_spam_de_postura_em_espaco_aberto_sem_queda  355 ms  (asserts: 3)
+      nota: spam de postura na sala: ticks=600 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_vao_aberto_passa_em_todas_as_posicoes_e_posturas  4178 ms  (asserts: 1)
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_painel_aberto_bloqueia_o_corpo  338 ms  (asserts: 2)
+      nota: painel aberto: corpo parou em z=-1.050; ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+FAIL  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_com_corpo_no_arco_segurando_para_e_retoma  299 ms  (asserts: 13)
+      nota: segurando: no arco, ângulo=26.3°, bloqueada=true, eventos blocked=8, corpo deslocou 0.0763 m, penetração=0, câmera dentro=0
+      nota: segurando: saiu do arco; ângulo final=26.3°; bloqueada=true; corpo em x=7.692; penetração total=0
+      - res://tests/property/qa/test_f1011_exploits_portas.gd:111 -> assert_true: esperado verdadeiro | a porta não empurra o jogador (deslocou 0.0763 m)
+      - res://tests/property/qa/test_f1011_exploits_portas.gd:124 -> assert_true: esperado verdadeiro | fora do arco a porta completa a abertura (ângulo 26.3°)
+      - res://tests/property/qa/test_f1011_exploits_portas.gd:125 -> assert_false: esperado falso | fora do arco o bloqueio acaba
+FAIL  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_com_corpo_no_arco_toque_para_e_retoma  298 ms  (asserts: 13)
+      nota: toque: no arco, ângulo=17.1°, bloqueada=true, eventos blocked=1, corpo deslocou 0.0000 m, penetração=0, câmera dentro=0
+      nota: toque: saiu do arco; ângulo final=25.7°; bloqueada=true; corpo em x=7.625; penetração total=0
+      - res://tests/property/qa/test_f1011_exploits_portas.gd:124 -> assert_true: esperado verdadeiro | fora do arco a porta completa a abertura (ângulo 25.7°)
+      - res://tests/property/qa/test_f1011_exploits_portas.gd:125 -> assert_false: esperado falso | fora do arco o bloqueio acaba
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_fechada_bloqueia_com_spam_de_postura  316 ms  (asserts: 3)
+      nota: porta fechada com spam de postura: corpo x=6.282 (painel em x=6,03); ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_cantos_e_reversao_diagonal  2046 ms  (asserts: 1)
+      nota: sala SO (0,0): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: sala NO (0,-6): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall SE (20,0): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall NE (20,-6), sob o mezanino: canto; reversão afastou 0.724 m (mínimo 0.600); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: cozinha NE (14,-6): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: cozinha SE (14,-1,4): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: reversão diagonal após 240 ticks no canto (BUG-004): deslocou 2.491 m em 300 ticks; ticks=540 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_empurrar_parede_todas_posturas_e_angulos  2925 ms  (asserts: 1)
+      nota: efeitos do contorno, parede norte da sala:
+em pé andando, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé andando, 30°: deslocou no contato 0.5200 m (1 footsteps), altura 0.0007 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé andando, 60°: deslocou no contato 0.9007 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé correndo, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé correndo, 30°: deslocou no contato 1.5381 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 30°: deslocou no contato 0.3250 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 60°: deslocou no contato 0.5629 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0010 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 30°: deslocou no contato 0.1625 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 60°: deslocou no contato 0.3042 m (1 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_escada_parede_lateral_em_cada_degrau  1503 ms  (asserts: 1)
+      nota: escada, parede lateral:
+degrau 1 (face 0.18 m, z -1.14): x=16.529 y=0.360; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 2 (face 0.36 m, z -1.42): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 3 (face 0.54 m, z -1.70): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 4 (face 0.72 m, z -1.98): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 5 (face 0.90 m, z -2.26): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 6 (face 1.08 m, z -2.54): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+FAIL  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_porta_parcialmente_aberta_como_obstaculo  299 ms  (asserts: 8)
+      nota: porta parcial: parou em 17.1°; empurrando o painel: ângulo 21.4°, corpo deslocou 0.3666 m; ticks=65 no_ar=0 (sequencia_max=0) landed=0 penetracao=1
+      - res://tests/property/qa/test_f1011_verificacao_correcoes.gd:308 -> assert_true: esperado verdadeiro | empurrar o painel parado não muda o ângulo (17.1° -> 21.4°)
+      - res://tests/property/qa/test_f1011_verificacao_correcoes.gd:309 -> assert_true: esperado verdadeiro | o corpo não é empurrado pelo painel parcial (deslocou 0.3666 m)
+      - res://tests/property/qa/test_f1011_verificacao_correcoes.gd:310 -> assert_eq: esperado 0, obtido 1 | o painel parcial não é cruzado pelo corpo (penetração 1)
+      - res://tests/property/qa/test_f1011_verificacao_correcoes.gd:321 -> assert_true: esperado verdadeiro | fora do arco a porta completa (ângulo 25.7°)
+      - res://tests/property/qa/test_f1011_verificacao_correcoes.gd:322 -> assert_eq: esperado 0, obtido 1 | durante toda a sequência não há penetração (1)
+
+RESUMO: total=39 passou=36 falhou=3 sem_assert=0 tempo_total_ms=62596
+  falhou: property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_com_corpo_no_arco_segurando_para_e_retoma
+  falhou: property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_com_corpo_no_arco_toque_para_e_retoma
+  falhou: property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_porta_parcialmente_aberta_como_obstaculo
+RESULTADO: REPROVADO (codigo de saida 1)

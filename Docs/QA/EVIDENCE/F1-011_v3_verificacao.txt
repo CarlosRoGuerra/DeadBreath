@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 15:04:23 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 7 arquivo(s) de teste em: res://tests/property
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_cantos_e_reversao_diagonal  1954 ms  (asserts: 1)
+      nota: sala SO (0,0): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: sala NO (0,-6): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall SE (20,0): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall NE (20,-6), sob o mezanino: canto; reversão afastou 0.724 m (mínimo 0.600); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: cozinha NE (14,-6): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: cozinha SE (14,-1,4): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: reversão diagonal após 240 ticks no canto (BUG-004): deslocou 2.491 m em 300 ticks; ticks=540 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_empurrar_parede_todas_posturas_e_angulos  2762 ms  (asserts: 1)
+      nota: efeitos do contorno, parede norte da sala:
+em pé andando, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé andando, 30°: deslocou no contato 0.5200 m (1 footsteps), altura 0.0007 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé andando, 60°: deslocou no contato 0.9007 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé correndo, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé correndo, 30°: deslocou no contato 1.5381 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 30°: deslocou no contato 0.3250 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 60°: deslocou no contato 0.5629 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0010 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 30°: deslocou no contato 0.1625 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 60°: deslocou no contato 0.3042 m (1 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_escada_parede_lateral_em_cada_degrau  1420 ms  (asserts: 1)
+      nota: escada, parede lateral:
+degrau 1 (face 0.18 m, z -1.14): x=16.529 y=0.360; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 2 (face 0.36 m, z -1.42): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 3 (face 0.54 m, z -1.70): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 4 (face 0.72 m, z -1.98): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 5 (face 0.90 m, z -2.26): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 6 (face 1.08 m, z -2.54): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_porta_parcial_com_corpo_parado_encostado  280 ms  (asserts: 6)
+      nota: porta parcial com corpo parado: parou em 17.1°; primeiro bloqueio=Player; depois de 60 ticks: ângulo 17.1°, corpo deslocou 0.0000 m; ticks=65 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+FAIL  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_porta_sem_corpo_abre_por_inteiro  265 ms  (asserts: 1)
+      nota: porta sem corpo por perto: ângulo final 25.7°; bloqueada=true
+      - res://tests/property/qa/test_f1011_verificacao_correcoes.gd:338 -> assert_true: esperado verdadeiro | sem corpo no arco, a porta de passagem abre por inteiro (ângulo 25.7°; BUG-009)
+
+RESUMO: total=5 passou=4 falhou=1 sem_assert=0 tempo_total_ms=7574
+  falhou: property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_porta_sem_corpo_abre_por_inteiro
+RESULTADO: REPROVADO (codigo de saida 1)

@@ -1,0 +1,10 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 14:04:10 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 6 arquivo(s) de teste em: res://tests/property
+DIAG preso=(19.3999, -5.2500)
+DIAG reversao sem zerar v, inicio=(19.400,-5.250): t0(19.400,-5.250)v(0.24,-0.24) t20(19.400,-5.250)v(-0.35,0.35) t40(19.400,-5.250)v(-0.35,0.35) t60(19.400,-5.250)v(-0.35,0.35) t80(19.400,-5.250)v(-0.35,0.35) t100(19.400,-5.250)v(-0.35,0.35) t120(19.400,-5.250)v(-0.35,0.35) t140(19.400,-5.250)v(-0.35,0.35) t160(19.400,-5.250)v(-0.35,0.35) t180(19.400,-5.250)v(-0.35,0.35) t200(19.400,-5.250)v(-0.35,0.35) t220(19.400,-5.250)v(-0.35,0.35) t240(19.400,-5.250)v(-0.35,0.35) t260(19.400,-5.250)v(-0.35,0.35) t280(19.400,-5.250)v(-0.35,0.35)
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_mais_z_tick_a_tick  499 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=710
+RESULTADO: APROVADO (codigo de saida 0)

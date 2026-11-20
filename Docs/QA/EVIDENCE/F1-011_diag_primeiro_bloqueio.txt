@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 15:02:27 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 8 arquivo(s) de teste em: res://tests/property
+DIAG porta global=(6.0, 0.0, -1.15) rot_y_deg=-90.0
+DIAG painel local_pos=(0.0, 0.0, 0.0)
+DIAG shape local=[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.45, 1.0, 0.0)]
+DIAG ang=0 ponta=(6.000,-0.250) dobradica=(6.000,-1.150) bloqueio=nenhum
+DIAG ang=5 ponta=(6.078,-0.253) dobradica=(6.000,-1.150) bloqueio=nenhum
+DIAG ang=15 ponta=(6.233,-0.281) dobradica=(6.000,-1.150) bloqueio=nenhum
+DIAG ang=25 ponta=(6.380,-0.334) dobradica=(6.000,-1.150) bloqueio=nenhum
+DIAG ang=45 ponta=(6.636,-0.514) dobradica=(6.000,-1.150) bloqueio=Div_sala_corredor_0 (StaticBody3D)
+DIAG ang=90 ponta=(6.900,-1.150) dobradica=(6.000,-1.150) bloqueio=Div_sala_corredor_0 (StaticBody3D)
+DIAG door_sala_corredor: primeiro bloqueio em 27.0 graus (Div_sala_corredor_0); rot_y=-90.0; pivo=(6.0, 0.0, -1.15)
+DIAG door_corredor_hall: primeiro bloqueio em 27.0 graus (Div_corredor_hall_0); rot_y=-90.0; pivo=(14.0, 0.0, -1.15)
+PASS  property/qa/test_f1011_diag_temp.gd::test_diag_painel  660 ms  (asserts: 1)
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=921
+RESULTADO: APROVADO (codigo de saida 0)
