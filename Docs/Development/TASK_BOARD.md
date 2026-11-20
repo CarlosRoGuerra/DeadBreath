@@ -181,29 +181,29 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §4 (v1.0) e §4.3 (acrés
 - **Testes:** integration no jogador (sprint → exaustão → LABORED; limites aplicados no tick seguinte; firmeza da mão), ARC-03/05/06.
 
 ### F2-005 · Bombinha, comprimido e água + inventário mínimo de cargas
-- **Responsável:** Physiological Eng. + Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-004 · **Status:** BACKLOG
+- **Responsável:** Physiological Eng. + Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-004 · **Status:** REVIEW (bombinha + inventário mínimo entregues; puff ligado pelo Director). **Decisão do Director:** comprimido e água ficam para a F5, junto da tela de inventário, porque exigem escolher o item a usar; a fisiologia já tem `apply_consumable` no modelo
 - **Descrição:** `use_item` (Q) aplica a bombinha (`apply_medication`, cooldown 10 s, ruído MEDICATION 38 dB); `InventoryModel` mínimo (contagem por item; bombinha = 3 doses por unidade) alimentado por `EventBus.item_picked`; o jogador começa com 1 bombinha. Comprimido e água: efeito conforme DATA §1.7 (detalhar no card ao abrir a onda B).
 - **Aceitação:** sem cargas ou em cooldown, nada acontece (feedback); pickup da sandbox soma cargas; PHY-04/05 no jogador.
 - **Testes:** integration (uso, cooldown, carga, pickup).
 
 ### F2-006 · Respiração audível: produtor único + sons procedurais
 - **F2-006a (Audio Eng., onda A, HIGH, REVIEW: entregue; 41 sons, 4,8 MB, determinismo verificado pelo Director; aguarda a audição do usuário com `tools/audio/audition.ps1`):** gerador determinístico e versionado em `tools/audio/` que sintetiza respiração (calma, rápida, ofegante), chiado, aviso de tosse, tosse, gasp e puff da bombinha, com variações, em `game/content/audio/body/`. Assets próprios (sem licença externa). Aceitação: arquivos gerados de novo são idênticos (bit a bit) com a mesma semente; amostras inspecionadas (espectro e envelope) e audição pelo usuário no playtest da F2.
-- **F2-006b (Audio Eng. + Physio, onda B, EXTRA HIGH, REVIEW: componentes entregues e testados; a ligação ao jogador e à cena jogável é feita pelo Director depois da onda do Gameplay):** `BreathEmitter` (§6.3), `BreathParams` (L1, DATA §2.4), `AcousticWorld` mínimo (§6.4) e `BreathingAudio` (L3, §14). Aceitação: um `NoiseEvent` por ciclo respiratório e por tosse; o som que o jogador ouve vem só desses eventos (NOI-INV-1/2); gasp a partir do susto.
+- **F2-006b (Audio Eng. + Physio, onda B, EXTRA HIGH, REVIEW: componentes entregues e testados; ligados ao jogador e à cena jogável pelo Director, commit `63dca84`, com teste da cadeia completa):** `BreathEmitter` (§6.3), `BreathParams` (L1, DATA §2.4), `AcousticWorld` mínimo (§6.4) e `BreathingAudio` (L3, §14). Aceitação: um `NoiseEvent` por ciclo respiratório e por tosse; o som que o jogador ouve vem só desses eventos (NOI-INV-1/2); gasp a partir do susto.
 
 ### F2-007 · Efeitos de câmera, indicador respiratório e intensidade de efeitos
-- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-004 · **Status:** BACKLOG
+- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-004 · **Status:** REVIEW (ACC-01..03 verdes)
 - **Descrição:** `CameraEffects` (L3): balanço respiratório, tremor, solavanco da tosse e escurecimento discreto na crise, escalados por `motion_reduction`, `tremor_reduction` e `effects_intensity`; indicador respiratório opcional (desligado por padrão).
 - **Testes:** ACC-01, ACC-02, ACC-03.
 
 ### F2-008 · Ferramenta de balanceamento
-- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** F2-004 · **Status:** BACKLOG
+- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** F2-004 · **Status:** REVIEW (painel F4 + simulação determinística)
 - **Descrição:** sliders no overlay de debug (ameaça do `StubThreatSource`, parâmetros principais) e simulação headless que exporta curvas (CSV) de cenários padrão (sprint, susto, crise e recuperação, bombinha).
 
 ### F2-009 · Animações procedurais em primeira pessoa
-- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-007 · **Status:** BACKLOG
+- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-007 · **Status:** REVIEW (viewmodel provisório; aparência a melhorar na F7)
 - **Descrição:** viewmodel provisório (mão e bombinha em primitivas), animação de uso da bombinha, sobressalto da tosse.
 
-### F2-010 · Revisão técnica da Fase 2 — Technical Reviewer · HIGH · BACKLOG
+### F2-010 · Revisão técnica da Fase 2 — Technical Reviewer · HIGH · IN_PROGRESS
 ### F2-011 · Validação de QA da Fase 2 — QA Engineer · EXTRA HIGH · BACKLOG
 Inclui o playtest "correr até a crise e se recuperar" com gravação e o exame de exploits (abusar da bombinha, cancelar a tosse, prender a crise).
 ### F2-012 · Documentação — Director · LOW · BACKLOG
