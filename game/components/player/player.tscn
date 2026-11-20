@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://components/player/player_root.gd" id="1_root"]
+[ext_resource type="Script" path="res://components/player/player_motor.gd" id="2_motor"]
+[ext_resource type="Resource" path="res://content/data/player_motor_config.tres" id="3_cfg"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
+radius = 0.25
+height = 1.75
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_root")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_body")
+position = Vector3(0, 0.875, 0)
+
+[node name="Head" type="Node3D" parent="."]
+position = Vector3(0, 1.65, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+current = true
+fov = 75.0
+
+[node name="PlayerMotor" type="Node" parent="."]
+script = ExtResource("2_motor")
+config = ExtResource("3_cfg")

@@ -76,3 +76,23 @@ Controlador mínimo do spike (`spikes/disc003/mover.gd`), 60 Hz, `floor_snap_len
 - As linhas `[ERROR]` e o `ConfigFile parse error` na saída vêm de testes que provocam erros de propósito.
 - Prova de sensibilidade feita pelo QA (`EVIDENCE/F1-005_mutation_check.txt`): violações injetadas em cópia fizeram ARC-01, 03, 04, 05 e 06 reprovarem (pipeline código 1).
 - **Complemento do framework (mesmo dia):** o runner registra um `Logger` (Godot 4.5+, verificado no 4.7.2 em `EVIDENCE/F1-005_logger_verification.txt`) e reprova o teste em que ocorre um erro de script não declarado. Erros de engine esperados são declarados com `expect_engine_error()`. O runner passou a rodar com `--fixed-fps 60` (suíte com os testes do jogador: 28 s → 1,2 s, resultados idênticos). Execução do Director: meta **17/17**, arquitetura **6/6**, testes do L0 **24/24** (filtro `autoload`) + AtomicFile, todos com código 0.
+
+---
+
+## F1-006 — PlayerRoot e PlayerMotor
+
+| Campo | Valor |
+|---|---|
+| Data | 2026-11-20 |
+| Comando | `tools/run_tests.ps1` (pipeline) e `godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd -- --filter=player` |
+| Execuções | Gameplay Engineer (3× a suíte do jogador + pipeline; `EVIDENCE/F1-006_tests.txt`, `F1-006_estabilidade.txt`) e Project Director (pipeline + 2× a suíte do jogador) |
+
+| Etapa | Resultado (execução do Director) |
+|---|---|
+| Pipeline completo | código 0: runner **62/62**, meta **17/17**, ARC-04 verde |
+| Suíte do jogador, 2 repetições | **26/26** nas duas (423 e 441 ms) |
+
+- Cobertura: MOT-01 (não levanta sob laje de 0,6 m; agachado não entra), MOT-02 (esforço por marcha e postura), MOT-03 (limites só reduzem), MOT-04 (bot por input roteirizado: vão rastejando, escada de 8 degraus, parede intransponível, descida), step-up até 0,30 m e bloqueio a 0,31 e 0,35 m, `landed`, `footstep` por metadado `surface`, mouse look, head bob com redução total, FOV das opções, config ausente → padrões + `Log.error`. ARC-06 com alvo real: 2 componentes em `components/player/`.
+- Bug achado e corrigido durante a tarefa: degrau de exatamente 0,30 m travava o step-up (topo encostava na sondagem). Folga de 2 mm.
+- Mutações (`EVIDENCE/F1-006_mutacoes.txt`): 7 alterações do código (sem checagem de teto, sem step-up, superfície fixa etc.), cada uma reprovou ao menos um teste.
+- Sem verificação visual ainda: depende da sandbox (F1-009).

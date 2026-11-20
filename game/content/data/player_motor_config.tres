@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PlayerMotorConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://components/player/player_motor_config.gd" id="1_cfg"]
+
+[resource]
+script = ExtResource("1_cfg")
+walk_speed = 1.6
+slow_walk_speed = 0.9
+crouch_speed = 1.0
+crawl_speed = 0.5
+sprint_speed = 4.8
+acceleration = 10.0
+deceleration = 14.0
+stand_height = 1.75
+crouch_height = 1.1
+crawl_height = 0.55
+capsule_radius = 0.25
+step_height = 0.3
+fall_injury_height = 2.5
+head_bob_amplitude = 0.03
+eye_offset = 0.1
+stance_transition_time_s = 0.25
+gravity = 9.8
+floor_snap_length = 0.3
+step_probe_distance = 0.27
+pitch_limit_deg = 85.0
+camera_step_smoothing = 12.0
+stride_slow = 0.5
+stride_walk = 0.7
+stride_sprint = 1.1
+stride_crouch = 0.5
+stride_crawl = 0.4
+head_bob_frequency_per_stride = 0.5

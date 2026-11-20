@@ -1,0 +1,107 @@
+F1-006 - estabilidade da suite do jogador (comando: Godot --headless --fixed-fps 60 --path D:/Dev/DeadBreath/game -s res://tests/run_all.gd -- --filter=player), 3 execucoes seguidas, saidas reais.
+
+===== execucao 1 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:03:30 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 19 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_em_pe_por_marcha  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_limites_nao_mudam_a_velocidade_de_caminhada  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_abaixo_de_um_reduz_o_sprint  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_neutro_mantem_a_config  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_sprint_proibido_pelo_acoplamento_fica_proibido  0 ms  (asserts: 2)
+2026-11-20 08:03:30 [ERROR] [player] PlayerMotorConfig ausente; usando os padrões do código
+PASS  unit/player/test_motor_config.gd::test_config_ausente_usa_padroes_e_registra_erro  1 ms  (asserts: 3)
+PASS  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  1 ms  (asserts: 28)
+PASS  unit/player/test_motor_config.gd::test_config_padrao_do_codigo_tem_os_valores_da_tabela  0 ms  (asserts: 27)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_nao_dispara_no_ar  6 ms  (asserts: 2)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_sem_metadado_usa_default  11 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  12 ms  (asserts: 5)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_informa_a_velocidade_de_impacto_de_uma_queda  6 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_nao_dispara_quando_nasce_no_chao  4 ms  (asserts: 1)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_agachado_nao_entra_sob_a_laje  15 ms  (asserts: 3)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  22 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  26 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_fov_vem_das_opcoes_e_acompanha_a_mudanca  0 ms  (asserts: 2)
+PASS  integration/player/test_motor_controls.gd::test_head_bob_zerado_com_reducao_total_de_movimento  19 ms  (asserts: 3)
+PASS  integration/player/test_motor_controls.gd::test_mouse_look_usa_sensibilidade_inversao_e_limite_de_pitch  3 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  26 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  23 ms  (asserts: 12)
+PASS  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  35 ms  (asserts: 1)
+      nota: scripts em components/player: 4; componentes (base Node): 2; mediador: res://components/player/player_root.gd
+RESUMO: total=26 passou=26 falhou=0 sem_assert=0 tempo_total_ms=449
+RESULTADO: APROVADO (codigo de saida 0)
+
+===== execucao 2 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:03:46 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 19 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_em_pe_por_marcha  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_limites_nao_mudam_a_velocidade_de_caminhada  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_abaixo_de_um_reduz_o_sprint  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_neutro_mantem_a_config  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_sprint_proibido_pelo_acoplamento_fica_proibido  0 ms  (asserts: 2)
+2026-11-20 08:03:46 [ERROR] [player] PlayerMotorConfig ausente; usando os padrões do código
+PASS  unit/player/test_motor_config.gd::test_config_ausente_usa_padroes_e_registra_erro  0 ms  (asserts: 3)
+PASS  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  1 ms  (asserts: 28)
+PASS  unit/player/test_motor_config.gd::test_config_padrao_do_codigo_tem_os_valores_da_tabela  0 ms  (asserts: 27)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_nao_dispara_no_ar  7 ms  (asserts: 2)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_sem_metadado_usa_default  11 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  11 ms  (asserts: 5)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_informa_a_velocidade_de_impacto_de_uma_queda  5 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_nao_dispara_quando_nasce_no_chao  4 ms  (asserts: 1)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_agachado_nao_entra_sob_a_laje  15 ms  (asserts: 3)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  23 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  26 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_fov_vem_das_opcoes_e_acompanha_a_mudanca  1 ms  (asserts: 2)
+PASS  integration/player/test_motor_controls.gd::test_head_bob_zerado_com_reducao_total_de_movimento  19 ms  (asserts: 3)
+PASS  integration/player/test_motor_controls.gd::test_mouse_look_usa_sensibilidade_inversao_e_limite_de_pitch  3 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  26 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  24 ms  (asserts: 12)
+PASS  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  35 ms  (asserts: 1)
+      nota: scripts em components/player: 4; componentes (base Node): 2; mediador: res://components/player/player_root.gd
+RESUMO: total=26 passou=26 falhou=0 sem_assert=0 tempo_total_ms=442
+RESULTADO: APROVADO (codigo de saida 0)
+
+===== execucao 3 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:03:48 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 19 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_em_pe_por_marcha  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_limites_nao_mudam_a_velocidade_de_caminhada  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_abaixo_de_um_reduz_o_sprint  1 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_neutro_mantem_a_config  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_sprint_proibido_pelo_acoplamento_fica_proibido  0 ms  (asserts: 2)
+2026-11-20 08:03:48 [ERROR] [player] PlayerMotorConfig ausente; usando os padrões do código
+PASS  unit/player/test_motor_config.gd::test_config_ausente_usa_padroes_e_registra_erro  0 ms  (asserts: 3)
+PASS  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  1 ms  (asserts: 28)
+PASS  unit/player/test_motor_config.gd::test_config_padrao_do_codigo_tem_os_valores_da_tabela  0 ms  (asserts: 27)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_nao_dispara_no_ar  7 ms  (asserts: 2)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_sem_metadado_usa_default  13 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  13 ms  (asserts: 5)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_informa_a_velocidade_de_impacto_de_uma_queda  6 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_nao_dispara_quando_nasce_no_chao  5 ms  (asserts: 1)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_agachado_nao_entra_sob_a_laje  15 ms  (asserts: 3)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  25 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  28 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_fov_vem_das_opcoes_e_acompanha_a_mudanca  1 ms  (asserts: 2)
+PASS  integration/player/test_motor_controls.gd::test_head_bob_zerado_com_reducao_total_de_movimento  21 ms  (asserts: 3)
+PASS  integration/player/test_motor_controls.gd::test_mouse_look_usa_sensibilidade_inversao_e_limite_de_pitch  4 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  27 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  23 ms  (asserts: 12)
+PASS  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  35 ms  (asserts: 1)
+      nota: scripts em components/player: 4; componentes (base Node): 2; mediador: res://components/player/player_root.gd
+RESUMO: total=26 passou=26 falhou=0 sem_assert=0 tempo_total_ms=457
+RESULTADO: APROVADO (codigo de saida 0)
+

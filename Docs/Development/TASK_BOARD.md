@@ -86,7 +86,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 - **Testes:** meta-testes do runner (passa, falha, erro de script).
 
 ### F1-006 · PlayerRoot e PlayerMotor
-- **Responsável:** Gameplay Engineer · **Esforço:** HIGH · **Depende de:** F1-004 · **Status:** IN_PROGRESS (subagente Gameplay; contrato §2 v1.0)
+- **Responsável:** Gameplay Engineer · **Esforço:** HIGH · **Depende de:** F1-004 · **Status:** REVIEW. 26 testes do jogador (MOT-01..04, step-up, landed, footstep, controles, config) verdes em 5 execuções seguidas; 7 mutações provaram que os testes reprovam quando o comportamento quebra (EVIDENCE/F1-006_*.txt)
 - **Descrição:** PlayerRoot (mediador, COMPONENT_CONTRACTS §1) e PlayerMotor (§2) com `PlayerMotorConfig`: mouse look, andar, andar devagar, correr, agachar, rastejar, checagem de teto, aceleração, head bob (desligável), `footstep` por superfície e `get_exertion()`.
 - **Aceitação:** critérios de MOT-01..04.
 - **Testes:** MOT-01..04, ARC-06.

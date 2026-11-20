@@ -1,0 +1,30 @@
+F1-006 - mutacoes de verificacao (copias descartaveis em scratchpad; o repositorio nao foi alterado). Cada mutacao deve reprovar pelo menos um teste.
+
+== M1_sem_teto
+FAIL  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  1648 ms  (asserts: 12)
+RESULTADO: REPROVADO (codigo de saida 1)
+== M2_sem_step_up
+FAIL  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  1883 ms  (asserts: 12)
+RESULTADO: REPROVADO (codigo de saida 1)
+== M3_superficie_fixa
+FAIL  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  1353 ms  (asserts: 5)
+RESULTADO: REPROVADO (codigo de saida 1)
+== M4_esforco_agachado
+FAIL  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+FAIL  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+FAIL  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  2981 ms  (asserts: 12)
+RESULTADO: REPROVADO (codigo de saida 1)
+== M5_limite_sem_clamp
+FAIL  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  0 ms  (asserts: 2)
+FAIL  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  0 ms  (asserts: 1)
+RESULTADO: REPROVADO (codigo de saida 1)
+== M6_sem_absorcao_camera
+FAIL  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  1883 ms  (asserts: 12)
+RESULTADO: REPROVADO (codigo de saida 1)
+== M7_degrau_0_50
+FAIL  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  1 ms  (asserts: 28)
+FAIL  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  1872 ms  (asserts: 4)
+RESULTADO: REPROVADO (codigo de saida 1)
+fim das mutacoes
+
+[exited with code 0]
