@@ -147,19 +147,76 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 
 ---
 
-## 5. Backlog das Fases 2–6 (resumo; cards completos ao abrir cada fase — DIR-02)
+## 4b. FASE 2 — Fisiologia (detalhada, aberta em 2026-11-20)
+
+Contratos congelados para a fase: COMPONENT_CONTRACTS §4 (v1.0) e §4.3 (acréscimos da F2), §6.3 (BreathEmitter), §6.4 (AcousticWorld mínimo da F2) e §14 (BreathingAudio). Fórmulas em DATA_STRUCTURES §1.2–1.7 e §2.4. Sons: síntese procedural (D-07).
+
+**Ondas e escritores**
+- **Onda A (paralela):** F2-001..F2-004 (Physiological Eng.) ∥ F2-006a (Audio Eng.).
+- **Onda B:** F2-006b (Audio) ∥ F2-005, F2-007, F2-009 (Gameplay) ∥ F2-008 (Physio). Na onda B, só o Gameplay Engineer altera `player_root.gd` e `player.tscn`; o Director integra os componentes entregues pelos demais.
+- **Onda C:** F2-010 revisão, F2-011 QA, F2-012 documentação.
+
+### F2-001 · StaminaModel (L1)
+- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** Gate F1 · **Status:** IN_PROGRESS
+- **Descrição:** `sim/physiology/stamina_model.gd` + `StaminaConfig` (Resource, DATA §1.2) + `content/data/physiology/stamina_config.tres`. Dreno de sprint, atraso de regeneração, regeneração por marcha/repouso, multiplicador do acoplamento, histerese de exaustão (reabilita o sprint em 25). `to_dict/from_dict`.
+- **Aceitação:** sprint de tanque cheio dura 8,3 s ± 0,1; sem regeneração durante `regen_delay_s`; PHY-INV-1.
+- **Testes:** unit (dreno, regeneração, histerese, limites), parte do PHY-09.
+
+### F2-002 · StressModel (L1)
+- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** Gate F1 · **Status:** IN_PROGRESS
+- **Descrição:** `stress_model.gd` + `StressConfig` (DATA §1.3): ganhos por ameaça (`ThreatSample`), picos (`add_spike`: susto, ferimento, captura), decaimento com atraso, faixas CALM..PANIC. `to_dict/from_dict`.
+- **Aceitação:** faixas nos limiares de §1.3; decaimento de 100 a 0 sem ameaça em ≈ 37,3 s (4 s de atraso + 3/s).
+- **Testes:** unit, PHY-02 (parte), PHY-06/09.
+
+### F2-003 · RespiratoryModel (L1)
+- **Responsável:** Physiological Eng. · **Esforço:** EXTRA HIGH · **Depende de:** F2-001, F2-002 · **Status:** IN_PROGRESS
+- **Descrição:** `respiratory_model.gd` + `RespiratoryConfig` (DATA §1.4): EMA do esforço, severidade com subida/descida, frequência respiratória, chiado, hazard de tosse com aviso de 1,5 s e cooldown, cancelamento, máquina de estados com histerese e permanência mínima, `recovery_progress`, medicação (`MedicationProfile`, §1.7). RNG injetado. `to_dict/from_dict` completo (DATA §6.1).
+- **Aceitação:** PHY-01..PHY-11 verdes.
+- **Testes:** PHY-01..PHY-11 (propriedade em `tests/property/` quando > 1 s), PER-07 no nível dos modelos.
+
+### F2-004 · PhysiologyCoupling + PhysiologyComponent + integração
+- **Responsável:** Physiological Eng. · **Esforço:** EXTRA HIGH · **Depende de:** F2-003 · **Status:** IN_PROGRESS
+- **Descrição:** `PhysiologyCoupling.compute` (DATA §1.6, `CouplingConfig`); `components/player/physiology_component.gd` (§4.1: sinais, RNG próprio com semente exportável, gasp de susto); `ThreatSource`/`StubThreatSource` (§5, ameaça controlável por teste e overlay); integração no `PlayerRoot` (tick §1: motor → inputs → physiology → `apply_limits(coupling)` → interaction com `steadiness`).
+- **Aceitação:** correr até esgotar deixa o jogador sem sprint até 25 de stamina; a crise reduz o sprint máximo (§1.6); `steadiness` alonga o "segurar" (contrato §3); ARC-06 continua verde.
+- **Testes:** integration no jogador (sprint → exaustão → LABORED; limites aplicados no tick seguinte; firmeza da mão), ARC-03/05/06.
+
+### F2-005 · Bombinha, comprimido e água + inventário mínimo de cargas
+- **Responsável:** Physiological Eng. + Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-004 · **Status:** BACKLOG
+- **Descrição:** `use_item` (Q) aplica a bombinha (`apply_medication`, cooldown 10 s, ruído MEDICATION 38 dB); `InventoryModel` mínimo (contagem por item; bombinha = 3 doses por unidade) alimentado por `EventBus.item_picked`; o jogador começa com 1 bombinha. Comprimido e água: efeito conforme DATA §1.7 (detalhar no card ao abrir a onda B).
+- **Aceitação:** sem cargas ou em cooldown, nada acontece (feedback); pickup da sandbox soma cargas; PHY-04/05 no jogador.
+- **Testes:** integration (uso, cooldown, carga, pickup).
+
+### F2-006 · Respiração audível: produtor único + sons procedurais
+- **F2-006a (Audio Eng., onda A, HIGH, IN_PROGRESS):** gerador determinístico e versionado em `tools/audio/` que sintetiza respiração (calma, rápida, ofegante), chiado, aviso de tosse, tosse, gasp e puff da bombinha, com variações, em `game/content/audio/body/`. Assets próprios (sem licença externa). Aceitação: arquivos gerados de novo são idênticos (bit a bit) com a mesma semente; amostras inspecionadas (espectro e envelope) e audição pelo usuário no playtest da F2.
+- **F2-006b (Audio Eng. + Physio, onda B, EXTRA HIGH, BACKLOG):** `BreathEmitter` (§6.3), `BreathParams` (L1, DATA §2.4), `AcousticWorld` mínimo (§6.4) e `BreathingAudio` (L3, §14). Aceitação: um `NoiseEvent` por ciclo respiratório e por tosse; o som que o jogador ouve vem só desses eventos (NOI-INV-1/2); gasp a partir do susto.
+
+### F2-007 · Efeitos de câmera, indicador respiratório e intensidade de efeitos
+- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-004 · **Status:** BACKLOG
+- **Descrição:** `CameraEffects` (L3): balanço respiratório, tremor, solavanco da tosse e escurecimento discreto na crise, escalados por `motion_reduction`, `tremor_reduction` e `effects_intensity`; indicador respiratório opcional (desligado por padrão).
+- **Testes:** ACC-01, ACC-02, ACC-03.
+
+### F2-008 · Ferramenta de balanceamento
+- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** F2-004 · **Status:** BACKLOG
+- **Descrição:** sliders no overlay de debug (ameaça do `StubThreatSource`, parâmetros principais) e simulação headless que exporta curvas (CSV) de cenários padrão (sprint, susto, crise e recuperação, bombinha).
+
+### F2-009 · Animações procedurais em primeira pessoa
+- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-007 · **Status:** BACKLOG
+- **Descrição:** viewmodel provisório (mão e bombinha em primitivas), animação de uso da bombinha, sobressalto da tosse.
+
+### F2-010 · Revisão técnica da Fase 2 — Technical Reviewer · HIGH · BACKLOG
+### F2-011 · Validação de QA da Fase 2 — QA Engineer · EXTRA HIGH · BACKLOG
+Inclui o playtest "correr até a crise e se recuperar" com gravação e o exame de exploits (abusar da bombinha, cancelar a tosse, prender a crise).
+### F2-012 · Documentação — Director · LOW · BACKLOG
+RESPIRATORY_SYSTEM.md, STRESS_SYSTEM.md, STAMINA_SYSTEM.md, CHANGELOG, TEST_RESULTS.
+
+**Propostas P-01 (abafar a tosse) e P-02 (prender a respiração):** ficam fora do escopo inicial. Serão avaliadas com o jogo rodando, depois da F2-007, e submetidas ao usuário.
+
+---
+
+## 5. Backlog das Fases 3–6 (resumo; cards completos ao abrir cada fase — DIR-02)
 
 | ID | Tarefa | Responsável | Esforço | Depende de |
 |---|---|---|---|---|
-| F2-001 | StaminaModel (L1) + testes | Physiological Eng. | HIGH | F1 |
-| F2-002 | StressModel (L1) + testes (inclui startle e injury) | Physiological Eng. | HIGH | F1 |
-| F2-003 | RespiratoryModel (L1): estados, tosse com aviso, `recovery_progress` | Physiological Eng. | EXTRA HIGH | F2-001, F2-002 |
-| F2-004 | PhysiologyCoupling + PhysiologyComponent + integração via PlayerRoot + `StubThreatSource` | Physiological Eng. | EXTRA HIGH | F2-003 |
-| F2-005 | Bombinha, comprimido e água + inventário mínimo de cargas | Physiological Eng. + Gameplay | MEDIUM | F2-004 |
-| F2-006 | BreathEmitter + AcousticWorld mínimo + BreathingAudio (produtor único) | Physiological Eng. + Audio Eng. | EXTRA HIGH | F2-004 |
-| F2-007 | Efeitos de câmera + indicador respiratório + intensidade de efeitos (acessibilidade) | Gameplay Eng. | MEDIUM | F2-004 |
-| F2-008 | Ferramenta de balanceamento (sliders + simulação headless com curvas) | Physiological Eng. | HIGH | F2-004 |
-| F2-009 | Animações procedurais em primeira pessoa (respiração, tosse, bombinha com viewmodel provisório) | Gameplay Eng. | MEDIUM | F2-004 |
 | F3-001 | AcousticGraph (L1) + testes (pode rodar em paralelo com a F2) | AI Eng. | EXTRA HIGH | F1 |
 | F3-002 | AcousticWorld completo, NoiseEmitter, RoomVolume, Portal, piso de chuva e trovão | AI Eng. | HIGH | F3-001, F2-006 |
 | F3-003 | NoiseAudioRouter (atenuação nativa desligada, reverb por sala) | Audio Eng. | EXTRA HIGH | F3-002 |

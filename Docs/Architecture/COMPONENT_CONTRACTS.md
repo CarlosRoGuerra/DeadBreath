@@ -198,7 +198,7 @@ static func describe(entry: Dictionary) -> String
 static func entry_from_event(event: InputEvent) -> Dictionary
 ```
 
-## 4. Fisiologia — Physiological Systems Engineer — Fase 2
+## 4. Fisiologia — Physiological Systems Engineer — Fase 2 — **v1.0 (congelado na abertura da F2)**
 
 ### 4.1 PhysiologyComponent (L2)
 
@@ -265,6 +265,35 @@ As fórmulas de estados, tosse, acoplamento e `recovery_progress` estão em DATA
 **Fonte de verdade das cargas de medicação:** o Inventory. O `PhysiologySnapshot.medication_charges` é só leitura.
 
 **Dependências proibidas:** PlayerMotor, IA, acústica, áudio.
+
+### 4.3 Acréscimos congelados para a Fase 2 (v1.0, 2026-11-20)
+
+```gdscript
+## Configs (Resources) em game/content/data/physiology/*.tres; classes em game/sim/physiology/
+class_name StaminaConfig extends Resource      ## DATA_STRUCTURES §1.2
+class_name StressConfig extends Resource       ## §1.3
+class_name RespiratoryConfig extends Resource  ## §1.4
+class_name CouplingConfig extends Resource     ## §1.6
+class_name MedicationProfile extends Resource  ## §1.7
+
+## PhysiologyComponent (além do §4.1)
+@export var stamina_config: StaminaConfig
+@export var stress_config: StressConfig
+@export var respiratory_config: RespiratoryConfig
+@export var coupling_config: CouplingConfig
+@export var rng_seed: int = 0                  ## 0 = semente aleatória no _ready; testes fixam
+func to_dict() -> Dictionary                   ## modelos + RNG (estado como string) + timers
+func from_dict(data: Dictionary) -> void
+
+## ThreatSource / StubThreatSource (§5): na F2 o PlayerRoot usa StubThreatSource
+class_name StubThreatSource extends ThreatSource
+var forced: ThreatSample                       ## testes e overlay de balanceamento ajustam
+```
+
+- **Tick do PlayerRoot na F2** (§1): `motor.step` → `inputs` (`exertion` e `gait` do motor, `threat = threat_source.sample()`, `is_resting` = parado e agachado/rastejando, `in_safe_zone = false`, `is_hidden = false`) → `physiology.step` → `apply_limits(physiology.get_coupling())` (vale no tick seguinte) → `breath_emitter.step` (F2-006b) → `interaction.step` com `steadiness` do acoplamento.
+- **RNG:** o PhysiologyComponent tem o seu próprio `RandomNumberGenerator` (injetado no RespiratoryModel). O estado vai no `to_dict` como **string** (DATA §6).
+- **Sem config:** padrões do código + `Log.error` (mesma regra do motor).
+- **Medicação:** `apply_medication` falha (false) em cooldown; as cargas são do inventário (F2-005), não da fisiologia.
 
 ## 5. PlayerThreatMonitor (L2) — Physiological Systems Engineer — Fase 4
 
@@ -347,6 +376,14 @@ func from_dict(data: Dictionary) -> void
 - NOI-INV-2: o volume que o jogador ouve deriva de `propagate()`. A atenuação nativa do `AudioStreamPlayer3D` fica **desligada** (`ATTENUATION_DISABLED`); só o *panning* espacial é usado.
 - NOI-INV-3: `propagate()` é pura e determinística. Fechar uma porta nunca aumenta o nível percebido.
 - NOI-INV-4: `HeardNoise` nunca contém a posição real da fonte, o id da fonte ou a sala da fonte. `PlayerHeardNoise` nunca contém posição, id nem sala.
+
+### 6.4 AcousticWorld mínimo da Fase 2 (v1.0 para a F2)
+
+Até a F3, o `AcousticWorld` existe só com o necessário para o produtor único da respiração:
+- `emit_noise(event: NoiseEvent)` enfileira; a fila é processada na prioridade −60.
+- **Propagação provisória:** só a perda por distância do ADR-004, `perceived_db = intensity_db − (20·log10(max(d, 1)) + 0.1·d)`, até a posição do ouvinte do jogador (a câmera). Sem grafo, paredes nem portas. A F3 troca por `AcousticGraph.propagate()` sem mudar a interface.
+- Emite `noise_resolved_for_player(event, result)` para todo evento; não há `HearingSensor` nem `PlayerThreatMonitor` na F2.
+- `source_id` do jogador: `&"player"`.
 
 ## 7. Percepção da IA (L2) — AI Engineer — Fase 4
 
@@ -541,7 +578,7 @@ func compute() -> DifficultyModifiers
 
 | Componente | Consome | Regra |
 |---|---|---|
-| `BreathingAudio` | `AcousticWorld.noise_resolved_for_player` com `source_id == &"player"` e categoria BREATHING, WHEEZING ou COUGHING | Toca a respiração do próprio jogador em 2D (som "dentro da cabeça"). **Nunca dispara som por conta própria.** |
+| `BreathingAudio` | `AcousticWorld.noise_resolved_for_player` com `source_id == &"player"` e categoria BREATHING, WHEEZING, COUGHING ou MEDICATION (acréscimo da F2: o puff da bombinha é som do próprio corpo) | Toca os sons do corpo do jogador em 2D (som "dentro da cabeça"), com sons procedurais de `content/audio/body/` escolhidos por `sound_id`. **Nunca dispara som por conta própria.** |
 | `NoiseAudioRouter` | `noise_resolved_for_player` para todos os outros eventos | Toca o som no espaço com `volume_db` derivado de `PropagationResult` e reverb da sala. Ignora os eventos tratados pelo BreathingAudio. |
 | `AdaptiveMusic` | `PlayerThreatMonitor.threat_changed` | Usa **apenas** a ameaça percebida pelo jogador. Não assina estados reais de inimigos. |
 | `CameraEffects` | Sinais do PhysiologyComponent | Tremor, balanço respiratório e efeitos de tosse, escalados pelas opções de acessibilidade. |
