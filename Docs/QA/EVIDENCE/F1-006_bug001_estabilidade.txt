@@ -1,0 +1,165 @@
+===== execucao 1: --filter=player =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:33:04 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 30 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_em_pe_por_marcha  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_limites_nao_mudam_a_velocidade_de_caminhada  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_abaixo_de_um_reduz_o_sprint  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_neutro_mantem_a_config  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_sprint_proibido_pelo_acoplamento_fica_proibido  0 ms  (asserts: 2)
+2026-11-20 08:33:04 [ERROR] [player] PlayerMotorConfig ausente; usando os padrões do código
+PASS  unit/player/test_motor_config.gd::test_config_ausente_usa_padroes_e_registra_erro  0 ms  (asserts: 3)
+PASS  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  1 ms  (asserts: 28)
+PASS  unit/player/test_motor_config.gd::test_config_padrao_do_codigo_tem_os_valores_da_tabela  0 ms  (asserts: 27)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_da_sandbox_sem_ticks_no_ar  265 ms  (asserts: 6)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_28_sem_ticks_no_ar  60 ms  (asserts: 4)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_30_sem_ticks_no_ar  59 ms  (asserts: 4)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_28  656 ms  (asserts: 1)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_30  680 ms  (asserts: 1)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_nao_dispara_no_ar  7 ms  (asserts: 2)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_sem_metadado_usa_default  13 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  13 ms  (asserts: 5)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_informa_a_velocidade_de_impacto_de_uma_queda  6 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_nao_dispara_quando_nasce_no_chao  5 ms  (asserts: 1)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_agachado_nao_entra_sob_a_laje  15 ms  (asserts: 3)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  26 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  29 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_fov_vem_das_opcoes_e_acompanha_a_mudanca  0 ms  (asserts: 2)
+PASS  integration/player/test_motor_controls.gd::test_head_bob_zerado_com_reducao_total_de_movimento  20 ms  (asserts: 3)
+PASS  integration/player/test_motor_controls.gd::test_mouse_look_usa_sensibilidade_inversao_e_limite_de_pitch  3 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  27 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  25 ms  (asserts: 12)
+PASS  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  40 ms  (asserts: 1)
+      nota: scripts em components/player: 4; componentes (base Node): 2; mediador: res://components/player/player_root.gd
+RESUMO: total=31 passou=31 falhou=0 sem_assert=0 tempo_total_ms=2387
+RESULTADO: APROVADO (codigo de saida 0)
+===== execucao 1: --level=scenarios =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:33:08 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 2 arquivo(s) de teste em: res://tests/scenarios
+PASS  scenarios/test_mot04_route.gd::test_mot04_passa_pelo_vao_de_0_6_m_rastejando  34 ms  (asserts: 10)
+PASS  scenarios/test_mot04_route.gd::test_mot04_sobe_escada_de_8_degraus_nao_atravessa_parede_e_desce  65 ms  (asserts: 8)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_contrato_de_marcadores_e_superficies  221 ms  (asserts: 43)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_a_parede_do_corredor_fora_do_vao  241 ms  (asserts: 3)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_paredes_da_sala_e_do_hall  272 ms  (asserts: 4)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_levanta_sob_a_mesa  248 ms  (asserts: 5)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_rasteja_sob_a_mesa_de_0_6_m  274 ms  (asserts: 11)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_sobe_a_escada_ate_o_mezanino_e_desce  259 ms  (asserts: 10)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_corredor_hall  289 ms  (asserts: 5)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_cozinha_corredor  255 ms  (asserts: 4)
+RESUMO: total=10 passou=10 falhou=0 sem_assert=0 tempo_total_ms=2242
+RESULTADO: APROVADO (codigo de saida 0)
+===== execucao 2: --filter=player =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:33:11 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 30 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_em_pe_por_marcha  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_limites_nao_mudam_a_velocidade_de_caminhada  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_abaixo_de_um_reduz_o_sprint  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_neutro_mantem_a_config  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_sprint_proibido_pelo_acoplamento_fica_proibido  0 ms  (asserts: 2)
+2026-11-20 08:33:11 [ERROR] [player] PlayerMotorConfig ausente; usando os padrões do código
+PASS  unit/player/test_motor_config.gd::test_config_ausente_usa_padroes_e_registra_erro  1 ms  (asserts: 3)
+PASS  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  1 ms  (asserts: 28)
+PASS  unit/player/test_motor_config.gd::test_config_padrao_do_codigo_tem_os_valores_da_tabela  0 ms  (asserts: 27)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_da_sandbox_sem_ticks_no_ar  262 ms  (asserts: 6)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_28_sem_ticks_no_ar  59 ms  (asserts: 4)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_30_sem_ticks_no_ar  59 ms  (asserts: 4)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_28  650 ms  (asserts: 1)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_30  685 ms  (asserts: 1)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_nao_dispara_no_ar  7 ms  (asserts: 2)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_sem_metadado_usa_default  13 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  13 ms  (asserts: 5)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_informa_a_velocidade_de_impacto_de_uma_queda  6 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_nao_dispara_quando_nasce_no_chao  4 ms  (asserts: 1)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_agachado_nao_entra_sob_a_laje  16 ms  (asserts: 3)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  25 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  28 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_fov_vem_das_opcoes_e_acompanha_a_mudanca  1 ms  (asserts: 2)
+PASS  integration/player/test_motor_controls.gd::test_head_bob_zerado_com_reducao_total_de_movimento  20 ms  (asserts: 3)
+PASS  integration/player/test_motor_controls.gd::test_mouse_look_usa_sensibilidade_inversao_e_limite_de_pitch  3 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  28 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  26 ms  (asserts: 12)
+PASS  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  40 ms  (asserts: 1)
+      nota: scripts em components/player: 4; componentes (base Node): 2; mediador: res://components/player/player_root.gd
+RESUMO: total=31 passou=31 falhou=0 sem_assert=0 tempo_total_ms=2380
+RESULTADO: APROVADO (codigo de saida 0)
+===== execucao 2: --level=scenarios =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:33:15 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 2 arquivo(s) de teste em: res://tests/scenarios
+PASS  scenarios/test_mot04_route.gd::test_mot04_passa_pelo_vao_de_0_6_m_rastejando  35 ms  (asserts: 10)
+PASS  scenarios/test_mot04_route.gd::test_mot04_sobe_escada_de_8_degraus_nao_atravessa_parede_e_desce  67 ms  (asserts: 8)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_contrato_de_marcadores_e_superficies  221 ms  (asserts: 43)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_a_parede_do_corredor_fora_do_vao  240 ms  (asserts: 3)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_paredes_da_sala_e_do_hall  271 ms  (asserts: 4)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_levanta_sob_a_mesa  248 ms  (asserts: 5)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_rasteja_sob_a_mesa_de_0_6_m  282 ms  (asserts: 11)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_sobe_a_escada_ate_o_mezanino_e_desce  265 ms  (asserts: 10)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_corredor_hall  291 ms  (asserts: 5)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_cozinha_corredor  254 ms  (asserts: 4)
+RESUMO: total=10 passou=10 falhou=0 sem_assert=0 tempo_total_ms=2261
+RESULTADO: APROVADO (codigo de saida 0)
+===== execucao 3: --filter=player =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:33:18 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 30 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_em_pe_por_marcha  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_limites_nao_mudam_a_velocidade_de_caminhada  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_abaixo_de_um_reduz_o_sprint  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  1 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_neutro_mantem_a_config  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_sprint_proibido_pelo_acoplamento_fica_proibido  0 ms  (asserts: 2)
+2026-11-20 08:33:18 [ERROR] [player] PlayerMotorConfig ausente; usando os padrões do código
+PASS  unit/player/test_motor_config.gd::test_config_ausente_usa_padroes_e_registra_erro  1 ms  (asserts: 3)
+PASS  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  1 ms  (asserts: 28)
+PASS  unit/player/test_motor_config.gd::test_config_padrao_do_codigo_tem_os_valores_da_tabela  0 ms  (asserts: 27)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_da_sandbox_sem_ticks_no_ar  264 ms  (asserts: 6)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_28_sem_ticks_no_ar  59 ms  (asserts: 4)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_30_sem_ticks_no_ar  59 ms  (asserts: 4)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_28  661 ms  (asserts: 1)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_30  700 ms  (asserts: 1)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_nao_dispara_no_ar  8 ms  (asserts: 2)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_sem_metadado_usa_default  13 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  13 ms  (asserts: 5)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_informa_a_velocidade_de_impacto_de_uma_queda  6 ms  (asserts: 3)
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_nao_dispara_quando_nasce_no_chao  6 ms  (asserts: 1)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_agachado_nao_entra_sob_a_laje  17 ms  (asserts: 3)
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  26 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  29 ms  (asserts: 12)
+PASS  integration/player/test_motor_controls.gd::test_fov_vem_das_opcoes_e_acompanha_a_mudanca  0 ms  (asserts: 2)
+PASS  integration/player/test_motor_controls.gd::test_head_bob_zerado_com_reducao_total_de_movimento  21 ms  (asserts: 3)
+PASS  integration/player/test_motor_controls.gd::test_mouse_look_usa_sensibilidade_inversao_e_limite_de_pitch  4 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  28 ms  (asserts: 4)
+PASS  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  26 ms  (asserts: 12)
+PASS  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  41 ms  (asserts: 1)
+      nota: scripts em components/player: 4; componentes (base Node): 2; mediador: res://components/player/player_root.gd
+RESUMO: total=31 passou=31 falhou=0 sem_assert=0 tempo_total_ms=2415
+RESULTADO: APROVADO (codigo de saida 0)
+===== execucao 3: --level=scenarios =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:33:21 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 2 arquivo(s) de teste em: res://tests/scenarios
+PASS  scenarios/test_mot04_route.gd::test_mot04_passa_pelo_vao_de_0_6_m_rastejando  35 ms  (asserts: 10)
+PASS  scenarios/test_mot04_route.gd::test_mot04_sobe_escada_de_8_degraus_nao_atravessa_parede_e_desce  67 ms  (asserts: 8)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_contrato_de_marcadores_e_superficies  225 ms  (asserts: 43)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_a_parede_do_corredor_fora_do_vao  246 ms  (asserts: 3)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_paredes_da_sala_e_do_hall  272 ms  (asserts: 4)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_nao_levanta_sob_a_mesa  247 ms  (asserts: 5)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_rasteja_sob_a_mesa_de_0_6_m  282 ms  (asserts: 11)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_sobe_a_escada_ate_o_mezanino_e_desce  259 ms  (asserts: 10)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_corredor_hall  290 ms  (asserts: 5)
+PASS  scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_cozinha_corredor  255 ms  (asserts: 4)
+RESUMO: total=10 passou=10 falhou=0 sem_assert=0 tempo_total_ms=2268
+RESULTADO: APROVADO (codigo de saida 0)

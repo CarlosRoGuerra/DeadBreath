@@ -21,8 +21,6 @@ const FLOOR_NORMAL_MIN_Y: float = 0.7
 const WORLD_MASK: int = 3
 ## Sondagem curta para saber se o corpo começa apoiado.
 const FLOOR_PROBE_M: float = 0.05
-## Folga acrescentada ao erguer o corpo no degrau (evita contato residual; spike V6).
-const STEP_LIFT_EPSILON_M: float = 0.005
 ## Folga para o corpo passar por cima de um degrau de exatamente step_height: sem ela, o topo do
 ## degrau toca a base elevada e a sondagem horizontal acusa colisão. Degraus de 0,31 m continuam bloqueados.
 const STEP_CLEARANCE_M: float = 0.002
@@ -456,7 +454,9 @@ func _try_step_up(motion: Vector3) -> void:
 	var rise: float = landing_y - start.origin.y
 	if rise <= 0.01:
 		return
-	_body.global_transform = start.translated(Vector3.UP * (rise + STEP_LIFT_EPSILON_M))
+	# Elevação exata até o topo do degrau de destino. Uma folga aqui deixava o corpo suspenso 5 mm sobre o
+	# degrau (BUG-001): com a borda sobre o degrau novo, o move_and_slide do mesmo tick precisa registrar o contato.
+	_body.global_transform = start.translated(Vector3.UP * rise)
 
 
 func _probe_floor() -> bool:

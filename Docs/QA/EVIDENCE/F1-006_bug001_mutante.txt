@@ -1,0 +1,13 @@
+BUG-001 - verificacao de que a varredura de fase tem dente.
+Mutante (copia descartavel em scratchpad, nao o repositorio): elevacao do step-up com a folga de 5 mm
+reintroduzida (`_body.global_transform = start.translated(Vector3.UP * (rise + 0.005))`).
+Comando: Godot --headless --fixed-fps 60 --path <copia>/game -s res://tests/run_all.gd -- --filter=escada_sem_chao
+
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_da_sandbox_sem_ticks_no_ar  263 ms  (asserts: 6)
+PASS  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_28_sem_ticks_no_ar  60 ms  (asserts: 4)
+FAIL  integration/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_30_sem_ticks_no_ar  59 ms  (asserts: 4)
+FAIL  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_28  674 ms  (asserts: 1)
+FAIL  integration/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_30  716 ms  (asserts: 1)
+RESUMO: total=5 passou=2 falhou=3 sem_assert=0 tempo_total_ms=2196
+
+Com a correção (sem folga): RESUMO: total=5 passou=5 falhou=0 (ver a execucao do filtro escada_sem_chao no F1-006_bug001_estabilidade.txt).
