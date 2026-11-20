@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+physics_engine setting=Jolt Physics | server_class=PhysicsServer3D
+ramp_up            pass=true  reached_tick= 258 max_x=6.024 final=(18.37271, 0.00092, 0.0) max_dy_tick=0.012 airborne=0/248 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+ramp_idle          pass=true  reached_tick=  -1 max_x=3.303 final=(3.303224, 0.792112, 4.0) max_dy_tick=0.012 airborne=0/131 z_drift=0.0000 idle_drift=0.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+stairs_up_stepup   pass=true  reached_tick= 230 max_x=6.026 final=(19.12022, 0.000873, 8.0) max_dy_tick=0.186 airborne=40/220 z_drift=0.0000 idle_drift=-1.0000 step_ups=8 ceil_under=0/0 ceil_out=0/0
+stairs_up_raw      pass=true  reached_tick=  -1 max_x=1.760 final=(1.759999, 0.000927, 12.0) max_dy_tick=0.000 airborne=0/290 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+stairs_down        pass=true  reached_tick= 225 max_x=6.473 final=(-12.73946, -12.74693, 16.0) max_dy_tick=0.038 airborne=59/215 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+gap_crawl          pass=true  reached_tick= 721 max_x=6.008 final=(6.008327, 0.000927, 20.0) max_dy_tick=0.000 airborne=0/711 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=168/168 ceil_out=0/230
+gap_stand          pass=true  reached_tick=  -1 max_x=2.747 final=(2.746665, 0.000927, 24.0) max_dy_tick=0.000 airborne=0/290 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+obstacle_035       pass=true  reached_tick=  -1 max_x=2.747 final=(2.746665, 0.000927, 28.0) max_dy_tick=0.000 airborne=0/290 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+obstacle_029       pass=true  reached_tick= 170 max_x=4.520 final=(19.21381, 0.000935, 32.0) max_dy_tick=0.294 airborne=18/160 z_drift=0.0000 idle_drift=-1.0000 step_ups=1 ceil_under=0/0 ceil_out=0/0
+cyl_ramp_up        pass=true  reached_tick= 257 max_x=6.005 final=(18.37817, 0.000929, 36.0) max_dy_tick=0.027 airborne=0/247 z_drift=0.0000 idle_drift=-1.0000 step_ups=1 ceil_under=0/0 ceil_out=0/0
+cyl_ramp_idle      pass=true  reached_tick=  -1 max_x=3.313 final=(3.312926, 0.894922, 40.0) max_dy_tick=0.027 airborne=0/133 z_drift=0.0000 idle_drift=0.0000 step_ups=1 ceil_under=0/0 ceil_out=0/0
+cyl_stairs_up_stepup pass=true  reached_tick= 228 max_x=6.026 final=(19.17282, 0.000881, 44.0) max_dy_tick=0.185 airborne=2/218 z_drift=0.0000 idle_drift=-1.0000 step_ups=8 ceil_under=0/0 ceil_out=0/0
+cyl_stairs_down    pass=true  reached_tick= 225 max_x=6.473 final=(-12.7279, -11.90698, 48.0) max_dy_tick=0.176 airborne=60/215 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+cyl_obstacle_029   pass=true  reached_tick= 169 max_x=4.507 final=(19.22693, 0.000704, 52.0) max_dy_tick=0.289 airborne=0/159 z_drift=0.0000 idle_drift=-1.0000 step_ups=1 ceil_under=0/0 ceil_out=0/0
+cyl_obstacle_035   pass=true  reached_tick=  -1 max_x=2.747 final=(2.746665, 0.000927, 56.0) max_dy_tick=0.000 airborne=0/290 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+cyl_gap_crawl      pass=true  reached_tick= 721 max_x=6.008 final=(6.008327, 0.000927, 60.0) max_dy_tick=0.000 airborne=0/711 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=168/168 ceil_out=0/230
+ticks=721 | wall_ms=370.5 | ALL_PASS=true

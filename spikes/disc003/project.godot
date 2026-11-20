@@ -1,0 +1,13 @@
+; Projeto descartável do spike DISC-003 (ENGINE_DECISION §7). Não é o jogo.
+config_version=5
+
+[application]
+config/name="DISC-003 Spike"
+
+[display]
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/vsync/vsync_mode=0
+
+[rendering]
+renderer/rendering_method="forward_plus"

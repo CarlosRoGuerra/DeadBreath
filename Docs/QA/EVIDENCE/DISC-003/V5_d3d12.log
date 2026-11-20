@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+D3D12 12_0 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+adapter=AMD Radeon RX 9070 XT | vendor=AMD | api=12_0
+get_current_rendering_driver_name=d3d12
+get_current_rendering_method=forward_plus
+window_size=(1920, 1080) | viewport=(1920.0, 1080.0) | vsync_mode=0 | max_fps=0
+V5 frames=600 | mean=0.678 ms | p50=0.608 | p95=0.962 | p99=2.077 | max=3.930 | fps_mean=1475.9 | gpu_p95=0.571 ms | limit_p95=6.9 | PASS

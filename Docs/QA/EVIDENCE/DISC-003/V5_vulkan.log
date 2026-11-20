@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.359 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+adapter=AMD Radeon RX 9070 XT | vendor=AMD | api=1.4.359
+get_current_rendering_driver_name=vulkan
+get_current_rendering_method=forward_plus
+window_size=(1920, 1080) | viewport=(1920.0, 1080.0) | vsync_mode=0 | max_fps=0
+V5 frames=600 | mean=0.674 ms | p50=0.588 | p95=1.206 | p99=1.755 | max=2.579 | fps_mean=1483.1 | gpu_p95=0.429 ms | limit_p95=6.9 | PASS

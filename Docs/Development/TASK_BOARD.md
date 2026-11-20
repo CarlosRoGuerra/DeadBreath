@@ -3,24 +3,24 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | FASE 0 → gate pendente |
+| Fase atual | **FASE 1 — Foundation** (Gate F0 aprovado em 2026-11-20) |
 | Estados | BACKLOG · READY · IN_PROGRESS · REVIEW · TESTING · APPROVED · BLOCKED |
 
 Uma tarefa só fica **APPROVED** com: implementação concluída, critérios atendidos, testes executados (com saída registrada), revisão técnica concluída e documentação atualizada.
 
 ---
 
-## 1. Decisões pendentes do usuário
+## 1. Decisões do usuário
 
-| ID | Decisão | Recomendação | Impacto se adiada |
+| ID | Decisão | Recomendação | Situação |
 |---|---|---|---|
-| D-01 | Aprovar a engine | **Godot 4.7.2 + GDScript tipado** (ENGINE_DECISION.md) | Bloqueia o Gate F0 |
-| D-02 | Local do projeto | **Mover para `D:\Dev\DeadBreath`** (fora do OneDrive; D: tem 249 GB livres) | Risco de corrupção de `.git` e sincronização constante (ENV-001) |
-| D-03 | Controle de versão | **`git init` local agora**; remoto privado opcional depois | Sem git não há worktrees para agentes paralelos |
-| D-04 | Instalação do Godot | Autorizar o download do binário oficial (GitHub, 82 MB) para `D:\DevTools\Godot\4.7.2\`, **ou** baixar manualmente e informar o caminho | Bloqueia o spike DISC-003 e o Gate F0 |
-| D-05 | Personagens 3D e animações | Instalar o **Blender** (gratuito, scriptável por Python) + bases CC0; freelancer pontual para os 3 criminosos na F6/F7 | Bloqueia a partir da F4 (até lá, cápsulas) |
-| D-06 | Assets externos | Permitir assets **CC0** (Poly Haven, ambientCG, Quaternius, Kenney), registrados em `ASSET_LICENSES.md` | Sem isso, só procedural |
-| D-07 | Áudio de respiração | Opcional: gravar respiração, chiado e tosse reais com microfone. Alternativa: síntese procedural + CC0 | Bloqueia a partir da F2 |
+| D-01 | Aprovar a engine | **Godot 4.7.2 + GDScript tipado** (ENGINE_DECISION.md) | **APROVADA** (2026-11-20) |
+| D-02 | Local do projeto | **Mover para `D:\Dev\DeadBreath`** (fora do OneDrive; D: tem 249 GB livres) | **APROVADA e executada** (2026-11-20) |
+| D-03 | Controle de versão | **`git init` local agora**; remoto privado opcional depois | **APROVADA**. O usuário já tinha criado o repositório com remoto `origin` no GitHub. Commits são locais; push só quando o usuário pedir |
+| D-04 | Instalação do Godot | Autorizar o download do binário oficial (GitHub, 82 MB) para `D:\DevTools\Godot\4.7.2\`, **ou** baixar manualmente e informar o caminho | **APROVADA e executada** (SHA-512 conferido) |
+| D-05 | Personagens 3D e animações | Instalar o **Blender** (gratuito, scriptável por Python) + bases CC0; freelancer pontual para os 3 criminosos na F6/F7 | Pendente; bloqueia a partir da F4 (até lá, cápsulas) |
+| D-06 | Assets externos | Permitir assets **CC0** (Poly Haven, ambientCG, Quaternius, Kenney), registrados em `ASSET_LICENSES.md` | Pendente; sem isso, só procedural |
+| D-07 | Áudio de respiração | Opcional: gravar respiração, chiado e tosse reais com microfone. Alternativa: síntese procedural + CC0 | Pendente; bloqueia a partir da F2 |
 
 ## 2. Propostas de funcionalidade (MASTER §18)
 
@@ -39,13 +39,17 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 
 | ID | Tarefa | Responsável | Esforço | Depende de | Status | Evidência |
 |---|---|---|---|---|---|---|
-| DISC-001 | Inventário do ambiente | Project Director | HIGH | — | REVIEW | Docs/QA/EVIDENCE/DISC-001_environment.txt |
-| DISC-002 | Avaliação de engines, matriz, sensibilidade e avaliação por objetivo | Software Architect | EXTRA HIGH | DISC-001 | REVIEW | ENGINE_DECISION §3–5.1; aritmética conferida em DISC-006 |
-| DISC-003 | Spike de verificação da engine (V1–V6), critério do Gate F0 | Project Director + QA | HIGH | D-04 | **BLOCKED** | Download/execução negados pela política de permissões em 2026-11-20 |
-| DISC-004 | Arquitetura, contratos e estruturas de dados | Software Architect | EXTRA HIGH | DISC-002 | REVIEW | v0.2 dos três documentos |
-| DISC-005 | Roadmap, backlog, agentes e plano de testes | Project Director | HIGH | DISC-004 | REVIEW | ROADMAP, TASK_BOARD, AGENT_ASSIGNMENTS, TEST_PLAN |
+| DISC-001 | Inventário do ambiente | Project Director | HIGH | — | APPROVED | Docs/QA/EVIDENCE/DISC-001_environment.txt |
+| DISC-002 | Avaliação de engines, matriz, sensibilidade e avaliação por objetivo | Software Architect | EXTRA HIGH | DISC-001 | APPROVED | ENGINE_DECISION §3–5.1; aritmética conferida em DISC-006 |
+| DISC-003 | Spike de verificação da engine (V1–V6), critério do Gate F0 | Project Director + QA | HIGH | D-04 | **DONE** (V1–V6 passaram). A reexecução independente pelo QA entra na F1-011 | Docs/QA/TEST_RESULTS.md §DISC-003; Docs/QA/EVIDENCE/DISC-003/; ENGINE_DECISION §7.1 |
+| DISC-004 | Arquitetura, contratos e estruturas de dados | Software Architect | EXTRA HIGH | DISC-002 | APPROVED (v0.2 draft; congelamento v1.0 por sistema) | v0.2 dos três documentos |
+| DISC-005 | Roadmap, backlog, agentes e plano de testes | Project Director | HIGH | DISC-004 | APPROVED | ROADMAP, TASK_BOARD, AGENT_ASSIGNMENTS, TEST_PLAN |
 | DISC-006 | Revisão técnica independente (3 rodadas) | Technical Reviewer | HIGH | DISC-002..005 | APPROVED | DISC-006.md (rodada 1: REPROVADO, 48 achados); DISC-006_VERIFICATION.md (rodada 2: REPROVADO, 2 ALTO novos; rodada 3: **APROVADO COM RESSALVAS**, 0 CRÍTICO/ALTO) |
 | DISC-007 | Correção dos achados da DISC-006 | Software Architect + Director | EXTRA HIGH | DISC-006 | APPROVED (com ressalvas) | DISC-006_RESOLUTION.md. As ressalvas da rodada 3 (N-04, N-19 a N-23) foram corrigidas depois dela e **não foram reverificadas**; a conferência entra no congelamento v1.0 de cada contrato |
+
+---
+
+**Gate F0: APROVADO em 2026-11-20.** D-01 a D-04 aprovados pelo usuário; DISC-003 passou em V1–V6; DISC-006 sem achado CRÍTICO ou ALTO em aberto.
 
 ---
 

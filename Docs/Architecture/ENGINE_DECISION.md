@@ -2,12 +2,12 @@
 
 | Campo | Valor |
 |---|---|
-| Status | **PROPOSTA — aguardando aprovação do usuário** |
+| Status | **APROVADA** em 2026-11-20 (usuário aprovou D-01; spike DISC-003 passou em V1–V6) |
 | Data | 2026-11-20 |
 | Responsáveis | Project Director, Software Architect |
 | Esforço | EXTRA HIGH |
-| Decisão proposta | **Godot 4.7.2-stable (build padrão, sem .NET) + GDScript tipado** |
-| Verificação prática na máquina | **PENDENTE.** O download e a execução do binário foram bloqueados pela política de permissões desta sessão (KNOWN_ISSUES ENV-003). O spike DISC-003 é **critério do Gate F0** (§7). |
+| Decisão | **Godot 4.7.2-stable (build padrão, sem .NET) + GDScript tipado + GodotPhysics3D** |
+| Verificação prática na máquina | **FEITA** (DISC-003, 2026-11-20). Binário oficial com SHA-512 conferido, instalado em `D:\DevTools\Godot\4.7.2\`. Resultados em §7.1 e em Docs/QA/TEST_RESULTS.md. |
 | Revisão técnica | DISC-006 em 3 rodadas: escolha de engine mantida em todas; documentos de arquitetura APROVADOS COM RESSALVAS na rodada 3 (Docs/QA/REVIEWS/) |
 
 ---
@@ -157,7 +157,7 @@ Com **pesos iguais** (10 para cada critério), o resultado é UE5 68, Unity 74, 
 | Comparar e escolher a engine | — | — | — | §5 (matriz e sensibilidade) e §6 (decisão) |
 | Inspecionar ferramentas disponíveis | — | — | — | §2 e Docs/QA/EVIDENCE/DISC-001_environment.txt |
 
-## 6. Decisão proposta
+## 6. Decisão
 
 **Godot 4.7.2-stable, build padrão (sem .NET), linguagem GDScript com tipagem estática obrigatória.**
 
@@ -166,8 +166,8 @@ Com **pesos iguais** (10 para cada critério), o resultado é UE5 68, Unity 74, 
 | Versão | 4.7.2-stable, fixada | Estabilidade. Atualizações de patch (4.7.x) são permitidas após a suíte de regressão passar. Migrar para 4.8 exige nova ADR. |
 | Build | Padrão (não-.NET) | Sem acoplamento com versões do .NET; o SDK instalado é o 10 e a compatibilidade com o Godot .NET não foi verificada. Executável menor. |
 | Linguagem | GDScript tipado | Sem etapa de build, iteração imediata, testes headless triviais. Warnings de variáveis não tipadas tratados como erro. |
-| Renderer | Forward+ (Vulkan) | Necessário para névoa volumétrica e GI. **D3D12** como fallback se Vulkan apresentar problema na RDNA4. |
-| Física | **A decidir no spike** entre Jolt Physics (opção integrada desde a 4.4; se é o padrão na 4.7 não foi confirmado) e GodotPhysics3D | Configuração `physics/3d/physics_engine`. O spike compara os dois com CharacterBody3D em escada, rampa e vão de 0,6 m. A suposta maior estabilidade do Jolt é hipótese, não evidência. |
+| Renderer | Forward+ (Vulkan) | Necessário para névoa volumétrica e GI. Verificado no spike: Vulkan 1.4.359 é o driver padrão na RX 9070 XT; **D3D12** também funciona e fica como fallback. |
+| Física | **GodotPhysics3D** (definida explicitamente em `physics/3d/physics_engine`) | Spike V6 (§7.1): com cápsula, os dois motores deram resultados praticamente iguais. Com cilindro, o GodotPhysics3D manteve contato com o chão em 100% dos ticks na escada (Jolt: 28% dos ticks sem chão ao descer) e não gerou step-up espúrio na base da rampa. Ticks "no ar" gerariam eventos falsos de aterrissagem e passos, ou seja, ruído falso para a IA. **Reavaliar na F3** (objetos arremessáveis com RigidBody3D), rodando de novo o spike V6 mais um teste de corpos dinâmicos. |
 | Plano B de desempenho | C# ou GDExtension só para trechos críticos | Ativado apenas se o profiling mostrar GDScript acima do orçamento (ver SYSTEM_ARCHITECTURE §13). GDExtension exige instalar um compilador C++. |
 | Runner-up | Unity 6 | Se Godot falhar no spike (renderização na RDNA4 ou bloqueio técnico grave), reabrir esta ADR com Unity como alternativa. |
 
@@ -185,6 +185,26 @@ O spike pertence à **Fase 0**. A ADR passa a **APPROVED** quando o usuário apr
 | V6 | CharacterBody3D em escada, rampa e vão de 0,6 m com Jolt e com GodotPhysics3D | Resultado comparativo e escolha registrada |
 
 Instalação recomendada: `D:\DevTools\Godot\4.7.2\` (fora do OneDrive e do C:).
+
+### 7.1 Resultado do spike (2026-11-20)
+
+Projeto descartável em `spikes/disc003/`; evidência bruta em `Docs/QA/EVIDENCE/DISC-003/`; reexecução com `bash spikes/disc003/run_spike.sh`.
+
+| # | Resultado | Valor medido |
+|---|---|---|
+| V1 | **PASSOU** | `4.7.2.stable.official.ed1daf0bf` |
+| V2 | **PASSOU** | `-- pass` → exit 0; `-- fail` → exit 1 |
+| V3 | **PASSOU** | Vulkan 1.4.359, Forward+, RX 9070 XT; screenshot 1920×1080 inspecionado (3 luzes coloridas, sombras, halos de névoa volumétrica) |
+| V4 | **PASSOU** | Erro de parse → exit 1. Os warnings `untyped_declaration`, `unsafe_method_access` e `unsafe_property_access` configurados como erro também dão exit 1 em `--check-only`; script válido → exit 0 |
+| V5 | **PASSOU** | p95 em 2 execuções: Vulkan 1,92 e 1,21 ms; D3D12 0,90 e 0,96 ms (limite 6,9 ms). Os logs gravados são da 2ª execução. Ressalva: sala simples; o orçamento real é medido de novo na F4 |
+| V6 | **PASSOU** | 16 pistas, todas aprovadas nos dois motores depois de corrigir a sondagem do step-up do controlador do spike. Resultados determinísticos (2 execuções idênticas por motor). Escolha: GodotPhysics3D (§6) |
+
+**Achados do V6 que entram no PlayerMotor (F1-006):**
+- `move_and_slide()` não sobe degraus sozinho: sem step-up, o corpo para em x = 1,76 diante de um degrau de 0,18 m. É preciso um step-up próprio. A sondagem horizontal precisa ser ≥ raio do colisor; com 1 tick de movimento (2,7 cm), a base arredondada da cápsula bate na quina e a normal não parece chão.
+- **A cápsula perde o chão em ~28% dos ticks ao descer a escada** nos dois motores, mesmo com `floor_snap_length` = 0,3 m. **Cilindro + GodotPhysics3D: 0%.** Recomendação: colisor do jogador = `CylinderShape3D`.
+- O step-up eleva o corpo de uma vez (até 0,29 m num tick). A câmera precisa suavizar a altura.
+- Em `DEFAULT`, o 4.7.2 usa GodotPhysics3D (números idênticos aos da execução com GodotPhysics3D explícito).
+- Rampa de 30°: parado, deslocamento = 0 nos dois motores. Vão de 0,6 m: rastejando (0,55 m) passa; em pé é bloqueado; a checagem de teto acusou bloqueio em 168/168 amostras sob a laje e 0/230 fora dela.
 
 ## 8. Consequências
 

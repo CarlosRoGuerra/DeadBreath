@@ -23,6 +23,8 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 - Parâmetros de IA numéricos; teste AI-06 por invariância; fórmulas completas de fisiologia e acoplamento; piso de ruído de chuva; estado do RNG no snapshot.
 - O spike da engine virou critério do Gate F0. Novas tarefas de acessibilidade, remapeamento, legendas, SaveService e licenças de assets.
 
-#### Não realizado
-- Spike de verificação da engine (DISC-003): bloqueado pela política de permissões para download e execução de binários.
-- Nenhum código de jogo foi escrito (regra de gate da Fase 0).
+#### Gate F0 (2026-11-20)
+- Usuário aprovou D-01 a D-04. Projeto copiado para `D:\Dev\DeadBreath` (repositório git com remoto no GitHub; commits só locais).
+- Godot 4.7.2 oficial instalado em `D:\DevTools\Godot\4.7.2\` (SHA-512 conferido).
+- Spike DISC-003 executado: V1–V6 passaram (`spikes/disc003/`, `Docs/QA/TEST_RESULTS.md`). Física escolhida: GodotPhysics3D. ADR-001 → **APROVADA**.
+- Nenhum código de jogo na Fase 0 (regra de gate).

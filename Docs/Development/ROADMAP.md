@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 0 — Discovery** (documentos entregues; gate pendente) |
+| Fase atual | **FASE 1 — Foundation** (Gate F0 aprovado em 2026-11-20) |
 | Responsável | Project Director |
 
 Cada fase termina num **gate**. A fase seguinte só começa com o gate aprovado: critérios cumpridos, testes executados com evidência, revisão técnica concluída, documentação atualizada e aprovação do usuário.
@@ -44,12 +44,12 @@ O `AcousticGraph` (L1 puro, F3-001) pode avançar em paralelo com a F2. A respir
 | Arquitetura, contratos e estruturas de dados | Feito, v0.2 após revisão |
 | Roadmap, backlog, agentes e plano de testes | Feito |
 | Revisão técnica independente (DISC-006) | Feita em 3 rodadas: REPROVADO → REPROVADO → **APROVADO COM RESSALVAS** (0 CRÍTICO/ALTO em aberto). Critério 3 do gate cumprido. |
-| Spike de verificação da engine (DISC-003, V1–V6) | **BLOQUEADO** (permissão para baixar e executar binários) |
+| Spike de verificação da engine (DISC-003, V1–V6) | **Passou** em V1–V6 (ENGINE_DECISION §7.1). Física: GodotPhysics3D |
 
-**Gate F0:**
-1. Usuário aprova D-01 a D-04 (TASK_BOARD §1).
-2. Spike DISC-003 passa em V1–V6.
-3. A nova verificação da revisão técnica não encontra achado CRÍTICO ou ALTO em aberto.
+**Gate F0: APROVADO (2026-11-20).**
+1. Usuário aprova D-01 a D-04 (TASK_BOARD §1). ✔
+2. Spike DISC-003 passa em V1–V6. ✔
+3. A nova verificação da revisão técnica não encontra achado CRÍTICO ou ALTO em aberto. ✔
 
 ## FASE 1 — Foundation · EXTRA HIGH · M
 

@@ -1,0 +1,15 @@
+$ (override.cfg: physics_engine=DEFAULT) godot --headless --fixed-fps 60 --path spikes/disc003 --script res://physics_main.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+physics_engine setting=DEFAULT | server_class=PhysicsServer3D
+ramp_up            pass=true  reached_tick= 258 max_x=6.020 final=(39.14153, 0.000838, 0.0) max_dy_tick=0.012 airborne=0/248 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+ramp_idle          pass=true  reached_tick=  -1 max_x=3.303 final=(3.30323, 0.792033, 4.0) max_dy_tick=0.012 airborne=0/131 z_drift=0.0000 idle_drift=0.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+stairs_up_stepup   pass=false reached_tick=  -1 max_x=1.760 final=(1.759999, 0.000838, 8.0) max_dy_tick=0.000 airborne=0/1490 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+stairs_up_raw      pass=true  reached_tick=  -1 max_x=1.760 final=(1.759999, 0.000838, 12.0) max_dy_tick=0.000 airborne=0/290 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+stairs_down        pass=true  reached_tick= 225 max_x=6.473 final=(-33.50895, -1045.704, 16.0) max_dy_tick=0.038 airborne=60/215 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+gap_crawl          pass=true  reached_tick= 721 max_x=6.008 final=(12.4999, 0.000843, 20.0) max_dy_tick=0.000 airborne=0/711 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=168/168 ceil_out=0/230
+gap_stand          pass=true  reached_tick=  -1 max_x=2.747 final=(2.746665, 0.000843, 24.0) max_dy_tick=0.000 airborne=0/290 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+obstacle_035       pass=true  reached_tick=  -1 max_x=2.747 final=(2.746665, 0.000843, 28.0) max_dy_tick=0.000 airborne=0/290 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+obstacle_029       pass=false reached_tick=  -1 max_x=2.747 final=(2.746665, 0.000843, 32.0) max_dy_tick=0.000 airborne=0/1490 z_drift=0.0000 idle_drift=-1.0000 step_ups=0 ceil_under=0/0 ceil_out=0/0
+ticks=1500 | wall_ms=732.8 | ALL_PASS=false
+exit=1

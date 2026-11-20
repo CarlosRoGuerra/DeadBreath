@@ -1,0 +1,10 @@
+; Subprojeto do spike V4: warnings de tipagem como erro (mesma regra do jogo).
+config_version=5
+
+[application]
+config/name="DISC-003 V4"
+
+[debug]
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/unsafe_method_access=2
+gdscript/warnings/unsafe_property_access=2
