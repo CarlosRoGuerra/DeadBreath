@@ -28,7 +28,8 @@ var _duration: float = 0.0
 
 func _ready() -> void:
 	_state = initial_state
-	_panel.rotation.y = 0.0
+	# Porta que começa aberta já nasce com o painel no ângulo de abertura (achado da integração F1-009).
+	_panel.rotation.y = deg_to_rad(open_angle_deg) if _state == State.OPEN else 0.0
 
 
 func get_state() -> State:

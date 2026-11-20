@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://content/levels/sandbox.tscn" id="1_level"]
+[ext_resource type="Script" path="res://components/world/level_slots.gd" id="2_slots"]
+[ext_resource type="Script" path="res://presentation/ui/pause_menu.gd" id="3_pause"]
+[ext_resource type="Script" path="res://presentation/debug/debug_overlay.gd" id="4_debug"]
+
+[node name="SandboxPlayable" type="Node"]
+
+[node name="Level" parent="." instance=ExtResource("1_level")]
+
+[node name="LevelSlots" type="Node" parent="."]
+script = ExtResource("2_slots")
+level_path = NodePath("../Level")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("3_pause")
+
+[node name="DebugOverlay" type="CanvasLayer" parent="."]
+script = ExtResource("4_debug")

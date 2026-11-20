@@ -109,6 +109,8 @@ func get_focused() -> Interactable
 - `InteractionContext` (DATA_STRUCTURES §5) leva `steadiness` e `is_hidden`. Com `requires_steady_hands`, o tempo de segurar é multiplicado por `1 + 1.5·(1 − steadiness)`. Uma falha (soltar antes) gera ruído do objeto.
 - **Door:** estados `CLOSED`, `OPEN`, `LOCKED`. Segurar = abertura lenta (30 dB); toque = normal (50 dB). Atualiza o `Portal` acústico associado. É `Saveable`.
 - **Pickup:** tem `persist_id`, emite `EventBus.item_picked` e se remove. É `Saveable` (consumido ou não).
+- **Door (F1):** começa no estado `initial_state`; se for `OPEN`, o painel já nasce no ângulo de abertura.
+- **LevelSlots (L2, `components/world/level_slots.gd`, integração F1-009):** instancia Door e Pickup nos marcadores do Level Designer. `door_slot` = `Marker3D` no centro do vão, 1,0 m acima do piso, +Z local ao longo da largura; metadados `door_id`, `start_state` (`closed`/`open`/`locked`), `opening_width_m`. `pickup_slot` = `Marker3D` na posição do item; metadados `persist_id`, `item_id`. `persist_id` repetido gera `Log.error`.
 
 ## 4. Fisiologia — Physiological Systems Engineer — Fase 2
 

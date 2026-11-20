@@ -104,7 +104,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 - **Testes:** integration da flag de produção.
 
 ### F1-009 · Sandbox greybox
-- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F1-006 · **Status:** BACKLOG
+- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F1-006 · **Status:** REVIEW. `sandbox.tscn` (gerada por `tools/level/gen_sandbox.py`), 8 testes MOT-04 na sandbox, capturas inspecionadas. Integração do Director: `LevelSlots` (portas e pickups nos marcadores), `sandbox_playable.tscn` como cena principal (com menu de pausa e overlay), 5 testes de integração; achado e corrigido: porta que começa aberta nascia com o painel fechado
 - **Descrição:** `content/levels/sandbox.tscn` com 4 salas, corredor estreito, escada para mezanino, mesa para rastejar, portas e superfícies (madeira, tapete, azulejo, concreto) com metadado. Iluminação escura com névoa volumétrica. `RoomVolume` e `Portal` já posicionados para a F3.
 - **Aceitação:** todas as mecânicas da F1 são exercitáveis; screenshot por script (com janela) anexado.
 - **Testes:** MOT-04 roda nesta cena.
@@ -137,7 +137,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 | ID | Tarefa de design | Responsável | Esforço | Status |
 |---|---|---|---|---|
 | F1-D01 | GAME_DESIGN_DOCUMENT v0.1 (pilares, loop, mecânicas, capítulos, itens) | Project Director | MEDIUM | REVIEW (Docs/Design/GAME_DESIGN_DOCUMENT.md) |
-| F1-D02 | NARRATIVE v0.1 (mistério, objeto procurado, moradores anteriores, pistas por capítulo) | Level Designer | MEDIUM | BACKLOG |
+| F1-D02 | NARRATIVE v0.1 (mistério, objeto procurado, moradores anteriores, pistas por capítulo) | Level Designer | MEDIUM | REVIEW (Docs/Design/NARRATIVE.md; questões N-01..N-05 em aberto) |
 | F1-D03 | ART_DIRECTION v0.1 (paleta, luz, materiais, orçamento de polígonos) | Art & Environment | MEDIUM | REVIEW (Docs/Design/ART_DIRECTION.md; 5 materiais CC0 em game/content/materials/, licenças conferidas; captura em EVIDENCE/F1-D03_materials.png) |
 
 **Desvios de esforço em relação à matriz do MASTER §7.1 (justificados):**

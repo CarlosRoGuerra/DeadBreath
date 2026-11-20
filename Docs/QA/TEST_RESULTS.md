@@ -96,3 +96,25 @@ Controlador mínimo do spike (`spikes/disc003/mover.gd`), 60 Hz, `floor_snap_len
 - Bug achado e corrigido durante a tarefa: degrau de exatamente 0,30 m travava o step-up (topo encostava na sondagem). Folga de 2 mm.
 - Mutações (`EVIDENCE/F1-006_mutacoes.txt`): 7 alterações do código (sem checagem de teto, sem step-up, superfície fixa etc.), cada uma reprovou ao menos um teste.
 - Sem verificação visual ainda: depende da sandbox (F1-009).
+
+---
+
+## F1-007 / F1-008 / F1-013 / BUG-001 / F1-009 — Interação, debug, remapeamento, escada e sandbox
+
+| Campo | Valor |
+|---|---|
+| Data | 2026-11-20 |
+| Comando | `tools/run_tests.ps1` |
+| Execução do Director (após a integração da sandbox) | importação OK; ARC-04 OK; runner **123/123**; meta **17/17**; código 0 |
+
+| Área | Testes | Observação |
+|---|---|---|
+| Interação (F1-007) | 20 | Foco e oclusão, toque/segurar, porta lenta/normal/trancada, pickup; 3× estáveis (Gameplay) |
+| Debug (F1-008) | 6 | Inclui a flag de produção |
+| Input (F1-013) | 17 | **ACC-05**: remapear → reiniciar → persiste; conflito avisado; regressão das ações `ui_*` |
+| Escada (BUG-001) | 5 | 0 ticks sem chão; varredura de 12 fases; a mutação com a folga de 5 mm reprova |
+| Sandbox MOT-04 (F1-009) | 8 | Rasteja sob a mesa, não levanta sob ela, sobe ao mezanino com 0 ticks no ar, não atravessa paredes, vãos |
+| LevelSlots (integração) | 5 | 4 portas nos estados dos slots, porta aberta nasce aberta, portas fechadas bloqueiam o vão, persist_id único (ARC-02 parcial), cena com jogador/pausa/overlay. Mutação "painel sempre fechado" → 2 testes reprovam |
+
+- Evidências visuais inspecionadas: `EVIDENCE/F1-009_sandbox_pov_sala.png`, `F1-009_sandbox_pov_escada.png`, `F1-009_playable_portas.png` (porta aberta para a cozinha e porta fechada para o corredor, renderizadas na cena jogável).
+- Achado visual (ART_DIRECTION §3): a sandbox está mais clara do que o alvo (87–90% das amostras acima de 0,05 contra 40–70%). Ajuste previsto para a F5.
