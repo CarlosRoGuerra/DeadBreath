@@ -1,27 +1,33 @@
-﻿F1-005 - pendencias e pontos para decisao do Director (2026-11-20)
+﻿F1-005 - pendencias e decisoes para o Director (atualizado em 2026-11-20, apos Logger de erros de script)
 
-PENDENTES (ainda nao implementados, conforme o card e o TEST_PLAN §2.10):
-  ARC-02  persist_id unico e nao vazio: depende de niveis carregaveis (F1-009 e seguintes). Sem teste ainda.
-  ARC-07  config ausente: depende de configs .tres (classes de config em L1, F2 em diante). Sem teste ainda.
-  Nenhum teste fake foi criado para eles; passar a verificar exige o nivel ou o .tres correspondente.
+PENDENTES (nao implementados, conforme o card e o TEST_PLAN §2.10):
+  ARC-02  persist_id unico e nao vazio: depende de niveis carregaveis (F1-009 em diante).
+  ARC-07  config ausente: depende das configs .tres (F2 em diante).
+  Nenhum teste fake foi criado para eles.
 
-DECISOES TOMADAS QUE PEDEM CONFIRMACAO (registradas no relatorio do QA):
-  1. Etapa de parse (ARC-04) no pipeline: teste in-process (load + can_instantiate), nao --check-only por arquivo.
-     Motivo: --check-only falha com "Identifier not found: Log" em scripts que usam autoload (verificado).
-  2. Runner padrao roda unit, integration, scenarios e architecture (texto literal do contrato); meta roda so com --level=meta.
-     O run_tests.ps1 roda as duas execucoes.
-  3. Opcao extra --root=<pasta> (usada so pelos meta-testes); --filter e --level como no contrato.
-  4. Utilitario extra TestCase.note(text): informa vacuidade e contagens na saida, sem afetar o resultado.
-  5. Teste sem nenhum assert passa, mas o runner imprime AVISO (contrato literal: so falha com falha registrada).
-  6. Erro de script em tempo de execucao NAO e interceptado pelo runner (verificado: o teste pode passar com 0 asserts).
-     Quem reprova e o run_tests.ps1, pela linha SCRIPT ERROR. Opcao para o Director: reprovar teste com 0 asserts.
-  7. Linhas "ERROR:" do engine nao reprovam a etapa (o teste intencional de corrupcao em test_settings gera uma).
-  8. Meta-testes gravam fixtures em user:// (fora de res://), nunca em game/tests; a pasta fixtures/ tambem e ignorada.
+DECISOES (para confirmacao do Director):
+  1. Erro de script em runtime (tipo SCRIPT do Logger) reprova o teste em execucao, com mensagem e arquivo:linha.
+     Erro de engine (tipo ERROR: push_error, ConfigFile, falha de load) nao reprova: vira nota.
+     Declaracoes: expect_script_error(trecho) e expect_engine_error(trecho). Declarado e nao ocorrido reprova.
+     Motivo: o ConfigFile do test_settings do Director e tipo ERROR e nao pode reprovar sem a declaracao.
+  2. Teste com 0 asserts continua passando, com AVISO. Erro de script ja e pego pelo Logger, entao o aviso e so informativo.
+     ARC-01 e ARC-06 tem assert na vacuidade (assert_eq), logo nao caem nesse aviso.
+  3. ARC-06 (PLR-INV-1): os alvos passaram a ser apenas componentes, isto e, scripts com base Node ou derivada.
+     Helpers RefCounted (ex.: MotorInput) e configs Resource (ex.: PlayerMotorConfig) podem ser usados pelos componentes.
+     Motivo: a versao anterior reprovou 22 referencias de PlayerMotor a MotorInput e PlayerMotorConfig, que nao sao componentes.
+     Se o Director quiser proibir tambem essas referencias, basta trocar _is_component por "todos os scripts da pasta".
+  4. Etapa de parse (ARC-04) in-process, nao --check-only (verificado: --check-only falha com Identifier not found: Log).
+  5. CACHE_MODE_REUSE em todas as cargas (CACHE_MODE_IGNORE derrubou o processo ao recarregar o script em execucao).
+  6. Runner padrao = unit, integration, scenarios, architecture. Meta roda com --level=meta; o run_tests.ps1 faz as duas.
 
-PONTOS DE ATENCAO PARA O DIRECTOR (fora da lista de escrita do QA, nao alterados):
-  a. Os .uid gerados pela importacao em game/autoload/, game/core/ e game/sim/physiology/ estao sem commit (versionar junto).
-  b. Tempo: runner padrao ~0,9 s de parede (275 ms internos); runner-meta 2 a 6,5 s (cada caso sobe um Godot filho);
-     importacao ~3 s; ARC-04 em processo proprio ~0,8 a 2 s. Pipeline completo: 10,8 a 12,8 s. Alvo "< 10 s" vale para o runner.
-     Se o alvo for apertado: remover a etapa arc04 (ja roda no runner padrao) economiza ~1 s.
-  c. O runner carrega cada arquivo de teste com CACHE_MODE_REUSE. Com CACHE_MODE_IGNORE o processo caiu (segfault / Internal script error)
-     ao recarregar o proprio script em execucao (verificado). Outros scripts nao foram testados com IGNORE.
+PONTOS DE ATENCAO (fora da lista de escrita do QA, nao alterados):
+  a. Tempo do runner padrao: 12,5 s internos na execucao final. Os responsaveis sao integration/player/ (outro agente):
+     test_mot01 (2,5 s), test_step_up e test_landed_and_footsteps (1 a 1,4 s cada), todos esperando frames de fisica em tempo real.
+     Acima do alvo "< 10 s". Opcoes: encurtar os testes de fisica ou acelerar o passo de fisica no runner (decisao de design).
+  b. integration/player/test_step_up.gd falhou na copia de mutacao (altura final 0.0 em degrau de 0,30 m) e passou no repositorio na execucao final.
+     Ainda assim, um teste que passa e falha entre execucoes e instavel (TEST_PLAN §1): vale checar com o autor.
+  c. Os .uid gerados pela importacao em game/autoload/, game/core/, game/sim/physiology/ e game/components/ estao sem commit.
+  d. Erro ERROR: do engine nao reprova. O teste do ConfigFile aparece como nota em toda execucao.
+  e. Um erro de parse de script carregado dentro de um teste (ex.: ARC-03 reflexao) aparece como "erro de script em tempo de execucao"
+     com o arquivo correto. O rotulo e um pouco impreciso, mas a falha e a esperada.
+  f. Logger: os erros chegam na thread que os gerou; o buffer e protegido por Mutex. Testes rodam na thread principal.

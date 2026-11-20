@@ -5,8 +5,12 @@ extends Node
 ## Cada arquivo test_*.gd estende TestCase. Cada método test_<nome>() sem argumentos é um teste.
 ## Ganchos opcionais (podem usar await): before_all, after_all, before_each, after_each.
 ## Asserts registram a falha e seguem; o teste falha se houver ao menos uma.
-## Os campos failures, assert_count e notes são lidos pelo runner (tests/run_all.gd).
-## Os testes não devem alterá-los diretamente.
+## Erros de script (tipo SCRIPT) que o teste declara como esperados, com expect_script_error().
+## Erros de engine (tipo ERROR, ex.: push_error) declarados com expect_engine_error().
+## Um erro de script NÃO declarado reprova o teste em execução; um erro de engine não declarado
+## vira nota. Um erro declarado que não ocorre reprova o teste.
+## Os campos failures, assert_count, notes e os expected_* são lidos pelo runner
+## (tests/run_all.gd). Os testes não devem alterá-los diretamente.
 
 ## Mensagens de falha do teste atual (vazio = nenhuma falha).
 var failures: PackedStringArray = PackedStringArray()
@@ -14,6 +18,10 @@ var failures: PackedStringArray = PackedStringArray()
 var assert_count: int = 0
 ## Notas informativas do teste atual (ex.: quantos arquivos foram varridos). Aparecem na saída.
 var notes: PackedStringArray = PackedStringArray()
+## Trechos de mensagens de erro de script esperados neste teste.
+var expected_script_errors: PackedStringArray = PackedStringArray()
+## Trechos de mensagens de erro de engine esperados neste teste.
+var expected_engine_errors: PackedStringArray = PackedStringArray()
 
 var _test_label: String = ""
 var _autofree_nodes: Array[Node] = []
@@ -107,6 +115,18 @@ func note(text: String) -> void:
 	notes.append(text)
 
 
+## Declara um erro de script (tipo SCRIPT) esperado: o trecho deve aparecer na mensagem.
+## Sem essa declaração, qualquer erro de script durante o teste reprova o teste.
+func expect_script_error(substring: String) -> void:
+	expected_script_errors.append(substring)
+
+
+## Declara um erro de engine (tipo ERROR, ex.: push_error) esperado: o trecho deve aparecer
+## na mensagem. Se o erro não ocorrer, o teste reprova.
+func expect_engine_error(substring: String) -> void:
+	expected_engine_errors.append(substring)
+
+
 # ---- Utilidades ----
 
 ## Adiciona o nó ao teste; ele é liberado ao fim do teste.
@@ -155,6 +175,8 @@ func harness_begin_test(label: String) -> void:
 	failures = PackedStringArray()
 	assert_count = 0
 	notes = PackedStringArray()
+	expected_script_errors = PackedStringArray()
+	expected_engine_errors = PackedStringArray()
 
 
 ## Libera os nós do teste e apaga o diretório temporário.

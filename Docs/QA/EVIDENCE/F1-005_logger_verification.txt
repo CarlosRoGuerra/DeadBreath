@@ -1,0 +1,58 @@
+﻿F1-005 - verificacao do Logger (OS.add_logger) no Godot 4.7.2 (2026-11-20)
+Sonda em scratchpad (probe_logger.gd). Tipos: 0 = ERROR (push_error, ConfigFile, falha de load), 1 = WARNING, 2 = SCRIPT.
+PS> godot --headless --path <scratch>\probe -s res://probe_logger.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROBE_LOGGER_CLASS_EXISTS=true
+PROBE_OS_HAS_ADD_LOGGER=true HAS_REMOVE_LOGGER=true
+PROBE_SIG_LOG_ERROR={ "name": "_log_error", "args": [{ "name": "function", "class_name": &"", "type": 4, "hint": 0, "hint_string": "", "usage": 6 }, { "name": "file", "class_name": &"", "type": 4, "hint": 0, "hint_string": "", "usage": 6 }, { "name": "line", "class_name": &"", "type": 2, "hint": 0, "hint_string": "", "usage": 6 }, { "name": "code", "class_name": &"", "type": 4, "hint": 0, "hint_string": "", "usage": 6 }, { "name": "rationale", "class_name": &"", "type": 4, "hint": 0, "hint_string": "", "usage": 6 }, { "name": "editor_notify", "class_name": &"", "type": 1, "hint": 0, "hint_string": "", "usage": 6 }, { "name": "error_type", "class_name": &"", "type": 2, "hint": 0, "hint_string": "", "usage": 6 }, { "name": "script_backtraces", "class_name": &"", "type": 28, "hint": 31, "hint_string": "ScriptBacktrace", "usage": 6 }], "default_args": [], "flags": 8, "id": 0, "return": { "name": "", "class_name": &"", "type": 0, "hint": 0, "hint_string": "", "usage": 6 } }
+PROBE_MARK_A_runtime_call
+SCRIPT ERROR: Invalid call. Nonexistent function 'metodo_que_nao_existe (via call)' in base 'Object'.
+   at: fail_runtime_call (res://probe_logger.gd:12)
+   GDScript backtrace (most recent call first):
+       [0] fail_runtime_call (res://probe_logger.gd:12)
+       [1] _initialize (res://probe_logger.gd:30)
+PROBE_MARK_B_runtime_assign
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+   at: fail_runtime_assign (res://probe_logger.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] fail_runtime_assign (res://probe_logger.gd:18)
+       [1] _initialize (res://probe_logger.gd:32)
+PROBE_MARK_C_push_error
+ERROR: erro explicito de push_error
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://probe_logger.gd:34)
+PROBE_MARK_D_push_warning
+WARNING: aviso explicito
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://probe_logger.gd:36)
+PROBE_MARK_E_printerr
+linha de printerr
+PROBE_MARK_F_configfile
+ERROR: ConfigFile parse error at <string>:0: Unexpected EOF while parsing simple tag.
+   at: _parse (core/io/config_file.cpp:293)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://probe_logger.gd:41)
+PROBE_CONFIG_PARSE_ERR=43
+PROBE_MARK_G_parse_error_load
+SCRIPT ERROR: Parse Error: Expected parameter name.
+   at: GDScript::reload (res://probe_parse_error.gd:3)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://probe_logger.gd:44)
+ERROR: Failed to load script "res://probe_parse_error.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://probe_logger.gd:44)
+PROBE_MARK_H_end
+PROBE_ENTRY type=2 func=fail_runtime_call file=res://probe_logger.gd line=12 code=Invalid call. Nonexistent function 'metodo_que_nao_existe (via call)' in base 'Object'. rationale=
+PROBE_ENTRY type=2 func=fail_runtime_assign file=res://probe_logger.gd line=18 code=Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'. rationale=
+PROBE_ENTRY type=0 func=push_error file=core/variant/variant_utility.cpp line=1023 code=erro explicito de push_error rationale=
+PROBE_ENTRY type=1 func=push_warning file=core/variant/variant_utility.cpp line=1033 code=aviso explicito rationale=
+PROBE_ENTRY type=0 func=_parse file=core/io/config_file.cpp line=293 code=ConfigFile parse error at <string>:0: Unexpected EOF while parsing simple tag. rationale=
+PROBE_ENTRY type=2 func=GDScript::reload file=res://probe_parse_error.gd line=3 code=Parse Error: Expected parameter name. rationale=
+PROBE_ENTRY type=0 func=load file=modules/gdscript/gdscript_resource_format.cpp line=46 code=Failed to load script "res://probe_parse_error.gd" with error "Parse error". rationale=
+WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+exit=0

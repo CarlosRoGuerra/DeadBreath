@@ -110,6 +110,7 @@ func test_corrupt_file_falls_back_to_defaults() -> void:
 	var f: FileAccess = FileAccess.open(path, FileAccess.WRITE)
 	f.store_string("isto não é [um config válido = = =")
 	f.close()
+	expect_engine_error("ConfigFile parse error")
 	var s: SettingsScript = _new_settings(path)
 	assert_ne(s.load_from_disk(), OK)
 	for key: StringName in CONTRACT_KEYS:

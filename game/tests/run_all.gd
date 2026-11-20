@@ -9,10 +9,14 @@ extends SceneTree
 ## Saída: uma linha por teste (PASS/FAIL, arquivo::teste, tempo em ms) e um resumo.
 ## Código de saída: 0 só com ao menos 1 teste e nenhuma falha; 1 nos demais casos.
 ##
-## Limite: erro de script em tempo de execução aparece só como "SCRIPT ERROR" no console
-## (a função que falhou para e o chamador segue). O runner não intercepta isso; por isso
-## tools/run_tests.ps1 trata essa linha como falha. Um await que nunca termina é pego pelo
-## watchdog (PROGRESS_TIMEOUT_MS).
+## Erros são capturados com um Logger (OS.add_logger, ErrorCapture) em cada fase de cada teste:
+##   - erro de script (tipo SCRIPT: execução ou parse de GDScript) reprova o teste em execução,
+##     com a mensagem e arquivo:linha, a não ser que o teste o declare com expect_script_error();
+##   - erro de engine (tipo ERROR: push_error, ConfigFile) não reprova; o teste o declara com
+##     expect_engine_error(), e erro não declarado vira nota na saída;
+##   - declarar um erro que não acontece reprova o teste.
+## tools/run_tests.ps1 barra também qualquer linha "SCRIPT ERROR" da saída (segunda linha de defesa).
+## Um await que nunca termina é pego pelo watchdog (PROGRESS_TIMEOUT_MS).
 
 const LEVEL_DIRS: Dictionary = {
 	"unit": "res://tests/unit",
@@ -27,6 +31,8 @@ const FIXTURE_DIR_NAME: String = "fixtures"
 ## Sem progresso por este tempo, o teste atual é reprovado por timeout e o runner encerra.
 const PROGRESS_TIMEOUT_MS: int = 15000
 const TESTS_PREFIX: String = "res://tests/"
+## Quantos erros de engine não declarados são listados como nota por fase.
+const MAX_UNDECLARED_NOTES: int = 3
 
 
 class RunnerResult:
@@ -37,6 +43,12 @@ class RunnerResult:
 	var duration_ms: int = 0
 	var assert_count: int = 0
 	var messages: PackedStringArray = PackedStringArray()
+	var notes: PackedStringArray = PackedStringArray()
+
+
+class ErrorVerdict:
+	extends RefCounted
+	var failures: PackedStringArray = PackedStringArray()
 	var notes: PackedStringArray = PackedStringArray()
 
 
@@ -51,11 +63,14 @@ var _run_start_ms: int = 0
 var _progress_ms: int = 0
 var _progress_file: String = "(inicializacao)"
 var _progress_test: String = ""
+var _capture: ErrorCapture = null
 
 
 func _initialize() -> void:
 	_run_start_ms = Time.get_ticks_msec()
 	_progress_ms = _run_start_ms
+	_capture = ErrorCapture.new()
+	OS.add_logger(_capture)
 
 
 func _process(_delta: float) -> bool:
@@ -167,8 +182,11 @@ func _run_file(file_path: String) -> void:
 
 	_set_progress(display, "before_all")
 	instance.harness_begin_test("before_all")
+	_capture.begin_window()
 	await instance.call("before_all")
+	var file_verdict: ErrorVerdict = _judge_errors(PackedStringArray(), PackedStringArray(), _capture.take_window())
 	var file_failures: PackedStringArray = PackedStringArray(instance.failures)
+	file_failures.append_array(file_verdict.failures)
 	instance.harness_end_test()
 
 	for test_name: String in selected:
@@ -179,19 +197,26 @@ func _run_file(file_path: String) -> void:
 				PackedStringArray(["before_all falhou: " + "; ".join(file_failures)]), 0, PackedStringArray())
 			continue
 		instance.harness_begin_test(test_name)
+		_capture.begin_window()
 		await instance.call("before_each")
 		await instance.call(test_name)
 		await instance.call("after_each")
+		var verdict: ErrorVerdict = _judge_errors(instance.expected_script_errors, instance.expected_engine_errors, _capture.take_window())
 		var messages: PackedStringArray = PackedStringArray(instance.failures)
-		var asserts: int = instance.assert_count
+		messages.append_array(verdict.failures)
 		var notes: PackedStringArray = PackedStringArray(instance.notes)
+		notes.append_array(verdict.notes)
+		var asserts: int = instance.assert_count
 		instance.harness_end_test()
 		_add_result(display, test_name, messages.is_empty(), Time.get_ticks_msec() - start_ms, messages, asserts, notes)
 
 	_set_progress(display, "after_all")
 	instance.harness_begin_test("after_all")
+	_capture.begin_window()
 	await instance.call("after_all")
+	var after_verdict: ErrorVerdict = _judge_errors(PackedStringArray(), PackedStringArray(), _capture.take_window())
 	var after_failures: PackedStringArray = PackedStringArray(instance.failures)
+	after_failures.append_array(after_verdict.failures)
 	instance.harness_end_test()
 	if not after_failures.is_empty():
 		_add_result(display, "(after_all)", false, 0,
@@ -199,6 +224,48 @@ func _run_file(file_path: String) -> void:
 
 	root.remove_child(instance)
 	instance.free()
+
+
+## Confronta os erros capturados numa fase com as declarações do teste.
+func _judge_errors(expected_script: PackedStringArray, expected_engine: PackedStringArray,
+		errors: Array[ErrorCapture.CapturedError]) -> ErrorVerdict:
+	var verdict: ErrorVerdict = ErrorVerdict.new()
+	var consumed: Array[bool] = []
+	for i: int in errors.size():
+		consumed.append(false)
+	_consume_expected(expected_script, Logger.ERROR_TYPE_SCRIPT, errors, consumed,
+		verdict, "erro de script esperado nao ocorreu: '%s'")
+	_consume_expected(expected_engine, Logger.ERROR_TYPE_ERROR, errors, consumed,
+		verdict, "erro de engine esperado nao ocorreu: '%s'")
+	var undeclared_engine: int = 0
+	for i: int in errors.size():
+		if consumed[i]:
+			continue
+		var error: ErrorCapture.CapturedError = errors[i]
+		var where: String = "%s:%d" % [error.file, error.line]
+		if error.kind == Logger.ERROR_TYPE_SCRIPT:
+			verdict.failures.append("erro de script em tempo de execucao: %s (%s, funcao %s)" % [error.message, where, error.function])
+		elif error.kind == Logger.ERROR_TYPE_ERROR:
+			undeclared_engine += 1
+			if undeclared_engine <= MAX_UNDECLARED_NOTES:
+				verdict.notes.append("erro do engine nao declarado (nao reprova): %s (%s)" % [error.message, where])
+	if undeclared_engine > MAX_UNDECLARED_NOTES:
+		verdict.notes.append("... mais %d erro(s) do engine nao declarado(s)" % (undeclared_engine - MAX_UNDECLARED_NOTES))
+	return verdict
+
+
+## Marca como consumido o primeiro erro de cada tipo que contém o trecho esperado.
+func _consume_expected(patterns: PackedStringArray, kind: int, errors: Array[ErrorCapture.CapturedError],
+		consumed: Array[bool], verdict: ErrorVerdict, missing_format: String) -> void:
+	for pattern: String in patterns:
+		var found: bool = false
+		for i: int in errors.size():
+			if not consumed[i] and errors[i].kind == kind and errors[i].message.contains(pattern):
+				consumed[i] = true
+				found = true
+				break
+		if not found:
+			verdict.failures.append(missing_format % pattern)
 
 
 func _test_names(test_script: GDScript) -> Array[String]:
@@ -255,6 +322,9 @@ func _finish() -> void:
 	if _finished:
 		return
 	_finished = true
+	if _capture != null:
+		OS.remove_logger(_capture)
+		_capture = null
 	var total: int = _results.size()
 	var passed_count: int = 0
 	var failed_names: PackedStringArray = PackedStringArray()

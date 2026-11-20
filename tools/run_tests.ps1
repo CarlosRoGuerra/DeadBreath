@@ -3,7 +3,7 @@
 # Etapas, na ordem:
 #   1. importacao  : godot --headless --path game --import
 #   2. arc04       : parse e compilacao de todos os scripts de game/ (ARC-04), num processo
-#   3. runner      : godot --headless --path game -s res://tests/run_all.gd
+#   3. runner      : godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd
 #                    (unit, integration, scenarios, architecture)
 #   4. runner-meta : o mesmo runner com -- --level=meta (meta-testes do proprio runner)
 #
@@ -78,9 +78,9 @@ Write-Host ('Godot: ' + $Godot)
 Write-Host ('Projeto: ' + $GamePath)
 
 $ok1 = Invoke-Step -Name 'importacao' -Arguments @('--headless', '--path', $GamePath, '--import')
-$ok2 = Invoke-Step -Name 'arc04' -Arguments @('--headless', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=architecture', '--filter=arc04')
-$ok3 = Invoke-Step -Name 'runner' -Arguments @('--headless', '--path', $GamePath, '-s', 'res://tests/run_all.gd')
-$ok4 = Invoke-Step -Name 'runner-meta' -Arguments @('--headless', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=meta')
+$ok2 = Invoke-Step -Name 'arc04' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=architecture', '--filter=arc04')
+$ok3 = Invoke-Step -Name 'runner' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd')
+$ok4 = Invoke-Step -Name 'runner-meta' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=meta')
 $allOk = $ok1 -and $ok2 -and $ok3 -and $ok4
 
 Write-Host ''

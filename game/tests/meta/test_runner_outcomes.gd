@@ -9,6 +9,11 @@ const PASS_SRC: String = "extends TestCase\n\nfunc test_ok() -> void:\n\tassert_
 const FAIL_SRC: String = "extends TestCase\n\nfunc test_falha() -> void:\n\tassert_eq(1, 2, \"deliberado\")\n"
 const BROKEN_SRC: String = "extends TestCase\n\nfunc test_quebrado( -> void:\n\tpass\n"
 const UNTYPED_SRC: String = "extends TestCase\n\nfunc test_sem_tipo() -> void:\n\tvar x = 1\n\tassert_eq(x, 1)\n"
+## Erro de script em tempo de execução: chamada de método inexistente. Linha 5 é a do call.
+const RUNTIME_ERROR_SRC: String = "extends TestCase\n\nfunc _provoca() -> void:\n\tvar obj: Object = Object.new()\n\tobj.call(\"metodo_que_nao_existe\")\n\tobj.free()\n\nfunc test_erro_de_runtime() -> void:\n\t_provoca()\n\tassert_true(true, \"o teste continua apos o erro\")\n"
+## Declarações de erro esperado: script (consumido), engine (consumido), engine não declarado (nota)
+## e expectativa que não acontece (falha).
+const EXPECTATIONS_SRC: String = "extends TestCase\n\nfunc _provoca() -> void:\n\tvar obj: Object = Object.new()\n\tobj.call(\"metodo_que_nao_existe\")\n\tobj.free()\n\nfunc test_erro_de_script_esperado() -> void:\n\texpect_script_error(\"metodo_que_nao_existe\")\n\t_provoca()\n\tassert_true(true, \"continua apos o erro esperado\")\n\nfunc test_erro_de_engine_esperado() -> void:\n\texpect_engine_error(\"erro declarado de proposito\")\n\tpush_error(\"erro declarado de proposito\")\n\tassert_true(true)\n\nfunc test_erro_de_engine_nao_declarado() -> void:\n\tpush_error(\"erro nao declarado\")\n\tassert_true(true)\n\nfunc test_expectativa_nao_cumprida() -> void:\n\texpect_engine_error(\"nunca_acontece\")\n\tassert_true(true)\n"
 
 
 class RunOutcome:
@@ -75,6 +80,32 @@ func test_filtro_executa_so_o_teste_pedido() -> void:
 	assert_eq(outcome.code, 0, "o filtro deixa só o teste que passa")
 	assert_true(outcome.output.contains("test_ok"), "o teste filtrado aparece")
 	assert_false(outcome.output.contains("test_falha"), "o teste de falha não é executado")
+
+
+func test_erro_de_script_em_tempo_de_execucao_reprova_o_teste() -> void:
+	var dir: String = tmp_dir()
+	_write(dir, "test_erro_runtime.gd", RUNTIME_ERROR_SRC)
+	var outcome: RunOutcome = _run(dir, PackedStringArray())
+	assert_eq(outcome.code, 1, "codigo de saida do runner")
+	assert_true(outcome.output.contains("FAIL  test_erro_runtime.gd::test_erro_de_runtime"), "o teste vira FAIL mesmo com o assert passando")
+	assert_true(outcome.output.contains("erro de script em tempo de execucao"), "a falha diz que é erro de script")
+	assert_true(outcome.output.contains("metodo_que_nao_existe"), "a mensagem do erro aparece")
+	assert_true(outcome.output.contains("test_erro_runtime.gd:5"), "arquivo:linha do erro aparece")
+	assert_true(outcome.output.contains("RESULTADO: REPROVADO"), "resultado REPROVADO")
+
+
+func test_declaracoes_de_erro_esperado_no_runner() -> void:
+	var dir: String = tmp_dir()
+	_write(dir, "test_expectativas.gd", EXPECTATIONS_SRC)
+	var outcome: RunOutcome = _run(dir, PackedStringArray())
+	assert_eq(outcome.code, 1, "codigo de saida: só a expectativa não cumprida reprova")
+	assert_true(outcome.output.contains("PASS  test_expectativas.gd::test_erro_de_script_esperado"), "erro de script declarado não reprova")
+	assert_true(outcome.output.contains("PASS  test_expectativas.gd::test_erro_de_engine_esperado"), "erro de engine declarado não reprova")
+	assert_true(outcome.output.contains("PASS  test_expectativas.gd::test_erro_de_engine_nao_declarado"), "erro de engine não declarado não reprova")
+	assert_true(outcome.output.contains("nota: erro do engine nao declarado"), "erro de engine não declarado vira nota")
+	assert_false(outcome.output.contains("FAIL  test_expectativas.gd::test_erro_de_script_esperado"), "o teste de script esperado não falha")
+	assert_true(outcome.output.contains("FAIL  test_expectativas.gd::test_expectativa_nao_cumprida"), "expectativa não cumprida reprova")
+	assert_true(outcome.output.contains("erro de engine esperado nao ocorreu: 'nunca_acontece'"), "a falha diz qual expectativa faltou")
 
 
 ## Executa o runner como subprocesso sobre root_dir, com argumentos extras.

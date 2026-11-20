@@ -36,7 +36,7 @@ class_name PlayerRoot extends CharacterBody3D
 - Conecta `physiology.startle_gasp` → `breath_emitter.emit_gasp()`.
 - Define a fonte de ameaça: `PlayerThreatMonitor` quando existe (a partir da F4) ou `StubThreatSource` (F2/F3: ameaça controlada pelo overlay de debug e pelos testes). As duas classes estendem `ThreatSource` e expõem `sample() -> ThreatSample`.
 
-**Invariante PLR-INV-1:** PlayerMotor, PhysiologyComponent, BreathEmitter, PlayerThreatMonitor e HidingComponent não têm referência entre si; toda troca de dados e toda conexão de sinal entre eles é feita pelo PlayerRoot.
+**Invariante PLR-INV-1:** PlayerMotor, PhysiologyComponent, BreathEmitter, PlayerThreatMonitor e HidingComponent não têm referência entre si; toda troca de dados e toda conexão de sinal entre eles é feita pelo PlayerRoot. "Componente" é script com base `Node` (ou derivada). As classes de dados de um componente (`RefCounted`/`Resource`, ex.: `MotorInput`, `PlayerMotorConfig`) podem ser usadas por ele; o ARC-06 verifica só referências entre componentes (decisão do Director, 2026-11-20).
 
 ## 2. PlayerMotor (L2) — Gameplay Engineer — Fase 1
 

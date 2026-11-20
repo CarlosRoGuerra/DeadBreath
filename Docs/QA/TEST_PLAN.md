@@ -18,7 +18,7 @@
 | Performance | Frame time médio e p95, vsync desligado, 600 frames após 120 de aquecimento | Com janela | A partir da F4, em todo gate |
 | Playtest | Testes de experiência | Usuário + questionário + métricas automáticas | Fim das F5 e F7 |
 
-**Comando padrão (criado em F1-005):** `tools/run_tests.ps1` → importação headless → `--check-only` por script → `<godot> --headless --path game -s res://tests/run_all.gd`. Sai com código 0 ou 1.
+**Comando padrão (criado em F1-005):** `tools/run_tests.ps1` → importação headless → ARC-04 (compilação de todos os scripts no processo, com autoloads; `--check-only` não enxerga autoloads) → `<godot> --headless --fixed-fps 60 --path game -s res://tests/run_all.gd` → mesma chamada com `--level=meta`. Sai com código 0 ou 1.
 
 **Regras de evidência**
 - Toda execução vai para TEST_RESULTS.md com data, commit, comando exato e resumo copiado da saída real.
@@ -184,10 +184,11 @@ Contrato de integração definido pelo Director antes da implementação, para q
 - `tmp_dir() -> String`: diretório vazio exclusivo do teste em `user://test_tmp/...`, apagado ao fim.
 
 **Runner**
-- `godot --headless --path game -s res://tests/run_all.gd -- [--filter=<texto>] [--level=unit|integration|scenarios|architecture|meta]`
+- `godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd -- [--filter=<texto>] [--level=unit|integration|scenarios|architecture|meta]`
+- **`--fixed-fps 60` é obrigatório** (decisão do Director, 2026-11-20): cada frame avança exatamente 1/60 s sem esperar o relógio. A suíte com os testes do jogador caiu de 28 s para 1,2 s, com resultados idênticos. Testes nunca dependem de tempo real.
 - Uma linha por teste (`PASS` ou `FAIL`, `<arquivo>::<teste>`, tempo em ms, mensagens das falhas) e um resumo final.
 - Código de saída 0 só se houver ≥ 1 teste e nenhuma falha; 1 nos demais casos.
-- O Godot não lança exceções em erro de script. O `tools/run_tests.ps1` trata qualquer `SCRIPT ERROR` na saída como falha.
+- Erro de script (tipo SCRIPT: execução ou parse de GDScript) durante um teste reprova esse teste, com mensagem e `arquivo:linha`, via `Logger` (`OS.add_logger`, `tests/framework/error_capture.gd`); a não ser que o teste o declare com `expect_script_error(trecho)`. Erro de engine (`push_error`, `ConfigFile`) não reprova: vira nota, a não ser que o teste o declare com `expect_engine_error(trecho)`; um erro declarado que não ocorre reprova. O `tools/run_tests.ps1` ainda trata qualquer linha `SCRIPT ERROR` da saída como falha (segunda linha de defesa).
 - Os autoloads (F1-004) precisam estar disponíveis quando os testes rodam.
 
 **Pipeline `tools/run_tests.ps1`:** importação headless → parse de todos os scripts de `game/` (ARC-04) → runner. Sai com 0 ou 1 e imprime o comando exato de cada etapa.
