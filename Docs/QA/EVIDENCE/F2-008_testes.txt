@@ -1,0 +1,19 @@
+﻿Evidencia F2-008 (saida real do pipeline, execucao 2 de 2). Testes do balanceamento (unit, integration, property).
+Fonte: pipeline_F2008_run2.txt (tools/run_tests.ps1). Linhas copiadas sem edicao.
+
+PASS  unit/balance/test_f2008_regras_do_painel.gd::test_ameaca_vem_dos_sliders_pela_regra_de_data_1_5  0 ms  (asserts: 8)
+PASS  unit/balance/test_f2008_regras_do_painel.gd::test_exportacao_so_para_user_balance  0 ms  (asserts: 8)
+PASS  unit/balance/test_f2008_regras_do_painel.gd::test_padroes_dos_tres_estao_dentro_das_faixas_e_as_propriedades_existem  8 ms  (asserts: 38)
+PASS  unit/balance/test_f2008_regras_do_painel.gd::test_valor_do_slider_e_limitado_a_faixa  0 ms  (asserts: 4)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_exportacao_recarrega_os_mesmos_valores_e_nao_toca_em_content_data  24 ms  (asserts: 8)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_f4_solta_e_recaptura_o_mouse  7 ms  (asserts: 4)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_parametro_em_memoria_muda_o_dreno_do_sprint_e_volta_com_restaurar  18 ms  (asserts: 6)
+      nota: dreno do sprint em 0,5 s: padrão 6.000; com 24/s 12.000 (proporção 2.00)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_producao_desliga_o_painel_e_recusa_tudo  6 ms  (asserts: 9)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_slider_de_ameaca_altera_o_estresse_efetivo  18 ms  (asserts: 8)
+      nota: slider de inimigo visto em 1,0 por 1 s: estresse 15.000 (ganho 15/s)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_telemetria_mostra_estado_e_ameaca  7 ms  (asserts: 8)
+PASS  property/balance/test_f2008_simulacao_determinismo.gd::test_f2008_duas_execucoes_geram_arquivos_identicos  1612 ms  (asserts: 15)
+      nota: determinismo: 6 de 6 arquivos idênticos entre duas execuções de processos separados
+PASS  property/balance/test_f2008_simulacao_determinismo.gd::test_f2008_saida_bate_com_a_referencia_de_evidencia  721 ms  (asserts: 15)
+      nota: referência: 6 de 6 arquivos comparados byte a byte

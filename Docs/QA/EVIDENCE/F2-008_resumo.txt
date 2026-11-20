@@ -1,0 +1,75 @@
+[sprint_exaustao] duracao 60.0 s; sprint contínuo até 12 s (depois para); o motor só sprinta se o acoplamento permitir
+  estresse max 0.00 em t=0.000 s; severidade max 0.4530 em t=8.333 s
+  estamina min 0.00 em t=8.333 s; distancia 45.87 m
+  severidade abaixo de 0.2 depois de 12.0 s: t=16.767 s
+  eventos (primeira ocorrencia; total):
+    t=2.700 s  estado:ACCELERATED  (1)
+    t=5.550 s  estado:LABORED  (1)
+    t=8.333 s  estamina_zerada  (1)
+    t=13.433 s  estado:RECOVERING  (1)
+    t=14.150 s  estamina_recuperada  (1)
+    t=16.767 s  estado:NORMAL  (1)
+
+[susto_estresse_alto] duracao 30.0 s; parado em pé; quatro sustos de 85 dB (pico 25) em 5,0; 5,5; 6,0 e 6,5 s
+  estresse max 100.00 em t=6.517 s; severidade max 0.3997 em t=10.500 s
+  estamina min 100.00 em t=0.000 s; distancia 0.00 m
+  severidade abaixo de 0.2 depois de 6.5 s: t=22.167 s
+  eventos (primeira ocorrencia; total):
+    t=5.017 s  faixa:TENSE  (2)
+    t=5.517 s  faixa:AFRAID  (2)
+    t=6.000 s  gasp  (2)
+    t=6.017 s  faixa:PANIC  (1)
+    t=8.017 s  estado:ACCELERATED  (1)
+    t=9.883 s  estado:LABORED  (1)
+    t=16.333 s  estado:RECOVERING  (1)
+    t=22.167 s  estado:NORMAL  (1)
+
+[crise_tosse_recuperacao] duracao 90.0 s; esforço sintético 0,9 com inimigo visto a 3 m até 25 s; depois repouso agachado sem ameaça
+  estresse max 100.00 em t=6.667 s; severidade max 1.0000 em t=24.367 s
+  estamina min 100.00 em t=0.000 s; distancia 40.00 m
+  severidade abaixo de 0.2 depois de 25.0 s: t=43.950 s
+  eventos (primeira ocorrencia; total):
+    t=1.667 s  faixa:TENSE  (2)
+    t=2.767 s  estado:ACCELERATED  (1)
+    t=3.333 s  faixa:AFRAID  (2)
+    t=4.633 s  estado:LABORED  (2)
+    t=5.000 s  faixa:PANIC  (1)
+    t=7.767 s  estado:SYMPTOMATIC  (1)
+    t=10.867 s  tosse_aviso  (3)
+    t=12.367 s  tosse  (3)
+    t=40.133 s  estado:RECOVERING  (1)
+    t=43.950 s  estado:NORMAL  (1)
+    t=54.000 s  faixa:CALM  (1)
+
+[bombinha_na_crise] duracao 60.0 s; igual à crise; bombinha em 15 s; depois repouso agachado
+  estresse max 100.00 em t=6.667 s; severidade max 0.9334 em t=15.000 s
+  estamina min 100.00 em t=0.000 s; distancia 40.00 m
+  severidade abaixo de 0.2 depois de 25.0 s: t=36.017 s
+  reducao da severidade 3 s depois da bombinha: 0.4405
+  eventos (primeira ocorrencia; total):
+    t=1.667 s  faixa:TENSE  (2)
+    t=2.767 s  estado:ACCELERATED  (1)
+    t=3.333 s  faixa:AFRAID  (2)
+    t=4.633 s  estado:LABORED  (2)
+    t=5.000 s  faixa:PANIC  (1)
+    t=7.767 s  estado:SYMPTOMATIC  (1)
+    t=10.867 s  tosse_aviso  (1)
+    t=12.367 s  tosse  (1)
+    t=15.000 s  bombinha  (1)
+    t=29.667 s  estado:RECOVERING  (1)
+    t=36.017 s  estado:NORMAL  (1)
+    t=54.000 s  faixa:CALM  (1)
+
+[perseguicao_continua] duracao 60.0 s; andando (esforço 0,2) com perseguição ativa até 40 s; depois parado e sem ameaça
+  estresse max 100.00 em t=5.017 s; severidade max 0.5391 em t=40.000 s
+  estamina min 100.00 em t=0.000 s; distancia 64.00 m
+  severidade abaixo de 0.2 depois de 40.0 s: t=56.667 s
+  eventos (primeira ocorrencia; total):
+    t=1.267 s  faixa:TENSE  (1)
+    t=2.500 s  faixa:AFRAID  (2)
+    t=3.717 s  estado:ACCELERATED  (1)
+    t=3.750 s  faixa:PANIC  (1)
+    t=5.583 s  estado:LABORED  (1)
+    t=51.700 s  estado:RECOVERING  (1)
+    t=56.667 s  estado:NORMAL  (1)
+
