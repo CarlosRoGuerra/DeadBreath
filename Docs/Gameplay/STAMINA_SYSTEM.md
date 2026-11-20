@@ -2,8 +2,8 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.9 (F2-012, 2026-11-20; vira 1.0 após a validação F2-011) |
-| Estado | Implementado e revisado (F2-010) |
+| Versão | 1.0 (F2-012, 2026-11-20) |
+| Estado | **Validado**: revisão F2-010 e validação independente F2-011, ambas APROVADAS COM RESSALVAS |
 | Código | `game/sim/physiology/stamina_model.gd`, `stamina_config.gd`, `physiology_coupling.gd`, `coupling_config.gd`; limites aplicados em `game/components/player/player_motor.gd` via `PlayerRoot` |
 | Config | `game/content/data/physiology/stamina_config.tres`, `coupling_config.tres` |
 | Fonte | DATA_STRUCTURES §1.2 e §1.6 |

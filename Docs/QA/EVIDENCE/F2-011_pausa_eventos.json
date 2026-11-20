@@ -1,0 +1,44 @@
+[
+  {
+    "detalhe": "NORMAL -> ACCELERATED",
+    "frame": 172,
+    "pausa": false,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "ACCELERATED -> LABORED",
+    "frame": 284,
+    "pausa": false,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "LABORED -> SYMPTOMATIC",
+    "frame": 471,
+    "pausa": false,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "",
+    "frame": 521,
+    "pausa": false,
+    "tipo": "estamina_esgotou"
+  },
+  {
+    "detalhe": "",
+    "frame": 1608,
+    "pausa": false,
+    "tipo": "estamina_esgotou"
+  },
+  {
+    "detalhe": "em 1.50 s",
+    "frame": 1736,
+    "pausa": false,
+    "tipo": "aviso_tosse"
+  },
+  {
+    "detalhe": "ocorreu",
+    "frame": 2126,
+    "pausa": false,
+    "tipo": "tosse"
+  }
+]

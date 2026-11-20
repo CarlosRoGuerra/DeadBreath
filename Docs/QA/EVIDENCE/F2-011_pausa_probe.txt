@@ -1,0 +1,16 @@
+f=22 [ativo] inicio: corrida sob ameaça
+f=172 [ativo] estado NORMAL -> ACCELERATED
+f=284 [ativo] estado ACCELERATED -> LABORED
+f=471 [ativo] estado LABORED -> SYMPTOMATIC
+f=521 [ativo] estamina_esgotou 
+f=1608 [ativo] estamina_esgotou 
+f=1736 [ativo] aviso_tosse em 1.50 s
+f=1737 [ativo] aviso de tosse visto (1715 quadros de corrida)
+f=1737 [ativo] ANTES da pausa: estamina=1.560 estresse=100.000 severidade=0.6639 estado=SYMPTOMATIC chiado=0.6055; played_log=41
+f=1737 [PAUSA] PAUSA ligada (tree.paused=true)
+f=2037 [PAUSA] DURANTE a pausa (último quadro): estamina=1.560 estresse=100.000 severidade=0.6639 estado=SYMPTOMATIC chiado=0.6055; played_log=41
+f=2037 [ativo] PAUSA desligada (tree.paused=false)
+f=2126 [ativo] tosse ocorreu
+f=2337 [ativo] DEPOIS da retomada (5 s): estamina=10.249 estresse=100.000 severidade=0.6063 estado=SYMPTOMATIC chiado=0.4492; played_log=50
+RESUMO: frames aviso=1736; frames tosse=2126; tosse suprimida=false; intervalo aviso->tosse: 90 quadros de fisica (esperado 90 = 1,5 s), sem contar a pausa
+RESUMO: quadros de pausa observados=300; quadros com fisiologia alterada=0; crescimento do played_log na pausa=0; players pausados (stream_paused)=0; players tocando na pausa=0

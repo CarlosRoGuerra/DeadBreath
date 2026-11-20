@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 2 — Fisiologia** (Gate F1 aprovado em 2026-11-20) |
+| Fase atual | **FASE 2 — Fisiologia: concluída; Gate F2 aguardando aprovação do usuário** |
 | Responsável | Project Director |
 
 Cada fase termina num **gate**. A fase seguinte só começa com o gate aprovado: critérios cumpridos, testes executados com evidência, revisão técnica concluída, documentação atualizada e aprovação do usuário.
@@ -84,6 +84,13 @@ Protótipo controlável em primeira pessoa numa sandbox greybox.
 - Ferramenta de balanceamento: sliders no overlay + simulação headless com export de curvas.
 
 **Gate F2:** PHY-01..PHY-11 verdes (com `ThreatSample` injetado ou `StubThreatSource`; as fontes reais de ameaça só existem na F4), ACC-01..03 verdes; cenário "correr até a crise e se recuperar" gravado; RESPIRATORY, STRESS e STAMINA_SYSTEM.md escritos.
+
+**Situação do Gate F2 (2026-11-20): critérios cumpridos; aguarda aprovação do usuário.**
+1. PHY-01..PHY-11 verdes (com `StubThreatSource`): ✔ (propriedades com 200 sequências).
+2. ACC-01..03 verdes: ✔.
+3. Cenário "correr até a crise e se recuperar" gravado: ✔ (`EVIDENCE/F2-011_cenario_*`: 6 capturas, telemetria CSV, log de sons).
+4. RESPIRATORY, STRESS e STAMINA_SYSTEM.md: ✔ (v1.0).
+5. Revisão F2-010 e validação F2-011 APROVADAS COM RESSALVAS; pipeline verde. Ressalvas: ponte de susto na F3-002; precisão do save (ARCH-001) antes da F5; timbre dos sons depende da escuta do usuário.
 
 ## FASE 3 — Furtividade e áudio · EXTRA HIGH · G
 

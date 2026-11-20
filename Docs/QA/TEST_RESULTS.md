@@ -171,3 +171,18 @@ Validações independentes da fase:
 - **Integração:** cadeia completa na cena jogável (`test_playable_body_chain.gd`, 4/4). A mutação sem o step do emissor reprova.
 - **Acessibilidade:** ACC-01..ACC-03 verdes.
 - **Revisão técnica F2-010:** APROVADO COM RESSALVAS (`REVIEWS/F2-010.md`).
+
+---
+
+## F2-011 — validação independente da Fase 2 (QA)
+
+| Campo | Valor |
+|---|---|
+| Relatório | `Docs/QA/F2-011_VALIDATION.md` |
+| Pipeline (QA, 2×) | padrão **293/293**, property **99/99**, meta **26/26**, código 0 (`EVIDENCE/F2-011_suite_1.txt`, `_2.txt`) |
+| Veredito | **APROVADO COM RESSALVAS** |
+
+- PHY-01..11 refeitos pelo QA com configs de produção: PHY-01 8,333 s; PHY-03 6,667 s; PHY-04 −0,531 em 3 s; PHY-06 severidade final máx. 0,0003; PHY-07 530 tosses, aviso mínimo 1,5 s; PHY-11 diferença 0,0000.
+- Cenário gravado com janela: SYMPTOMATIC em 9,0 s, exaustão em 9,83 s, aviso de tosse em 13,88 s, tosse em 15,38 s, bombinha em 16,40 s, NORMAL em 22,12 s.
+- Exploits sem quebra: spam de Q, pausa no meio da crise (fisiologia e áudio param; tosse agendada dispara 1,5 s após retomar; inspirações e expirações pareadas), acessibilidade alterada na crise, estresse máximo por 10 min, salvar e restaurar no aviso (em memória).
+- Bugs: BUG-012 (F4 em produção) corrigido e fechado pelo probe do QA; BUG-015 aceito; BUG-013 (sobreposição do chiado a 40 rpm) aguarda a escuta; BUG-014 (ponte de susto) vai para a F3-002.

@@ -1,0 +1,7 @@
+modo: DESENVOLVIMENTO (is_production_build=false)
+jogador encontrado=true
+inicial: BalancePanel.visible=false DebugOverlay.visible=false
+F4: BalancePanel.visible=true; F4 consumida pelo jogo=true
+acao debug_overlay: DebugOverlay.visible=true
+overlay.toggle_noclip(): aceito=true noclip antes=false depois=true
+overlay.teleport_to_aim(): aceito=false posicao mudou=false

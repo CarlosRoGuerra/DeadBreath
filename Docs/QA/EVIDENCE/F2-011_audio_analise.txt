@@ -1,0 +1,26 @@
+== 1. CORRIDA GRAVADA (F2-011_cenario_played_log.json; F2-011_cenario_eventos.json) ==
+entradas no played_log: 31
+eventos de ruido do jogador resolvidos (hook a partir do quadro 0 do cenario): 13
+  respiracao (BREATHING+WHEEZING): 10; com chiado: 6; pontuais (tosse/puff): 3
+  played: inspiracoes=11 expiracoes=11 camadas_chiado=6 pontuais=3
+  nota: a inspiracao do primeiro evento (clock 0,060 s) tocou antes do hook do cenario (durante o settle);
+        o relogio do audio fica 0,416 s adiantado em relacao ao tempo da simulacao, constante em todos os eventos.
+  eventos respiratorios com inspiracao casada no tempo (offset 0,416 s): 10 de 10 (os 3 pontuais nao tem inspiracao por desenho)
+  sons sem evento correspondente (sound_id fora dos eventos): 2 (inspiracao+expiracao do primeiro ciclo, emitido durante o settle, antes do hook)
+  concorrencia real: max 4 vozes simultaneas; tempo com >=2 vozes 12.28 s; com >=3 vozes 5.17 s
+  chiados (camadas) simultaneos: max 2; tempo com dois chiados 2.76 s
+  duracao efetiva do chiado: min 2.13 s max 2.62 s
+
+== 2. PAUSA NO MEIO DO AVISO (F2-011_pausa_played_log.json; F2-011_pausa_eventos.json) ==
+inspiracoes=17 expiracoes=17; inspiracoes sem expiracao casada: 0
+aviso (quadro 1736) -> tosse (quadro 2126): 90 quadros de fisica; pausa de 300 quadros no meio
+relogio do audio: aviso em 28.929 s, tosse em 30.416 s -> 1.486 s sem contar a pausa (esperado 1,50 s)
+
+== 3. SOBREPOSICAO A 40 rpm (calculo com chain_timing e durações do manifesto; nao e escuta) ==
+familia rapida (ciclo 1,7 s nominal) para periodo 1.50 s: pitch 1.133; inspiracao 0.662 s; expiracao 0.838 s; chiado 2.118 s
+40 ciclos: max 3 vozes simultaneas (chiado+chiado+expiracao); tempo com >=3 vozes: 24.09 s de 60.0 s (40%)
+chiados simultaneos: max 2; tempo com dois chiados: 24.09 s (40%)
+
+Conclusao: a camada de chiado (2,1 a 2,6 s efetivos) e maior que o ciclo rapido em 40 rpm (1,5 s), entao dois chiados
+se sobrepoem e, com a expiracao, ha ate 3 vozes. Na corrida gravada (no maximo 34,7 rpm) o pico foi 2 chiados e 4 vozes
+contando tosse e puff. Efeito sonoro depende da mixagem; confirmar na escuta do playtest (GAME-006).

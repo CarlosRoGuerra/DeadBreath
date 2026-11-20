@@ -1,0 +1,30 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 19:47:40 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 16 arquivo(s) de teste em: res://tests/property
+PASS  property/qa/test_f2011_fisiologia.gd::test_acc01_reducao_total_zera_balanco_tremor_e_solavanco  0 ms  (asserts: 5)
+      nota: ACC-01: com redução 1: balanço 0.0000 m, tremor 0.0000 m, solavanco 0.000°; sem redução: balanço 0.0130 m, tremor 0.0040 m, solavanco 1.500°
+PASS  property/qa/test_f2011_fisiologia.gd::test_acc02_intensidade_dos_efeitos_e_linear  0 ms  (asserts: 4)
+      nota: ACC-02: balanço 1,0 = 0.01300, 0,5 = 0.00650, 0 = 0.00000; tremor 1,0 = 0.00400, 0,5 = 0.00200; vinheta 1,0 = 0.350, 0,5 = 0.175
+PASS  property/qa/test_f2011_fisiologia.gd::test_acc03_vinheta_so_na_crise_e_indicador_desligado_por_padrao  0 ms  (asserts: 3)
+      nota: ACC-03: vinheta com severidade 0,5 = 0.000; com 0,9 = 0.263
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy01_sprint_de_tanque_cheio_esgota_em_8_3_s_e_fica_labored  3 ms  (asserts: 2)
+      nota: PHY-01: esgotou em 8.333 s; severidade 0.453; estado LABORED
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy02_estresse_80_eleva_o_alvo_em_pelo_menos_0_25  37 ms  (asserts: 1)
+      nota: PHY-02: severidade com estresse 80 = 0.425; com 0 = 0.140; diferença 0.285
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy03_severidade_0_6_em_repouso_cai_abaixo_de_0_2_em_25_s  4 ms  (asserts: 1)
+      nota: PHY-03: de 0,6 a < 0,2 em 6.667 s
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy04_bombinha_em_sintomatico_reduz_0_30_absolutos_em_3_s  1 ms  (asserts: 2)
+      nota: PHY-04: aplicada=true; severidade 0.599 -> 0.068 em 3 s (queda absoluta 0.531)
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy05_bombinha_nao_altera_estamina_e_estamina_zero_nao_altera_severidade  0 ms  (asserts: 2)
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy06_09_sequencias_aleatorias_terminam_em_repouso_e_respeitam_limites  370 ms  (asserts: 7)
+      nota: PHY-06: 30 sequências; severidade final máxima 0.0002; estresse final máximo 0.000
+      nota: PHY-09 (limites): estamina [0.00, 100.00]; estresse [0.00, 100.00]; severidade [0.0000, 0.9483]; frequência respiratória ok
+      nota: PHY-07: 70 tosses; menor intervalo aviso→tosse 1.5000 s
+      nota: PHY-10: menor permanência entre trocas de estado 1.000 s (mínimo 1.0 s)
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy08_mesmo_estado_do_rng_e_mesmas_entradas_dao_o_mesmo_resultado  96 ms  (asserts: 1)
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy11_passo_de_1_60_e_0_1_dao_a_mesma_severidade_final  23 ms  (asserts: 1)
+      nota: PHY-11: severidade final dt 1/60 = 0.2195; dt 0,1 = 0.2195; diferença 0.0000
+
+RESUMO: total=11 passou=11 falhou=0 sem_assert=0 tempo_total_ms=1824
+RESULTADO: APROVADO (codigo de saida 0)

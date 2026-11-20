@@ -1,0 +1,452 @@
+[
+  {
+    "file": "breath_calm_inhale_v2.wav",
+    "gain_db": -25.0112054571509,
+    "pitch": 0.98,
+    "role": "inhale",
+    "sound_id": "breath_calm",
+    "start_s": 0.0479136666666667,
+    "variation": 2
+  },
+  {
+    "file": "breath_calm_exhale_v4.wav",
+    "gain_db": -25.0112054571509,
+    "pitch": 0.98,
+    "role": "exhale",
+    "sound_id": "breath_calm",
+    "start_s": 1.98707366666666,
+    "variation": 4
+  },
+  {
+    "file": "breath_labored_inhale_v4.wav",
+    "gain_db": -20.9170302039197,
+    "pitch": 0.869565217391304,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 2.89525699999999,
+    "variation": 4
+  },
+  {
+    "file": "breath_labored_exhale_v4.wav",
+    "gain_db": -20.9170302039197,
+    "pitch": 0.869565217391304,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 3.81746088888888,
+    "variation": 4
+  },
+  {
+    "file": "breath_labored_inhale_v1.wav",
+    "gain_db": -18.175701520238,
+    "pitch": 0.947808127487016,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 5.21473444444443,
+    "variation": 1
+  },
+  {
+    "file": "breath_labored_exhale_v4.wav",
+    "gain_db": -18.175701520238,
+    "pitch": 0.947808127487016,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 6.05903855555554,
+    "variation": 4
+  },
+  {
+    "file": "breath_labored_inhale_v1.wav",
+    "gain_db": -11.2629998385857,
+    "pitch": 1.06593263343506,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 7.28120377777775,
+    "variation": 1
+  },
+  {
+    "file": "breath_labored_exhale_v4.wav",
+    "gain_db": -11.2629998385857,
+    "pitch": 1.06593263343506,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 8.03216399999997,
+    "variation": 4
+  },
+  {
+    "file": "wheeze_layer_v2.wav",
+    "gain_db": -11.2629998385857,
+    "pitch": 1.06593263343506,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 8.03216399999997,
+    "variation": 2
+  },
+  {
+    "file": "breath_fast_inhale_v3.wav",
+    "gain_db": -6.49660353214785,
+    "pitch": 0.915279999999998,
+    "role": "inhale",
+    "sound_id": "breath_fast",
+    "start_s": 9.14989644444439,
+    "variation": 3
+  },
+  {
+    "file": "breath_fast_exhale_v2.wav",
+    "gain_db": -6.49660353214785,
+    "pitch": 0.915279999999998,
+    "role": "exhale",
+    "sound_id": "breath_fast",
+    "start_s": 9.97211866666674,
+    "variation": 2
+  },
+  {
+    "file": "wheeze_layer_v4.wav",
+    "gain_db": -6.49660353214785,
+    "pitch": 0.915279999999998,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 9.97211866666674,
+    "variation": 4
+  },
+  {
+    "file": "breath_fast_inhale_v3.wav",
+    "gain_db": -4.52790263257084,
+    "pitch": 0.969590225950286,
+    "role": "inhale",
+    "sound_id": "breath_fast",
+    "start_s": 10.8998660000001,
+    "variation": 3
+  },
+  {
+    "file": "breath_fast_exhale_v3.wav",
+    "gain_db": -4.52790263257084,
+    "pitch": 0.969590225950286,
+    "role": "exhale",
+    "sound_id": "breath_fast",
+    "start_s": 11.677566,
+    "variation": 3
+  },
+  {
+    "file": "wheeze_layer_v1.wav",
+    "gain_db": -4.52790263257084,
+    "pitch": 0.969590225950286,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 11.677566,
+    "variation": 1
+  },
+  {
+    "file": "breath_fast_inhale_v2.wav",
+    "gain_db": -5.76827341783534,
+    "pitch": 0.933734196733333,
+    "role": "inhale",
+    "sound_id": "breath_fast",
+    "start_s": 12.7163509999999,
+    "variation": 2
+  },
+  {
+    "file": "breath_fast_exhale_v1.wav",
+    "gain_db": -5.76827341783534,
+    "pitch": 0.933734196733333,
+    "role": "exhale",
+    "sound_id": "breath_fast",
+    "start_s": 13.5218259999998,
+    "variation": 1
+  },
+  {
+    "file": "wheeze_layer_v2.wav",
+    "gain_db": -5.76827341783534,
+    "pitch": 0.933734196733333,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 13.5218259999998,
+    "variation": 2
+  },
+  {
+    "file": "breath_fast_inhale_v2.wav",
+    "gain_db": -6.94158756660836,
+    "pitch": 0.904521650439217,
+    "role": "inhale",
+    "sound_id": "breath_fast",
+    "start_s": 14.5994959999997,
+    "variation": 2
+  },
+  {
+    "file": "breath_fast_exhale_v2.wav",
+    "gain_db": -6.94158756660836,
+    "pitch": 0.904521650439217,
+    "role": "exhale",
+    "sound_id": "breath_fast",
+    "start_s": 15.4327459999996,
+    "variation": 2
+  },
+  {
+    "file": "wheeze_layer_v2.wav",
+    "gain_db": -6.94158756660836,
+    "pitch": 0.904521650439217,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 15.4327459999996,
+    "variation": 2
+  },
+  {
+    "file": "breath_labored_inhale_v1.wav",
+    "gain_db": -7.95748937531241,
+    "pitch": 1.13998152675621,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 16.5326359999996,
+    "variation": 1
+  },
+  {
+    "file": "breath_labored_exhale_v3.wav",
+    "gain_db": -7.95748937531241,
+    "pitch": 1.13998152675621,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 17.2381209999997,
+    "variation": 3
+  },
+  {
+    "file": "wheeze_layer_v1.wav",
+    "gain_db": -7.95748937531241,
+    "pitch": 1.13998152675621,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 17.2381209999997,
+    "variation": 1
+  },
+  {
+    "file": "breath_labored_inhale_v3.wav",
+    "gain_db": -8.79079713425165,
+    "pitch": 1.11560449890123,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 18.499106,
+    "variation": 3
+  },
+  {
+    "file": "breath_labored_exhale_v2.wav",
+    "gain_db": -8.79079713425165,
+    "pitch": 1.11560449890123,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 19.2212560000001,
+    "variation": 2
+  },
+  {
+    "file": "wheeze_layer_v3.wav",
+    "gain_db": -8.79079713425165,
+    "pitch": 1.11560449890123,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 19.2212560000001,
+    "variation": 3
+  },
+  {
+    "file": "breath_labored_inhale_v2.wav",
+    "gain_db": -9.4551675128199,
+    "pitch": 1.09625594557378,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 20.4989060000004,
+    "variation": 2
+  },
+  {
+    "file": "breath_labored_exhale_v3.wav",
+    "gain_db": -9.4551675128199,
+    "pitch": 1.09625594557378,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 21.2321660000005,
+    "variation": 3
+  },
+  {
+    "file": "wheeze_layer_v2.wav",
+    "gain_db": -9.4551675128199,
+    "pitch": 1.09625594557378,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 21.2321660000005,
+    "variation": 2
+  },
+  {
+    "file": "breath_labored_inhale_v3.wav",
+    "gain_db": -9.97968890539272,
+    "pitch": 1.08085672399701,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 22.5487010000008,
+    "variation": 3
+  },
+  {
+    "file": "breath_labored_exhale_v1.wav",
+    "gain_db": -9.97968890539272,
+    "pitch": 1.08085672399701,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 23.2930710000009,
+    "variation": 1
+  },
+  {
+    "file": "wheeze_layer_v1.wav",
+    "gain_db": -9.97968890539272,
+    "pitch": 1.08085672399701,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 23.2930710000009,
+    "variation": 1
+  },
+  {
+    "file": "breath_labored_inhale_v3.wav",
+    "gain_db": -10.3808573978747,
+    "pitch": 1.06893852021113,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 24.5984960000012,
+    "variation": 3
+  },
+  {
+    "file": "breath_labored_exhale_v4.wav",
+    "gain_db": -10.3808573978747,
+    "pitch": 1.06893852021113,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 25.3484210000013,
+    "variation": 4
+  },
+  {
+    "file": "wheeze_layer_v1.wav",
+    "gain_db": -10.3808573978747,
+    "pitch": 1.06893852021113,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 25.3484210000013,
+    "variation": 1
+  },
+  {
+    "file": "breath_fast_inhale_v4.wav",
+    "gain_db": -7.05622016476342,
+    "pitch": 0.90181577389914,
+    "role": "inhale",
+    "sound_id": "breath_fast",
+    "start_s": 26.4816410000015,
+    "variation": 4
+  },
+  {
+    "file": "breath_fast_exhale_v3.wav",
+    "gain_db": -7.05622016476342,
+    "pitch": 0.90181577389914,
+    "role": "exhale",
+    "sound_id": "breath_fast",
+    "start_s": 27.3182748888906,
+    "variation": 3
+  },
+  {
+    "file": "wheeze_layer_v1.wav",
+    "gain_db": -7.05622016476342,
+    "pitch": 0.90181577389914,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 27.3182748888906,
+    "variation": 1
+  },
+  {
+    "file": "breath_fast_inhale_v3.wav",
+    "gain_db": -7.46402252299379,
+    "pitch": 0.892257448535833,
+    "role": "inhale",
+    "sound_id": "breath_fast",
+    "start_s": 28.3793860000018,
+    "variation": 3
+  },
+  {
+    "file": "cough_warning_v1.wav",
+    "gain_db": -13.0115828871727,
+    "pitch": 1.0,
+    "role": "one_shot",
+    "sound_id": "cough_warning",
+    "start_s": 28.9293860000019,
+    "variation": 1
+  },
+  {
+    "file": "breath_fast_exhale_v1.wav",
+    "gain_db": -7.46402252299379,
+    "pitch": 0.892257448535833,
+    "role": "exhale",
+    "sound_id": "breath_fast",
+    "start_s": 29.2212454949515,
+    "variation": 1
+  },
+  {
+    "file": "wheeze_layer_v4.wav",
+    "gain_db": -7.46402252299379,
+    "pitch": 0.892257448535833,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 29.2212454949515,
+    "variation": 4
+  },
+  {
+    "file": "breath_labored_inhale_v3.wav",
+    "gain_db": -8.39590867034731,
+    "pitch": 1.12710425571251,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 30.3323566060627,
+    "variation": 3
+  },
+  {
+    "file": "cough_v3.wav",
+    "gain_db": 0.0,
+    "pitch": 1.0,
+    "role": "one_shot",
+    "sound_id": "cough",
+    "start_s": 30.4156899393961,
+    "variation": 3
+  },
+  {
+    "file": "breath_labored_exhale_v4.wav",
+    "gain_db": -8.39590867034731,
+    "pitch": 1.12710425571251,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 31.0445865555578,
+    "variation": 4
+  },
+  {
+    "file": "wheeze_layer_v4.wav",
+    "gain_db": -8.39590867034731,
+    "pitch": 1.12710425571251,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 31.0445865555578,
+    "variation": 4
+  },
+  {
+    "file": "breath_labored_inhale_v2.wav",
+    "gain_db": -9.14199596867715,
+    "pitch": 1.10537271305412,
+    "role": "inhale",
+    "sound_id": "breath_labored",
+    "start_s": 32.3167688888913,
+    "variation": 2
+  },
+  {
+    "file": "breath_labored_exhale_v1.wav",
+    "gain_db": -9.14199596867715,
+    "pitch": 1.10537271305412,
+    "role": "exhale",
+    "sound_id": "breath_labored",
+    "start_s": 33.0444738888915,
+    "variation": 1
+  },
+  {
+    "file": "wheeze_layer_v2.wav",
+    "gain_db": -9.14199596867715,
+    "pitch": 1.10537271305412,
+    "role": "layer",
+    "sound_id": "wheeze",
+    "start_s": 33.0444738888915,
+    "variation": 2
+  }
+]

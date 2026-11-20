@@ -51,7 +51,7 @@
 | GAME-004 | **Câmera com pico transitório na entrada de rampa em sprint** (verificação F1-010, ressalva do R1-03): até 3,8 cm por alguns ticks; em regime o erro é zero | Baixa | Aceito; reavaliar com a câmera de efeitos (F2) |
 
 | GAME-005 | **Pickup de água sem efeito até a F5** (F2-010, R2-08): o item entra no inventário, mas não há como usá-lo (comprimido e água ficam com a tela de inventário) | Baixa | Aceito |
-| GAME-006 | **Áudio do corpo a conferir no playtest** (F2-010, R2-03/R2-05): a camada de chiado de 2,4 s pode sobrepor duas vozes a 40 rpm; as vozes são agendadas pelo relógio de quadro, não pelo de física | Baixa | Ouvir na F2-011 e no playtest do usuário |
+| GAME-006 | **Áudio do corpo a conferir no playtest** (F2-010, R2-03/R2-05): a camada de chiado de 2,4 s pode sobrepor duas vozes a 40 rpm; as vozes são agendadas pelo relógio de quadro, não pelo de física | Baixa | A F2-011 mediu até 3 vozes simultâneas de chiado a 40 rpm (BUG-013). Decisão depois da escuta do usuário |
 
 ## Testes e ferramentas
 

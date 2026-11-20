@@ -249,7 +249,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	var key: InputEventKey = event as InputEventKey
 	if key == null or not key.pressed or key.echo:
 		return
-	if key.keycode == TOGGLE_KEY:
+	# Em produção o painel não existe para o jogador: F4 não é consumida (BUG-012, revisão F2-010 R2-13).
+	if key.keycode == TOGGLE_KEY and is_debug_enabled():
 		toggle_panel()
 		get_viewport().set_input_as_handled()
 

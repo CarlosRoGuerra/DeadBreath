@@ -2,8 +2,8 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.9 (F2-012, 2026-11-20; vira 1.0 após a validação F2-011) |
-| Estado | Implementado e revisado (F2-010) |
+| Versão | 1.0 (F2-012, 2026-11-20) |
+| Estado | **Validado**: revisão F2-010 e validação independente F2-011, ambas APROVADAS COM RESSALVAS |
 | Código | `game/sim/physiology/stress_model.gd`, `stress_config.gd`; `threat_sample.gd`; `game/components/player/physiology_component.gd`, `threat_source.gd`, `stub_threat_source.gd` |
 | Config | `game/content/data/physiology/stress_config.tres` |
 | Fonte | DATA_STRUCTURES §1.3 e §1.5; COMPONENT_CONTRACTS §4 e §5 |

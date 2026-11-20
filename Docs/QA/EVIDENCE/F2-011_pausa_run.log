@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.359 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+PAUSA_PROBE f=22 [ativo] inicio: corrida sob ameaça
+PAUSA_PROBE f=172 [ativo] estado NORMAL -> ACCELERATED
+PAUSA_PROBE f=284 [ativo] estado ACCELERATED -> LABORED
+PAUSA_PROBE f=471 [ativo] estado LABORED -> SYMPTOMATIC
+PAUSA_PROBE f=521 [ativo] estamina_esgotou 
+PAUSA_PROBE f=1608 [ativo] estamina_esgotou 
+PAUSA_PROBE f=1736 [ativo] aviso_tosse em 1.50 s
+PAUSA_PROBE f=1737 [ativo] aviso de tosse visto (1715 quadros de corrida)
+PAUSA_PROBE f=1737 [ativo] ANTES da pausa: estamina=1.560 estresse=100.000 severidade=0.6639 estado=SYMPTOMATIC chiado=0.6055; played_log=41
+PAUSA_PROBE f=1737 [PAUSA] PAUSA ligada (tree.paused=true)
+PAUSA_PROBE f=2037 [PAUSA] DURANTE a pausa (último quadro): estamina=1.560 estresse=100.000 severidade=0.6639 estado=SYMPTOMATIC chiado=0.6055; played_log=41
+PAUSA_PROBE f=2037 [ativo] PAUSA desligada (tree.paused=false)
+PAUSA_PROBE f=2126 [ativo] tosse ocorreu
+PAUSA_PROBE f=2337 [ativo] DEPOIS da retomada (5 s): estamina=10.249 estresse=100.000 severidade=0.6063 estado=SYMPTOMATIC chiado=0.4492; played_log=50
+PAUSA_PROBE fim: quadros_pausa=300 mudancas_fisiologia=0 crescimento_played_log=0 players_pausados=0 players_tocando_na_pausa=0

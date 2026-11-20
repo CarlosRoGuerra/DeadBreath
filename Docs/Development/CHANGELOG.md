@@ -4,6 +4,23 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
 ## [Não lançado]
 
+### Fase 2 — Fisiologia (2026-11-20; Gate F2 aguardando aprovação do usuário)
+
+#### Adicionado
+- Estamina, estresse e asma como modelos separados (L1 puros, determinísticos, com `to_dict`/`from_dict`), acoplamento (sprint e firmeza das mãos) e PhysiologyComponent no jogador.
+- Crise respiratória com estados, histerese e tosse sempre avisada 1,5 s antes; bombinha (Q, 3 doses, cooldown, pickup soma doses) que alivia a crise sem devolver estamina.
+- Sons do corpo por síntese procedural (41 WAV determinísticos) e produtor único: BreathEmitter → AcousticWorld mínimo → BreathingAudio "dentro da cabeça".
+- Efeitos de câmera (balanço, tremor, solavanco da tosse, vinheta) com redução de movimento e tremor e intensidade ajustável; indicador respiratório opcional; viewmodel provisório.
+- Painel de balanceamento (F4) e simulação headless com curvas de referência.
+- RESPIRATORY_SYSTEM, STRESS_SYSTEM e STAMINA_SYSTEM.md.
+
+#### Corrigido
+- F4 consumida em produção (BUG-012). Documentação de fórmulas e contratos alinhada ao código (revisão F2-010).
+
+#### Decisões
+- D-07: síntese procedural. ThreatSource RefCounted. Testes lentos em `property`. Comprimido e água para a F5. Precisão de float no save (ARCH-001) decidida antes da F5.
+
+
 ### Fase 1 — Foundation (2026-11-20; Gate F1 aprovado pelo usuário)
 
 #### Adicionado

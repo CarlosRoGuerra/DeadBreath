@@ -1,0 +1,206 @@
+[
+  {
+    "detalhe": "01_inicio err=0",
+    "fase": "inicio",
+    "t": 0.017,
+    "tipo": "captura"
+  },
+  {
+    "detalhe": "perseguicao_ligada",
+    "fase": "correr",
+    "t": 1.517,
+    "tipo": "ameaca"
+  },
+  {
+    "detalhe": "CALM -> TENSE",
+    "fase": "correr",
+    "t": 2.217,
+    "tipo": "faixa_estresse"
+  },
+  {
+    "detalhe": "TENSE -> AFRAID",
+    "fase": "correr",
+    "t": 2.933,
+    "tipo": "faixa_estresse"
+  },
+  {
+    "detalhe": "BREATHING breath_labored 22.5 dB perceb=22.5",
+    "fase": "correr",
+    "t": 2.95,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "AFRAID -> PANIC",
+    "fase": "correr",
+    "t": 3.65,
+    "tipo": "faixa_estresse"
+  },
+  {
+    "detalhe": "NORMAL -> ACCELERATED",
+    "fase": "correr",
+    "t": 4.017,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "BREATHING breath_labored 25.8 dB perceb=25.8",
+    "fase": "correr",
+    "t": 5.433,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "ACCELERATED -> LABORED",
+    "fase": "correr",
+    "t": 5.883,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "WHEEZING breath_labored 31.9 dB perceb=31.8",
+    "fase": "correr",
+    "t": 7.583,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "LABORED -> SYMPTOMATIC",
+    "fase": "correr",
+    "t": 9.0,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "WHEEZING breath_labored 36.6 dB perceb=36.6",
+    "fase": "correr",
+    "t": 9.533,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "stamina=0.00",
+    "fase": "correr",
+    "t": 9.833,
+    "tipo": "estamina_esgotou"
+  },
+  {
+    "detalhe": "02_esgotamento err=0",
+    "fase": "correr",
+    "t": 9.85,
+    "tipo": "captura"
+  },
+  {
+    "detalhe": "03_crise err=0",
+    "fase": "crise",
+    "t": 10.0,
+    "tipo": "captura"
+  },
+  {
+    "detalhe": "WHEEZING breath_fast 40.6 dB perceb=40.6",
+    "fase": "crise",
+    "t": 11.283,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "WHEEZING breath_fast 39.8 dB perceb=39.8",
+    "fase": "crise",
+    "t": 13.067,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "em 1.50 s",
+    "fase": "crise",
+    "t": 13.883,
+    "tipo": "aviso_tosse"
+  },
+  {
+    "detalhe": "COUGHING cough_warning 32.0 dB perceb=32.0",
+    "fase": "crise",
+    "t": 13.883,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "WHEEZING breath_fast 38.6 dB perceb=38.5",
+    "fase": "crise",
+    "t": 14.933,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "ocorreu",
+    "fase": "crise",
+    "t": 15.383,
+    "tipo": "tosse"
+  },
+  {
+    "detalhe": "COUGHING cough 65.0 dB perceb=65.0",
+    "fase": "crise",
+    "t": 15.383,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "04_tosse err=0",
+    "fase": "crise",
+    "t": 15.4,
+    "tipo": "captura"
+  },
+  {
+    "detalhe": "doses_restantes=2",
+    "fase": "bombinha",
+    "t": 16.4,
+    "tipo": "bombinha_usada"
+  },
+  {
+    "detalhe": "MEDICATION inhaler_puff 38.0 dB perceb=38.0",
+    "fase": "bombinha",
+    "t": 16.4,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "05_bombinha err=0",
+    "fase": "bombinha",
+    "t": 16.417,
+    "tipo": "captura"
+  },
+  {
+    "detalhe": "WHEEZING breath_labored 34.9 dB perceb=34.9",
+    "fase": "bombinha",
+    "t": 16.967,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "SYMPTOMATIC -> LABORED",
+    "fase": "bombinha",
+    "t": 17.267,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "LABORED -> RECOVERING",
+    "fase": "bombinha",
+    "t": 18.967,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "BREATHING breath_labored 25.0 dB perceb=25.0",
+    "fase": "bombinha",
+    "t": 19.617,
+    "tipo": "ruido_resolvido"
+  },
+  {
+    "detalhe": "desligada",
+    "fase": "descanso",
+    "t": 20.417,
+    "tipo": "ameaca"
+  },
+  {
+    "detalhe": "RECOVERING -> NORMAL",
+    "fase": "descanso",
+    "t": 22.117,
+    "tipo": "estado"
+  },
+  {
+    "detalhe": "06_recuperacao err=0",
+    "fase": "recuperado",
+    "t": 22.15,
+    "tipo": "captura"
+  },
+  {
+    "detalhe": "BREATHING breath_labored 23.7 dB perceb=23.6",
+    "fase": "recuperado",
+    "t": 22.567,
+    "tipo": "ruido_resolvido"
+  }
+]

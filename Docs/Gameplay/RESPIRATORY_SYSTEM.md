@@ -2,8 +2,8 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.9 (F2-012, 2026-11-20; vira 1.0 após a validação F2-011) |
-| Estado | Implementado e revisado (F2-010 APROVADO COM RESSALVAS) |
+| Versão | 1.0 (F2-012, 2026-11-20) |
+| Estado | **Validado**: revisão F2-010 e validação independente F2-011, ambas APROVADAS COM RESSALVAS |
 | Código | `game/sim/physiology/respiratory_model.gd`, `respiratory_config.gd`, `medication_profile.gd`; `game/components/player/physiology_component.gd`; sons em `breath_emitter.gd` (produtor único) e `presentation/audio/breathing_audio.gd` |
 | Config | `game/content/data/physiology/respiratory_config.tres`, `medication_inhaler.tres` |
 | Fonte das fórmulas | DATA_STRUCTURES §1.4 e §1.7; contrato COMPONENT_CONTRACTS §4 |

@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Atualizado | 2026-11-20 (F1-011, terceira rodada: correção da porta pelo Gameplay Engineer, verificada pelo QA) |
+| Atualizado | 2026-11-20 (F2-011: BUG-012 a BUG-015 abertos pelo QA; F1-011 terceira rodada: correção da porta pelo Gameplay Engineer, verificada pelo QA) |
 | Severidades | CRÍTICO (bloqueia o jogo ou corrompe dados) · ALTO (quebra mecânica central ou gera informação falsa para a IA) · MÉDIO · BAIXO |
 | Estados | ABERTO · EM CORREÇÃO · CORRIGIDO (aguarda verificação) · FECHADO (verificado por quem não corrigiu) · ACEITO (decisão do Director, com reavaliação marcada) · REABERTO (verificação falhou) |
 
@@ -38,6 +38,41 @@
 | Componente | `game/presentation/ui/controls_menu.gd` (`_input` consome todo clique durante `is_capturing()`) |
 | Reprodução | Menu de controles, "Remapear" em crouch, clique esquerdo: `capture_event` devolve `applied` e crouch passa a usar o botão 1 |
 | Teste de observação | `game/tests/integration/qa/test_f1011_remap.gd::test_remap_clique_durante_captura_vira_ligacao_observacao` (passa; documenta o comportamento) |
+
+### BUG-012: em build de produção, a tecla F4 é consumida pelo painel de balanceamento mesmo com o painel desligado (R2-13)
+| Campo | Valor |
+|---|---|
+| Severidade | BAIXO. O painel não abre e os comandos de debug são recusados (verificado), então não há exposição da ferramenta. Efeito: F4 fica reservada em produção sem função, e um futuro handler de F4 perderia o aperto |
+| Estado | **FECHADO** em 2026-11-20. Correção do Director: o BalancePanel só trata F4 com o debug ligado. Verificação pelo probe do QA (`f2011_probe_producao.gd`) reexecutado: com `--production`, "F4 consumida pelo jogo=false"; em desenvolvimento, o painel continua abrindo. Testes de balanceamento 10/10 |
+| Componente | `game/presentation/debug/balance_panel.gd` (`TOGGLE_KEY = KEY_F4`; `_unhandled_input` chama `set_input_as_handled` mesmo com o painel recusado) |
+| Reprodução | `godot --headless --path game -s res://tests/integration/qa/probes/f2011_probe_producao.gd -- --production`: "F4: BalancePanel.visible=false; F4 consumida pelo jogo=true". Sem `--production`, o mesmo probe mostra o painel aberto e a tecla consumida. Probe em processo separado, pois o runner roda em desenvolvimento |
+| Evidência | `Docs/QA/EVIDENCE/F2-011_producao_producao.txt`; `F2-011_producao_desenvolvimento.txt` |
+
+### BUG-013: a camada de chiado (2,1 a 2,6 s) dura mais que o ciclo em respiração rápida, e as vozes se sobrepõem (R2-03 / GAME-006)
+| Campo | Valor |
+|---|---|
+| Severidade | BAIXO (mixagem; não há limite de vozes especificado). Vira MÉDIO se a escuta do playtest mostrar acúmulo audível ou pico de volume |
+| Estado | ABERTO, aguardando a escuta do usuário (GAME-006). Correção a decidir depois da escuta: encurtar a camada, não iniciar um chiado enquanto outro toca, ou reduzir o ganho da camada |
+| Componente | `game/presentation/audio/breathing_audio.gd` (`_play_breath`: a camada de chiado é agendada para o fim da inspiração sem verificar a sobreposição com o chiado anterior) |
+| Medição (QA) | Corrida gravada (até 34,7 rpm): máximo de 2 chiados simultâneos (2,8 s); máximo de 4 vozes simultâneas contando tosse e puff; 5,2 s com 3 ou mais vozes. Simulação a 40 rpm (`chain_timing` e durações do manifesto): até 3 vozes (2 chiados e 1 expiração) em 40% do tempo. Cálculo, não escuta |
+| Evidência | `Docs/QA/EVIDENCE/F2-011_audio_analise.txt` (seções 1 e 3); `F2-011_cenario_played_log.json`; `F2-011_cenario_telemetria.csv` |
+
+### BUG-014: gasp de susto sem chamador de produção: `add_startle` não é chamado no jogo (R2-01)
+| Campo | Valor |
+|---|---|
+| Severidade | MÉDIO (classificação do revisor, R2-01 da F2-010). O caminho do gasp existe e está testado no componente (`startle_gasp` -> `emit_gasp`, 42 dB), mas nenhum fluxo de produção gera susto. A ponte de susto do AcousticWorld é da F3. Não reprova a F2 porque o caminho de produção é da F3 |
+| Estado | ABERTO, rastreado em F3-002 (R2-01 da revisão F2-010). A aceitação "gasp a partir do susto" do card F2-006b fica verificada só no componente |
+| Componente | `game/components/player/physiology_component.gd` (`add_startle`); sem chamador fora de testes (grep em `game/`) |
+| Evidência | `grep add_startle(` em `game/` (sem chamador de produção); `Docs/Development/TASK_BOARD.md` (F3-002) |
+
+### BUG-015: noclip de desenvolvimento suprime o ruído de passo (atalho de debug; recusado em produção)
+| Campo | Valor |
+|---|---|
+| Severidade | BAIXO. Só em build de desenvolvimento: o comando de noclip é recusado com `--production` (verificado pelo probe). Na crise, com noclip, o jogador se move sem emitir passos, então nenhum ruído é percebido pelos inimigos |
+| Estado | **ACEITO** pelo Director: noclip é voo sem contato com o chão, então não há passo; existe só em build de desenvolvimento (recusado com `--production`) |
+| Componente | `game/components/player/player_motor.gd` (`_step_noclip` não chama `_update_footsteps`) |
+| Reprodução | `test_f2011_crise_opcoes.gd::test_noclip_na_crise_some_com_o_ruido_de_passo_e_a_fisiologia_segue` (passos andando: 37; com noclip: 0; estresse segue 100) |
+| Evidência | `Docs/QA/EVIDENCE/F2-011_producao_producao.txt` (noclip recusado); saída do pipeline F2-011 |
 
 ## Fechados
 
