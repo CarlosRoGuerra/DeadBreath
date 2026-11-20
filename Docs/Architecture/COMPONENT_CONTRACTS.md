@@ -1,0 +1,501 @@
+# Contratos de Componentes — DEAD BREATH
+
+| Campo | Valor |
+|---|---|
+| Versão | 0.2 (DRAFT — Fase 0, revisado após DISC-006) |
+| Status | Proposta. Cada contrato é congelado (v1.0) antes da implementação do sistema na sua fase. |
+| Responsável | Software Architect |
+
+**Regras gerais**
+- O contrato define API pública, sinais, invariantes e dependências proibidas. A implementação interna pode mudar desde que o contrato e seus testes continuem válidos.
+- Alterar um contrato aprovado exige: proposta → revisão do Software Architect → atualização deste documento → regressão completa (AGENT_ASSIGNMENTS §6).
+- Cada componente pertence a **uma única camada** (SYSTEM_ARCHITECTURE §2).
+- Tipos de dados estão em [DATA_STRUCTURES.md](DATA_STRUCTURES.md).
+- GDScript tipado, uma declaração por linha. GDScript **não tem interfaces**: contratos de "papel" são implementados por **componentes-filho** (composição), nunca por herança múltipla.
+- Enums compartilhados ficam em `core/enums.gd` (`class_name Enums`, L0) e são referenciados como `Enums.X`.
+- O mapeamento de cada invariante para o seu teste está no §17.
+
+---
+
+## 1. PlayerRoot (L2) — composição e mediação do jogador — Gameplay Engineer — Fase 1/2
+
+O nó raiz do jogador (`CharacterBody3D`) é o **único** script que conhece todos os componentes do jogador. Ele executa o tick em ordem fixa e passa dados entre eles. Os componentes não se conhecem.
+
+```gdscript
+class_name PlayerRoot extends CharacterBody3D
+## Ordem do tick (process_physics_priority = -90):
+## 1. motor.step(dt)                                  -> movimento e esforço
+## 2. inputs = threat_monitor.sample() + motor.get_exertion() + hiding.is_hidden()
+## 3. physiology.step(dt, inputs)
+## 4. motor.apply_limits(physiology.get_coupling())   -> vale a partir do próximo tick
+## 5. breath_emitter.step(dt, physiology.get_snapshot())
+```
+
+**Ligações feitas pelo PlayerRoot em `_ready()`**
+- Injeta no motor o corpo e a cabeça: `motor.setup(self, $Head)`.
+- Conecta `physiology.startle_gasp` → `breath_emitter.emit_gasp()`.
+- Define a fonte de ameaça: `PlayerThreatMonitor` quando existe (a partir da F4) ou `StubThreatSource` (F2/F3: ameaça controlada pelo overlay de debug e pelos testes). As duas classes estendem `ThreatSource` e expõem `sample() -> ThreatSample`.
+
+**Invariante PLR-INV-1:** PlayerMotor, PhysiologyComponent, BreathEmitter, PlayerThreatMonitor e HidingComponent não têm referência entre si; toda troca de dados e toda conexão de sinal entre eles é feita pelo PlayerRoot.
+
+## 2. PlayerMotor (L2) — Gameplay Engineer — Fase 1
+
+```gdscript
+class_name PlayerMotor extends Node
+signal stance_changed(old: Enums.Stance, new: Enums.Stance)
+signal footstep(surface: StringName, gait: Enums.Gait, stance: Enums.Stance)
+signal landed(fall_speed: float)
+
+func setup(body: CharacterBody3D, head: Node3D) -> void   ## injetado pelo PlayerRoot
+func step(dt: float) -> void
+func get_stance() -> Enums.Stance
+func get_gait() -> Enums.Gait
+func get_exertion() -> float                  ## 0..1, esforço instantâneo
+func get_horizontal_speed() -> float
+func apply_limits(coupling: CouplingFactors) -> void
+func set_input_locked(locked: bool) -> void   ## captura, esconderijo, transições
+```
+
+- Parâmetros em `PlayerMotorConfig` (DATA_STRUCTURES §1.1).
+- O input é **amostrado** dentro de `step()` (`Input.is_action_pressed`). O movimento do mouse é acumulado em `_unhandled_input` e consumido em `step()`.
+
+**Invariantes**
+- MOT-INV-1: não fica em pé (nem agachado) se não houver espaço livre acima.
+- MOT-INV-2: `get_exertion()` = 0 parado; ≈ 0.2 andando; 1.0 em sprint; agachado ≤ 0.15; rastejando ≤ 0.25.
+- MOT-INV-3: `apply_limits` só reduz velocidade e sprint; nunca aumenta além da config.
+
+**Dependências proibidas:** fisiologia, IA, áudio, PlayerRoot.
+
+## 3. Interação (L2) — Gameplay Engineer — Fase 1
+
+```gdscript
+class_name Interactable extends Node3D
+@export var prompt_key: StringName
+@export var hold_time: float = 0.0
+@export var requires_steady_hands: bool = false
+signal interacted(actor: Node)
+func can_interact(context: InteractionContext) -> bool
+func interact(context: InteractionContext) -> void
+
+class_name InteractionComponent extends Node
+signal focus_changed(target: Interactable)    ## null = nada em foco
+func get_focused() -> Interactable
+```
+
+- `InteractionContext` (DATA_STRUCTURES §5) leva `steadiness` e `is_hidden`. Com `requires_steady_hands`, o tempo de segurar é multiplicado por `1 + 1.5·(1 − steadiness)`. Uma falha (soltar antes) gera ruído do objeto.
+- **Door:** estados `CLOSED`, `OPEN`, `LOCKED`. Segurar = abertura lenta (30 dB); toque = normal (50 dB). Atualiza o `Portal` acústico associado. É `Saveable`.
+- **Pickup:** tem `persist_id`, emite `EventBus.item_picked` e se remove. É `Saveable` (consumido ou não).
+
+## 4. Fisiologia — Physiological Systems Engineer — Fase 2
+
+### 4.1 PhysiologyComponent (L2)
+
+```gdscript
+class_name PhysiologyComponent extends Node
+signal respiratory_state_changed(old: Enums.RespiratoryState, new: Enums.RespiratoryState)
+signal cough_warning(seconds_until: float)
+signal coughed(suppressed: bool)
+signal stamina_depleted()
+signal stamina_recovered()
+signal stress_band_changed(old: Enums.StressBand, new: Enums.StressBand)
+signal startle_gasp()                           ## ruído involuntário por susto
+
+func step(dt: float, inputs: PhysiologyInputs) -> void
+func get_snapshot() -> PhysiologySnapshot
+func get_coupling() -> CouplingFactors
+func apply_medication(profile: MedicationProfile) -> bool   ## false em cooldown
+func add_startle(amount: float) -> void
+func add_injury(amount: float) -> void                       ## queda/captura: pico de estresse
+```
+
+### 4.2 Modelos L1 (sem Node)
+
+```gdscript
+class_name StaminaModel extends RefCounted
+var value: float
+func _init(config: StaminaConfig) -> void
+func tick(dt: float, inputs: PhysiologyInputs, coupling: CouplingFactors) -> void
+
+class_name StressModel extends RefCounted
+var value: float
+func _init(config: StressConfig) -> void
+func tick(dt: float, inputs: PhysiologyInputs) -> void
+func add_spike(amount: float) -> void
+func get_band() -> Enums.StressBand
+
+class_name RespiratoryModel extends RefCounted
+var symptom_severity: float
+var breathing_rate: float
+var wheezing_intensity: float
+var cough_probability: float
+var recovery_progress: float
+var state: Enums.RespiratoryState
+func _init(config: RespiratoryConfig, rng: RandomNumberGenerator) -> void
+func tick(dt: float, inputs: PhysiologyInputs, stress_value: float) -> void
+func apply_medication(profile: MedicationProfile) -> bool
+
+class_name PhysiologyCoupling extends RefCounted
+static func compute(stamina: StaminaModel, stress: StressModel, resp: RespiratoryModel, config: CouplingConfig) -> CouplingFactors
+```
+
+Os três modelos implementam também `to_dict() -> Dictionary` e `from_dict(data: Dictionary) -> void`, cobrindo **todo campo que afeta ticks futuros** (timers, cooldowns, flags de histerese, tosse agendada, pico de recuperação). Lista completa em DATA_STRUCTURES §6.1. Teste PER-07.
+
+As fórmulas de estados, tosse, acoplamento e `recovery_progress` estão em DATA_STRUCTURES §1.
+
+**Invariantes**
+- PHY-INV-1: valores sempre dentro dos intervalos (stamina e estresse 0..100; severidade 0..1).
+- PHY-INV-2: medicação nunca altera `StaminaModel.value`.
+- PHY-INV-3: com entradas zeradas, severidade e estresse voltam ao basal em tempo finito.
+- PHY-INV-4: transições de estado respeitam histerese e tempo mínimo de permanência.
+- PHY-INV-5: toda tosse involuntária é precedida por `cough_warning` com antecedência ≥ `cough_warning_time_s`.
+- PHY-INV-6: mesmo estado do RNG + mesmas entradas = mesmos resultados.
+
+**Fonte de verdade das cargas de medicação:** o Inventory. O `PhysiologySnapshot.medication_charges` é só leitura.
+
+**Dependências proibidas:** PlayerMotor, IA, acústica, áudio.
+
+## 5. PlayerThreatMonitor (L2) — Physiological Systems Engineer — Fase 4
+
+Calcula a ameaça **percebida pelo jogador**, que alimenta o estresse e a música. É a percepção do jogador, não da IA.
+
+```gdscript
+class_name ThreatSource extends Node              ## base; StubThreatSource é usado na F2/F3
+func sample() -> ThreatSample                     ## campos em DATA_STRUCTURES §5
+
+class_name PlayerThreatMonitor extends ThreatSource
+signal threat_changed(level: float, in_chase: bool)
+func receive_heard(heard: PlayerHeardNoise) -> void   ## chamado somente pelo AcousticWorld
+func to_dict() -> Dictionary                          ## janelas de 3 s (DATA_STRUCTURES §6.1)
+func from_dict(data: Dictionary) -> void
+```
+
+- Inimigo **visto:** dentro do campo de visão da câmera do jogador, com linha de visada até o inimigo e, ou a exposição à luz **sobre o inimigo** ≥ 0.15 (medida pelo `LightExposureProbe` do próprio inimigo, o mesmo componente usado no jogador), ou distância ≤ 3 m.
+- Inimigo **ouvido:** `PlayerHeardNoise` com `source_is_enemy == true`, entregue pelo `AcousticWorld` (§6.2). Ele não tem posição nem id da fonte.
+- `in_chase` = algum inimigo **visto** em CHASE nos últimos 3 s, **ou** algum `PlayerHeardNoise` de inimigo nos últimos 3 s com categoria RUNNING ou com `sound_id` de grito de perseguição (`voice_chase_*`).
+- O PlayerRoot lê `sample()` na prioridade -90. Os ruídos entregues em -60 no tick anterior entram com latência de 1 tick (SYSTEM_ARCHITECTURE §6).
+- Fórmula em DATA_STRUCTURES §1.5.
+
+**Invariante TMN-INV-1:** nenhuma informação do PlayerThreatMonitor nem `PlayerHeardNoise` é lida por scripts de IA (ARC-01).
+
+## 6. Acústica — AI Engineer + Audio Engineer (contrato conjunto) — Fase 3
+
+### 6.1 AcousticGraph (L1)
+
+```gdscript
+class_name AcousticGraph extends RefCounted
+func _init(config: AcousticConfig) -> void
+func add_room(room_id: StringName, bounds: AABB, ambient_floor_db: float) -> void
+func add_portal(portal_id: StringName, room_a: StringName, room_b: StringName, position: Vector3) -> void
+func set_portal_open(portal_id: StringName, open: bool) -> void
+func set_weather_floor_offset(offset_db: float) -> void       ## trovão, chuva forte
+func room_at(position: Vector3) -> StringName
+func propagate(event: NoiseEvent, listener_position: Vector3) -> PropagationResult
+```
+
+### 6.2 AcousticWorld (L2, um por nível)
+
+Substitui o antigo autoload "NoiseBus" (achado R-03 da revisão: o L0 não pode depender de tipos de L1/L2).
+
+```gdscript
+class_name AcousticWorld extends Node        ## grupo "acoustic_world"
+signal noise_resolved_for_player(event: NoiseEvent, result: PropagationResult)  ## somente para L3/debug
+func emit_noise(event: NoiseEvent) -> void
+func register_listener(listener: HearingSensor) -> void
+func unregister_listener(listener: HearingSensor) -> void
+func register_player_listener(monitor: PlayerThreatMonitor, ear: Node3D) -> void
+func get_graph() -> AcousticGraph
+```
+
+- **Ouvinte do jogador:** para cada evento cuja fonte não é o jogador, calcula `propagate()` até `ear` e, se audível, entrega um `PlayerHeardNoise` (categoria, nível, `source_is_enemy`, `sound_id`, timestamp) ao monitor. É o único canal de som com informação de origem fora do AcousticWorld, e só diz "é inimigo ou não".
+
+- Constrói o grafo a partir dos nós `RoomVolume` e `Portal` do nível.
+- Para cada listener: calcula `propagate()`, aplica o limiar de audibilidade (DATA_STRUCTURES §2.3), constrói um `HeardNoise` **sem** dados reais da fonte e entrega via `HearingSensor.receive()`.
+- Não entrega a um listener os ruídos emitidos pelo seu próprio dono (`event.source_id == listener.owner_id`).
+- A fila de eventos é processada no tick do AcousticWorld (prioridade -60). Um ruído emitido depois disso no mesmo frame é processado no tick seguinte (latência máxima de 1 tick, ≈ 16,7 ms).
+
+### 6.3 NoiseEmitter e BreathEmitter (L2)
+
+```gdscript
+class_name NoiseEmitter extends Node3D
+@export var source_id: StringName
+func emit_noise(category: Enums.NoiseCategory, intensity_db: float, duration: float = 0.0, sound_id: StringName = &"") -> void
+
+class_name BreathEmitter extends Node3D        ## componente do jogador
+func step(dt: float, snapshot: PhysiologySnapshot) -> void
+func emit_gasp() -> void                       ## gasp de susto (BREATHING 42 dB); conectado pelo PlayerRoot
+func to_dict() -> Dictionary                   ## fase do ciclo (DATA_STRUCTURES §6.1)
+func from_dict(data: Dictionary) -> void
+```
+
+- `BreathEmitter` é o produtor único de BREATHING, WHEEZING e COUGHING do jogador, inclusive do gasp de susto. Agenda **um `NoiseEvent` por ciclo respiratório** (categoria BREATHING, ou WHEEZING quando há chiado) e um evento COUGHING por tosse. Intensidade e `sound_id` vêm de `BreathParams.from_snapshot()` (função pura L1, DATA_STRUCTURES §2.4).
+- **Esse evento é a única origem do som de respiração**, tanto para a IA quanto para o jogador (§14). Fim do produtor duplicado apontado no achado R-12.
+
+**Invariantes**
+- NOI-INV-1: todo som de gameplay chega à IA somente via `AcousticWorld.emit_noise`.
+- NOI-INV-2: o volume que o jogador ouve deriva de `propagate()`. A atenuação nativa do `AudioStreamPlayer3D` fica **desligada** (`ATTENUATION_DISABLED`); só o *panning* espacial é usado.
+- NOI-INV-3: `propagate()` é pura e determinística. Fechar uma porta nunca aumenta o nível percebido.
+- NOI-INV-4: `HeardNoise` nunca contém a posição real da fonte, o id da fonte ou a sala da fonte. `PlayerHeardNoise` nunca contém posição, id nem sala.
+
+## 7. Percepção da IA (L2) — AI Engineer — Fase 4
+
+### 7.1 PerceivableTarget — componente-filho do jogador
+
+```gdscript
+class_name PerceivableTarget extends Node3D    ## filho do PlayerRoot; grupo "perceivable"
+@export var sample_points: Array[Marker3D]     ## cabeça, tronco, pés
+func get_sample_points() -> PackedVector3Array
+func get_light_exposure() -> float             ## 0..1, vindo do LightExposureProbe
+func get_stance_factor() -> float              ## em pé 1.0 · agachado 0.6 · rastejando 0.35
+func get_concealment() -> float                ## 0 exposto .. 1 dentro de esconderijo com proteção total
+```
+
+Os dados vêm de componentes irmãos do jogador, ligados pelo PlayerRoot. O VisionSensor só conhece esta classe.
+
+### 7.2 Sensores
+
+```gdscript
+class_name VisionSensor extends Node3D
+func evaluate(target: PerceivableTarget) -> VisualPercept
+
+class_name HearingSensor extends Node3D
+@export var owner_id: StringName
+var threshold_db: float                         ## definido pelo AIProfile
+func receive(heard: HeardNoise) -> void         ## chamado somente pelo AcousticWorld
+func drain() -> Array[HeardNoise]               ## consumido pelo EnemyController no seu tick
+```
+
+A fórmula de visibilidade está em DATA_STRUCTURES §3.2.
+
+**Invariante FW-INV-1 (firewall):** o único caminho de informação do jogador para a IA é `VisionSensor.evaluate(PerceivableTarget)` e `HearingSensor.receive(HeardNoise)`. Verificado pelo teste estático ARC-01 e pelo teste de invariância AI-06.
+
+## 8. IA inimiga — AI Engineer — Fase 4/6
+
+### 8.1 EnemyController (L2)
+
+```gdscript
+class_name EnemyController extends CharacterBody3D   ## grupo "enemy"
+@export var enemy_id: StringName
+@export var profile: AIProfile
+@export var patrol_route: NodePath
+signal state_changed(old: Enums.EnemyState, new: Enums.EnemyState)
+signal player_caught()
+
+func get_state() -> Enums.EnemyState
+func reset_to(initial: EnemyInitialState) -> void   ## usado pelo CheckpointManager
+```
+
+**Tick (process_physics_priority = -40):**
+1. Coleta percepts: `vision.evaluate()` para cada nó do grupo `perceivable`, `hearing.drain()` e `squad.messages_for()`.
+2. Monta o `PerceptBatch` e chama `brain.tick(dt, batch, world_query)`, onde `world_query` é o adaptador `EnemyWorldQuery` (§8.2).
+3. Aplica o `EnemyIntent`: alvo de navegação (NavigationAgent3D), velocidade, olhar, inspeção de esconderijo e fala. A fala é emitida pelo **`NoiseEmitter` filho** (`components/acoustics/`) com `emit_noise(Enums.NoiseCategory.VOICE, ...)`. O controlador nunca constrói `NoiseEvent`.
+
+**Captura (componente filho `EnemyCaptureArea`, Area3D, prioridade -30):** emite `player_caught` (e o controlador repassa `EventBus.player_captured`) quando sobrepõe o corpo do jogador **e** o estado do controlador é CHASE.
+
+**Squad (L2, `components/enemy/squad.gd`, grupo `squad`, prioridade -50, dono: AI Engineer):** um por nível. Contém o `SquadCoordinator` (L1), recebe `post()` dos controladores e libera mensagens com `deliver_at` vencido.
+
+**BrainWorldQuery** (implementado pelo controlador; DATA_STRUCTURES §3):
+`is_reachable(point)`, `search_points_near(center, radius)`, `hideables_near(center, radius)`, `patrol_points()`. **Nenhum método retorna dado do jogador.**
+
+**Invariantes**
+- ENM-INV-1: a `EnemyCaptureArea` só dispara a captura; o resultado nunca entra no `PerceptBatch`.
+- ENM-INV-2: a inspeção de esconderijo (`Hideable.inspect`) entra no brain apenas como `VisualPercept` na posição do esconderijo, e somente se encontrou o jogador.
+
+**Dependências proibidas:** PlayerRoot, PlayerMotor, PhysiologyComponent, PlayerThreatMonitor, grupo `player`, caminhos de nó do jogador.
+
+### 8.2 EnemyBrain, PerceptionMemory, SquadCoordinator (L1)
+
+```gdscript
+class_name EnemyBrain extends RefCounted
+var state: Enums.EnemyState
+var suspicion: float
+func _init(profile: AIProfile, rng: RandomNumberGenerator) -> void
+func tick(dt: float, percepts: PerceptBatch, world: BrainWorldQuery) -> EnemyIntent
+
+class_name PerceptionMemory extends RefCounted
+func record(record: PerceptionRecord) -> void
+func decay(dt: float) -> void
+func best_lead() -> PerceptionRecord          ## null se não houver pista útil
+func clear() -> void
+
+class_name SquadCoordinator extends RefCounted
+func post(message: SquadMessage) -> void
+func messages_for(enemy_id: StringName, now: float) -> Array[SquadMessage]
+```
+
+`BrainWorldQuery` é declarado em L1 como classe base abstrata com métodos que falham se não forem sobrescritos. O EnemyController a fornece por meio de um objeto adaptador (`EnemyWorldQuery extends BrainWorldQuery`), já que o controlador não pode herdar de duas classes.
+
+Transições e limiares numéricos: DATA_STRUCTURES §3.
+
+**SquadCoordinator:** só aceita mensagens criadas a partir de percepts do próprio remetente. A entrega respeita latência (`deliver_at`). Toda mensagem é acompanhada de fala (VOICE) audível ao jogador.
+
+## 9. Esconderijos (L2) — Gameplay Engineer + AI Engineer — Fase 5
+
+```gdscript
+class_name Hideable extends Interactable
+@export var hide_type: StringName
+@export var visual_protection: float = 1.0
+@export var enter_noise_db: float
+@export var exit_noise_db: float
+@export var muffle_db: float                   ## atenuação dos ruídos do jogador escondido (guarda-roupa ≈ 6, cama ≈ 3)
+@export var inspectable: bool = true
+func is_occupied() -> bool
+func inspect(by_enemy_id: StringName) -> bool
+
+class_name HidingComponent extends Node
+signal hidden_changed(is_hidden: bool, spot: Hideable)
+func enter(spot: Hideable) -> void
+func exit() -> void
+func is_hidden() -> bool
+```
+
+**Regras**
+- Dentro do esconderijo o jogador continua emitindo respiração, chiado e tosse.
+- A IA inspeciona por decisão própria, baseada em pistas, nunca por conhecimento da ocupação.
+- Entrar ou sair dentro do campo de visão de um inimigo resulta em descoberta (o VisionSensor vê o jogador antes da ocultação).
+
+## 10. Inventory (L1/L2) — Gameplay Engineer — Fase 5
+
+```gdscript
+class_name InventoryModel extends RefCounted      ## L1
+signal changed()
+func _init(capacity: int, catalog: ItemCatalog) -> void
+func add(item_id: StringName, quantity: int = 1) -> int
+func remove(item_id: StringName, quantity: int = 1) -> bool
+func count(item_id: StringName) -> int
+func use(item_id: StringName) -> ItemUseResult
+func to_dict() -> Dictionary
+func from_dict(data: Dictionary) -> void
+
+class_name Inventory extends Node                 ## L2, adaptador; é Saveable
+```
+
+**Invariantes:** INV-INV-1 quantidade nunca negativa; INV-INV-2 capacidade nunca excedida; INV-INV-3 `from_dict(to_dict())` é idempotente.
+
+## 11. Objetivos (L1/L2) — Gameplay Engineer — Fase 5
+
+```gdscript
+class_name ObjectiveGraph extends RefCounted       ## L1
+func _init(definitions: Array[ObjectiveDefinition]) -> void
+func notify(event_id: StringName) -> Array[StringName]
+func status(objective_id: StringName) -> Enums.ObjectiveStatus
+func active_objectives() -> Array[StringName]
+func to_dict() -> Dictionary
+func from_dict(data: Dictionary) -> void
+
+class_name ObjectiveManager extends Node           ## L2; é Saveable
+```
+
+Rotas alternativas: um objetivo tem várias condições de conclusão (OR); cada uma tem pré-requisitos (AND).
+
+## 12. Checkpoint e persistência — Software Architect — Fase 5
+
+```gdscript
+## Papel "Saveable": qualquer nó do grupo "saveable" deve ter
+@export var persist_id: StringName
+func save_state() -> Dictionary
+func load_state(data: Dictionary) -> void
+
+class_name CheckpointManager extends Node     ## L2 (usa SaveService L0 e SnapshotSchema L1)
+signal checkpoint_saved(checkpoint_id: StringName)
+signal restore_started()
+signal restore_finished()
+func reach(checkpoint_id: StringName) -> void
+func restore_last() -> void
+```
+
+**Sequência de captura (MASTER §9.10), em ordem obrigatória (teste PER-06):**
+1. `PlayerMotor.set_input_locked(true)`
+2. `CaptureSequence` (animação)
+3. Transição (fade)
+4. Carregar o último snapshot
+5. Restaurar inventário
+6. Restaurar objetivos
+7. Restaurar mundo (portas, luzes, props, pickups consumidos, `EnvironmentState`)
+8. `EnemyController.reset_to()` para cada inimigo; restaurar o estado do RNG; liberar o input
+
+O tratamento de erros (snapshot inválido, versão desconhecida, falha de gravação) está em SYSTEM_ARCHITECTURE §14.
+
+## 13. Dificuldade (L1/L2) — AI Engineer — Fase 6
+
+```gdscript
+class_name DifficultyModel extends RefCounted
+func record(metric: StringName, value: float) -> void
+func compute() -> DifficultyModifiers
+```
+
+**Saídas permitidas:** recursos opcionais, janelas de fuga, duração e intensidade de buscas, frequência de patrulha. **Proibido:** qualquer saída que revele ou aproxime a posição do jogador.
+
+## 14. Apresentação (L3) — Audio Engineer — Fase 2/3
+
+| Componente | Consome | Regra |
+|---|---|---|
+| `BreathingAudio` | `AcousticWorld.noise_resolved_for_player` com `source_id == &"player"` e categoria BREATHING, WHEEZING ou COUGHING | Toca a respiração do próprio jogador em 2D (som "dentro da cabeça"). **Nunca dispara som por conta própria.** |
+| `NoiseAudioRouter` | `noise_resolved_for_player` para todos os outros eventos | Toca o som no espaço com `volume_db` derivado de `PropagationResult` e reverb da sala. Ignora os eventos tratados pelo BreathingAudio. |
+| `AdaptiveMusic` | `PlayerThreatMonitor.threat_changed` | Usa **apenas** a ameaça percebida pelo jogador. Não assina estados reais de inimigos. |
+| `CameraEffects` | Sinais do PhysiologyComponent | Tremor, balanço respiratório e efeitos de tosse, escalados pelas opções de acessibilidade. |
+
+## 15. Serviços L0 (autoloads)
+
+```gdscript
+## Log
+func debug(category: StringName, message: String) -> void
+func info(category: StringName, message: String) -> void
+func warn(category: StringName, message: String) -> void
+func error(category: StringName, message: String) -> void
+func set_level(category: StringName, level: int) -> void
+
+## Settings — persistido em user://settings.cfg
+signal changed(key: StringName)
+func get_value(key: StringName) -> Variant
+func set_value(key: StringName, value: Variant) -> void
+## chaves: mouse_sensitivity, invert_y, fov, motion_reduction, tremor_reduction,
+## effects_intensity, respiratory_indicator, subtitles_enabled, subtitles_size,
+## master_volume, input_bindings
+
+## SaveService — I/O genérico; não conhece tipos de jogo
+func write_json(slot: StringName, data: Dictionary) -> Error    ## escrita atômica: .tmp e depois renomeia
+func read_json(slot: StringName) -> Dictionary                  ## {} se ausente ou inválido (com log)
+func has_slot(slot: StringName) -> bool
+
+## GameState
+var chapter_id: StringName
+var is_production_build: bool
+
+## EventBus — ver §16
+```
+
+**Regra L0:** autoloads só dependem de tipos nativos do Godot e de `core/`. Nunca de `sim/`, `components/` ou `presentation/` (teste ARC-05).
+
+## 16. Catálogo de sinais do EventBus
+
+Payloads apenas com tipos nativos ou `Enums` (L0).
+
+| Sinal | Payload | Emissor | Consumidores permitidos |
+|---|---|---|---|
+| `player_captured` | `enemy_id: StringName` | EnemyController | CheckpointManager, DifficultyManager, PhysiologyComponent (via PlayerRoot) |
+| `checkpoint_reached` | `checkpoint_id: StringName` | CheckpointManager | UI, DifficultyManager |
+| `objective_updated` | `objective_id: StringName, status: Enums.ObjectiveStatus` | ObjectiveManager | UI |
+| `item_picked` | `item_id: StringName, quantity: int, persist_id: StringName` | Pickup | Inventory, ObjectiveManager |
+| `chapter_changed` | `chapter_id: StringName` | GameState | sistemas de nível |
+| `chase_started` / `chase_ended` | `enemy_id: StringName` | EnemyController | **somente** DifficultyManager (métricas). Proibido em L3. |
+| `subtitle_requested` | `text_key: StringName, duration: float` | AcousticWorld (sons relevantes), falas | UI de legendas |
+
+## 17. Invariantes → testes
+
+| Invariante | Teste (TEST_PLAN) |
+|---|---|
+| PLR-INV-1 | ARC-06 |
+| MOT-INV-1..3 | MOT-01..03 |
+| PHY-INV-1 | PHY-09 |
+| PHY-INV-2 | PHY-05 |
+| PHY-INV-3 | PHY-06 |
+| PHY-INV-4 | PHY-10 |
+| PHY-INV-5 | PHY-07 |
+| PHY-INV-6 | PHY-08, PER-07 |
+| TMN-INV-1 | ARC-01 |
+| NOI-INV-1..4 | NOI-01..04 |
+| FW-INV-1 | ARC-01 + AI-06 |
+| ENM-INV-1..2 | AI-07, AI-08 |
+| INV-INV-1..3 | INV-01..03 |
+| Regras de objetivo (OR/AND, recompensas) | OBJ-01..03 |
+| Sequência de captura | PER-06 |

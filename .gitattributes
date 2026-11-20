@@ -1,0 +1,26 @@
+# Texto normalizado com LF (cenas, recursos e scripts do Godot são texto)
+* text=auto eol=lf
+
+# Scripts do Windows mantêm CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binários
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.exr binary
+*.hdr binary
+*.wav binary
+*.ogg binary
+*.mp3 binary
+*.glb binary
+*.blend binary
+*.ttf binary
+*.otf binary
+*.res binary
+*.scn binary
+*.zip binary
+*.tpz binary

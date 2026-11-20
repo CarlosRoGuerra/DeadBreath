@@ -1,0 +1,61 @@
+﻿# DISC-001 — Evidência do inventário do ambiente
+Capturado em: 2026-11-20 02:59:23 -03:00
+
+## Ferramentas (Get-Command)
+git      C:\Program Files\Git\cmd\git.exe
+node     C:\Program Files\nodejs\node.exe
+npm      C:\Program Files\nodejs\npm.ps1
+python   C:\Users\crrob\AppData\Local\Programs\Python\Python313\python.exe
+dotnet   C:\Program Files\dotnet\dotnet.exe
+go       C:\Program Files\Go\bin\go.exe
+java     C:\Program Files\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\java.exe
+ffmpeg   C:\ProgramData\chocolatey\bin\ffmpeg.exe
+cmake    (não encontrado)
+cl       (não encontrado)
+gcc      (não encontrado)
+clang    (não encontrado)
+rustc    (não encontrado)
+blender  (não encontrado)
+godot    (não encontrado)
+
+## Versões
+node v22.17.0
+npm 10.9.2
+Python 3.13.5
+dotnet SDKs:
+10.0.400 [C:\Program Files\dotnet\sdk]
+10.0.404 [C:\Program Files\dotnet\sdk]
+go version go1.24.4 windows/amd64
+git version 2.51.0.windows.2
+ffmpeg version 7.1-essentials_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers
+
+## Visual Studio (vswhere)
+vswhere presente: True
+instâncias: []
+
+## Engines
+C:\Program Files\Epic Games -> itens: 0
+C:\Program Files\Unity -> existe: False
+C:\Program Files\Unity Hub -> existe: False
+C:\Program Files\Godot -> existe: False
+
+## Hardware
+CPU: Intel(R) Core(TM) i7-14700KF (20 núcleos / 28 threads)
+GPU: AMD Radeon RX 9070 XT driver 32.0.32029.2010 (AdapterRAM WMI: 4 GB, campo limitado a 32 bits)
+RAM: 31.8 GB
+
+## Discos
+C: livre 19,5 GB / usado 911,9 GB
+D: livre 249,6 GB / usado 47,2 GB
+E: livre 78,1 GB / usado 159,8 GB
+F: livre 127,7 GB / usado 803,7 GB
+G: livre 94,4 GB / usado 837,1 GB
+I: livre 0,8 GB / usado 3 GB
+
+## Godot — release mais recente (API oficial do GitHub)
+4.7.2-stable 2026-08-18T16:12:28Z
+  Godot_v4.7.2-stable_mono_win64.zip 111 MB
+  Godot_v4.7.2-stable_win64.exe.zip 82 MB
+
+## Spike DISC-003
+Download + execução do binário oficial do Godot negados pela política de permissões da sessão (2026-11-20). Nenhuma verificação em máquina foi feita.

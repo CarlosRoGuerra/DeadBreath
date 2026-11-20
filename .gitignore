@@ -1,0 +1,19 @@
+# Godot 4: cache de importação e dados do editor (regenerados pelo --import)
+.godot/
+/android/
+
+# Builds e exportações
+/build/
+/export/
+
+# Configuração local do editor
+.vscode/
+
+# Sistema operacional
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Saídas temporárias de ferramentas e testes
+/tmp/
+*.tmp
