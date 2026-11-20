@@ -312,10 +312,15 @@ Esses alcances são verificados pelo teste STL-07.
 period_s     = 60 / breathing_rate
 intensity_db = lerp(20, 35, (breathing_rate − 14)/26)
 se wheezing_intensity > 0.1: categoria = WHEEZING, intensity_db = max(intensity_db, lerp(30, 42, wheezing_intensity))
-sound_id     = breath_calm | breath_fast | breath_labored | wheeze (conforme o estado)
+sound_id     = família da respiração: breath_calm | breath_fast | breath_labored
+               (a de maior ciclo nominal que cabe em 1,15 × period_s; LABORED/SYMPTOMATIC preferem breath_labored quando cabe)
+chiado       = marcado por categoria WHEEZING; o BreathingAudio toca a camada `wheeze` a partir da expiração
+               (decisão do Architect na F2-006b: com sound_id = wheeze, a inspiração e a expiração sumiriam justamente na crise)
 ```
 
-`sound_id` dos sons do corpo fora do ciclo (F2-006a, confirmados pelo Architect): `cough_warning` (pigarro de 1,5 s que antecede a tosse), `cough`, `gasp` (susto), `inhaler_puff` (bombinha). Arquivos e variações: `game/content/audio/body/manifest.json` (papéis inhale, exhale, layer, one_shot).
+`sound_id` dos sons do corpo fora do ciclo (F2-006a, confirmados pelo Architect): `cough_warning` (pigarro de 1,5 s que antecede a tosse; BREATHING **32 dB**: ouvido de perto, não chama atenção de longe), `cough` (COUGHING, intensidade de §2.1), `gasp` (susto, BREATHING 42 dB), `inhaler_puff` (MEDICATION 38 dB). Tosse cancelada no aviso não gera som (a versão abafada depende de P-01).
+
+**Volume ouvido pelo jogador (F2-006b):** `ganho_db = clamp(perceived_db − 45, −45, 0)` (referência de 45 dB a calibrar no playtest). **Encadeamento:** `pitch = clamp(nominal/period, 0,87, 1,15)`; o que sobra do período é silêncio; a expiração nunca é cortada. Arquivos e variações: `game/content/audio/body/manifest.json` (papéis inhale, exhale, layer, one_shot).
 
 ### 2.5 Nós de nível
 

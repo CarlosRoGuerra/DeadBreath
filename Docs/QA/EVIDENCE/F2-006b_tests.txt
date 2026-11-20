@@ -1,0 +1,72 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 19:14:41 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 59 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/acoustics/test_breath_params.gd::test_chain_timing_never_cuts_exhale_and_fits_period  1 ms  (asserts: 472)
+PASS  unit/acoustics/test_breath_params.gd::test_chain_timing_unknown_or_bad_period_is_empty  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_breath_params.gd::test_every_period_in_range_maps_to_a_known_family  0 ms  (asserts: 54)
+PASS  unit/acoustics/test_breath_params.gd::test_family_follows_period_when_state_does_not_fit  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_breath_params.gd::test_full_wheeze_is_42_db  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_breath_params.gd::test_intensity_is_linear_in_rate  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_breath_params.gd::test_labored_state_prefers_labored_when_it_fits  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_breath_params.gd::test_max_rate_gives_fast_period_and_35_db  0 ms  (asserts: 3)
+PASS  unit/acoustics/test_breath_params.gd::test_rate_is_clamped_to_contract_range  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_breath_params.gd::test_rest_rate_gives_calm_period_and_20_db  0 ms  (asserts: 5)
+PASS  unit/acoustics/test_breath_params.gd::test_wheeze_keeps_breath_family_not_wheeze_id  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_breath_params.gd::test_wheeze_threshold_is_strictly_above_0_1  0 ms  (asserts: 4)
+PASS  unit/acoustics/test_propagation.gd::test_direct_path_entry_point_is_source  0 ms  (asserts: 3)
+PASS  unit/acoustics/test_propagation.gd::test_loss_at_known_distances  0 ms  (asserts: 4)
+PASS  unit/acoustics/test_propagation.gd::test_perceive_is_deterministic_and_does_not_mutate_event  0 ms  (asserts: 3)
+PASS  unit/acoustics/test_propagation.gd::test_perceived_drops_with_distance  0 ms  (asserts: 2)
+PASS  integration/acoustics/test_acoustic_world.gd::test_event_is_resolved_on_the_physics_tick_not_on_emit  0 ms  (asserts: 4)
+PASS  integration/acoustics/test_acoustic_world.gd::test_every_event_is_reported_in_emission_order  0 ms  (asserts: 6)
+PASS  integration/acoustics/test_acoustic_world.gd::test_ids_and_timestamps_are_assigned_in_order  0 ms  (asserts: 5)
+PASS  integration/acoustics/test_acoustic_world.gd::test_noi_inv_1_only_listed_scripts_emit_or_create_body_noise  267 ms  (asserts: 1)
+      nota: arquivos de game/ varridos (sem testes): 51
+PASS  integration/acoustics/test_acoustic_world.gd::test_propagation_is_deterministic_and_farther_is_quieter  0 ms  (asserts: 10)
+PASS  integration/acoustics/test_acoustic_world.gd::test_resolution_uses_listener_distance  0 ms  (asserts: 2)
+PASS  integration/acoustics/test_acoustic_world.gd::test_world_is_in_group_with_physics_priority_minus_60  0 ms  (asserts: 2)
+PASS  integration/acoustics/test_breath_emitter.gd::test_body_sound_with_explicit_category_and_level  1 ms  (asserts: 4)
+PASS  integration/acoustics/test_breath_emitter.gd::test_breathing_event_fields  0 ms  (asserts: 8)
+PASS  integration/acoustics/test_breath_emitter.gd::test_cancelled_cough_makes_no_sound  0 ms  (asserts: 1)
+PASS  integration/acoustics/test_breath_emitter.gd::test_cough_warning_is_low_and_cough_is_65_db  0 ms  (asserts: 7)
+PASS  integration/acoustics/test_breath_emitter.gd::test_cycle_spacing_matches_period  3 ms  (asserts: 2)
+PASS  integration/acoustics/test_breath_emitter.gd::test_gasp_is_42_db_and_keeps_cycle_phase  0 ms  (asserts: 6)
+PASS  integration/acoustics/test_breath_emitter.gd::test_next_event_is_period_minus_phase  0 ms  (asserts: 1)
+PASS  integration/acoustics/test_breath_emitter.gd::test_one_event_per_cycle_at_rest  4 ms  (asserts: 2)
+PASS  integration/acoustics/test_breath_emitter.gd::test_period_follows_snapshot_on_next_cycle  1 ms  (asserts: 4)
+PASS  integration/acoustics/test_breath_emitter.gd::test_to_dict_round_trip_keeps_cycle_phase  1 ms  (asserts: 4)
+PASS  integration/acoustics/test_breath_emitter.gd::test_wheezing_cycles_are_wheezing_category  0 ms  (asserts: 4)
+2026-11-20 19:14:43 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/acoustics/test_breath_emitter.gd::test_without_world_nothing_is_emitted_and_warning_is_logged_once  60 ms  (asserts: 3)
+
+RESUMO: total=35 passou=35 falhou=0 sem_assert=0 tempo_total_ms=2654
+RESULTADO: APROVADO (codigo de saida 0)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 19:14:45 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 59 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  integration/audio/test_body_sounds_manifest.gd::test_breath_families_fit_the_period_range  1 ms  (asserts: 4)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_cough_warning_lasts_1_5_seconds  3 ms  (asserts: 4)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_declared_peak_matches_measured_peak  86 ms  (asserts: 41)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_every_item_imports_as_wav_with_declared_duration  25 ms  (asserts: 82)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_format_is_mono_16_bit_44100_with_declared_samples  45 ms  (asserts: 164)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_manifest_present_and_lists_every_wav_on_disk  2 ms  (asserts: 44)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_no_clipping_peak_below_minus_1_dbfs  84 ms  (asserts: 41)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_required_sound_ids_have_roles_and_variations  1 ms  (asserts: 11)
+PASS  integration/audio/test_breathing_audio.gd::test_breath_event_plays_inhale_then_exhale_chained_to_the_period  55 ms  (asserts: 5)
+PASS  integration/audio/test_breathing_audio.gd::test_events_from_other_sources_or_categories_are_ignored  26 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_every_required_sound_has_variations_loaded  30 ms  (asserts: 11)
+PASS  integration/audio/test_breathing_audio.gd::test_exhale_is_never_cut_by_the_next_event_timing  29 ms  (asserts: 2)
+PASS  integration/audio/test_breathing_audio.gd::test_gain_mapping_bounds  28 ms  (asserts: 3)
+PASS  integration/audio/test_breathing_audio.gd::test_manifest_families_match_breath_params_table  36 ms  (asserts: 10)
+PASS  integration/audio/test_breathing_audio.gd::test_non_wheezing_breath_has_no_layer  28 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_one_shots_play_their_own_files  28 ms  (asserts: 9)
+PASS  integration/audio/test_breathing_audio.gd::test_pitch_stays_within_the_fit_tolerance  25 ms  (asserts: 2)
+PASS  integration/audio/test_breathing_audio.gd::test_players_are_not_spatial_and_source_has_no_attenuation  38 ms  (asserts: 4)
+PASS  integration/audio/test_breathing_audio.gd::test_silent_without_events  42 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_volume_comes_from_perceived_level_not_from_the_source  33 ms  (asserts: 3)
+PASS  integration/audio/test_breathing_audio.gd::test_wheezing_cycle_adds_layer_starting_with_exhale  27 ms  (asserts: 3)
+
+RESUMO: total=21 passou=21 falhou=0 sem_assert=0 tempo_total_ms=2558
+RESULTADO: APROVADO (codigo de saida 0)
