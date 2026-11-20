@@ -18,6 +18,10 @@
 
 | Asset (caminho no repo) | Fonte | Autor | Licença | URL | Conferido em | Aprovado por |
 |---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — |
+| `game/content/textures/external/ambientcg/WoodFloor041/` (mapas 1K JPG: color, normal GL, roughness, AO); material `game/content/materials/mat_floor_wood.tres` | ambientCG (https://ambientcg.com) | ambientCG (a página não informa autor individual) | CC0 (declarada na página: "All assets are released under the Creative Commons CC0 license") | https://ambientcg.com/a/WoodFloor041 | 2026-11-20 | D-06 |
+| `game/content/textures/external/ambientcg/Carpet016/` (mapas 1K JPG: color, normal GL, roughness, AO); material `game/content/materials/mat_floor_carpet.tres` | ambientCG (https://ambientcg.com) | ambientCG (a página não informa autor individual) | CC0 (declarada na página) | https://ambientcg.com/a/Carpet016 | 2026-11-20 | D-06 |
+| `game/content/textures/external/ambientcg/Tiles142/` (mapas 1K JPG: color, normal GL, roughness); material `game/content/materials/mat_floor_tile.tres` | ambientCG (https://ambientcg.com) | ambientCG (a página não informa autor individual) | CC0 (declarada na página) | https://ambientcg.com/a/Tiles142 | 2026-11-20 | D-06 |
+| `game/content/textures/external/ambientcg/Concrete036/` (mapas 1K JPG: color, normal GL, roughness); material `game/content/materials/mat_floor_concrete.tres` | ambientCG (https://ambientcg.com) | ambientCG (a página não informa autor individual) | CC0 (declarada na página) | https://ambientcg.com/a/Concrete036 | 2026-11-20 | D-06 |
+| `game/content/textures/external/ambientcg/Plaster007/` (mapas 1K JPG: color, normal GL, roughness, AO); material `game/content/materials/mat_wall_plaster.tres` | ambientCG (https://ambientcg.com) | ambientCG (a página não informa autor individual) | CC0 (declarada na página) | https://ambientcg.com/a/Plaster007 | 2026-11-20 | D-06 |
 
-Nenhum asset externo no repositório até agora.
+Assets externos atuais: cinco materiais CC0 do ambientCG (F1-D03), 1K JPG, só os mapas usados. Os arquivos ZIP baixados não foram versionados, e os arquivos de exportação incluídos nos ZIPs (.blend, .usdc, .mtlx) não foram copiados.
