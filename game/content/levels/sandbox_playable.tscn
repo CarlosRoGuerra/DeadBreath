@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="PackedScene" path="res://content/levels/sandbox.tscn" id="1_level"]
 [ext_resource type="Script" path="res://components/world/level_slots.gd" id="2_slots"]
 [ext_resource type="Script" path="res://presentation/ui/pause_menu.gd" id="3_pause"]
 [ext_resource type="Script" path="res://presentation/debug/debug_overlay.gd" id="4_debug"]
+[ext_resource type="Script" path="res://components/acoustics/acoustic_world.gd" id="5_acoustic"]
+[ext_resource type="Script" path="res://presentation/audio/breathing_audio.gd" id="6_breath_audio"]
+[ext_resource type="Script" path="res://presentation/camera/camera_effects.gd" id="7_camera_fx"]
+[ext_resource type="Script" path="res://presentation/debug/balance_panel.gd" id="8_balance"]
 
 [node name="SandboxPlayable" type="Node"]
 
@@ -18,3 +22,15 @@ script = ExtResource("3_pause")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 script = ExtResource("4_debug")
+
+[node name="AcousticWorld" type="Node" parent="."]
+script = ExtResource("5_acoustic")
+
+[node name="BreathingAudio" type="Node" parent="."]
+script = ExtResource("6_breath_audio")
+
+[node name="CameraEffects" type="Node" parent="."]
+script = ExtResource("7_camera_fx")
+
+[node name="BalancePanel" type="CanvasLayer" parent="."]
+script = ExtResource("8_balance")

@@ -4,7 +4,8 @@ extends CharacterBody3D
 ## É o único script que conhece os componentes do jogador. Monta o InteractionContext (F1-007) e os PhysiologyInputs (F2-004).
 ## Não trata a tecla pause: o menu de pausa (presentation/ui) pausa a árvore e chama on_menu_resumed().
 ## Ordem do tick: process_physics_priority = -90 (SYSTEM_ARCHITECTURE §6; COMPONENT_CONTRACTS §1):
-##   motor.step → inputs → physiology.step → apply_limits(physiology.get_coupling()) → interaction.step(steadiness)
+##   motor.step → inputs → physiology.step → apply_limits(physiology.get_coupling()) → breath_emitter.step(snapshot)
+##   → interaction.step(steadiness). O BreathEmitter é o produtor único dos sons do corpo (F2-006b, §6.3).
 ## Uso da bombinha (F2-005, tecla use_item / Q): try_use_inhaler() consome uma dose do inventário e aplica o efeito na
 ## fisiologia. Os sinais item_use_failed e inhaler_used são para a apresentação (viewmodel, UI e som).
 
@@ -26,6 +27,7 @@ signal inhaler_used()
 @onready var _interaction: InteractionComponent = $InteractionComponent
 @onready var _physiology: PhysiologyComponent = $PhysiologyComponent
 @onready var _inventory: InventoryComponent = $InventoryComponent
+@onready var _breath: BreathEmitter = $Head/BreathEmitter
 @onready var _head: Node3D = $Head
 @onready var _camera: Camera3D = $Head/Camera3D
 
@@ -43,6 +45,10 @@ func _ready() -> void:
 	_interaction.setup(_camera, self)
 	_motor.landed.connect(_on_motor_landed)
 	_inventory.doses_changed.connect(_on_doses_changed)
+	# Sons involuntários do corpo: a fisiologia decide, o BreathEmitter emite (integração F2-006b, Director).
+	_physiology.cough_warning.connect(_breath.emit_cough_warning)
+	_physiology.coughed.connect(_breath.emit_cough)
+	_physiology.startle_gasp.connect(_breath.emit_gasp)
 	_physiology.set_medication_charges(_inventory.get_doses(INHALER_ITEM))
 	_context = InteractionContext.new()
 	_context.actor = self
@@ -64,6 +70,7 @@ func _physics_process(delta: float) -> void:
 	# Limites do acoplamento deste tick: o motor os usa a partir do próximo tick (COMPONENT_CONTRACTS §1).
 	var coupling: CouplingFactors = _physiology.get_coupling()
 	apply_limits(coupling)
+	_breath.step(delta, _physiology.get_snapshot())
 	_context.steadiness = coupling.steadiness
 	_context.is_hidden = inputs.is_hidden
 	_interaction.step(delta, _context)
@@ -98,11 +105,10 @@ func get_inventory() -> InventoryComponent:
 	return _inventory
 
 
-## Ponto ÚNICO de integração do som da bombinha (F2, Audio Engineer). Quando o BreathEmitter estiver integrado, a
-## chamada entra aqui: BreathEmitter.emit_body_sound(Enums.NoiseCategory.MEDICATION, 38.0, &"inhaler_puff").
-## Não é chamada nesta entrega: o emissor de som do corpo ainda não existe no jogador (F2-006b).
+## Som da bombinha (F2-005 + F2-006b): o puff é um som do corpo, emitido pelo BreathEmitter (MEDICATION 38 dB).
 func _on_inhaler_used() -> void:
-	pass
+	var profile_db: float = inhaler_profile.noise_db if inhaler_profile != null else 38.0
+	_breath.emit_body_sound(Enums.NoiseCategory.MEDICATION, profile_db, &"inhaler_puff", 1.0)
 
 
 func _on_doses_changed(item_id: StringName, doses: int) -> void:
@@ -121,6 +127,10 @@ func get_motor() -> PlayerMotor:
 
 func get_interaction() -> InteractionComponent:
 	return _interaction
+
+
+func get_breath_emitter() -> BreathEmitter:
+	return _breath
 
 
 func get_physiology() -> PhysiologyComponent:

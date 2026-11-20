@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://components/player/player_root.gd" id="1_root"]
 [ext_resource type="Script" path="res://components/player/player_motor.gd" id="2_motor"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" path="res://content/data/physiology/coupling_config.tres" id="9_coupling"]
 [ext_resource type="Script" path="res://components/player/inventory_component.gd" id="10_inventory"]
 [ext_resource type="Resource" path="res://content/data/physiology/medication_inhaler.tres" id="11_inhaler"]
+[ext_resource type="Script" path="res://components/player/breath_emitter.gd" id="12_breath"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
 radius = 0.25
@@ -32,6 +33,10 @@ position = Vector3(0, 1.65, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
 fov = 75.0
+
+[node name="BreathEmitter" type="Node3D" parent="Head"]
+position = Vector3(0, -0.1, -0.05)
+script = ExtResource("12_breath")
 
 [node name="PlayerMotor" type="Node" parent="."]
 script = ExtResource("2_motor")
