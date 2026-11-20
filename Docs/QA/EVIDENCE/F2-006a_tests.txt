@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-20 16:05:23 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 37 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  integration/audio/test_body_sounds_manifest.gd::test_breath_families_fit_the_period_range  1 ms  (asserts: 4)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_cough_warning_lasts_1_5_seconds  3 ms  (asserts: 4)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_declared_peak_matches_measured_peak  125 ms  (asserts: 41)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_every_item_imports_as_wav_with_declared_duration  29 ms  (asserts: 82)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_format_is_mono_16_bit_44100_with_declared_samples  47 ms  (asserts: 164)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_manifest_present_and_lists_every_wav_on_disk  4 ms  (asserts: 44)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_no_clipping_peak_below_minus_1_dbfs  124 ms  (asserts: 41)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_required_sound_ids_have_roles_and_variations  1 ms  (asserts: 11)
+
+RESUMO: total=8 passou=8 falhou=0 sem_assert=0 tempo_total_ms=1524
+RESULTADO: APROVADO (codigo de saida 0)

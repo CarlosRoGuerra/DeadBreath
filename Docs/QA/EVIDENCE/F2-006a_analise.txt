@@ -1,0 +1,437 @@
+ANALISE OBJETIVA - SONS PROCEDURAIS DO CORPO (F2-006a)
+Gerador: tools/audio/body_synth.py versao f2-006a.1 | semente base DEADBREATH|F2-006a|v1
+Metodo: RMS e pico em dBFS sobre int16; envelope por RMS de 10 ms; espectro = media de janelas Hann de 2048 amostras (salto 1024) com energia. Inclinacao e planura usam bandas de 1/6 de oitava (150 a 8000 Hz), para que cada oitava pese o mesmo. Planura: media geometrica / aritmetica das bandas (dB; ruido branco ~ 0 dB).
+Escuta humana nao foi feita por esta analise; os numeros sao evidencia de forma, nao de qualidade percebida.
+
+REFERENCIAS (mesmo analisador, ruido de 3 s gerado pelo body_synth)
+  ruido branco   inclinacao  -0.04 dB/oitava | planura  -0.01 dB | centroide   6032 Hz
+  ruido rosa     inclinacao  -3.05 dB/oitava | planura  -2.76 dB | centroide   2194 Hz
+  Alerta de respiracao: inclinacao acima de -2,0 dB/oitava (mais plano que o rosa, perto do branco).
+
+RESUMO POR SOUND_ID (medias das variacoes)
+sound_id         papel         n   dur(s)      RMS  centroide   planura     pico
+breath_calm      exhale        4    2.300   -24.00       858     -5.89    -7.63
+breath_calm      inhale        4    1.900   -24.00      1262     -4.14    -7.92
+breath_fast      exhale        4    0.950   -24.00      1020     -4.96    -7.60
+breath_fast      inhale        4    0.750   -24.00      1620     -3.24    -8.56
+breath_labored   exhale        4    1.400   -24.00       730     -7.32    -8.55
+breath_labored   inhale        4    0.800   -24.00      1235     -4.20    -8.32
+cough            one_shot      4    1.000   -19.00       686     -7.31    -4.02
+cough_warning    one_shot      3    1.500   -24.00       621     -7.98    -5.77
+gasp             one_shot      3    1.200   -21.00      1266     -4.14    -6.76
+inhaler_puff     one_shot      3    1.000   -22.00      2028     -2.36    -5.73
+wheeze           layer         4    2.400   -30.00      1215    -16.87   -15.29
+
+ARQUIVOS
+
+breath_calm_inhale_v1.wav
+  papel calm inhale | variacao 1 | duracao 1.900 s (83790 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.25 dBFS | crista 15.75 dB | DC -0.00000
+  envelope: pico em 0.930 s | ataque 10-90% 0.810 s | queda ate -20 dB 0.790 s | ativo (>-40 dB) 1.820 s | cauda 50 ms  -44.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -23.5  -10.3   -7.6   -5.7   -3.2   -3.1   -4.9   -7.1  -11.0  -27.7
+  espectro: centroide   1273 Hz | rolloff85   2261 Hz | inclinacao  -4.21 dB/oitava | planura  -4.04 dB
+  energia por faixa (%): <300  20.2 | 300-1k  21.0 | 1k-2.5k  46.5 | 2.5k-5k  11.5 | 5k-8k   0.8 | >8k   0.1
+  pico tonal 150-4000 Hz:   1206 Hz (  9.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_calm_inhale_v2.wav
+  papel calm inhale | variacao 2 | duracao 1.900 s (83790 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.12 dBFS | crista 15.88 dB | DC -0.00000
+  envelope: pico em 1.010 s | ataque 10-90% 0.880 s | queda ate -20 dB 0.770 s | ativo (>-40 dB) 1.840 s | cauda 50 ms  -32.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -22.6   -9.4   -7.5   -5.4   -2.5   -2.6   -3.7   -5.9   -8.9  -21.5
+  espectro: centroide   1346 Hz | rolloff85   2369 Hz | inclinacao  -4.00 dB/oitava | planura  -3.78 dB
+  energia por faixa (%): <300  19.4 | 300-1k  18.9 | 1k-2.5k  47.8 | 2.5k-5k  12.8 | 5k-8k   1.1 | >8k   0.1
+  pico tonal 150-4000 Hz:    151 Hz (  9.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_calm_inhale_v3.wav
+  papel calm inhale | variacao 3 | duracao 1.900 s (83790 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.19 dBFS | crista 14.81 dB | DC +0.00000
+  envelope: pico em 0.920 s | ataque 10-90% 0.810 s | queda ate -20 dB 0.860 s | ativo (>-40 dB) 1.840 s | cauda 50 ms  -36.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -23.3   -9.4   -5.1   -4.2   -2.5   -1.8   -3.6   -5.2   -7.4  -21.8
+  espectro: centroide   1220 Hz | rolloff85   2196 Hz | inclinacao  -4.38 dB/oitava | planura  -4.28 dB
+  energia por faixa (%): <300  20.6 | 300-1k  22.8 | 1k-2.5k  45.3 | 2.5k-5k  10.5 | 5k-8k   0.7 | >8k   0.1
+  pico tonal 150-4000 Hz:    151 Hz (  9.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_calm_inhale_v4.wav
+  papel calm inhale | variacao 4 | duracao 1.900 s (83790 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.92 dBFS | crista 16.08 dB | DC +0.00000
+  envelope: pico em 0.930 s | ataque 10-90% 0.800 s | queda ate -20 dB 0.780 s | ativo (>-40 dB) 1.830 s | cauda 50 ms  -43.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -23.0  -10.3   -7.0   -5.5   -3.1   -3.1   -4.1   -6.6  -10.0  -27.6
+  espectro: centroide   1208 Hz | rolloff85   1960 Hz | inclinacao  -4.45 dB/oitava | planura  -4.47 dB
+  energia por faixa (%): <300  21.6 | 300-1k  20.0 | 1k-2.5k  47.6 | 2.5k-5k   9.9 | 5k-8k   0.8 | >8k   0.1
+  pico tonal 150-4000 Hz:    172 Hz ( 11.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_calm_exhale_v1.wav
+  papel calm exhale | variacao 1 | duracao 2.300 s (101430 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.98 dBFS | crista 16.02 dB | DC +0.00000
+  envelope: pico em 1.020 s | ataque 10-90% 0.950 s | queda ate -20 dB 0.870 s | ativo (>-40 dB) 2.240 s | cauda 50 ms  -47.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -14.8   -6.2   -4.6   -4.1   -3.3   -7.2   -9.1  -11.4  -18.5  -27.4
+  espectro: centroide    863 Hz | rolloff85   1464 Hz | inclinacao  -5.53 dB/oitava | planura  -5.79 dB
+  energia por faixa (%): <300  18.2 | 300-1k  54.0 | 1k-2.5k  21.8 | 2.5k-5k   5.5 | 5k-8k   0.4 | >8k   0.0
+  pico tonal 150-4000 Hz:    495 Hz ( 13.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_calm_exhale_v2.wav
+  papel calm exhale | variacao 2 | duracao 2.300 s (101430 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.63 dBFS | crista 16.37 dB | DC +0.00000
+  envelope: pico em 0.540 s | ataque 10-90% 0.480 s | queda ate -20 dB 1.410 s | ativo (>-40 dB) 2.240 s | cauda 50 ms  -47.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -12.0   -4.3   -2.9   -3.1   -3.1   -5.4   -8.8   -9.2  -17.1  -26.7
+  espectro: centroide    905 Hz | rolloff85   1529 Hz | inclinacao  -5.41 dB/oitava | planura  -5.54 dB
+  energia por faixa (%): <300  17.4 | 300-1k  52.7 | 1k-2.5k  24.2 | 2.5k-5k   5.2 | 5k-8k   0.5 | >8k   0.0
+  pico tonal 150-4000 Hz:    517 Hz ( 13.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_calm_exhale_v3.wav
+  papel calm exhale | variacao 3 | duracao 2.300 s (101430 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.35 dBFS | crista 15.65 dB | DC +0.00000
+  envelope: pico em 0.890 s | ataque 10-90% 0.820 s | queda ate -20 dB 1.110 s | ativo (>-40 dB) 2.240 s | cauda 50 ms  -47.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -14.9   -7.7   -6.4   -3.0   -4.8   -7.4  -11.2   -9.8  -17.0  -25.3
+  espectro: centroide    847 Hz | rolloff85   1443 Hz | inclinacao  -5.66 dB/oitava | planura  -5.98 dB
+  energia por faixa (%): <300  17.9 | 300-1k  55.0 | 1k-2.5k  21.4 | 2.5k-5k   5.3 | 5k-8k   0.4 | >8k   0.0
+  pico tonal 150-4000 Hz:    409 Hz ( 13.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_calm_exhale_v4.wav
+  papel calm exhale | variacao 4 | duracao 2.300 s (101430 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.36 dBFS | crista 15.64 dB | DC -0.00000
+  envelope: pico em 0.830 s | ataque 10-90% 0.750 s | queda ate -20 dB 1.110 s | ativo (>-40 dB) 2.210 s | cauda 50 ms  -51.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -13.1   -4.5   -4.2   -3.6   -5.2   -8.4   -8.8  -12.5  -18.8  -28.9
+  espectro: centroide    818 Hz | rolloff85   1378 Hz | inclinacao  -5.80 dB/oitava | planura  -6.23 dB
+  energia por faixa (%): <300  17.9 | 300-1k  55.6 | 1k-2.5k  21.9 | 2.5k-5k   4.3 | 5k-8k   0.3 | >8k   0.0
+  pico tonal 150-4000 Hz:    538 Hz ( 15.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_fast_inhale_v1.wav
+  papel fast inhale | variacao 1 | duracao 0.750 s (33075 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.86 dBFS | crista 15.14 dB | DC +0.00000
+  envelope: pico em 0.190 s | ataque 10-90% 0.180 s | queda ate -20 dB 0.470 s | ativo (>-40 dB) 0.740 s | cauda 50 ms  -30.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -11.6   -4.1   -1.6   -2.8   -3.0   -4.4   -5.1   -7.9  -16.5  -25.1
+  espectro: centroide   1659 Hz | rolloff85   3015 Hz | inclinacao  -3.18 dB/oitava | planura  -3.07 dB
+  energia por faixa (%): <300  14.3 | 300-1k  12.9 | 1k-2.5k  51.0 | 2.5k-5k  20.0 | 5k-8k   1.7 | >8k   0.1
+  pico tonal 150-4000 Hz:   1464 Hz (  9.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_fast_inhale_v2.wav
+  papel fast inhale | variacao 2 | duracao 0.750 s (33075 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.12 dBFS | crista 13.88 dB | DC +0.00000
+  envelope: pico em 0.390 s | ataque 10-90% 0.380 s | queda ate -20 dB 0.300 s | ativo (>-40 dB) 0.740 s | cauda 50 ms  -29.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -10.8   -4.7   -4.2   -3.5   -1.5   -2.3   -4.7   -9.1  -16.0  -24.5
+  espectro: centroide   1706 Hz | rolloff85   3144 Hz | inclinacao  -3.09 dB/oitava | planura  -3.00 dB
+  energia por faixa (%): <300  16.0 | 300-1k  12.4 | 1k-2.5k  48.7 | 2.5k-5k  20.8 | 5k-8k   1.9 | >8k   0.1
+  pico tonal 150-4000 Hz:   1572 Hz (  8.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_fast_inhale_v3.wav
+  papel fast inhale | variacao 3 | duracao 0.750 s (33075 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.33 dBFS | crista 14.67 dB | DC +0.00000
+  envelope: pico em 0.260 s | ataque 10-90% 0.250 s | queda ate -20 dB 0.390 s | ativo (>-40 dB) 0.730 s | cauda 50 ms  -35.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -14.8   -6.2   -5.8   -2.2   -3.9   -7.6   -7.1   -8.2  -17.5  -29.3
+  espectro: centroide   1587 Hz | rolloff85   2907 Hz | inclinacao  -3.42 dB/oitava | planura  -3.42 dB
+  energia por faixa (%): <300  16.4 | 300-1k  13.2 | 1k-2.5k  48.9 | 2.5k-5k  19.9 | 5k-8k   1.5 | >8k   0.1
+  pico tonal 150-4000 Hz:    151 Hz (  8.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_fast_inhale_v4.wav
+  papel fast inhale | variacao 4 | duracao 0.750 s (33075 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.56 dBFS | crista 15.44 dB | DC -0.00000
+  envelope: pico em 0.250 s | ataque 10-90% 0.240 s | queda ate -20 dB 0.430 s | ativo (>-40 dB) 0.740 s | cauda 50 ms  -28.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -12.4   -6.0   -3.6   -1.7   -3.8   -6.0   -7.7   -8.7  -17.8  -24.2
+  espectro: centroide   1530 Hz | rolloff85   2778 Hz | inclinacao  -3.55 dB/oitava | planura  -3.46 dB
+  energia por faixa (%): <300  16.2 | 300-1k  14.6 | 1k-2.5k  50.8 | 2.5k-5k  17.0 | 5k-8k   1.2 | >8k   0.1
+  pico tonal 150-4000 Hz:   1357 Hz (  8.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_fast_exhale_v1.wav
+  papel fast exhale | variacao 1 | duracao 0.950 s (41895 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.66 dBFS | crista 16.34 dB | DC -0.00000
+  envelope: pico em 0.270 s | ataque 10-90% 0.270 s | queda ate -20 dB 0.470 s | ativo (>-40 dB) 0.910 s | cauda 50 ms  -43.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -5.8   -1.8   -1.4   -3.4   -7.1   -9.5  -11.2  -18.2  -21.7  -32.9
+  espectro: centroide   1039 Hz | rolloff85   1766 Hz | inclinacao  -4.58 dB/oitava | planura  -4.72 dB
+  energia por faixa (%): <300  14.5 | 300-1k  52.0 | 1k-2.5k  25.1 | 2.5k-5k   7.7 | 5k-8k   0.7 | >8k   0.1
+  pico tonal 150-4000 Hz:    689 Hz ( 13.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_fast_exhale_v2.wav
+  papel fast exhale | variacao 2 | duracao 0.950 s (41895 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.60 dBFS | crista 16.40 dB | DC +0.00000
+  envelope: pico em 0.260 s | ataque 10-90% 0.260 s | queda ate -20 dB 0.530 s | ativo (>-40 dB) 0.920 s | cauda 50 ms  -41.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -7.9   -4.7   -1.9   -2.5   -6.7   -8.0  -11.1  -15.9  -20.4  -31.8
+  espectro: centroide   1073 Hz | rolloff85   1873 Hz | inclinacao  -4.46 dB/oitava | planura  -4.61 dB
+  energia por faixa (%): <300  14.5 | 300-1k  53.0 | 1k-2.5k  23.2 | 2.5k-5k   8.5 | 5k-8k   0.8 | >8k   0.1
+  pico tonal 150-4000 Hz:    668 Hz ( 13.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_fast_exhale_v3.wav
+  papel fast exhale | variacao 3 | duracao 0.950 s (41895 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.20 dBFS | crista 15.80 dB | DC +0.00000
+  envelope: pico em 0.250 s | ataque 10-90% 0.250 s | queda ate -20 dB 0.500 s | ativo (>-40 dB) 0.900 s | cauda 50 ms  -47.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -7.2   -3.8   -3.4   -7.6   -8.5   -9.9  -14.1  -17.6  -20.0  -34.1
+  espectro: centroide   1014 Hz | rolloff85   1701 Hz | inclinacao  -4.84 dB/oitava | planura  -5.03 dB
+  energia por faixa (%): <300  13.7 | 300-1k  52.5 | 1k-2.5k  25.5 | 2.5k-5k   7.6 | 5k-8k   0.6 | >8k   0.0
+  pico tonal 150-4000 Hz:    646 Hz ( 12.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_fast_exhale_v4.wav
+  papel fast exhale | variacao 4 | duracao 0.950 s (41895 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.37 dBFS | crista 14.63 dB | DC +0.00000
+  envelope: pico em 0.270 s | ataque 10-90% 0.270 s | queda ate -20 dB 0.530 s | ativo (>-40 dB) 0.920 s | cauda 50 ms  -40.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -6.3   -4.4   -2.4   -2.0   -3.7   -5.9  -10.9  -15.7  -20.1  -31.1
+  espectro: centroide    954 Hz | rolloff85   1593 Hz | inclinacao  -5.08 dB/oitava | planura  -5.49 dB
+  energia por faixa (%): <300  14.3 | 300-1k  56.1 | 1k-2.5k  22.8 | 2.5k-5k   6.2 | 5k-8k   0.4 | >8k   0.0
+  pico tonal 150-4000 Hz:    646 Hz ( 14.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_labored_inhale_v1.wav
+  papel labored inhale | variacao 1 | duracao 0.800 s (35280 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.41 dBFS | crista 15.59 dB | DC +0.00000
+  envelope: pico em 0.570 s | ataque 10-90% 0.540 s | queda ate -20 dB 0.190 s | ativo (>-40 dB) 0.780 s | cauda 50 ms  -25.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -18.4   -9.4  -14.3   -8.4   -4.3   -5.2   -1.3   -2.8   -7.4  -19.3
+  espectro: centroide   1218 Hz | rolloff85   2326 Hz | inclinacao  -4.35 dB/oitava | planura  -4.33 dB
+  energia por faixa (%): <300  16.6 | 300-1k  38.4 | 1k-2.5k  33.2 | 2.5k-5k  11.0 | 5k-8k   0.7 | >8k   0.1
+  pico tonal 150-4000 Hz:    947 Hz (  9.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_labored_inhale_v2.wav
+  papel labored inhale | variacao 2 | duracao 0.800 s (35280 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.27 dBFS | crista 14.73 dB | DC -0.00000
+  envelope: pico em 0.300 s | ataque 10-90% 0.270 s | queda ate -20 dB 0.470 s | ativo (>-40 dB) 0.780 s | cauda 50 ms  -22.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -18.4   -5.2   -4.0   -1.6   -2.9   -3.7   -2.5   -6.9   -9.3  -15.8
+  espectro: centroide   1315 Hz | rolloff85   2476 Hz | inclinacao  -4.00 dB/oitava | planura  -3.79 dB
+  energia por faixa (%): <300  15.6 | 300-1k  32.3 | 1k-2.5k  37.7 | 2.5k-5k  13.4 | 5k-8k   0.9 | >8k   0.1
+  pico tonal 150-4000 Hz:    969 Hz (  9.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_labored_inhale_v3.wav
+  papel labored inhale | variacao 3 | duracao 0.800 s (35280 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.32 dBFS | crista 15.68 dB | DC -0.00000
+  envelope: pico em 0.490 s | ataque 10-90% 0.470 s | queda ate -20 dB 0.270 s | ativo (>-40 dB) 0.780 s | cauda 50 ms  -24.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -17.8  -11.5  -11.8   -7.2   -4.7   -3.0   -3.5   -4.8   -5.8  -16.9
+  espectro: centroide   1201 Hz | rolloff85   2218 Hz | inclinacao  -4.41 dB/oitava | planura  -4.36 dB
+  energia por faixa (%): <300  15.5 | 300-1k  42.5 | 1k-2.5k  31.5 | 2.5k-5k   9.8 | 5k-8k   0.7 | >8k   0.1
+  pico tonal 150-4000 Hz:    883 Hz ( 10.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_labored_inhale_v4.wav
+  papel labored inhale | variacao 4 | duracao 0.800 s (35280 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.68 dBFS | crista 14.32 dB | DC +0.00000
+  envelope: pico em 0.320 s | ataque 10-90% 0.290 s | queda ate -20 dB 0.440 s | ativo (>-40 dB) 0.780 s | cauda 50 ms  -24.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -19.2   -6.5   -4.1   -3.5   -2.8   -3.9   -3.6   -7.4  -11.0  -17.9
+  espectro: centroide   1205 Hz | rolloff85   2218 Hz | inclinacao  -4.28 dB/oitava | planura  -4.30 dB
+  energia por faixa (%): <300  12.8 | 300-1k  42.7 | 1k-2.5k  33.8 | 2.5k-5k  10.0 | 5k-8k   0.7 | >8k   0.1
+  pico tonal 150-4000 Hz:   1012 Hz ( 10.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_labored_exhale_v1.wav
+  papel labored exhale | variacao 1 | duracao 1.400 s (61740 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.00 dBFS | crista 15.00 dB | DC +0.00000
+  envelope: pico em 0.370 s | ataque 10-90% 0.360 s | queda ate -20 dB 0.850 s | ativo (>-40 dB) 1.390 s | cauda 50 ms  -33.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.1   -4.1   -2.9   -1.9   -6.0   -9.9   -8.8  -13.7  -17.6  -28.4
+  espectro: centroide    713 Hz | rolloff85   1249 Hz | inclinacao  -6.56 dB/oitava | planura  -7.45 dB
+  energia por faixa (%): <300  18.6 | 300-1k  60.3 | 1k-2.5k  18.5 | 2.5k-5k   2.4 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    409 Hz ( 16.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_labored_exhale_v2.wav
+  papel labored exhale | variacao 2 | duracao 1.400 s (61740 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.46 dBFS | crista 14.54 dB | DC +0.00000
+  envelope: pico em 0.070 s | ataque 10-90% 0.070 s | queda ate -20 dB 1.190 s | ativo (>-40 dB) 1.380 s | cauda 50 ms  -35.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.2   -2.0   -3.9   -3.6   -4.8   -7.7   -7.5  -10.3  -12.0  -26.9
+  espectro: centroide    785 Hz | rolloff85   1335 Hz | inclinacao  -6.12 dB/oitava | planura  -6.75 dB
+  energia por faixa (%): <300  16.3 | 300-1k  58.5 | 1k-2.5k  21.9 | 2.5k-5k   3.1 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    474 Hz ( 14.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_labored_exhale_v3.wav
+  papel labored exhale | variacao 3 | duracao 1.400 s (61740 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.83 dBFS | crista 15.17 dB | DC -0.00000
+  envelope: pico em 0.430 s | ataque 10-90% 0.430 s | queda ate -20 dB 0.470 s | ativo (>-40 dB) 1.390 s | cauda 50 ms  -32.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -7.6   -3.2   -5.5   -2.5   -7.3   -9.9  -13.1  -12.1  -17.2  -28.1
+  espectro: centroide    713 Hz | rolloff85   1184 Hz | inclinacao  -6.48 dB/oitava | planura  -7.47 dB
+  energia por faixa (%): <300  16.2 | 300-1k  63.2 | 1k-2.5k  18.0 | 2.5k-5k   2.4 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    431 Hz ( 16.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+breath_labored_exhale_v4.wav
+  papel labored exhale | variacao 4 | duracao 1.400 s (61740 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.55 dBFS | crista 15.45 dB | DC +0.00000
+  envelope: pico em 0.130 s | ataque 10-90% 0.130 s | queda ate -20 dB 1.080 s | ativo (>-40 dB) 1.380 s | cauda 50 ms  -33.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.1   -3.3   -6.1   -4.0   -5.9   -6.3   -7.9  -11.6  -17.6  -28.5
+  espectro: centroide    708 Hz | rolloff85   1249 Hz | inclinacao  -6.75 dB/oitava | planura  -7.61 dB
+  energia por faixa (%): <300  19.3 | 300-1k  58.0 | 1k-2.5k  20.5 | 2.5k-5k   2.1 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    474 Hz ( 15.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+wheeze_layer_v1.wav
+  papel layer | variacao 1 | duracao 2.400 s (105840 amostras)
+  nivel: RMS -30.00 dBFS | pico -15.81 dBFS | crista 14.19 dB | DC +0.00000
+  envelope: pico em 1.830 s | ataque 10-90% 1.740 s | queda ate -20 dB 0.510 s | ativo (>-40 dB) 2.360 s | cauda 50 ms  -34.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -20.2  -13.6   -9.6   -9.4   -5.5   -6.9   -6.4   -2.9   -5.0  -10.7
+  espectro: centroide   1136 Hz | rolloff85   1163 Hz | inclinacao  -0.93 dB/oitava | planura -17.76 dB
+  energia por faixa (%): <300   0.0 | 300-1k  66.8 | 1k-2.5k  31.3 | 2.5k-5k   1.8 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    969 Hz ( 32.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+wheeze_layer_v2.wav
+  papel layer | variacao 2 | duracao 2.400 s (105840 amostras)
+  nivel: RMS -30.00 dBFS | pico -16.30 dBFS | crista 13.70 dB | DC +0.00000
+  envelope: pico em 1.130 s | ataque 10-90% 1.060 s | queda ate -20 dB 1.050 s | ativo (>-40 dB) 2.330 s | cauda 50 ms  -48.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -13.9   -8.9   -4.1   -5.4   -3.1   -6.9   -6.1   -7.7  -12.6  -23.7
+  espectro: centroide   1359 Hz | rolloff85   1357 Hz | inclinacao   0.38 dB/oitava | planura -15.38 dB
+  energia por faixa (%): <300   0.0 | 300-1k   1.8 | 1k-2.5k  94.7 | 2.5k-5k   3.5 | 5k-8k   0.1 | >8k   0.0
+  pico tonal 150-4000 Hz:   1227 Hz ( 24.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+wheeze_layer_v3.wav
+  papel layer | variacao 3 | duracao 2.400 s (105840 amostras)
+  nivel: RMS -30.00 dBFS | pico -17.46 dBFS | crista 12.54 dB | DC +0.00000
+  envelope: pico em 1.820 s | ataque 10-90% 1.570 s | queda ate -20 dB 0.530 s | ativo (>-40 dB) 2.350 s | cauda 50 ms  -29.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -24.9  -14.9  -10.7   -6.7   -4.8   -5.2   -4.5   -3.4   -5.0  -10.9
+  espectro: centroide   1018 Hz | rolloff85   1163 Hz | inclinacao  -1.65 dB/oitava | planura -18.51 dB
+  energia por faixa (%): <300   0.0 | 300-1k  83.9 | 1k-2.5k  14.4 | 2.5k-5k   1.6 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    861 Hz ( 31.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+wheeze_layer_v4.wav
+  papel layer | variacao 4 | duracao 2.400 s (105840 amostras)
+  nivel: RMS -30.00 dBFS | pico -15.29 dBFS | crista 14.71 dB | DC -0.00000
+  envelope: pico em 1.230 s | ataque 10-90% 0.820 s | queda ate -20 dB 1.000 s | ativo (>-40 dB) 2.310 s | cauda 50 ms  -34.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -26.8  -16.8  -10.3   -9.1   -4.8   -3.6   -5.4   -8.0   -8.9  -20.1
+  espectro: centroide   1346 Hz | rolloff85   1443 Hz | inclinacao   0.15 dB/oitava | planura -15.85 dB
+  energia por faixa (%): <300   0.0 | 300-1k   2.1 | 1k-2.5k  95.1 | 2.5k-5k   2.8 | 5k-8k   0.1 | >8k   0.0
+  pico tonal 150-4000 Hz:   1120 Hz ( 27.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+cough_warning_v1.wav
+  papel one_shot | variacao 1 | duracao 1.500 s (66150 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.41 dBFS | crista 15.59 dB | DC +0.00000
+  envelope: pico em 1.390 s | ataque 10-90% 0.430 s | queda ate -20 dB 0.100 s | ativo (>-40 dB) 1.490 s | cauda 50 ms   -7.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -13.8  -10.9   -9.0   -5.4   -5.7  -13.3  -15.6   -7.9   -4.5   -4.2
+  espectro: centroide    572 Hz | rolloff85    818 Hz | inclinacao  -6.66 dB/oitava | planura  -8.33 dB
+  energia por faixa (%): <300  30.7 | 300-1k  58.9 | 1k-2.5k   8.7 | 2.5k-5k   1.3 | 5k-8k   0.3 | >8k   0.0
+  pico tonal 150-4000 Hz:    560 Hz ( 22.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+cough_warning_v2.wav
+  papel one_shot | variacao 2 | duracao 1.500 s (66150 amostras)
+  nivel: RMS -24.00 dBFS | pico  -5.77 dBFS | crista 18.23 dB | DC -0.00000
+  envelope: pico em 1.420 s | ataque 10-90% 0.460 s | queda ate -20 dB 0.070 s | ativo (>-40 dB) 1.490 s | cauda 50 ms   -7.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -12.1   -8.4  -24.9  -12.4   -7.4  -14.9  -16.7   -6.5   -3.4   -3.2
+  espectro: centroide    538 Hz | rolloff85    711 Hz | inclinacao  -6.84 dB/oitava | planura  -9.21 dB
+  energia por faixa (%): <300  31.4 | 300-1k  59.7 | 1k-2.5k   7.6 | 2.5k-5k   1.0 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    517 Hz ( 23.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+cough_warning_v3.wav
+  papel one_shot | variacao 3 | duracao 1.500 s (66150 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.04 dBFS | crista 16.96 dB | DC +0.00000
+  envelope: pico em 1.370 s | ataque 10-90% 1.340 s | queda ate -20 dB 0.120 s | ativo (>-40 dB) 1.490 s | cauda 50 ms   -6.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -14.5  -10.3   -7.7   -7.0   -6.4   -5.5   -5.2   -3.6   -2.6   -2.4
+  espectro: centroide    753 Hz | rolloff85   1335 Hz | inclinacao  -5.52 dB/oitava | planura  -6.39 dB
+  energia por faixa (%): <300  26.9 | 300-1k  53.2 | 1k-2.5k  15.8 | 2.5k-5k   3.3 | 5k-8k   0.7 | >8k   0.1
+  pico tonal 150-4000 Hz:    581 Hz ( 16.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+cough_v1.wav
+  papel one_shot | variacao 1 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -19.00 dBFS | pico  -4.46 dBFS | crista 14.54 dB | DC -0.00018
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.420 s | ativo (>-40 dB) 0.620 s | cauda 50 ms -231.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.4   -5.6   -9.5  -14.5  -22.9  -31.7  -44.9 -231.3 -231.3 -231.3
+  espectro: centroide    633 Hz | rolloff85    818 Hz | inclinacao  -5.87 dB/oitava | planura  -7.52 dB
+  energia por faixa (%): <300  32.9 | 300-1k  54.9 | 1k-2.5k   8.8 | 2.5k-5k   2.8 | 5k-8k   0.5 | >8k   0.1
+  pico tonal 150-4000 Hz:    560 Hz ( 20.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+cough_v2.wav
+  papel one_shot | variacao 2 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -19.00 dBFS | pico  -4.54 dBFS | crista 14.46 dB | DC -0.00017
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.340 s | ativo (>-40 dB) 0.880 s | cauda 50 ms  -54.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.6   -8.3  -11.8  -17.1   -7.4   -9.5  -16.0  -20.2  -33.3  -47.4
+  espectro: centroide    752 Hz | rolloff85   1206 Hz | inclinacao  -5.13 dB/oitava | planura  -5.96 dB
+  energia por faixa (%): <300  36.7 | 300-1k  45.8 | 1k-2.5k  11.4 | 2.5k-5k   4.8 | 5k-8k   1.1 | >8k   0.1
+  pico tonal 150-4000 Hz:    668 Hz ( 16.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+cough_v3.wav
+  papel one_shot | variacao 3 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -19.00 dBFS | pico  -4.65 dBFS | crista 14.35 dB | DC -0.00020
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.450 s | ativo (>-40 dB) 0.660 s | cauda 50 ms -230.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.1   -5.3   -8.7  -10.4  -16.8  -26.9  -38.2  -66.4 -230.5 -230.5
+  espectro: centroide    327 Hz | rolloff85    517 Hz | inclinacao  -8.11 dB/oitava | planura -11.48 dB
+  energia por faixa (%): <300  73.2 | 300-1k  20.8 | 1k-2.5k   5.1 | 2.5k-5k   0.8 | 5k-8k   0.1 | >8k   0.0
+  pico tonal 150-4000 Hz:    151 Hz ( 23.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+cough_v4.wav
+  papel one_shot | variacao 4 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -19.00 dBFS | pico  -4.02 dBFS | crista 14.98 dB | DC -0.00032
+  envelope: pico em 0.250 s | ataque 10-90% 0.250 s | queda ate -20 dB 0.310 s | ativo (>-40 dB) 0.830 s | cauda 50 ms  -69.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -6.3  -11.0   -7.8  -16.6  -16.8  -14.7  -30.1  -35.1  -42.1  -58.7
+  espectro: centroide   1030 Hz | rolloff85   2326 Hz | inclinacao  -3.73 dB/oitava | planura  -4.29 dB
+  energia por faixa (%): <300  47.0 | 300-1k  29.1 | 1k-2.5k  10.1 | 2.5k-5k   9.8 | 5k-8k   3.3 | >8k   0.7
+  pico tonal 150-4000 Hz:    194 Hz ( 14.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+gasp_v1.wav
+  papel one_shot | variacao 1 | duracao 1.200 s (52920 amostras)
+  nivel: RMS -21.00 dBFS | pico  -6.88 dBFS | crista 14.12 dB | DC -0.00007
+  envelope: pico em 0.090 s | ataque 10-90% 0.090 s | queda ate -20 dB 0.590 s | ativo (>-40 dB) 0.860 s | cauda 50 ms -227.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.9   -3.3   -5.7   -8.2  -11.8  -16.7  -24.7  -48.7 -227.2 -227.2
+  espectro: centroide   1276 Hz | rolloff85   2369 Hz | inclinacao  -3.99 dB/oitava | planura  -4.28 dB
+  energia por faixa (%): <300  13.1 | 300-1k  42.6 | 1k-2.5k  30.9 | 2.5k-5k  12.2 | 5k-8k   1.1 | >8k   0.1
+  pico tonal 150-4000 Hz:    560 Hz ( 13.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+gasp_v2.wav
+  papel one_shot | variacao 2 | duracao 1.200 s (52920 amostras)
+  nivel: RMS -21.00 dBFS | pico  -6.79 dBFS | crista 14.21 dB | DC -0.00012
+  envelope: pico em 0.130 s | ataque 10-90% 0.130 s | queda ate -20 dB 0.240 s | ativo (>-40 dB) 0.930 s | cauda 50 ms -227.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.5   -3.3   -8.9  -24.8  -42.8   -8.5  -11.1  -27.8 -227.4 -227.4
+  espectro: centroide   1246 Hz | rolloff85   2283 Hz | inclinacao  -3.95 dB/oitava | planura  -4.10 dB
+  energia por faixa (%): <300   9.9 | 300-1k  46.3 | 1k-2.5k  32.0 | 2.5k-5k  10.8 | 5k-8k   1.0 | >8k   0.1
+  pico tonal 150-4000 Hz:    603 Hz ( 14.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+gasp_v3.wav
+  papel one_shot | variacao 3 | duracao 1.200 s (52920 amostras)
+  nivel: RMS -21.00 dBFS | pico  -6.76 dBFS | crista 14.24 dB | DC -0.00008
+  envelope: pico em 0.230 s | ataque 10-90% 0.100 s | queda ate -20 dB 0.450 s | ativo (>-40 dB) 0.880 s | cauda 50 ms -228.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -13.1   -5.6   -3.5   -8.0  -11.4  -18.2  -27.4  -43.5 -228.2 -228.2
+  espectro: centroide   1277 Hz | rolloff85   2326 Hz | inclinacao  -4.03 dB/oitava | planura  -4.05 dB
+  energia por faixa (%): <300  13.5 | 300-1k  42.6 | 1k-2.5k  31.4 | 2.5k-5k  11.3 | 5k-8k   1.1 | >8k   0.1
+  pico tonal 150-4000 Hz:    517 Hz ( 11.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+inhaler_puff_v1.wav
+  papel one_shot | variacao 1 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -22.00 dBFS | pico  -7.95 dBFS | crista 14.05 dB | DC -0.00002
+  envelope: pico em 0.530 s | ataque 10-90% 0.520 s | queda ate -20 dB 0.290 s | ativo (>-40 dB) 0.840 s | cauda 50 ms -223.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.9   -5.1   -8.4   -5.6   -2.5   -2.0   -4.2   -9.4  -28.9 -223.4
+  espectro: centroide   1952 Hz | rolloff85   3510 Hz | inclinacao  -2.58 dB/oitava | planura  -2.35 dB
+  energia por faixa (%): <300  13.8 | 300-1k  12.7 | 1k-2.5k  42.3 | 2.5k-5k  26.5 | 5k-8k   4.3 | >8k   0.3
+  pico tonal 150-4000 Hz:    172 Hz (  7.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+inhaler_puff_v2.wav
+  papel one_shot | variacao 2 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -22.00 dBFS | pico  -5.73 dBFS | crista 16.27 dB | DC -0.00002
+  envelope: pico em 0.520 s | ataque 10-90% 0.190 s | queda ate -20 dB 0.260 s | ativo (>-40 dB) 0.810 s | cauda 50 ms -225.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -6.7   -9.1  -14.8  -11.2   -3.5   -3.0   -8.6  -16.0  -51.8 -225.8
+  espectro: centroide   1839 Hz | rolloff85   3338 Hz | inclinacao  -2.79 dB/oitava | planura  -2.83 dB
+  energia por faixa (%): <300  16.8 | 300-1k  12.2 | 1k-2.5k  42.7 | 2.5k-5k  24.4 | 5k-8k   3.7 | >8k   0.3
+  pico tonal 150-4000 Hz:    151 Hz (  9.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+inhaler_puff_v3.wav
+  papel one_shot | variacao 3 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -22.00 dBFS | pico  -7.87 dBFS | crista 14.13 dB | DC -0.00001
+  envelope: pico em 0.650 s | ataque 10-90% 0.630 s | queda ate -20 dB 0.230 s | ativo (>-40 dB) 0.900 s | cauda 50 ms -222.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.0   -2.2   -3.1   -7.5   -4.8   -2.3   -0.8   -6.3  -16.1  -65.1
+  espectro: centroide   2293 Hz | rolloff85   3984 Hz | inclinacao  -1.98 dB/oitava | planura  -1.90 dB
+  energia por faixa (%): <300  11.9 | 300-1k   9.3 | 1k-2.5k  37.8 | 2.5k-5k  34.7 | 5k-8k   5.9 | >8k   0.5
+  pico tonal 150-4000 Hz:    172 Hz (  6.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+Total de alertas: 0

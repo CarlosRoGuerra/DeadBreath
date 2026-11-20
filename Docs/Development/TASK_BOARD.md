@@ -187,7 +187,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §4 (v1.0) e §4.3 (acrés
 - **Testes:** integration (uso, cooldown, carga, pickup).
 
 ### F2-006 · Respiração audível: produtor único + sons procedurais
-- **F2-006a (Audio Eng., onda A, HIGH, IN_PROGRESS):** gerador determinístico e versionado em `tools/audio/` que sintetiza respiração (calma, rápida, ofegante), chiado, aviso de tosse, tosse, gasp e puff da bombinha, com variações, em `game/content/audio/body/`. Assets próprios (sem licença externa). Aceitação: arquivos gerados de novo são idênticos (bit a bit) com a mesma semente; amostras inspecionadas (espectro e envelope) e audição pelo usuário no playtest da F2.
+- **F2-006a (Audio Eng., onda A, HIGH, REVIEW: entregue; 41 sons, 4,8 MB, determinismo verificado pelo Director; aguarda a audição do usuário com `tools/audio/audition.ps1`):** gerador determinístico e versionado em `tools/audio/` que sintetiza respiração (calma, rápida, ofegante), chiado, aviso de tosse, tosse, gasp e puff da bombinha, com variações, em `game/content/audio/body/`. Assets próprios (sem licença externa). Aceitação: arquivos gerados de novo são idênticos (bit a bit) com a mesma semente; amostras inspecionadas (espectro e envelope) e audição pelo usuário no playtest da F2.
 - **F2-006b (Audio Eng. + Physio, onda B, EXTRA HIGH, BACKLOG):** `BreathEmitter` (§6.3), `BreathParams` (L1, DATA §2.4), `AcousticWorld` mínimo (§6.4) e `BreathingAudio` (L3, §14). Aceitação: um `NoiseEvent` por ciclo respiratório e por tosse; o som que o jogador ouve vem só desses eventos (NOI-INV-1/2); gasp a partir do susto.
 
 ### F2-007 · Efeitos de câmera, indicador respiratório e intensidade de efeitos

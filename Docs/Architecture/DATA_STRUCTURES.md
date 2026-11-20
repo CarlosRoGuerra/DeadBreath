@@ -312,6 +312,8 @@ se wheezing_intensity > 0.1: categoria = WHEEZING, intensity_db = max(intensity_
 sound_id     = breath_calm | breath_fast | breath_labored | wheeze (conforme o estado)
 ```
 
+`sound_id` dos sons do corpo fora do ciclo (F2-006a, confirmados pelo Architect): `cough_warning` (pigarro de 1,5 s que antecede a tosse), `cough`, `gasp` (susto), `inhaler_puff` (bombinha). Arquivos e variações: `game/content/audio/body/manifest.json` (papéis inhale, exhale, layer, one_shot).
+
 ### 2.5 Nós de nível
 
 ```gdscript
