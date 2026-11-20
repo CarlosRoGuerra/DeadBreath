@@ -295,6 +295,55 @@ var forced: ThreatSample                       ## testes e overlay de balanceame
 - **Sem config:** padrões do código + `Log.error` (mesma regra do motor).
 - **Medicação:** `apply_medication` falha (false) em cooldown; as cargas são do inventário (F2-005), não da fisiologia.
 
+### 4.4 API pública acrescentada na Fase 2 (revisão F2-010, R2-06) — v1.0
+
+```gdscript
+## PhysiologyComponent (além de §4.1/§4.3)
+func get_stress_config() -> StressConfig
+func set_medication_charges(count: int) -> void      ## o inventário informa; o snapshot só lê
+
+## RespiratoryModel (L1, além de §4.2)
+func apply_consumable(...)                           ## comprimido e água (DATA §1.7); ligação ao jogo na F5
+
+## InventoryComponent (L2, jogador) e InventoryModel (L1, sim/inventory)
+signal doses_changed(item_id: StringName, doses: int)
+@export var starting_inhaler_units: int = 1          ## bombinha = 3 doses por unidade
+func get_doses(item_id: StringName) -> int
+func consume_dose(item_id: StringName) -> bool
+func add_units(item_id: StringName, units: int) -> void   ## alimentado por EventBus.item_picked
+func to_dict() -> Dictionary / from_dict(data: Dictionary) -> void
+## InventoryModel: static doses_per_unit(item_id), add_units, doses, consume_dose, to_dict, from_dict
+
+## BreathEmitter (além de §6.3)
+const GASP_DB := 42.0, COUGH_WARNING_DB := 32.0, COUGH_DB := 65.0
+func emit_cough_warning(seconds_until: float = 1.5) -> void   ## COUGHING 32 dB, sound_id cough_warning
+func emit_cough(suppressed: bool = false) -> void             ## suppressed = cancelada no aviso: sem som
+func emit_body_sound(category: Enums.NoiseCategory, intensity_db: float, sound_id: StringName, duration_s: float = 0.0) -> void
+func next_event_in_s() -> float
+func cycle_phase_s() -> float
+func cycles_emitted() -> int
+
+## AcousticWorld (F2 mínimo, além de §6.4)
+func advance(delta: float) -> void      ## relógio próprio (testes)
+func now() -> float
+func set_player_ear(ear: Node3D) -> void   ## sem ouvido: câmera ativa da viewport
+func pending_count() -> int
+func flush() -> void
+
+## PlayerRoot (além de §1/§3.1)
+signal item_use_failed(reason: StringName)   ## &"no_doses", &"cooldown", &"no_profile"
+signal inhaler_used()
+@export var inhaler_profile: MedicationProfile
+func try_use_inhaler() -> bool              ## tecla use_item (Q)
+func get_inventory() -> InventoryComponent
+func get_breath_emitter() -> BreathEmitter
+func get_physiology() -> PhysiologyComponent
+func get_threat_source() -> ThreatSource
+func set_threat_source(source: ThreatSource) -> void   ## null volta ao StubThreatSource
+```
+
+**Ponte de susto (revisão F2-010, R2-01):** o `PhysiologyComponent.add_startle` e o gasp funcionam e estão testados. O que liga um ruído externo (não causado pelo jogador, `perceived_db ≥ 55`, DATA §1.3) a `add_startle` ainda não existe, porque na F2 não há fonte de ruído externa. Entra na F3 com os ruídos do mundo (backlog F3-002).
+
 ## 5. PlayerThreatMonitor (L2) — Physiological Systems Engineer — Fase 4
 
 Calcula a ameaça **percebida pelo jogador**, que alimenta o estresse e a música. É a percepção do jogador, não da IA.

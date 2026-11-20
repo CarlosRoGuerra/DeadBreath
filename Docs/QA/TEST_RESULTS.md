@@ -128,8 +128,10 @@ Controlador mínimo do spike (`spikes/disc003/mover.gd`), 60 Hz, `floor_snap_len
 | ARC-01 (firewall de percepção) | Passa por **vacuidade**: as pastas de IA e percepção ainda não existem. Ganha alvo real na F4 |
 | ARC-02 (`persist_id` único) | Parcial: `test_level_slots.gd` confere unicidade dos pickups da sandbox. A versão completa (grupo `saveable` de cada nível) depende do Saveable (F5) |
 | ARC-07 (config ausente) | Parcial: config ausente do motor → padrões + `Log.error`. O comportamento de falha imediata em debug ainda não existe |
-| ACC-01 | Só o head bob (`motion_reduction`). Tremor e efeitos de câmera chegam na F2 |
-| ACC-02, ACC-03, ACC-04 | Sem cobertura: `effects_intensity`, indicador respiratório e legendas são das F2/F3 |
+| ACC-01 | Coberto na F2 (balanço, tremor e solavanco zeram com redução total) |
+| ACC-02, ACC-03 | Cobertos na F2 (escala linear de `effects_intensity`; indicador desligado por padrão e atualizado no frame seguinte) |
+| ACC-04 | Sem cobertura: legendas são da F3 |
+| PER-07 | **Só em memória** na F2: o ida e volta por JSON altera floats (ARCH-001). A versão com arquivo depende da decisão de formato antes da F5 |
 
 ---
 
@@ -153,3 +155,19 @@ Controlador mínimo do spike (`spikes/disc003/mover.gd`), 60 Hz, `floor_snap_len
 Validações independentes da fase:
 - **Revisão técnica F1-010** (`REVIEWS/F1-010.md`, `F1-010_VERIFICATION.md`): REPROVADA (2 ALTO) → correções → APROVADA COM RESSALVAS.
 - **Validação QA F1-011** (`F1-011_VALIDATION.md`): 3 rodadas; 33 tentativas de exploit; BUG-001..007 e 009/010 fechados por quem não corrigiu (BUG-010 pelo teste de reprodução do QA); BUG-008 e BUG-011 aceitos.
+
+---
+
+## Fase 2 — ondas A e B e revisão técnica (2026-11-20)
+
+| Execução | Resultado |
+|---|---|
+| Director, após a integração da onda B (commit `63dca84`; `EVIDENCE/F2-waveB_integracao_pipeline.txt`) | padrão **285/285** (7,5 s), property **84/84**, meta **26/26**, código 0 |
+| Revisor técnico F2-010, commit `083d308` (APPDATA isolado) | padrão 285/285, property 84/84, meta 26/26, código 0 |
+
+- **Fisiologia:** PHY-01..PHY-11 verdes (PHY-06/07/09 com 200 sequências na property). Calibração recalculada pelo revisor: sprint 8,333 s; LABORED 5,550 s; PHY-03 6,67 s; bombinha −0,440 em 3 s; estresse 100 → 0 em 37,333 s. PHY-INV-5: 1 043 tosses com aviso ≥ 1,5 s, 0 violações.
+- **PER-07:** continuação de 240 s após restaurar, sem divergência (em memória).
+- **Sons do corpo:** 41 WAV determinísticos (42/42 idênticos em regeneração). Produtor único verificado: `NoiseEvent` só é criado no BreathEmitter e `AudioStreamPlayer` só no BreathingAudio.
+- **Integração:** cadeia completa na cena jogável (`test_playable_body_chain.gd`, 4/4). A mutação sem o step do emissor reprova.
+- **Acessibilidade:** ACC-01..ACC-03 verdes.
+- **Revisão técnica F2-010:** APROVADO COM RESSALVAS (`REVIEWS/F2-010.md`).

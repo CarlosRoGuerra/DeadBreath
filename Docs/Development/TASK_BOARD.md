@@ -203,8 +203,9 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §4 (v1.0) e §4.3 (acrés
 - **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F2-007 · **Status:** REVIEW (viewmodel provisório; aparência a melhorar na F7)
 - **Descrição:** viewmodel provisório (mão e bombinha em primitivas), animação de uso da bombinha, sobressalto da tosse.
 
-### F2-010 · Revisão técnica da Fase 2 — Technical Reviewer · HIGH · IN_PROGRESS
-### F2-011 · Validação de QA da Fase 2 — QA Engineer · EXTRA HIGH · BACKLOG
+### F2-010 · Revisão técnica da Fase 2 — Technical Reviewer · HIGH · APPROVED (com ressalvas)
+`Docs/QA/REVIEWS/F2-010.md`: 0 CRÍTICO, 0 ALTO. R2-01 (ponte de susto) → F3-002; R2-02 (PER-07 só em memória) → ARCH-001, antes da F5; BAIXO tratados ou registrados em KNOWN_ISSUES.
+### F2-011 · Validação de QA da Fase 2 — QA Engineer · EXTRA HIGH · IN_PROGRESS
 Inclui o playtest "correr até a crise e se recuperar" com gravação e o exame de exploits (abusar da bombinha, cancelar a tosse, prender a crise).
 ### F2-012 · Documentação — Director · LOW · BACKLOG
 RESPIRATORY_SYSTEM.md, STRESS_SYSTEM.md, STAMINA_SYSTEM.md, CHANGELOG, TEST_RESULTS.
@@ -218,7 +219,7 @@ RESPIRATORY_SYSTEM.md, STRESS_SYSTEM.md, STAMINA_SYSTEM.md, CHANGELOG, TEST_RESU
 | ID | Tarefa | Responsável | Esforço | Depende de |
 |---|---|---|---|---|
 | F3-001 | AcousticGraph (L1) + testes (pode rodar em paralelo com a F2) | AI Eng. | EXTRA HIGH | F1 |
-| F3-002 | AcousticWorld completo, NoiseEmitter, RoomVolume, Portal, piso de chuva e trovão | AI Eng. | HIGH | F3-001, F2-006 |
+| F3-002 | AcousticWorld completo, NoiseEmitter, RoomVolume, Portal, piso de chuva e trovão; **ponte de susto** (ruído não causado pelo jogador com `perceived_db ≥ 55` → `add_startle`; revisão F2-010, R2-01) | AI Eng. | HIGH | F3-001, F2-006 |
 | F3-003 | NoiseAudioRouter (atenuação nativa desligada, reverb por sala) | Audio Eng. | EXTRA HIGH | F3-002 |
 | F3-004 | Ruídos do jogador e do mundo; objetos de distração arremessáveis | Gameplay + Audio | HIGH | F3-002 |
 | F3-005 | Exposição à luz do jogador (LightExposureProbe) | Gameplay Eng. | MEDIUM | F1 |

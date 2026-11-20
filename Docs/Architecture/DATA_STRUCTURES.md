@@ -160,7 +160,7 @@ cough_probability  = severity > 0.55 ? 0.25 · ((severity − 0.55)/0.45)² : 0 
 
 **Verificação dos valores contra o TEST_PLAN** (conferida de forma independente na revisão DISC-006):
 - PHY-01: um sprint de 8,33 s leva o EMA a 0,647 → alvo 0,453. A severidade cruza 0,35 em ≈ 5,5 s → LABORED.
-- PHY-03: de 0,6 em repouso → < 0,2 em 6,7–10 s, conforme o EMA inicial.
+- PHY-03: de 0,6 em repouso → < 0,2 em **6,67 s** com EMA inicial entre 0 e 0,65, e em **8,80 s** com EMA 0,857 (medido na F2 e recalculado na revisão F2-010).
 - PHY-06: após 60 s de repouso, EMA ≈ 0 e estresse zerado (em 37,3 s a partir de 100) → severidade < 0,2.
 
 ### 1.5 Ameaça percebida (PlayerThreatMonitor)

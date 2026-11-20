@@ -50,6 +50,9 @@
 | GAME-003 | **Iluminação da sandbox mais clara que o alvo** (ART_DIRECTION §3): 87–90% das amostras acima de 0,05, alvo de 40–70% | Baixa | Ajuste na F5 |
 | GAME-004 | **Câmera com pico transitório na entrada de rampa em sprint** (verificação F1-010, ressalva do R1-03): até 3,8 cm por alguns ticks; em regime o erro é zero | Baixa | Aceito; reavaliar com a câmera de efeitos (F2) |
 
+| GAME-005 | **Pickup de água sem efeito até a F5** (F2-010, R2-08): o item entra no inventário, mas não há como usá-lo (comprimido e água ficam com a tela de inventário) | Baixa | Aceito |
+| GAME-006 | **Áudio do corpo a conferir no playtest** (F2-010, R2-03/R2-05): a camada de chiado de 2,4 s pode sobrepor duas vozes a 40 rpm; as vozes são agendadas pelo relógio de quadro, não pelo de física | Baixa | Ouvir na F2-011 e no playtest do usuário |
+
 ## Testes e ferramentas
 
 | ID | Problema | Severidade | Situação |
@@ -57,4 +60,5 @@
 | TEST-001 | **Dependência de histórico no GodotPhysics3D** (R1-07, PARCIAL): no código revisado, uma fase de escada dava resultado diferente depois de outro cenário no mesmo processo. O sintoma não reproduz no código atual e o mecanismo interno não foi identificado | Média | Mitigado: flush de 2 frames entre testes, `add_isolated_world()` e `release_and_flush()`; regressão em `tests/meta/test_r107_historico_no_mundo.gd`. Regra: testes que repetem cenários de física usam um mundo isolado por fase. Gatilho para reabrir: falha que muda com a ordem dos testes |
 | TEST-002 | **Watchdog encerra a execução inteira** (verificação F1-010, N3): um teste parado faz o runner sair; os testes seguintes não rodam e não aparecem no resumo. Uma corrotina travada não pode ser cancelada em GDScript | Baixa | Aceito; o código de saída é 1, então o pipeline reprova. Melhoria futura: listar os restantes como NAO EXECUTADO |
 | TEST-003 | **Sem teste de destino bloqueado no AtomicFile** (R1-15, PARCIAL) | Baixa | Aceito; o comportamento está documentado em GAME-001 |
+| TEST-005 | **Painel de balanceamento altera Resources compartilhados** (F2-010, R2-09): os ajustes valem para todo usuário do `.tres` na sessão até "Restaurar padrões" ou o fim do processo. O painel consome a tecla F4 mesmo desligado (R2-13) | Baixa | Aceito para ferramenta de debug; testes restauram os padrões |
 | TEST-004 | **Rotação do log apaga o `game.prev.log` antes do `rename`** (verificação F1-010, N4): se o `rename` falhar, perde-se o log da penúltima sessão; o log atual é preservado (modo anexar) | Baixa | Aceito |
