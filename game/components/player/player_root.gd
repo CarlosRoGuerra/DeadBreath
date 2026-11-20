@@ -1,26 +1,35 @@
 class_name PlayerRoot
 extends CharacterBody3D
-## PlayerRoot (L2, Gameplay Engineer, F1-006): mediador do jogador (COMPONENT_CONTRACTS §1).
-## É o único script que conhece os componentes do jogador. Na F1 só existe o PlayerMotor; a
-## fisiologia, a ameaça e a respiração entram nas fases seguintes. Não contém regras de movimento.
+## PlayerRoot (L2, Gameplay Engineer, F1-006/F1-007): mediador do jogador (COMPONENT_CONTRACTS §1).
+## É o único script que conhece os componentes do jogador. Monta o InteractionContext (F1-007).
+## Não trata a tecla pause: o menu de pausa (presentation/ui) pausa a árvore e chama on_menu_resumed().
 ## Ordem do tick: process_physics_priority = -90 (SYSTEM_ARCHITECTURE §6).
 
 const PHYSICS_PRIORITY: int = -90
 const HEADLESS_DISPLAY_NAME: String = "headless"
+## Grupo usado pelo menu de pausa para devolver o controle ao jogador (captura do mouse).
+const PLAYER_GROUP: StringName = &"player"
 
 @onready var _motor: PlayerMotor = $PlayerMotor
+@onready var _interaction: InteractionComponent = $InteractionComponent
 @onready var _head: Node3D = $Head
 @onready var _camera: Camera3D = $Head/Camera3D
+
+var _context: InteractionContext = null
+var _mouse_capture_requested: bool = false
 
 
 func _ready() -> void:
 	process_physics_priority = PHYSICS_PRIORITY
+	add_to_group(PLAYER_GROUP)
 	_motor.setup(self, _head)
+	_interaction.setup(_camera, self)
+	_context = InteractionContext.new()
+	_context.actor = self
 	apply_limits(CouplingFactors.neutral())
 	_camera.fov = Settings.get_float(&"fov")
 	Settings.changed.connect(_on_settings_changed)
-	if not _is_headless():
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	set_mouse_captured(true)
 
 
 func _exit_tree() -> void:
@@ -31,20 +40,11 @@ func _exit_tree() -> void:
 func _physics_process(delta: float) -> void:
 	_motor.step(delta)
 	# Sem fisiologia na F1: limites neutros. Passam a valer no próximo tick (contrato §1).
-	apply_limits(CouplingFactors.neutral())
-
-
-## "pause" alterna a captura do mouse (a F1 não tem menu de pausa).
-func _unhandled_input(event: InputEvent) -> void:
-	if not event.is_action_pressed(&"pause"):
-		return
-	if _is_headless():
-		return
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	get_viewport().set_input_as_handled()
+	var coupling: CouplingFactors = CouplingFactors.neutral()
+	apply_limits(coupling)
+	_context.steadiness = coupling.steadiness
+	_context.is_hidden = false
+	_interaction.step(delta, _context)
 
 
 ## Repassa os limites da fisiologia ao motor (só reduzem; MOT-INV-3).
@@ -54,6 +54,47 @@ func apply_limits(coupling: CouplingFactors) -> void:
 
 func get_motor() -> PlayerMotor:
 	return _motor
+
+
+func get_interaction() -> InteractionComponent:
+	return _interaction
+
+
+func get_camera() -> Camera3D:
+	return _camera
+
+
+## Captura ou solta o mouse. No headless não altera o modo, mas o pedido fica registrado.
+func set_mouse_captured(captured: bool) -> void:
+	_mouse_capture_requested = captured
+	if _is_headless():
+		return
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if captured else Input.MOUSE_MODE_VISIBLE
+
+
+func is_mouse_capture_requested() -> bool:
+	return _mouse_capture_requested
+
+
+## Chamado pelo menu de pausa (grupo "player") ao continuar o jogo: recaptura o mouse.
+func on_menu_resumed() -> void:
+	set_mouse_captured(true)
+
+
+## Teleporte (comando de debug da F1-008). O destino é escolhido por quem chama.
+func teleport_to(position: Vector3) -> void:
+	global_position = position
+	velocity = Vector3.ZERO
+	_motor.notify_teleported()
+
+
+## Noclip (comando de debug da F1-008).
+func set_noclip(enabled: bool) -> void:
+	_motor.set_noclip(enabled)
+
+
+func is_noclip() -> bool:
+	return _motor.is_noclip()
 
 
 func _on_settings_changed(key: StringName) -> void:

@@ -92,13 +92,13 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 - **Testes:** MOT-01..04, ARC-06.
 
 ### F1-007 · Interação, porta e pickup
-- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-006 · **Status:** BACKLOG
+- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-006 · **Status:** REVIEW. 20 testes de interação (3× estáveis); ARC-02 aguarda nível com portas/pickups
 - **Descrição:** InteractionComponent, Interactable (instantâneo e segurar, com `InteractionContext`), Door (lenta, normal, trancada) e Pickup (`persist_id`, `item_picked`).
 - **Aceitação:** a porta abre devagar ao segurar e rápido ao tocar; porta trancada dá feedback; o pickup some e emite o evento; não há interação através de paredes.
 - **Testes:** integration por interação; ARC-02.
 
 ### F1-008 · Overlay e comandos de debug
-- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-004 · **Status:** BACKLOG
+- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-004 · **Status:** REVIEW. 6 testes, incluindo a flag de produção. Acréscimos de contrato: `PlayerMotor.set_noclip/is_noclip/notify_teleported`, `PlayerRoot.teleport_to/set_noclip/get_camera/get_interaction`
 - **Descrição:** overlay F3 (fps, frame time, postura, marcha, esforço, velocidade, foco) e comandos (noclip, teleporte), desligados em produção.
 - **Aceitação:** a flag de produção desliga overlay e comandos.
 - **Testes:** integration da flag de produção.
@@ -110,7 +110,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 - **Testes:** MOT-04 roda nesta cena.
 
 ### F1-013 · Remapeamento de controles
-- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-004 · **Status:** BACKLOG
+- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F1-004 · **Status:** REVIEW. 17 testes (ACC-05: remapear → reiniciar → persiste; conflito avisado e não aplicado); menu de pausa mínimo; `core/input_bindings.gd`
 - **Descrição:** tela mínima para remapear as ações do input map, com aviso de conflito e persistência em `Settings.input_bindings`.
 - **Aceitação:** critérios de ACC-05.
 - **Testes:** ACC-05.

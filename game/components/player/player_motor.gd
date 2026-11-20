@@ -66,6 +66,8 @@ var _bob_strength: float = 0.0
 var _eye_height: float = 0.0
 var _step_visual_offset: float = 0.0
 var _config_warned: bool = false
+var _default_mask: int = 0
+var _noclip: bool = false
 
 
 func _ready() -> void:
@@ -144,6 +146,7 @@ func setup(body: CharacterBody3D, head: Node3D) -> void:
 	_apply_collider_height(cfg.stand_height)
 	_body.floor_snap_length = cfg.floor_snap_length
 	_body.up_direction = Vector3.UP
+	_default_mask = _body.collision_mask
 	_eye_height = _eye_target()
 	_first_step = true
 	_was_on_floor = false
@@ -165,6 +168,9 @@ func step(dt: float) -> void:
 	var move: Vector2 = input.move.limit_length(1.0)
 	var gait: Enums.Gait = _resolve_gait(input, move)
 	_gait = gait
+	if _noclip:
+		_step_noclip(dt, move, gait, cfg)
+		return
 	var grounded: bool = _was_on_floor
 	var start: Vector3 = _body.global_position
 	var target: Vector3 = _target_velocity(move, gait, cfg)
@@ -198,6 +204,27 @@ func step(dt: float) -> void:
 	_exertion = exertion_for(gait, _stance)
 	_update_footsteps(distance, now_grounded, gait)
 	_update_visuals(dt, distance, now_grounded, cfg)
+
+
+## Acréscimo da F1-008 (comando de debug): voo sem colisão na direção do olhar. Desliga a máscara de colisão.
+func set_noclip(enabled: bool) -> void:
+	_noclip = enabled
+	if _body != null:
+		_body.collision_mask = 0 if enabled else _default_mask
+		_body.velocity = Vector3.ZERO
+	_first_step = true
+
+
+func is_noclip() -> bool:
+	return _noclip
+
+
+## Acréscimo da F1-008: teleporte. Zera a velocidade e o deslocamento visual, sem suavizar o salto.
+func notify_teleported() -> void:
+	_body.velocity = Vector3.ZERO
+	_step_visual_offset = 0.0
+	_stride_distance = 0.0
+	_first_step = true
 
 
 func get_stance() -> Enums.Stance:
@@ -479,6 +506,21 @@ func _update_visuals(dt: float, distance: float, grounded: bool, cfg: PlayerMoto
 	_step_visual_offset *= exp(-cfg.camera_step_smoothing * dt)
 	if _head != null:
 		_head.position.y = _eye_height - _step_visual_offset + bob
+
+
+## Noclip: anda na direção do olhar (inclui o pitch), na velocidade de corrida da config.
+func _step_noclip(dt: float, move: Vector2, gait: Enums.Gait, cfg: PlayerMotorConfig) -> void:
+	var frame: Basis = _head.global_transform.basis if _head != null else _body.global_transform.basis
+	var direction: Vector3 = frame.x * move.x - frame.z * move.y
+	var length: float = direction.length()
+	if length > 1.0:
+		direction = direction / length
+	var travel: Vector3 = direction * cfg.sprint_speed * dt
+	_body.global_position += travel
+	_body.velocity = Vector3.ZERO
+	_horizontal_speed = Vector2(travel.x, travel.z).length() / maxf(dt, MOVE_EPSILON)
+	_exertion = exertion_for(gait, _stance)
+	_update_visuals(dt, 0.0, false, cfg)
 
 
 ## Velocidade (m/s) com que os olhos mudam de altura entre posturas.

@@ -1,0 +1,40 @@
+F1-008 - overlay F3 e comandos de debug (producao, noclip, teleporte). Execucoes reais: --headless --fixed-fps 60 --filter=debug, 3 vezes.
+===== execucao 1: --filter=debug =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:51 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  integration/debug/test_debug_overlay.gd::test_f3_pela_acao_alterna_o_overlay  4 ms  (asserts: 2)
+PASS  integration/debug/test_debug_overlay.gd::test_noclip_atravessa_parede_e_desliga  18 ms  (asserts: 5)
+PASS  integration/debug/test_debug_overlay.gd::test_overlay_mostra_postura_marcha_e_esforco  9 ms  (asserts: 7)
+PASS  integration/debug/test_debug_overlay.gd::test_producao_desliga_overlay_e_comandos  1 ms  (asserts: 8)
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_para_o_chao_na_mira  2 ms  (asserts: 2)
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_recusado_sem_chao_na_mira  1 ms  (asserts: 2)
+RESUMO: total=6 passou=6 falhou=0 sem_assert=0 tempo_total_ms=411
+RESULTADO: APROVADO (codigo de saida 0)
+
+===== execucao 2: --filter=debug =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:52 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  integration/debug/test_debug_overlay.gd::test_f3_pela_acao_alterna_o_overlay  5 ms  (asserts: 2)
+PASS  integration/debug/test_debug_overlay.gd::test_noclip_atravessa_parede_e_desliga  19 ms  (asserts: 5)
+PASS  integration/debug/test_debug_overlay.gd::test_overlay_mostra_postura_marcha_e_esforco  10 ms  (asserts: 7)
+PASS  integration/debug/test_debug_overlay.gd::test_producao_desliga_overlay_e_comandos  1 ms  (asserts: 8)
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_para_o_chao_na_mira  3 ms  (asserts: 2)
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_recusado_sem_chao_na_mira  1 ms  (asserts: 2)
+RESUMO: total=6 passou=6 falhou=0 sem_assert=0 tempo_total_ms=416
+RESULTADO: APROVADO (codigo de saida 0)
+
+===== execucao 3: --filter=debug =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:54 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  integration/debug/test_debug_overlay.gd::test_f3_pela_acao_alterna_o_overlay  4 ms  (asserts: 2)
+PASS  integration/debug/test_debug_overlay.gd::test_noclip_atravessa_parede_e_desliga  19 ms  (asserts: 5)
+PASS  integration/debug/test_debug_overlay.gd::test_overlay_mostra_postura_marcha_e_esforco  9 ms  (asserts: 7)
+PASS  integration/debug/test_debug_overlay.gd::test_producao_desliga_overlay_e_comandos  2 ms  (asserts: 8)
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_para_o_chao_na_mira  2 ms  (asserts: 2)
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_recusado_sem_chao_na_mira  1 ms  (asserts: 2)
+RESUMO: total=6 passou=6 falhou=0 sem_assert=0 tempo_total_ms=434
+RESULTADO: APROVADO (codigo de saida 0)
+

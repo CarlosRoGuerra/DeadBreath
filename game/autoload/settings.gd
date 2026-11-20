@@ -38,8 +38,10 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	InputBindings.capture_defaults()
 	load_from_disk()
 	_apply_native(&"master_volume")
+	_apply_native(&"input_bindings")
 
 
 func _exit_tree() -> void:
@@ -157,6 +159,9 @@ func _flush_save() -> void:
 
 
 func _apply_native(key: StringName) -> void:
+	if key == &"input_bindings" and is_inside_tree():
+		# F1-013: sempre aplica padrões + sobreposições (ver core/input_bindings.gd).
+		InputBindings.apply(_values[key] as Dictionary)
 	if key == &"master_volume" and is_inside_tree():
 		var volume: float = float(_values[key])
 		AudioServer.set_bus_mute(0, volume <= 0.0001)

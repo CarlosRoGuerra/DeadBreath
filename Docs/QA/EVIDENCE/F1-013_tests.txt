@@ -1,0 +1,82 @@
+F1-013 - suite de input (remapeamento, ACC-05, menu de pausa). Execucoes reais: --headless --fixed-fps 60 --filter=input, 3 vezes.
+===== execucao 1: --filter=input =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:55 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+2026-11-20 08:22:55 [WARN] [settings] input_bindings: ação desconhecida 'acao_inexistente' ignorada
+2026-11-20 08:22:55 [WARN] [settings] input_bindings: ligações inválidas para 'crouch' ignoradas
+PASS  unit/input/test_input_bindings.gd::test_apply_ignora_acao_desconhecida_e_ligacao_invalida  3 ms  (asserts: 2)
+2026-11-20 08:22:55 [WARN] [settings] input_bindings: ação desconhecida 'ui_accept' ignorada
+PASS  unit/input/test_input_bindings.gd::test_apply_nao_mexe_nas_acoes_ui  1 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_apply_sempre_parte_dos_padroes  0 ms  (asserts: 1)
+PASS  unit/input/test_input_bindings.gd::test_describe_le_teclas_e_mouse  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_entry_from_event_e_round_trip_com_o_inputmap  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_find_conflicts_aponta_a_outra_acao  0 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_rebind_e_current_overrides_refletem_so_o_que_mudou  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_rebindable_actions_exclui_ui_e_inclui_as_do_jogo  0 ms  (asserts: 14)
+PASS  unit/input/test_input_bindings.gd::test_validate_aceita_listas_de_eventos_validos  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_validate_rejeita_formatos_invalidos  0 ms  (asserts: 6)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_botao_do_mouse_persiste_depois_de_reiniciar  11 ms  (asserts: 2)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_conflito_e_avisado_e_nao_aplica  3 ms  (asserts: 5)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_esc_cancela_a_captura  1 ms  (asserts: 4)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_remapeia_reinicia_e_a_ligacao_persiste  8 ms  (asserts: 6)
+PASS  integration/input/test_pause_menu.gd::test_controles_abre_a_tela_e_pause_volta_ao_menu_principal  1 ms  (asserts: 3)
+PASS  integration/input/test_pause_menu.gd::test_esc_abre_e_fecha_pela_acao_pause  2 ms  (asserts: 4)
+PASS  integration/input/test_pause_menu.gd::test_pausa_e_continuar_devolvem_o_controle_ao_jogador  2 ms  (asserts: 6)
+RESUMO: total=17 passou=17 falhou=0 sem_assert=0 tempo_total_ms=436
+RESULTADO: APROVADO (codigo de saida 0)
+
+===== execucao 2: --filter=input =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:57 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+2026-11-20 08:22:57 [WARN] [settings] input_bindings: ação desconhecida 'acao_inexistente' ignorada
+2026-11-20 08:22:57 [WARN] [settings] input_bindings: ligações inválidas para 'crouch' ignoradas
+PASS  unit/input/test_input_bindings.gd::test_apply_ignora_acao_desconhecida_e_ligacao_invalida  2 ms  (asserts: 2)
+2026-11-20 08:22:57 [WARN] [settings] input_bindings: ação desconhecida 'ui_accept' ignorada
+PASS  unit/input/test_input_bindings.gd::test_apply_nao_mexe_nas_acoes_ui  2 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_apply_sempre_parte_dos_padroes  1 ms  (asserts: 1)
+PASS  unit/input/test_input_bindings.gd::test_describe_le_teclas_e_mouse  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_entry_from_event_e_round_trip_com_o_inputmap  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_find_conflicts_aponta_a_outra_acao  1 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_rebind_e_current_overrides_refletem_so_o_que_mudou  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_rebindable_actions_exclui_ui_e_inclui_as_do_jogo  0 ms  (asserts: 14)
+PASS  unit/input/test_input_bindings.gd::test_validate_aceita_listas_de_eventos_validos  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_validate_rejeita_formatos_invalidos  0 ms  (asserts: 6)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_botao_do_mouse_persiste_depois_de_reiniciar  12 ms  (asserts: 2)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_conflito_e_avisado_e_nao_aplica  3 ms  (asserts: 5)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_esc_cancela_a_captura  2 ms  (asserts: 4)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_remapeia_reinicia_e_a_ligacao_persiste  8 ms  (asserts: 6)
+PASS  integration/input/test_pause_menu.gd::test_controles_abre_a_tela_e_pause_volta_ao_menu_principal  1 ms  (asserts: 3)
+PASS  integration/input/test_pause_menu.gd::test_esc_abre_e_fecha_pela_acao_pause  1 ms  (asserts: 4)
+PASS  integration/input/test_pause_menu.gd::test_pausa_e_continuar_devolvem_o_controle_ao_jogador  3 ms  (asserts: 6)
+RESUMO: total=17 passou=17 falhou=0 sem_assert=0 tempo_total_ms=421
+RESULTADO: APROVADO (codigo de saida 0)
+
+===== execucao 3: --filter=input =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:58 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+2026-11-20 08:22:58 [WARN] [settings] input_bindings: ação desconhecida 'acao_inexistente' ignorada
+2026-11-20 08:22:58 [WARN] [settings] input_bindings: ligações inválidas para 'crouch' ignoradas
+PASS  unit/input/test_input_bindings.gd::test_apply_ignora_acao_desconhecida_e_ligacao_invalida  3 ms  (asserts: 2)
+2026-11-20 08:22:58 [WARN] [settings] input_bindings: ação desconhecida 'ui_accept' ignorada
+PASS  unit/input/test_input_bindings.gd::test_apply_nao_mexe_nas_acoes_ui  2 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_apply_sempre_parte_dos_padroes  0 ms  (asserts: 1)
+PASS  unit/input/test_input_bindings.gd::test_describe_le_teclas_e_mouse  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_entry_from_event_e_round_trip_com_o_inputmap  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_find_conflicts_aponta_a_outra_acao  0 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_rebind_e_current_overrides_refletem_so_o_que_mudou  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_rebindable_actions_exclui_ui_e_inclui_as_do_jogo  0 ms  (asserts: 14)
+PASS  unit/input/test_input_bindings.gd::test_validate_aceita_listas_de_eventos_validos  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_validate_rejeita_formatos_invalidos  0 ms  (asserts: 6)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_botao_do_mouse_persiste_depois_de_reiniciar  11 ms  (asserts: 2)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_conflito_e_avisado_e_nao_aplica  3 ms  (asserts: 5)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_esc_cancela_a_captura  2 ms  (asserts: 4)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_remapeia_reinicia_e_a_ligacao_persiste  8 ms  (asserts: 6)
+PASS  integration/input/test_pause_menu.gd::test_controles_abre_a_tela_e_pause_volta_ao_menu_principal  2 ms  (asserts: 3)
+PASS  integration/input/test_pause_menu.gd::test_esc_abre_e_fecha_pela_acao_pause  2 ms  (asserts: 4)
+PASS  integration/input/test_pause_menu.gd::test_pausa_e_continuar_devolvem_o_controle_ao_jogador  2 ms  (asserts: 6)
+RESUMO: total=17 passou=17 falhou=0 sem_assert=0 tempo_total_ms=431
+RESULTADO: APROVADO (codigo de saida 0)
+

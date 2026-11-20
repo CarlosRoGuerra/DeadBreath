@@ -1,0 +1,85 @@
+F1-007 - suite de interacao (foco, oclusao, pickup, toque/segurar, porta). Execucoes reais: --headless --fixed-fps 60 --filter=interaction, 3 vezes.
+===== execucao 1: --filter=interaction =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:46 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/interaction/test_required_hold.gd::test_com_maos_firmes_e_steadiness_um_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_meio_o_multiplicador_e_um_e_tres_quartos  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_zero_o_tempo_e_duas_vezes_e_meia  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_sem_maos_firmes_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_steadiness_fora_da_faixa_e_limitada  0 ms  (asserts: 2)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_foco_em_item_a_menos_de_2_m_na_altura_dos_olhos  2 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_item_alem_do_alcance_nao_tem_foco  2 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_mundo_sem_interactable_nao_tem_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_bloqueia_o_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_impede_o_aperto_e_o_item_fica  2 ms  (asserts: 2)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_item_de_segurar_conclui_so_depois_do_tempo  7 ms  (asserts: 2)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_maos_firmes_neutras_mantem_o_tempo_de_segurar  6 ms  (asserts: 1)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pegar_item_emite_item_picked_e_some  2 ms  (asserts: 6)
+2026-11-20 08:22:46 [ERROR] [interaction] pickup 'Pickup' sem persist_id; fica inerte e não é salvo
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pickup_sem_persist_id_fica_inerte  2 ms  (asserts: 3)
+PASS  integration/interaction/test_porta.gd::test_porta_fechada_bloqueia_e_aberta_libera  34 ms  (asserts: 3)
+PASS  integration/interaction/test_porta.gd::test_porta_trancada_dá_feedback_e_nao_abre  11 ms  (asserts: 6)
+PASS  integration/interaction/test_porta.gd::test_segurar_abre_a_porta_devagar  25 ms  (asserts: 5)
+PASS  integration/interaction/test_porta.gd::test_toque_abre_a_porta_rapido  6 ms  (asserts: 5)
+PASS  integration/interaction/test_segurar_falha.gd::test_foco_que_sai_do_alvo_no_meio_do_segurar_falha  10 ms  (asserts: 3)
+PASS  integration/interaction/test_segurar_falha.gd::test_soltar_antes_do_tempo_falha_e_nao_conclui  11 ms  (asserts: 3)
+RESUMO: total=20 passou=20 falhou=0 sem_assert=0 tempo_total_ms=534
+RESULTADO: APROVADO (codigo de saida 0)
+
+===== execucao 2: --filter=interaction =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:48 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/interaction/test_required_hold.gd::test_com_maos_firmes_e_steadiness_um_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_meio_o_multiplicador_e_um_e_tres_quartos  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_zero_o_tempo_e_duas_vezes_e_meia  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_sem_maos_firmes_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_steadiness_fora_da_faixa_e_limitada  0 ms  (asserts: 2)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_foco_em_item_a_menos_de_2_m_na_altura_dos_olhos  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_item_alem_do_alcance_nao_tem_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_mundo_sem_interactable_nao_tem_foco  2 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_bloqueia_o_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_impede_o_aperto_e_o_item_fica  2 ms  (asserts: 2)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_item_de_segurar_conclui_so_depois_do_tempo  7 ms  (asserts: 2)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_maos_firmes_neutras_mantem_o_tempo_de_segurar  6 ms  (asserts: 1)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pegar_item_emite_item_picked_e_some  1 ms  (asserts: 6)
+2026-11-20 08:22:48 [ERROR] [interaction] pickup 'Pickup' sem persist_id; fica inerte e não é salvo
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pickup_sem_persist_id_fica_inerte  3 ms  (asserts: 3)
+PASS  integration/interaction/test_porta.gd::test_porta_fechada_bloqueia_e_aberta_libera  35 ms  (asserts: 3)
+PASS  integration/interaction/test_porta.gd::test_porta_trancada_dá_feedback_e_nao_abre  11 ms  (asserts: 6)
+PASS  integration/interaction/test_porta.gd::test_segurar_abre_a_porta_devagar  27 ms  (asserts: 5)
+PASS  integration/interaction/test_porta.gd::test_toque_abre_a_porta_rapido  6 ms  (asserts: 5)
+PASS  integration/interaction/test_segurar_falha.gd::test_foco_que_sai_do_alvo_no_meio_do_segurar_falha  10 ms  (asserts: 3)
+PASS  integration/interaction/test_segurar_falha.gd::test_soltar_antes_do_tempo_falha_e_nao_conclui  10 ms  (asserts: 3)
+RESUMO: total=20 passou=20 falhou=0 sem_assert=0 tempo_total_ms=514
+RESULTADO: APROVADO (codigo de saida 0)
+
+===== execucao 3: --filter=interaction =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-11-20 08:22:49 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 29 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/interaction/test_required_hold.gd::test_com_maos_firmes_e_steadiness_um_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_meio_o_multiplicador_e_um_e_tres_quartos  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_zero_o_tempo_e_duas_vezes_e_meia  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_sem_maos_firmes_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_steadiness_fora_da_faixa_e_limitada  0 ms  (asserts: 2)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_foco_em_item_a_menos_de_2_m_na_altura_dos_olhos  2 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_item_alem_do_alcance_nao_tem_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_mundo_sem_interactable_nao_tem_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_bloqueia_o_foco  1 ms  (asserts: 1)
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_impede_o_aperto_e_o_item_fica  2 ms  (asserts: 2)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_item_de_segurar_conclui_so_depois_do_tempo  7 ms  (asserts: 2)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_maos_firmes_neutras_mantem_o_tempo_de_segurar  6 ms  (asserts: 1)
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pegar_item_emite_item_picked_e_some  1 ms  (asserts: 6)
+2026-11-20 08:22:49 [ERROR] [interaction] pickup 'Pickup' sem persist_id; fica inerte e não é salvo
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pickup_sem_persist_id_fica_inerte  3 ms  (asserts: 3)
+PASS  integration/interaction/test_porta.gd::test_porta_fechada_bloqueia_e_aberta_libera  35 ms  (asserts: 3)
+PASS  integration/interaction/test_porta.gd::test_porta_trancada_dá_feedback_e_nao_abre  11 ms  (asserts: 6)
+PASS  integration/interaction/test_porta.gd::test_segurar_abre_a_porta_devagar  27 ms  (asserts: 5)
+PASS  integration/interaction/test_porta.gd::test_toque_abre_a_porta_rapido  6 ms  (asserts: 5)
+PASS  integration/interaction/test_segurar_falha.gd::test_foco_que_sai_do_alvo_no_meio_do_segurar_falha  10 ms  (asserts: 3)
+PASS  integration/interaction/test_segurar_falha.gd::test_soltar_antes_do_tempo_falha_e_nao_conclui  9 ms  (asserts: 3)
+RESUMO: total=20 passou=20 falhou=0 sem_assert=0 tempo_total_ms=513
+RESULTADO: APROVADO (codigo de saida 0)
+

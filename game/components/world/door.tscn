@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://components/world/door.gd" id="1_door"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_panel"]
+size = Vector3(0.9, 2.1, 0.06)
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_door")
+hold_time = 0.35
+tap_completes = true
+
+[node name="Panel" type="AnimatableBody3D" parent="."]
+collision_layer = 18
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Panel"]
+shape = SubResource("BoxShape3D_panel")
+position = Vector3(0.45, 1.05, 0)
