@@ -102,7 +102,7 @@ Na F2 e na F3, os testes PHY usam `ThreatSample` construído no próprio teste o
 | PER-04 | Mundo restaurado | Integration | Portas, luzes, props e `EnvironmentState` iguais |
 | PER-05 | Sem duplicação de itens | Scenario | 10 ciclos de pegar item → captura → carregar: contagem total constante |
 | PER-06 | Ordem da sequência de captura | Integration | Os 8 passos de COMPONENT_CONTRACTS §12 ocorrem na ordem, verificados por log instrumentado |
-| PER-07 | Reprodutibilidade após carregar | Unit | Salvar no meio de uma sequência (com tosse agendada, cooldowns ativos e stamina em exaustão), carregar e comparar **campo a campo** com DATA_STRUCTURES §6.1; depois continuar → resultados idênticos à execução contínua |
+| PER-07 | Reprodutibilidade após carregar | Unit | Salvar no meio de uma sequência em dois pontos: (a) com tosse agendada (aviso em curso) e bombinha em cooldown; (b) com cooldown de tosse ativo e stamina em exaustão. Carregar e comparar **campo a campo** com DATA_STRUCTURES §6.1; depois continuar → resultados idênticos à execução contínua. (Tosse agendada e cooldown de tosse não coexistem pela §1.4; ajuste de redação na F2.) |
 | PER-08 | Tratamento de snapshot inválido | Unit | Os casos de SYSTEM_ARCHITECTURE §14 se comportam como especificado |
 | PER-09 | Escrita atômica | Integration | Falha simulada no meio da gravação → o arquivo anterior continua legível |
 | PER-10 | Sem perda indevida de progresso | Scenario | Objetivo concluído antes do checkpoint continua concluído após 3 capturas |
@@ -188,7 +188,7 @@ Contrato de integração definido pelo Director antes da implementação, para q
 
 **Runner**
 - `godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd -- [--filter=<texto>] [--level=unit|integration|scenarios|architecture|property|meta]`
-- **Níveis e alvo de tempo** (decisão do Director, F1-010): a execução padrão (sem `--level`) roda `unit`, `integration`, `scenarios` e `architecture`, com alvo de **menos de 10 s**. `property` (varreduras longas e determinísticas, por exemplo a varredura de degrau a 5 mm) não entra na padrão: roda com `--level=property`, com etapa própria no pipeline. `meta` (meta-testes do runner) roda com `--level=meta`.
+- **Níveis e alvo de tempo** (decisão do Director, F1-010): a execução padrão (sem `--level`) roda `unit`, `integration`, `scenarios` e `architecture`, com alvo de **menos de 10 s**. `property` (suíte lenta: varreduras longas e determinísticas, como a de degrau a 5 mm, e cenários que carregam a cena inteira, como o MOT-04 na sandbox; decisão do Director na F2) não entra na padrão: roda com `--level=property`, com etapa própria no pipeline. `meta` (meta-testes do runner) roda com `--level=meta`.
 - **`--fixed-fps 60` é obrigatório** (decisão do Director, 2026-11-20): cada frame avança exatamente 1/60 s sem esperar o relógio. A suíte com os testes do jogador caiu de 28 s para 1,2 s, com resultados idênticos. Testes nunca dependem de tempo real.
 - Uma linha por teste (`PASS` ou `FAIL`, `<arquivo>::<teste>`, tempo em ms, mensagens das falhas) e um resumo final.
 - Código de saída 0 só se houver ≥ 1 teste e nenhuma falha; 1 nos demais casos.

@@ -1,0 +1,61 @@
+﻿Evidencia F2 (saida real do pipeline, execucao 2 de 2, commit base 593f447 + trabalho F2 nao commitado).
+Fonte: pipeline_F2_final2.txt (tools/run_tests.ps1). Linhas copiadas de cada teste e suas notas, sem edicao.
+
+Testes: RespiratoryModel, PHY-01..PHY-11, PER-07 (modelos; propriedade em property/).
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_agua_reduz_o_hazard_de_tosse_e_consumivel_desconhecido_falha  1 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_comprimido_reduz_a_subida  1 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_derivados_em_severidade_alta  0 ms  (asserts: 5)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_ema_do_esforco_com_tau_de_8_s  2 ms  (asserts: 2)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_permanencia_minima_de_1_s  0 ms  (asserts: 2)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_recovery_progress_segue_o_pico  0 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_tabela_de_transicoes  0 ms  (asserts: 18)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_to_dict_from_dict_preserva_todos_os_campos  2 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_tosse_agendada_acontece_quando_a_severidade_se_mantem  2 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_tosse_agendada_e_cancelada_quando_a_severidade_cai_abaixo_de_0_55  1 ms  (asserts: 3)
+PASS  unit/physiology/test_per07_reprodutibilidade.gd::test_per07_aviso_agendado_com_bombinha_alivio_agua_e_exaustao  10 ms  (asserts: 8)
+      nota: transportes de texto (ponto (a)), campos que mudam: JSON 10, var_to_str 3, base64 binário 0
+      nota: ponto (a): 180 ticks após o carregamento, divergências 0; avisos 0, tosses 1, tosses canceladas 0
+PASS  unit/physiology/test_per07_reprodutibilidade.gd::test_per07_cooldown_de_tosse_ativo  11 ms  (asserts: 4)
+      nota: transportes de texto (ponto (b)), campos que mudam: JSON 4, var_to_str 0, base64 binário 0
+      nota: ponto (b): 180 ticks após o carregamento, divergências 0; avisos 0, tosses 0, tosses canceladas 0
+PASS  unit/physiology/test_phy01_03_respiracao.gd::test_phy01_sprint_leva_a_laboured_antes_do_esgotamento  5 ms  (asserts: 3)
+      nota: PHY-01: esgotamento em 8.333 s; LABORED em 5.550 s (DATA §1.4: ≈ 5,5 s); estado no esgotamento LABORED, severidade 0.453, EMA 0.647
+PASS  unit/physiology/test_phy01_03_respiracao.gd::test_phy02_estresse_80_eleva_o_alvo_em_pelo_menos_0_25  7 ms  (asserts: 2)
+      nota: PHY-02 (20 s, EMA ainda em subida): alvo com estresse 0 = 0.5783; com estresse 80 = 0.8640; diferença 0.2857 (limite 0,25)
+PASS  unit/physiology/test_phy01_03_respiracao.gd::test_phy03_descanso_leva_0_6_abaixo_de_0_2_em_ate_25_s  4 ms  (asserts: 3)
+      nota: PHY-03: severidade 0,6 em repouso → < 0,2 em 6.67 s (EMA inicial 0) e 8.80 s (EMA inicial 0,857, após sprint longo)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy04_alivio_decai_linearmente_em_90_s  6 ms  (asserts: 2)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy04_bombinha_reduz_0_30_em_ate_3_s  1 ms  (asserts: 2)
+      nota: PHY-04: redução absoluta da severidade em 3 s com a bombinha: 0.4400 (limite 0,30; nominal 0,35 + queda natural)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy04_cooldown_da_bombinha_recusa_a_segunda_dose  2 ms  (asserts: 3)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy05_bombinha_nao_altera_a_stamina  3 ms  (asserts: 2)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy05_zerar_a_stamina_nao_altera_a_severidade_no_mesmo_tick  9 ms  (asserts: 3)
+      nota: PHY-05: maior diferença de severidade entre stamina 100 e stamina 0, em 10 s: 0.000000
+PASS  unit/physiology/test_phy08_10_11_determinismo_histerese_dt.gd::test_phy08_mesmo_rng_e_mesmas_entradas_geram_snapshots_identicos  41 ms  (asserts: 2)
+      nota: PHY-08 (curto): 1800 ticks, 2 tosse(s) no caminho exercitado pelo RNG, divergências: 0
+PASS  unit/physiology/test_phy08_10_11_determinismo_histerese_dt.gd::test_phy10_oscilacao_curta_em_0_20_e_sem_saida_em_0_30_nao_gera_ping_pong  4 ms  (asserts: 2)
+      nota: PHY-10 NORMAL→ACCELERATED em 0,20: 1 transição(ões) em 10 s de oscilação
+      nota: PHY-10 RECOVERING sem saída em 0,30: 0 transição(ões) em 10 s de oscilação
+PASS  unit/physiology/test_phy08_10_11_determinismo_histerese_dt.gd::test_phy10_permanencia_minima_bloqueia_transicao_imediata  1 ms  (asserts: 2)
+      nota: PHY-10 permanência: NORMAL com severidade 0,7 mudou em 1.000 s (mínimo 1,0 s)
+PASS  unit/physiology/test_phy08_10_11_determinismo_histerese_dt.gd::test_phy11_severidade_independe_do_passo_de_tempo  15 ms  (asserts: 1)
+      nota: PHY-11 (curto): severidade com dt 0,1 e 1/60 em checkpoints de 10 s, diferença máxima 0.00857 (limite 0,02)
+PASS  property/physiology/test_per07_longo.gd::test_per07_longo_aviso_agendado  32 ms  (asserts: 3)
+      nota: ponto (a) (longo): 1200 ticks após o carregamento, divergências 0; avisos 0, tosses 1, tosses canceladas 0
+PASS  property/physiology/test_per07_longo.gd::test_per07_longo_cooldown_de_tosse  33 ms  (asserts: 3)
+      nota: ponto (b) (longo): 1200 ticks após o carregamento, divergências 0; avisos 1, tosses 1, tosses canceladas 0
+PASS  property/physiology/test_phy06_07_09_sequencias.gd::test_phy06_07_09_duzentas_sequencias  4434 ms  (asserts: 2)
+      nota: 200 sequências (120 s ativos + 60 s de repouso, dt 0,1 s): avisos 180, tosses 180, tosses canceladas 0
+      nota: PHY-06: pior severidade no fim do repouso 0.0004 (limite 0,2); pior estresse 0.0000 (limite 25); sequências reprovadas 0
+PASS  property/physiology/test_phy08_11_longos.gd::test_phy08_longo_mesmo_rng_e_mesmas_entradas_geram_snapshots_identicos  125 ms  (asserts: 2)
+      nota: PHY-08 (longo, 90 s): 5400 ticks, 4 tosses no caminho exercitado pelo RNG, divergências: 0
+PASS  property/physiology/test_phy08_11_longos.gd::test_phy11_longo_severidade_independe_do_passo_de_tempo  39 ms  (asserts: 1)
+      nota: PHY-11 (longo, 60 s): diferença máxima de severidade entre dt 0,1 e 1/60 em checkpoints de 10 s: 0.00218 (limite 0,02)
+PASS  property/physiology/test_phy10_limiares_longos.gd::test_phy10_sete_limiares_30_s_sem_ping_pong  33 ms  (asserts: 7)
+      nota: PHY-10 (30 s) NORMAL→ACCELERATED em 0,20: 1 transição(ões)
+      nota: PHY-10 (30 s) LABORED→RECOVERING em 0,30: 1 transição(ões)
+      nota: PHY-10 (30 s) SYMPTOMATIC→LABORED em 0,55: 1 transição(ões)
+      nota: PHY-10 (30 s) LABORED→SYMPTOMATIC em 0,60: 1 transição(ões)
+      nota: PHY-10 (30 s) ACCELERATED→NORMAL em 0,15: 1 transição(ões)
+      nota: PHY-10 (30 s) ACCELERATED→LABORED em 0,35: 1 transição(ões)
+      nota: PHY-10 (30 s) RECOVERING sem saída em 0,30: 0 transição(ões)

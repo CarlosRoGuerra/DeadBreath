@@ -1,0 +1,31 @@
+﻿Evidencia F2 (saida real do pipeline, execucao 2 de 2, commit base 593f447 + trabalho F2 nao commitado).
+Fonte: pipeline_F2_final2.txt (tools/run_tests.ps1). Linhas copiadas de cada teste e suas notas, sem edicao.
+
+Testes: PhysiologyCoupling, configs, PhysiologyComponent, integração no jogador (PlayerRoot).
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_configs_em_arquivo_tem_a_tabela_e_igualam_o_padrao_do_codigo  4 ms  (asserts: 101)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_exaustao_proibe_o_sprint  4 ms  (asserts: 2)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_firmeza_da_mao_segue_estresse_e_chiado  3 ms  (asserts: 2)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_limite_de_sprint_so_depois_de_0_6  8 ms  (asserts: 4)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_regeneracao_cai_com_severidade_e_estresse  4 ms  (asserts: 2)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_sem_estado_o_acoplamento_e_neutro  2 ms  (asserts: 5)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_tremor_segue_smoothstep_de_50_a_100  6 ms  (asserts: 3)
+PASS  integration/physiology/test_ameaca_stub_no_jogador.gd::test_fonte_padrao_e_zero_e_stub_forcado_sobe_o_estresse  11 ms  (asserts: 4)
+      nota: ameaça forçada (inimigo visto a 3 m) durante 1 s: estresse 15.000 (ganho 15/s)
+PASS  integration/physiology/test_firmeza_alonga_segurar.gd::test_estresse_alto_alonga_o_segurar_e_o_contexto_recebe_a_firmeza  24 ms  (asserts: 5)
+      nota: firmeza com estresse 100.0: 0.300; segurar necessário: 1.025 s (base 0,5 s)
+PASS  integration/physiology/test_firmeza_alonga_segurar.gd::test_firmeza_neutra_segurar_de_0_5_s_conclui  10 ms  (asserts: 2)
+PASS  integration/physiology/test_jogador_sprint_exaustao.gd::test_sprint_esgota_leva_a_laboured_e_o_limite_vale_no_tick_seguinte  97 ms  (asserts: 9)
+      nota: jogador: esgotamento no quadro 499 (8.333 s de sprint); LABORED no quadro 332 (5.550 s); estado no esgotamento LABORED
+      nota: jogador: sprint volta com stamina 25.024 (após 0.35 s de recuperação)
+PASS  integration/physiology/test_phy04_05_componente.gd::test_phy04_componente_bombinha_reduz_0_30_em_ate_3_s  2 ms  (asserts: 2)
+      nota: PHY-04 pelo componente: redução absoluta em 3 s = 0.4400
+PASS  integration/physiology/test_phy04_05_componente.gd::test_phy05_componente_bombinha_nao_mexe_na_stamina  1 ms  (asserts: 1)
+PASS  integration/physiology/test_phy04_05_componente.gd::test_phy05_componente_stamina_zerada_nao_altera_a_severidade  0 ms  (asserts: 2)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_carregar_estado_nao_emite_sinais  11 ms  (asserts: 2)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_config_ausente_registra_erro_e_usa_padroes  0 ms  (asserts: 4)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_gasp_de_susto_exige_pico_e_estresse_previo  0 ms  (asserts: 3)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_medicacao_nula_registra_erro_e_nao_aplica  0 ms  (asserts: 2)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_queda_de_3_m_fere_e_queda_de_1_m_nao  21 ms  (asserts: 2)
+      nota: estresse depois da queda de 3 m: 20.000; depois da queda de 1 m: 0.000 (pico de ferimento 20)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_sinais_do_componente_acompanham_os_limiares  8 ms  (asserts: 5)
+      nota: sinais em 25 s de sprint sob ameaça: estados 3, faixas 3, avisos 1, tosses 1, canceladas 0

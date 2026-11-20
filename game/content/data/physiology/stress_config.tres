@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="StressConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://sim/physiology/stress_config.gd" id="1_cfg"]
+
+[resource]
+script = ExtResource("1_cfg")
+enemy_seen_gain_per_s = 15.0
+enemy_heard_gain_per_s = 5.0
+chase_gain_per_s = 20.0
+injury_spike = 20.0
+capture_spike = 40.0
+decay_delay_s = 4.0
+decay_per_s = 3.0
+safe_zone_decay_per_s = 8.0
+band_tense_from = 25.0
+band_afraid_from = 50.0
+band_panic_from = 75.0
+gasp_min_spike = 15.0
+gasp_min_stress = 50.0

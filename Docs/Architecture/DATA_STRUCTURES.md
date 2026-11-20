@@ -88,6 +88,7 @@ Parâmetros acrescentados na F1-006 (pontos de partida, ajustáveis no `.tres`):
 | `max_value` | 100 |
 | `sprint_drain_per_s` / `climb_drain_per_s` / `push_furniture_drain_per_s` | 12 / 15 / 10 |
 | `regen_delay_s` | 1.2 |
+| (nota F2) | `climb_drain_per_s` e `push_furniture_drain_per_s` estão na config, mas reservados: `PhysiologyInputs` ainda não tem entrada de escalar ou empurrar (entra com a mecânica, F5/F6) |
 | `regen_walk_per_s` / `regen_slow_per_s` / `regen_idle_per_s` / `regen_rest_per_s` | 4 / 7 / 10 / 14 |
 | `safe_zone_regen_multiplier` | 1.3 |
 | `sprint_reenable_threshold` | 25 (histerese após esgotar) |
@@ -106,6 +107,8 @@ Regeneração efetiva = base × `CouplingFactors.stamina_regen_multiplier` (× 1
 | `capture_spike` | 40 (durante a CaptureSequence; o estado restaurado vem do snapshot) |
 | `decay_delay_s` / `decay_per_s` / `safe_zone_decay_per_s` | 4 / 3 / 8 |
 | Faixas | CALM < 25 ≤ TENSE < 50 ≤ AFRAID < 75 ≤ PANIC |
+
+**Esclarecimentos ratificados na F2 (implementação):** os ganhos de visto, ouvido e perseguição se **somam** por segundo. Qualquer ameaça > 0 ou pico zera o contador de `decay_delay_s`. O gasp de susto usa o estresse **antes** do pico (`gasp_min_stress` = 50, `gasp_min_spike` = 15). No início do jogo, o atraso já está vencido.
 
 **Ferimentos (MASTER §9.3):** não há sistema de vida (pilar: sem combate). Um ferimento é um evento (`add_injury`) que gera pico de estresse. Mancar ou sangrar ficam como proposta P-06.
 
@@ -136,7 +139,7 @@ cough_probability  = severity > 0.55 ? 0.25 · ((severity − 0.55)/0.45)² : 0 
 | `rise_rate_per_s` / `fall_rate_per_s` | 0.08 / 0.03 |
 | `cough_warning_time_s` | 1.5 |
 | `cough_cooldown_s` | 4 |
-| `state_min_dwell_s` | 1.0 |
+| `state_min_dwell_s` | 1.0 (vale para toda transição, inclusive a entrada em SYMPTOMATIC; ratificado na F2) |
 
 **Tosse:** a cada tick, se não há tosse pendente nem cooldown e `rng.randf() < cough_probability·dt`, a tosse é agendada para daqui a `cough_warning_time_s` e `cough_warning` é emitido. No momento agendado, se a severidade caiu abaixo de 0.55 (por exemplo, bombinha usada durante o aviso), a tosse é cancelada.
 

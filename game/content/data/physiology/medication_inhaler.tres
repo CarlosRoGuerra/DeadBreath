@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MedicationProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://sim/physiology/medication_profile.gd" id="1_med"]
+
+[resource]
+script = ExtResource("1_med")
+immediate_reduction = 0.35
+reduction_time_s = 3.0
+relief_strength = 0.7
+relief_duration_s = 90.0
+cooldown_s = 10.0
+noise_db = 38.0

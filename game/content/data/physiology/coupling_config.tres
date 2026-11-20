@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CouplingConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://sim/physiology/coupling_config.gd" id="1_cfg"]
+
+[resource]
+script = ExtResource("1_cfg")
+regen_severity_penalty = 0.6
+regen_stress_penalty = 0.3
+sprint_limit_start_severity = 0.6
+sprint_limit_min_multiplier = 0.75
+steadiness_stress_weight = 0.7
+steadiness_stress_range = Vector2(40, 100)
+steadiness_wheeze_weight = 0.3
+tremor_stress_range = Vector2(50, 100)

@@ -16,10 +16,18 @@ const WORLD_DYNAMIC_MASK: int = 2
 var _root: Node = null
 
 
-func before_each() -> void:
+## A cena é carregada uma vez para o arquivo inteiro: nenhum teste daqui altera portas, pickups
+## ou o jogador (só consultam). Economiza ~1 s da suíte padrão (orçamento < 10 s, F2).
+func before_all() -> void:
 	var scene: PackedScene = load(PLAYABLE_PATH) as PackedScene
-	_root = add_child_autofree(scene.instantiate())
+	_root = scene.instantiate()
+	add_child(_root)
 	await wait_physics_frames(2)
+
+
+func after_all() -> void:
+	await release_and_flush(_root)
+	_root = null
 
 
 func _slots() -> LevelSlots:

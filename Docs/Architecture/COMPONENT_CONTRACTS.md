@@ -300,7 +300,7 @@ var forced: ThreatSample                       ## testes e overlay de balanceame
 Calcula a ameaça **percebida pelo jogador**, que alimenta o estresse e a música. É a percepção do jogador, não da IA.
 
 ```gdscript
-class_name ThreatSource extends Node              ## base; StubThreatSource é usado na F2/F3
+class_name ThreatSource extends RefCounted        ## base (F2: RefCounted; ver nota abaixo); StubThreatSource é usado na F2/F3
 func sample() -> ThreatSample                     ## campos em DATA_STRUCTURES §5
 
 class_name PlayerThreatMonitor extends ThreatSource
@@ -315,6 +315,8 @@ func from_dict(data: Dictionary) -> void
 - `in_chase` = algum inimigo **visto** em CHASE nos últimos 3 s, **ou** algum `PlayerHeardNoise` de inimigo nos últimos 3 s com categoria RUNNING ou com `sound_id` de grito de perseguição (`voice_chase_*`).
 - O PlayerRoot lê `sample()` na prioridade -90. Os ruídos entregues em -60 no tick anterior entram com latência de 1 tick (SYSTEM_ARCHITECTURE §6).
 - Fórmula em DATA_STRUCTURES §1.5.
+
+**Decisão F2 (Architect, ratificada):** `ThreatSource` é `RefCounted`, não `Node`. Como Node, ele seria um componente do jogador, e a herança `StubThreatSource extends ThreatSource` violaria o ARC-06. O PlayerRoot guarda a fonte por `set_threat_source()`. **Pendente para a F4:** o `PlayerThreatMonitor` precisa de Node (recebe ruídos, tem janelas de tempo). A opção preferida é o monitor (Node) expor um `ThreatSource` RefCounted via composição; decidir ao abrir a F4.
 
 **Invariante TMN-INV-1:** nenhuma informação do PlayerThreatMonitor nem `PlayerHeardNoise` é lida por scripts de IA (ARC-01).
 

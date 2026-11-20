@@ -1,0 +1,13 @@
+﻿Evidencia F2 (saida real do pipeline, execucao 2 de 2, commit base 593f447 + trabalho F2 nao commitado).
+Fonte: pipeline_F2_final2.txt (tools/run_tests.ps1). Linhas copiadas de cada teste e suas notas, sem edicao.
+
+Teste: StressModel (DATA §1.3, §6.1).
+PASS  unit/physiology/test_f2002_stress_model.gd::test_ameaca_zera_o_atraso  1 ms  (asserts: 1)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_atraso_de_decaimento_e_zona_segura  1 ms  (asserts: 2)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_decaimento_de_100_a_0_em_37_3_s  8 ms  (asserts: 1)
+      nota: decaimento do estresse de 100 a 0 sem ameaça: 37.333 s (atraso 4 s + 100/3 s)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_faixas_nos_limiares  1 ms  (asserts: 8)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_ganhos_por_ameaca_somam_por_segundo  1 ms  (asserts: 4)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_pico_de_ferimento_e_clamp  0 ms  (asserts: 2)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_pico_de_susto_segue_a_formula  0 ms  (asserts: 5)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_to_dict_from_dict_preserva_todos_os_campos  1 ms  (asserts: 1)

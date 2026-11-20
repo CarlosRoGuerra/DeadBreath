@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://components/player/player_root.gd" id="1_root"]
 [ext_resource type="Script" path="res://components/player/player_motor.gd" id="2_motor"]
 [ext_resource type="Resource" path="res://content/data/player_motor_config.tres" id="3_cfg"]
 [ext_resource type="Script" path="res://components/interaction/interaction_component.gd" id="4_interaction"]
+[ext_resource type="Script" path="res://components/player/physiology_component.gd" id="5_physio"]
+[ext_resource type="Resource" path="res://content/data/physiology/stamina_config.tres" id="6_stamina"]
+[ext_resource type="Resource" path="res://content/data/physiology/stress_config.tres" id="7_stress"]
+[ext_resource type="Resource" path="res://content/data/physiology/respiratory_config.tres" id="8_resp"]
+[ext_resource type="Resource" path="res://content/data/physiology/coupling_config.tres" id="9_coupling"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
 radius = 0.25
@@ -31,3 +36,10 @@ config = ExtResource("3_cfg")
 
 [node name="InteractionComponent" type="Node" parent="."]
 script = ExtResource("4_interaction")
+
+[node name="PhysiologyComponent" type="Node" parent="."]
+script = ExtResource("5_physio")
+stamina_config = ExtResource("6_stamina")
+stress_config = ExtResource("7_stress")
+respiratory_config = ExtResource("8_resp")
+coupling_config = ExtResource("9_coupling")

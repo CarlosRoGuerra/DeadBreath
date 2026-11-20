@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="RespiratoryConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://sim/physiology/respiratory_config.gd" id="1_cfg"]
+
+[resource]
+script = ExtResource("1_cfg")
+exertion_time_constant_s = 8.0
+rise_rate_per_s = 0.08
+fall_rate_per_s = 0.03
+cough_warning_time_s = 1.5
+cough_cooldown_s = 4.0
+state_min_dwell_s = 1.0
+tablet_rise_multiplier = 0.7
+tablet_duration_s = 180.0
+water_cough_multiplier = 0.5
+water_duration_s = 60.0

@@ -1,0 +1,12 @@
+﻿Evidencia F2 (saida real do pipeline, execucao 2 de 2, commit base 593f447 + trabalho F2 nao commitado).
+Fonte: pipeline_F2_final2.txt (tools/run_tests.ps1). Linhas copiadas de cada teste e suas notas, sem edicao.
+
+Teste: StaminaModel (DATA §1.2, §6.1).
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_histerese_de_exaustao_reabilita_em_25  1 ms  (asserts: 3)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_multiplicador_do_acoplamento_e_zona_segura  1 ms  (asserts: 2)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_regeneracao_por_marcha_e_repouso  3 ms  (asserts: 4)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_sem_regeneracao_durante_regen_delay  0 ms  (asserts: 3)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_stamina_fica_entre_0_e_100  6 ms  (asserts: 1)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_tanque_cheio_sprint_dura_8_3_s  1 ms  (asserts: 2)
+      nota: sprint de tanque cheio até esgotar a stamina: 8.333 s (500 ticks a 1/60 s)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_to_dict_from_dict_preserva_todos_os_campos  1 ms  (asserts: 4)

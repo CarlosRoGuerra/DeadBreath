@@ -16,6 +16,12 @@
 | ENV-006 | `.vscode/mcp.json` configura o AppMap, que não suporta GDScript | Informativo | Nenhum para o jogo | Manter sem alterações; não faz parte do projeto | Aceito |
 | ENV-007 | O nome da pasta é `DeathBreath`; o jogo é `DEAD BREATH` | Baixa | Inconsistência de nomes em caminhos e no repositório | Renomear para `DeadBreath` na mudança de local (D-02) | **Resolvido**: o novo local se chama `DeadBreath` |
 
+## Arquitetura
+
+| ID | Problema | Severidade | Situação |
+|---|---|---|---|
+| ARCH-001 | **Precisão de float no save** (achado da F2-004): o JSON do Godot 4.7 grava floats com 15 dígitos. Medido: 96% de 200 mil doubles mudam no ida e volta pelo JSON; `var_to_str` muda 34% (1 ulp); `var_to_bytes`/base64 é exato. Sem tratamento, o PER-07 (reprodutibilidade após carregar) quebra no transporte. | Alta para a F5 | **Decisão até a abertura da F5** (ADR de persistência). Recomendação: o snapshot guarda o estado de simulação em base64 de `var_to_bytes`, ou codifica floats por bits. Hoje o PER-07 valida o ida e volta em memória (exato) |
+
 ## Riscos do projeto
 
 | ID | Risco | Severidade | Mitigação | Gatilho de ação |

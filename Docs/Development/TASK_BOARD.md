@@ -157,25 +157,25 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §4 (v1.0) e §4.3 (acrés
 - **Onda C:** F2-010 revisão, F2-011 QA, F2-012 documentação.
 
 ### F2-001 · StaminaModel (L1)
-- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** Gate F1 · **Status:** IN_PROGRESS
+- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** Gate F1 · **Status:** REVIEW (entregue; pipeline verde na execução do Director)
 - **Descrição:** `sim/physiology/stamina_model.gd` + `StaminaConfig` (Resource, DATA §1.2) + `content/data/physiology/stamina_config.tres`. Dreno de sprint, atraso de regeneração, regeneração por marcha/repouso, multiplicador do acoplamento, histerese de exaustão (reabilita o sprint em 25). `to_dict/from_dict`.
 - **Aceitação:** sprint de tanque cheio dura 8,3 s ± 0,1; sem regeneração durante `regen_delay_s`; PHY-INV-1.
 - **Testes:** unit (dreno, regeneração, histerese, limites), parte do PHY-09.
 
 ### F2-002 · StressModel (L1)
-- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** Gate F1 · **Status:** IN_PROGRESS
+- **Responsável:** Physiological Eng. · **Esforço:** HIGH · **Depende de:** Gate F1 · **Status:** REVIEW (entregue; pipeline verde na execução do Director)
 - **Descrição:** `stress_model.gd` + `StressConfig` (DATA §1.3): ganhos por ameaça (`ThreatSample`), picos (`add_spike`: susto, ferimento, captura), decaimento com atraso, faixas CALM..PANIC. `to_dict/from_dict`.
 - **Aceitação:** faixas nos limiares de §1.3; decaimento de 100 a 0 sem ameaça em ≈ 37,3 s (4 s de atraso + 3/s).
 - **Testes:** unit, PHY-02 (parte), PHY-06/09.
 
 ### F2-003 · RespiratoryModel (L1)
-- **Responsável:** Physiological Eng. · **Esforço:** EXTRA HIGH · **Depende de:** F2-001, F2-002 · **Status:** IN_PROGRESS
+- **Responsável:** Physiological Eng. · **Esforço:** EXTRA HIGH · **Depende de:** F2-001, F2-002 · **Status:** REVIEW (entregue; pipeline verde na execução do Director)
 - **Descrição:** `respiratory_model.gd` + `RespiratoryConfig` (DATA §1.4): EMA do esforço, severidade com subida/descida, frequência respiratória, chiado, hazard de tosse com aviso de 1,5 s e cooldown, cancelamento, máquina de estados com histerese e permanência mínima, `recovery_progress`, medicação (`MedicationProfile`, §1.7). RNG injetado. `to_dict/from_dict` completo (DATA §6.1).
 - **Aceitação:** PHY-01..PHY-11 verdes.
 - **Testes:** PHY-01..PHY-11 (propriedade em `tests/property/` quando > 1 s), PER-07 no nível dos modelos.
 
 ### F2-004 · PhysiologyCoupling + PhysiologyComponent + integração
-- **Responsável:** Physiological Eng. · **Esforço:** EXTRA HIGH · **Depende de:** F2-003 · **Status:** IN_PROGRESS
+- **Responsável:** Physiological Eng. · **Esforço:** EXTRA HIGH · **Depende de:** F2-003 · **Status:** REVIEW (entregue; pipeline verde na execução do Director)
 - **Descrição:** `PhysiologyCoupling.compute` (DATA §1.6, `CouplingConfig`); `components/player/physiology_component.gd` (§4.1: sinais, RNG próprio com semente exportável, gasp de susto); `ThreatSource`/`StubThreatSource` (§5, ameaça controlável por teste e overlay); integração no `PlayerRoot` (tick §1: motor → inputs → physiology → `apply_limits(coupling)` → interaction com `steadiness`).
 - **Aceitação:** correr até esgotar deixa o jogador sem sprint até 25 de stamina; a crise reduz o sprint máximo (§1.6); `steadiness` alonga o "segurar" (contrato §3); ARC-06 continua verde.
 - **Testes:** integration no jogador (sprint → exaustão → LABORED; limites aplicados no tick seguinte; firmeza da mão), ARC-03/05/06.
