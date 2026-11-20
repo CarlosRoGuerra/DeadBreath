@@ -93,8 +93,12 @@ func _is_down_done(player: PlayerRoot) -> bool:
 	return player.global_position.z > FIRST_NEAR_Z + 0.5 and player.global_position.y < 0.1
 
 
+## Cada execução usa um mundo de física próprio, liberado ao fim, e zera os contadores (F1-010, R1-07/R1-09).
 func _run_stairs(tread: float, start_z: float = 0.5) -> Dictionary:
-	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
+	_airborne = 0
+	_airborne_up = 0
+	_airborne_down = 0
+	var root: Node3D = add_isolated_world()
 	var platform_start: float = _build_stairs(root, tread)
 	var player: PlayerRoot = WorldScript.spawn_player(root, Vector3(0.0, 0.0, start_z))
 	await wait_physics_frames(SETTLE_FRAMES)
@@ -102,7 +106,9 @@ func _run_stairs(tread: float, start_z: float = 0.5) -> Dictionary:
 	var up_ok: bool = await _walk(player, 1.0, Callable(self, "_done_up_factory").bind(limit_z), 1)
 	await wait_physics_frames(PLATFORM_WALK_FRAMES)
 	var down_ok: bool = await _walk(player, -1.0, Callable(self, "_done_down_factory"), -1)
-	return {"up_ok": up_ok, "down_ok": down_ok, "airborne_up": _airborne_up, "airborne_down": _airborne_down}
+	var result: Dictionary = {"up_ok": up_ok, "down_ok": down_ok, "airborne_up": _airborne_up, "airborne_down": _airborne_down}
+	await release_and_flush(root.get_parent())
+	return result
 
 
 func _done_up_factory(player: PlayerRoot, limit_z: float) -> bool:

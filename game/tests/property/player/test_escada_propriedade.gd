@@ -149,48 +149,40 @@ func test_ciclo_piso_0_28_fases_42_a_55() -> void:
 
 func test_ciclo_piso_0_30_fases_00_a_14() -> void:
 	var f: PackedStringArray = await _run_range("piso 0,30", _synthetic(0.30), null, 0, CHUNK_PHASES)
-	assert_eq(f.size(), 0, "
-".join(f))
+	assert_eq(f.size(), 0, "\n".join(f))
 
 
 func test_ciclo_piso_0_30_fases_15_a_29() -> void:
 	var f: PackedStringArray = await _run_range("piso 0,30", _synthetic(0.30), null, CHUNK_PHASES, 2 * CHUNK_PHASES)
-	assert_eq(f.size(), 0, "
-".join(f))
+	assert_eq(f.size(), 0, "\n".join(f))
 
 
 func test_ciclo_piso_0_30_fases_30_a_44() -> void:
 	var f: PackedStringArray = await _run_range("piso 0,30", _synthetic(0.30), null, 2 * CHUNK_PHASES, 3 * CHUNK_PHASES)
-	assert_eq(f.size(), 0, "
-".join(f))
+	assert_eq(f.size(), 0, "\n".join(f))
 
 
 func test_ciclo_piso_0_30_fases_45_a_59() -> void:
 	var f: PackedStringArray = await _run_range("piso 0,30", _synthetic(0.30), null, 3 * CHUNK_PHASES, _phases(0.30))
-	assert_eq(f.size(), 0, "
-".join(f))
+	assert_eq(f.size(), 0, "\n".join(f))
 
 
 func test_ciclo_sandbox_fases_00_a_13() -> void:
 	var f: PackedStringArray = await _run_range("sandbox", Stair.sandbox_geometry(), load(Stair.SANDBOX_PATH) as PackedScene, 0, CHUNK_PHASES)
-	assert_eq(f.size(), 0, "
-".join(f))
+	assert_eq(f.size(), 0, "\n".join(f))
 
 
 func test_ciclo_sandbox_fases_14_a_27() -> void:
 	var f: PackedStringArray = await _run_range("sandbox", Stair.sandbox_geometry(), load(Stair.SANDBOX_PATH) as PackedScene, CHUNK_PHASES, 2 * CHUNK_PHASES)
-	assert_eq(f.size(), 0, "
-".join(f))
+	assert_eq(f.size(), 0, "\n".join(f))
 
 
 func test_ciclo_sandbox_fases_28_a_41() -> void:
 	var f: PackedStringArray = await _run_range("sandbox", Stair.sandbox_geometry(), load(Stair.SANDBOX_PATH) as PackedScene, 2 * CHUNK_PHASES, 3 * CHUNK_PHASES)
-	assert_eq(f.size(), 0, "
-".join(f))
+	assert_eq(f.size(), 0, "\n".join(f))
 
 
 func test_ciclo_sandbox_fases_42_a_55() -> void:
 	var f: PackedStringArray = await _run_range("sandbox", Stair.sandbox_geometry(), load(Stair.SANDBOX_PATH) as PackedScene, 3 * CHUNK_PHASES, _phases(Stair.SANDBOX_TREAD_M))
-	assert_eq(f.size(), 0, "
-".join(f))
+	assert_eq(f.size(), 0, "\n".join(f))
 

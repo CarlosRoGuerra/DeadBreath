@@ -12,7 +12,7 @@ const TABLE: Dictionary = {
 	"crawl_height": 0.55, "capsule_radius": 0.25, "step_height": 0.30, "fall_injury_height": 2.5,
 	"head_bob_amplitude": 0.03,
 	"eye_offset": 0.10, "stance_transition_time_s": 0.25, "gravity": 9.8, "floor_snap_length": 0.30,
-	"step_probe_distance": 0.27, "pitch_limit_deg": 85.0, "camera_step_smoothing": 12.0,
+	"pitch_limit_deg": 85.0, "camera_step_smoothing": 12.0,
 	"stride_slow": 0.5, "stride_walk": 0.7, "stride_sprint": 1.1, "stride_crouch": 0.5, "stride_crawl": 0.4,
 	"head_bob_frequency_per_stride": 0.5,
 }

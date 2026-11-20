@@ -77,7 +77,7 @@ Parâmetros acrescentados na F1-006 (pontos de partida, ajustáveis no `.tres`):
 |---|---|---|---|---|
 | `eye_offset` | 0.10 m (topo do colisor → olhos) | | `gravity` | 9.8 m/s² |
 | `stance_transition_time_s` | 0.25 s | | `floor_snap_length` | 0.30 m |
-| `step_probe_distance` | 0.27 m (≥ raio, spike V6) | | `pitch_limit_deg` | 85° |
+| ~~`step_probe_distance`~~ | removido (F1-010): a sondagem do step-up é o movimento do tick + 0,03 m (constante do motor; colisor de base plana) | | `pitch_limit_deg` | 85° |
 | `camera_step_smoothing` | 12 /s (decaimento exponencial da altura visual) | | `stride_slow` / `stride_walk` / `stride_sprint` | 0.5 / 0.7 / 1.1 m |
 | `stride_crouch` / `stride_crawl` | 0.5 / 0.4 m | | `head_bob_frequency_per_stride` | 0.5 ciclo por passada |
 
@@ -630,7 +630,7 @@ signal player_caught()
 
 ## 10. Esquema do Settings (F1-004, 2026-11-20)
 
-Persistido em `user://settings.cfg` (ConfigFile, seção `settings`) com escrita atômica (`core/atomic_file.gd`). Valor de tipo errado ou chave desconhecida → rejeitado com `Log.warn`. Número fora da faixa → limitado à faixa. `int` é aceito onde se espera `float`.
+Persistido em `user://settings.cfg` (ConfigFile, seção `settings`) com escrita atômica (`core/atomic_file.gd`). Valor de tipo errado, número não finito (NaN, ±INF) ou chave desconhecida → rejeitado com `Log.warn`. Número finito fora da faixa → limitado à faixa. `int` é aceito onde se espera `float`.
 
 | Chave | Tipo | Padrão | Faixa | Significado |
 |---|---|---|---|---|

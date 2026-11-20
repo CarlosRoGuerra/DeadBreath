@@ -22,7 +22,6 @@ eye_offset = 0.1
 stance_transition_time_s = 0.25
 gravity = 9.8
 floor_snap_length = 0.3
-step_probe_distance = 0.27
 pitch_limit_deg = 85.0
 camera_step_smoothing = 12.0
 stride_slow = 0.5

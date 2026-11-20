@@ -23,7 +23,6 @@ extends Resource
 @export var stance_transition_time_s: float = 0.25  ## s, troca de altura dos olhos entre posturas
 @export var gravity: float = 9.8                    ## m/s²
 @export var floor_snap_length: float = 0.30         ## m
-@export var step_probe_distance: float = 0.27       ## m, sondagem horizontal do step-up (≥ raio, spike V6)
 @export var pitch_limit_deg: float = 85.0           ## graus
 @export var camera_step_smoothing: float = 12.0     ## 1/s, decaimento exponencial da altura visual após degrau
 @export var stride_slow: float = 0.5                ## m por passada

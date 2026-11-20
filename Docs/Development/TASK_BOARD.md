@@ -121,7 +121,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 - **Aceitação:** arquivo criado; regra adicionada ao checklist do Technical Reviewer.
 
 ### F1-010 · Revisão técnica da Fase 1
-- **Responsável:** Technical Reviewer · **Esforço:** HIGH · **Depende de:** F1-003..F1-009, F1-013 · **Status:** BACKLOG
+- **Responsável:** Technical Reviewer · **Esforço:** HIGH · **Depende de:** F1-003..F1-009, F1-013 · **Status:** APPROVED (com ressalvas). Revisão REPROVADA (2 ALTO, 5 MÉDIO); correções; nova verificação APROVADO COM RESSALVAS. Ressalvas tratadas ou aceitas em `Docs/QA/REVIEWS/F1-010_RESOLUTION.md`
 - **Aceitação:** relatório com achados classificados; críticos e altos resolvidos ou aceitos pelo Director com justificativa.
 
 ### F1-011 · Validação de QA da Fase 1
