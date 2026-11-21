@@ -156,3 +156,65 @@ O teste está em `game/tests/integration/audio/test_body_sounds_manifest.gd`. El
 ## Mudanças nos parâmetros
 
 Edite `body_synth.py` (tabelas `BREATH_BASE`, `BREATH_VARIANT_FEATURES`, os `*_presets` por tipo, `CLASS_OFFSET_DB`, `KNEE_*`). Depois: regenerar, `check_regen.py` (vai passar, porque o arquivo commitado mudou junto), `analyze_body.py`, `--import`, teste de áudio. Atualize também a evidência em `Docs/QA/EVIDENCE/F2-006a_*`.
+
+---
+
+# Sons do mundo (F3-003a)
+
+Biblioteca de sons do mundo (passos, portas, impactos, arrasto, queda, chuva e trovões), em `game/content/audio/world/`. Gerador: `world_synth.py`, que reaproveita as primitivas DSP do `body_synth.py`. Tudo é procedural (D-07/D-06): nenhum asset externo foi usado, então `ASSET_LICENSES.md` não recebe linhas.
+
+## Comandos
+
+```
+python tools/audio/world_synth.py                       # gera game/content/audio/world/ (~9 s)
+python tools/audio/check_regen.py --set world           # verifica determinismo bit a bit (PASS esperado)
+python tools/audio/analyze_body.py --dir game/content/audio/world --out Docs/QA/EVIDENCE/F3-003a_analise.txt
+powershell -ExecutionPolicy Bypass -File tools\audio\audition.ps1 -Set world -Filter footstep_wood
+```
+
+Depois de gerar, rode o `--import` do Godot, depois `python tools/audio/world_synth.py --patch-imports` (PCM e loop nos `.wav.import`) e um segundo `--import`. Sem o ajuste, o importador usa QOA (com perda), e o teste reprova.
+
+## Catálogo (98 arquivos)
+
+| `sound_id` | Papel | Marchas / variações | Duração (s) |
+|---|---|---|---|
+| `footstep_wood`, `footstep_carpet`, `footstep_tile`, `footstep_concrete` | step (campo `gait`) | crawl, crouch, slow, walk, run × 3 | 0,40; 0,34; 0,36; 0,32; 0,26 |
+| `door_slow` | one_shot | 3 | 2,20 |
+| `door_normal` | one_shot | 3 | 0,90 |
+| `door_slam` | one_shot | 3 | 0,70 |
+| `door_locked` | one_shot (maçaneta e trinco) | 3 | 0,90 |
+| `impact_light`, `impact_medium`, `impact_heavy` | one_shot | 3 cada | 0,45; 0,70; 1,00 |
+| `furniture_drag` | one_shot | 3 | 1,60 |
+| `fall_body` | one_shot | 3 | 1,20 |
+| `rain_interior`, `rain_window`, `rain_exterior` | loop | 1 cada | 10,00 |
+| `thunder_rumble` | one_shot | 4 | 8,00 |
+| `thunder_crack` | one_shot | 4 | 3,00 |
+
+Total: 10,86 MB de WAV (PCM 16 bits, mono, 44,1 kHz). Com o `body/` (5,04 MB), a soma é 15,9 MB (limite do card: 25 MB).
+
+## Técnica (resumo)
+
+- **Passos:** um contato por passo (dois nas marchas de caminhada, com o pé de trás). Cada contato tem um clique filtrado (passa-baixa e passa-alta da superfície) e modos ressonantes amortecidos do piso (madeira: 118, 262 e 655 Hz; concreto: 172 e 432 Hz; azulejo: 1450 e 2480 Hz; tapete: 88 Hz, amortecido). Rastejar e agachar somam um atrito de roupa. Concreto tem grão. Os níveis dos modos e do clique variam por marcha.
+- **Portas:** a lenta é um rangido de pulsos de atrito (stick-slip) sobre uma fundamental que desliza. A normal é passagem de ar, um chiado curto e a lingueta. A batida é um estouro de impacto com folha ressonante, reverberação e tinido. A trancada são cliques irregulares da maçaneta e o trinco que não corre.
+- **Impactos:** modos ressonantes (leve: agudo; médio: madeira; pesado: metal, com quiques e grave de 110 Hz). Os quiques usam o mesmo modelo, com amplitudes menores.
+- **Arrasto e queda:** arrasto é atrito irregular sobre uma banda de ruído. A queda é impacto, um quique, roupa e um gemido curto (sem violência gráfica).
+- **Chuva (loops):** leito de ruído filtrado (passa-baixa 750 Hz no interior; 3,6 kHz na janela; 7 kHz no exterior) mais gotas (processo de Poisson: 8, 55 e 220 gotas por segundo) e, no exterior, poças. O próprio loop costura a cauda ao início com cross-fade de potência constante (1,5 s), de modo que a última amostra e a primeira são vizinhas reais da mesma corrente.
+- **Trovões:** rolagem de 8 s (ruído rosa passa-baixa de 120 a 180 Hz, envelope de subida e queda com ondulação lenta e uma camada de médios); estalo de 3 s (impulso agudo, modo de 900 Hz, cauda grave e crepitação).
+
+## Normalização
+
+- One-shots: passa-alta de 25 Hz (sem componente contínua), limitador suave de crista (joelho em 3 × RMS, teto em 5 × RMS) e RMS-alvo de -24 dBFS. O nível de jogo vem do evento (DATA §2.1) e dos modificadores de superfície (madeira +6, tapete −8, azulejo +3, concreto 0). Por isso os clips de uma mesma família têm o mesmo RMS.
+- Loops (ambiência, sem evento): RMS-alvo por camada: interior −34 dBFS, janela −28 dBFS, exterior −24 dBFS. Essa proporção é de projeto, não de evento.
+- Pico: sempre abaixo de −3 dBFS.
+
+## Emenda dos loops
+
+`seam_ratio` = |última − primeira| / diferença média entre vizinhos. Medido: 0,43 (interior), 0,51 (janela) e 1,74 (exterior). Um estalo daria razão bem acima de 4 (limite do teste). O teste mede isso de novo sobre o áudio importado.
+
+## Limitações conhecidas
+
+- **Não ouvido pelo autor.** A análise é objetiva (espectro, envelope, emenda). O playtest decide se os passos e as portas convencem. Se não convencerem, o caminho é CC0 (D-06) com registro em `ASSET_LICENSES.md`.
+- Os passos de azulejo continuam os mais agudos (centroide perto de 3 kHz na caminhada, inclinação de +1,6 dB/oitava). Foi reduzido duas vezes, mas é o ponto a ouvir primeiro.
+- A chuva exterior é quase branca (planura perto de 0 dB, inclinação perto de 0 dB/oitava). É plausível para chuva, mas pode soar como chiado no playtest.
+- Loops: o `AudioStreamWAV` do `rain_*` repete sem parar quando o `loop_mode` está em repetição direta (`edit/loop_mode=2` no `.wav.import`, aplicado por `--patch-imports`). Na audição, o SoundPlayer toca uma vez.
+- O gerador usa a mesma biblioteca matemática da F2 (ver "Como verificar o determinismo"): a identidade bit a bit vale para a mesma versão do Python e a mesma plataforma.

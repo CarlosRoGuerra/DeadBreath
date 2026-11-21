@@ -17,3 +17,7 @@ desktop.ini
 # Saídas temporárias de ferramentas e testes
 /tmp/
 *.tmp
+
+# Python (ferramentas em tools/)
+__pycache__/
+*.pyc

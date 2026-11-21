@@ -24,6 +24,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import body_synth as bs  # noqa: E402
+import world_synth as ws  # noqa: E402
 
 
 def list_names(folder):
@@ -32,15 +33,18 @@ def list_names(folder):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Regera os sons do corpo e compara os hashes (F2-006a).")
-    ap.add_argument("--target", default=bs.DEFAULT_OUT, help="pasta commitada (padrao: game/content/audio/body)")
+    ap.add_argument("--set", choices=("body", "world"), default="body",
+                    help="conjunto a verificar: body (F2-006a) ou world (F3-003a)")
+    ap.add_argument("--target", default=None, help="pasta commitada (padrao depende de --set)")
     ap.add_argument("--runs", type=int, default=2, help="numero de geracoes independentes (padrao: 2)")
     args = ap.parse_args(argv)
-    target = os.path.abspath(args.target)
+    gen = ws if args.set == "world" else bs
+    target = os.path.abspath(args.target or gen.DEFAULT_OUT)
 
     committed_names = list_names(target)
     committed_hash = {}
     for name in committed_names:
-        committed_hash[name] = bs.sha256_file(os.path.join(target, name))
+        committed_hash[name] = gen.sha256_file(os.path.join(target, name))
     print("pasta commitada: %s" % target)
     print("arquivos commitados: %d (WAV + manifest.json)" % len(committed_names))
 
@@ -62,10 +66,10 @@ def main(argv=None):
         tmp = tempfile.mkdtemp(prefix="deadbreath_regen_")
         try:
             t0 = time.time()
-            bs.generate(tmp, verbose=False)
+            gen.generate(tmp, verbose=False)
             elapsed = time.time() - t0
             names = list_names(tmp)
-            hashes = dict((n, bs.sha256_file(os.path.join(tmp, n))) for n in names)
+            hashes = dict((n, gen.sha256_file(os.path.join(tmp, n))) for n in names)
             run_hashes.append(hashes)
             print("execucao %d: %d arquivos gerados em %.1f s (pasta temporaria apagada ao fim)" % (run, len(names), elapsed))
             if names != committed_names:

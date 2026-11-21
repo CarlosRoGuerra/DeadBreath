@@ -257,6 +257,10 @@ def fmt_block(name, entry, a):
         lines.append("  energia por faixa (%): " + " | ".join("%s %5.1f" % (lbl, s)
                                                        for lbl, s in zip(BAND_LABELS, a["band_share"])))
         lines.append("  pico tonal 150-4000 Hz: %6.0f Hz (%5.1f dB sobre a mediana da faixa)" % (a["peak_hz"], a["tonal_db"]))
+    if "seam_ratio" in entry:
+        lines.append("  emenda do loop: salto / diferenca media entre vizinhos = %.3f (estalo se acima de 4)" % entry["seam_ratio"])
+        if entry["seam_ratio"] > 4.0:
+            alerts.append("ESTALO NA EMENDA")
     lines.append("  alertas: " + (", ".join(alerts) if alerts else "nenhum"))
     return lines, alerts
 

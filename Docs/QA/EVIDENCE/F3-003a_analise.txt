@@ -1,0 +1,1017 @@
+ANALISE OBJETIVA - SONS PROCEDURAIS DO CORPO (F2-006a)
+Gerador: tools/audio/world_synth.py versao f3-003a.1 | semente base DEADBREATH|F3-003a|v1
+Metodo: RMS e pico em dBFS sobre int16; envelope por RMS de 10 ms; espectro = media de janelas Hann de 2048 amostras (salto 1024) com energia. Inclinacao e planura usam bandas de 1/6 de oitava (150 a 8000 Hz), para que cada oitava pese o mesmo. Planura: media geometrica / aritmetica das bandas (dB; ruido branco ~ 0 dB).
+Escuta humana nao foi feita por esta analise; os numeros sao evidencia de forma, nao de qualidade percebida.
+
+REFERENCIAS (mesmo analisador, ruido de 3 s gerado pelo body_synth)
+  ruido branco   inclinacao  -0.04 dB/oitava | planura  -0.01 dB | centroide   6032 Hz
+  ruido rosa     inclinacao  -3.05 dB/oitava | planura  -2.76 dB | centroide   2194 Hz
+  Alerta de respiracao: inclinacao acima de -2,0 dB/oitava (mais plano que o rosa, perto do branco).
+
+RESUMO POR SOUND_ID (medias das variacoes)
+sound_id         papel         n   dur(s)      RMS  centroide   planura     pico
+door_locked      one_shot      3    0.900   -24.00       860    -12.75    -8.10
+door_normal      one_shot      3    0.900   -24.00       817     -5.90    -9.83
+door_slam        one_shot      3    0.700   -24.00       284     -9.03    -9.57
+door_slow        one_shot      3    2.200   -24.00       616    -17.19    -9.94
+fall_body        one_shot      3    1.200   -24.00       533     -9.59    -9.41
+footstep_carpet  step         15    0.336   -24.00       892     -5.35    -8.09
+footstep_concrete step         15    0.336   -24.00      1811     -4.93    -8.12
+footstep_tile    step         15    0.336   -24.00      2394     -3.86    -7.19
+footstep_wood    step         15    0.336   -24.00       741     -6.93    -9.20
+furniture_drag   one_shot      3    1.600   -24.00      1932     -5.34   -10.11
+impact_heavy     one_shot      3    1.000   -24.00       276    -21.07    -9.77
+impact_light     one_shot      3    0.450   -24.00      2179    -19.74    -8.83
+impact_medium    one_shot      3    0.700   -24.00       717    -16.34    -9.44
+rain_exterior    loop          1   10.000   -24.00      4089     -0.14   -11.23
+rain_interior    loop          1   10.000   -34.00       559     -9.36   -21.47
+rain_window      loop          1   10.000   -28.00      2617     -0.91   -16.19
+thunder_crack    one_shot      4    3.000   -24.00       656    -10.01    -9.21
+thunder_rumble   one_shot      4    8.000   -24.00       121    -25.64   -10.29
+
+ARQUIVOS
+
+footstep_wood_crawl_v1.wav
+  papel step | variacao 1 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.49 dBFS | crista 13.51 dB | DC +0.00002
+  envelope: pico em 0.170 s | ataque 10-90% 0.170 s | queda ate -20 dB 0.190 s | ativo (>-40 dB) 0.390 s | cauda 50 ms  -26.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -8.2  -12.9   -7.7   -3.3   -1.5   -1.1   -2.5   -7.1  -14.5  -30.2
+  espectro: centroide   1887 Hz | rolloff85   3036 Hz | inclinacao  -0.98 dB/oitava | planura  -2.91 dB
+  energia por faixa (%): <300   3.4 | 300-1k  31.7 | 1k-2.5k  44.6 | 2.5k-5k  13.8 | 5k-8k   4.5 | >8k   1.9
+  pico tonal 150-4000 Hz:    883 Hz ( 10.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_crawl_v2.wav
+  papel step | variacao 2 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.81 dBFS | crista 13.19 dB | DC +0.00002
+  envelope: pico em 0.170 s | ataque 10-90% 0.170 s | queda ate -20 dB 0.180 s | ativo (>-40 dB) 0.400 s | cauda 50 ms  -27.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -7.2  -11.9   -6.6   -4.0   -1.4   -2.0   -3.5   -8.2  -15.6  -29.6
+  espectro: centroide   1499 Hz | rolloff85   2347 Hz | inclinacao  -2.18 dB/oitava | planura  -3.50 dB
+  energia por faixa (%): <300   5.0 | 300-1k  47.1 | 1k-2.5k  34.3 | 2.5k-5k   9.1 | 5k-8k   3.1 | >8k   1.3
+  pico tonal 150-4000 Hz:    840 Hz ( 12.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_crawl_v3.wav
+  papel step | variacao 3 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.72 dBFS | crista 13.28 dB | DC +0.00000
+  envelope: pico em 0.230 s | ataque 10-90% 0.230 s | queda ate -20 dB 0.130 s | ativo (>-40 dB) 0.400 s | cauda 50 ms  -26.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -6.2  -10.2   -6.2   -2.8   -1.6   -0.5   -2.8   -6.5  -14.4  -29.1
+  espectro: centroide   1550 Hz | rolloff85   2476 Hz | inclinacao  -2.07 dB/oitava | planura  -3.28 dB
+  energia por faixa (%): <300   6.1 | 300-1k  43.1 | 1k-2.5k  36.1 | 2.5k-5k   9.9 | 5k-8k   3.3 | >8k   1.5
+  pico tonal 150-4000 Hz:    926 Hz (  9.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_crouch_v1.wav
+  papel step | variacao 1 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.52 dBFS | crista 14.48 dB | DC +0.00003
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.270 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -35.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.7   -8.7  -12.2  -12.4  -11.1  -10.7  -12.8  -15.7  -22.9  -38.0
+  espectro: centroide    863 Hz | rolloff85   1572 Hz | inclinacao  -3.15 dB/oitava | planura  -3.90 dB
+  energia por faixa (%): <300  51.7 | 300-1k  22.8 | 1k-2.5k  17.4 | 2.5k-5k   5.7 | 5k-8k   1.6 | >8k   0.7
+  pico tonal 150-4000 Hz:    258 Hz ( 13.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_crouch_v2.wav
+  papel step | variacao 2 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.27 dBFS | crista 14.73 dB | DC +0.00015
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.270 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -36.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.4   -8.8  -12.5  -13.8  -11.4  -12.6  -14.4  -17.9  -25.7  -39.4
+  espectro: centroide    749 Hz | rolloff85   1400 Hz | inclinacao  -3.33 dB/oitava | planura  -4.90 dB
+  energia por faixa (%): <300  57.5 | 300-1k  20.7 | 1k-2.5k  15.4 | 2.5k-5k   4.7 | 5k-8k   1.3 | >8k   0.5
+  pico tonal 150-4000 Hz:    280 Hz ( 14.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_crouch_v3.wav
+  papel step | variacao 3 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.56 dBFS | crista 14.44 dB | DC -0.00006
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.260 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -33.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.2   -8.0  -11.8  -10.8  -11.0  -10.9  -12.9  -16.7  -23.0  -37.1
+  espectro: centroide    907 Hz | rolloff85   1723 Hz | inclinacao  -2.80 dB/oitava | planura  -4.47 dB
+  energia por faixa (%): <300  53.4 | 300-1k  17.3 | 1k-2.5k  20.5 | 2.5k-5k   6.3 | 5k-8k   1.8 | >8k   0.7
+  pico tonal 150-4000 Hz:    258 Hz ( 13.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_slow_v1.wav
+  papel step | variacao 1 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.23 dBFS | crista 14.77 dB | DC -0.00014
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.140 s | ativo (>-40 dB) 0.360 s | cauda 50 ms  -27.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.3   -8.4  -13.8  -18.0  -21.4  -24.1  -11.4  -15.9  -21.2  -28.0
+  espectro: centroide    455 Hz | rolloff85    754 Hz | inclinacao  -2.86 dB/oitava | planura  -8.00 dB
+  energia por faixa (%): <300  82.3 | 300-1k   5.0 | 1k-2.5k   8.1 | 2.5k-5k   4.0 | 5k-8k   0.4 | >8k   0.1
+  pico tonal 150-4000 Hz:    258 Hz ( 20.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_slow_v2.wav
+  papel step | variacao 2 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.58 dBFS | crista 14.42 dB | DC +0.00024
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.170 s | ativo (>-40 dB) 0.360 s | cauda 50 ms  -23.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.5   -7.6  -13.2  -17.6  -19.6  -20.7   -9.2  -12.5  -18.2  -23.5
+  espectro: centroide    541 Hz | rolloff85   1141 Hz | inclinacao  -2.91 dB/oitava | planura  -6.88 dB
+  energia por faixa (%): <300  78.9 | 300-1k   4.9 | 1k-2.5k   9.0 | 2.5k-5k   6.5 | 5k-8k   0.5 | >8k   0.1
+  pico tonal 150-4000 Hz:    258 Hz ( 17.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_slow_v3.wav
+  papel step | variacao 3 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.39 dBFS | crista 14.61 dB | DC +0.00029
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.160 s | ativo (>-40 dB) 0.360 s | cauda 50 ms  -23.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.5   -7.8  -13.0  -17.7  -20.4  -22.2  -11.8  -13.2  -18.9  -23.5
+  espectro: centroide    422 Hz | rolloff85    646 Hz | inclinacao  -3.24 dB/oitava | planura  -7.68 dB
+  energia por faixa (%): <300  83.4 | 300-1k   4.8 | 1k-2.5k   8.0 | 2.5k-5k   3.1 | 5k-8k   0.6 | >8k   0.1
+  pico tonal 150-4000 Hz:    258 Hz ( 20.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_walk_v1.wav
+  papel step | variacao 1 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.20 dBFS | crista 14.80 dB | DC -0.00013
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.120 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -25.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.3   -8.5  -13.1  -18.2  -23.4  -29.0   -9.2  -15.9  -20.6  -26.5
+  espectro: centroide    406 Hz | rolloff85    280 Hz | inclinacao  -3.08 dB/oitava | planura  -9.69 dB
+  energia por faixa (%): <300  85.3 | 300-1k   3.1 | 1k-2.5k   8.1 | 2.5k-5k   3.1 | 5k-8k   0.3 | >8k   0.1
+  pico tonal 150-4000 Hz:    258 Hz ( 20.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_walk_v2.wav
+  papel step | variacao 2 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.28 dBFS | crista 14.72 dB | DC -0.00003
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.120 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -22.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.0   -8.5  -13.5  -18.0  -24.0  -26.1   -8.0  -14.5  -18.6  -23.7
+  espectro: centroide    461 Hz | rolloff85    668 Hz | inclinacao  -3.17 dB/oitava | planura  -8.94 dB
+  energia por faixa (%): <300  82.1 | 300-1k   5.4 | 1k-2.5k   7.5 | 2.5k-5k   4.5 | 5k-8k   0.4 | >8k   0.1
+  pico tonal 150-4000 Hz:    280 Hz ( 17.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_walk_v3.wav
+  papel step | variacao 3 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.51 dBFS | crista 14.49 dB | DC +0.00001
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.130 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -22.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.3   -7.7  -12.1  -16.3  -20.9  -26.1   -7.5  -13.8  -17.8  -23.3
+  espectro: centroide    381 Hz | rolloff85    280 Hz | inclinacao  -3.14 dB/oitava | planura  -9.09 dB
+  energia por faixa (%): <300  85.8 | 300-1k   2.9 | 1k-2.5k   8.7 | 2.5k-5k   2.0 | 5k-8k   0.5 | >8k   0.1
+  pico tonal 150-4000 Hz:    258 Hz ( 22.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_run_v1.wav
+  papel step | variacao 1 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.96 dBFS | crista 14.04 dB | DC +0.00004
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.230 s | ativo (>-40 dB) 0.260 s | cauda 50 ms  -21.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -0.6   -5.0   -8.4  -11.8   -7.4   -8.4  -12.0  -15.9  -18.7  -22.5
+  espectro: centroide    346 Hz | rolloff85    280 Hz | inclinacao  -3.69 dB/oitava | planura  -9.85 dB
+  energia por faixa (%): <300  87.5 | 300-1k   3.2 | 1k-2.5k   6.3 | 2.5k-5k   2.6 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    258 Hz ( 22.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_run_v2.wav
+  papel step | variacao 2 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.70 dBFS | crista 14.30 dB | DC +0.00006
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.210 s | ativo (>-40 dB) 0.260 s | cauda 50 ms  -24.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.4   -6.5  -10.6  -14.8  -10.4   -9.9  -13.7  -17.9  -21.1  -25.9
+  espectro: centroide    368 Hz | rolloff85    280 Hz | inclinacao  -2.99 dB/oitava | planura -10.62 dB
+  energia por faixa (%): <300  88.0 | 300-1k   2.8 | 1k-2.5k   5.7 | 2.5k-5k   3.0 | 5k-8k   0.5 | >8k   0.1
+  pico tonal 150-4000 Hz:    258 Hz ( 22.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_wood_run_v3.wav
+  papel step | variacao 3 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.86 dBFS | crista 14.14 dB | DC -0.00002
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.210 s | ativo (>-40 dB) 0.260 s | cauda 50 ms  -25.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.1   -5.2   -9.1  -12.8  -10.4   -8.8  -11.7  -15.8  -20.9  -28.5
+  espectro: centroide    281 Hz | rolloff85    237 Hz | inclinacao  -3.54 dB/oitava | planura -10.23 dB
+  energia por faixa (%): <300  92.5 | 300-1k   2.1 | 1k-2.5k   2.9 | 2.5k-5k   2.2 | 5k-8k   0.2 | >8k   0.1
+  pico tonal 150-4000 Hz:    258 Hz ( 23.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_crawl_v1.wav
+  papel step | variacao 1 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.47 dBFS | crista 13.53 dB | DC -0.00000
+  envelope: pico em 0.160 s | ataque 10-90% 0.160 s | queda ate -20 dB 0.200 s | ativo (>-40 dB) 0.390 s | cauda 50 ms  -27.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -12.8  -14.7   -7.6   -3.2   -0.8   -1.2   -3.0   -7.1  -14.1  -30.9
+  espectro: centroide   1571 Hz | rolloff85   2476 Hz | inclinacao  -1.87 dB/oitava | planura  -3.64 dB
+  energia por faixa (%): <300   1.5 | 300-1k  44.9 | 1k-2.5k  38.9 | 2.5k-5k   9.9 | 5k-8k   3.3 | >8k   1.5
+  pico tonal 150-4000 Hz:    818 Hz ( 10.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_crawl_v2.wav
+  papel step | variacao 2 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.33 dBFS | crista 13.67 dB | DC +0.00001
+  envelope: pico em 0.210 s | ataque 10-90% 0.210 s | queda ate -20 dB 0.140 s | ativo (>-40 dB) 0.390 s | cauda 50 ms  -27.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -15.7  -15.0   -7.7   -4.2   -1.4   -1.3   -3.3   -7.7  -15.5  -30.3
+  espectro: centroide   1567 Hz | rolloff85   2433 Hz | inclinacao  -2.04 dB/oitava | planura  -3.51 dB
+  energia por faixa (%): <300   1.9 | 300-1k  45.5 | 1k-2.5k  38.3 | 2.5k-5k   9.7 | 5k-8k   3.2 | >8k   1.4
+  pico tonal 150-4000 Hz:    624 Hz ( 11.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_crawl_v3.wav
+  papel step | variacao 3 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.75 dBFS | crista 13.25 dB | DC -0.00000
+  envelope: pico em 0.200 s | ataque 10-90% 0.170 s | queda ate -20 dB 0.160 s | ativo (>-40 dB) 0.400 s | cauda 50 ms  -26.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -14.1  -13.6   -7.1   -2.9   -1.3   -1.0   -2.4   -6.5  -14.7  -29.2
+  espectro: centroide   1917 Hz | rolloff85   3079 Hz | inclinacao  -0.93 dB/oitava | planura  -2.97 dB
+  energia por faixa (%): <300   1.1 | 300-1k  29.0 | 1k-2.5k  49.7 | 2.5k-5k  13.8 | 5k-8k   4.5 | >8k   1.9
+  pico tonal 150-4000 Hz:   1249 Hz (  9.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_crouch_v1.wav
+  papel step | variacao 1 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.57 dBFS | crista 13.43 dB | DC +0.00005
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.290 s | ativo (>-40 dB) 0.340 s | cauda 50 ms  -28.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.3  -14.6  -12.7   -7.6   -6.1   -6.2   -8.0  -11.1  -18.6  -31.5
+  espectro: centroide   1587 Hz | rolloff85   2562 Hz | inclinacao  -1.83 dB/oitava | planura  -2.80 dB
+  energia por faixa (%): <300  12.9 | 300-1k  29.0 | 1k-2.5k  42.6 | 2.5k-5k  10.6 | 5k-8k   3.5 | >8k   1.4
+  pico tonal 150-4000 Hz:   1292 Hz ( 10.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_crouch_v2.wav
+  papel step | variacao 2 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.71 dBFS | crista 14.29 dB | DC -0.00022
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.290 s | ativo (>-40 dB) 0.330 s | cauda 50 ms  -28.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.6  -13.1  -11.8   -7.9   -4.8   -5.1   -7.7  -11.5  -17.8  -32.2
+  espectro: centroide   1405 Hz | rolloff85   2196 Hz | inclinacao  -2.10 dB/oitava | planura  -3.38 dB
+  energia por faixa (%): <300  13.1 | 300-1k  37.2 | 1k-2.5k  36.9 | 2.5k-5k   8.8 | 5k-8k   2.8 | >8k   1.2
+  pico tonal 150-4000 Hz:    926 Hz ( 10.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_crouch_v3.wav
+  papel step | variacao 3 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.08 dBFS | crista 13.93 dB | DC -0.00004
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.300 s | ativo (>-40 dB) 0.330 s | cauda 50 ms  -27.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.7  -14.4  -12.3   -6.8   -5.5   -5.5   -6.7  -10.5  -17.3  -32.4
+  espectro: centroide   1712 Hz | rolloff85   2713 Hz | inclinacao  -1.06 dB/oitava | planura  -3.11 dB
+  energia por faixa (%): <300   8.8 | 300-1k  27.6 | 1k-2.5k  46.5 | 2.5k-5k  12.2 | 5k-8k   3.4 | >8k   1.5
+  pico tonal 150-4000 Hz:   1206 Hz (  9.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_slow_v1.wav
+  papel step | variacao 1 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.77 dBFS | crista 15.23 dB | DC -0.00025
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.090 s | ativo (>-40 dB) 0.340 s | cauda 50 ms  -37.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.2  -13.3  -19.5  -18.3  -16.8  -16.4  -10.9  -16.2  -25.5  -39.4
+  espectro: centroide    667 Hz | rolloff85   1292 Hz | inclinacao  -4.04 dB/oitava | planura  -3.80 dB
+  energia por faixa (%): <300  58.1 | 300-1k  21.5 | 1k-2.5k  15.5 | 2.5k-5k   3.5 | 5k-8k   1.0 | >8k   0.5
+  pico tonal 150-4000 Hz:    517 Hz ( 10.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_slow_v2.wav
+  papel step | variacao 2 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.09 dBFS | crista 15.91 dB | DC -0.00045
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.070 s | ativo (>-40 dB) 0.340 s | cauda 50 ms  -36.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.6  -14.6  -20.9  -18.0  -16.4  -15.8  -10.5  -15.7  -25.3  -39.4
+  espectro: centroide    727 Hz | rolloff85   1314 Hz | inclinacao  -3.66 dB/oitava | planura  -3.81 dB
+  energia por faixa (%): <300  51.3 | 300-1k  23.7 | 1k-2.5k  19.8 | 2.5k-5k   3.7 | 5k-8k   1.1 | >8k   0.4
+  pico tonal 150-4000 Hz:    624 Hz ( 12.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_slow_v3.wav
+  papel step | variacao 3 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.71 dBFS | crista 15.29 dB | DC -0.00009
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.060 s | ativo (>-40 dB) 0.330 s | cauda 50 ms  -39.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.3  -16.5  -23.1  -20.6  -18.9  -18.7  -13.6  -20.1  -28.5  -43.7
+  espectro: centroide    578 Hz | rolloff85   1120 Hz | inclinacao  -3.79 dB/oitava | planura  -3.79 dB
+  energia por faixa (%): <300  61.7 | 300-1k  20.1 | 1k-2.5k  14.3 | 2.5k-5k   2.8 | 5k-8k   0.8 | >8k   0.3
+  pico tonal 150-4000 Hz:    409 Hz ( 10.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_walk_v1.wav
+  papel step | variacao 1 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.63 dBFS | crista 15.37 dB | DC +0.00007
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.060 s | ativo (>-40 dB) 0.300 s | cauda 50 ms  -37.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.4  -14.1  -23.7  -33.5  -48.2  -20.3   -8.8  -20.8  -29.4  -39.6
+  espectro: centroide    301 Hz | rolloff85    560 Hz | inclinacao  -7.15 dB/oitava | planura  -8.66 dB
+  energia por faixa (%): <300  69.4 | 300-1k  24.5 | 1k-2.5k   5.5 | 2.5k-5k   0.5 | 5k-8k   0.1 | >8k   0.0
+  pico tonal 150-4000 Hz:    538 Hz ( 20.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_walk_v2.wav
+  papel step | variacao 2 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.63 dBFS | crista 15.37 dB | DC -0.00042
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.070 s | ativo (>-40 dB) 0.300 s | cauda 50 ms  -36.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.1  -13.6  -22.7  -32.2  -45.5  -79.5   -8.0  -19.6  -28.7  -38.7
+  espectro: centroide    307 Hz | rolloff85    711 Hz | inclinacao  -7.18 dB/oitava | planura  -8.67 dB
+  energia por faixa (%): <300  70.5 | 300-1k  23.6 | 1k-2.5k   5.6 | 2.5k-5k   0.3 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    711 Hz ( 16.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_walk_v3.wav
+  papel step | variacao 3 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.34 dBFS | crista 15.66 dB | DC -0.00085
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.070 s | ativo (>-40 dB) 0.280 s | cauda 50 ms  -42.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.3  -13.7  -23.2  -32.8  -47.6  -85.5  -10.3  -23.1  -32.8  -44.7
+  espectro: centroide    277 Hz | rolloff85    452 Hz | inclinacao  -7.40 dB/oitava | planura  -9.01 dB
+  energia por faixa (%): <300  76.2 | 300-1k  17.1 | 1k-2.5k   6.3 | 2.5k-5k   0.4 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    431 Hz ( 18.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_run_v1.wav
+  papel step | variacao 1 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.91 dBFS | crista 14.09 dB | DC -0.00008
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.070 s | ativo (>-40 dB) 0.260 s | cauda 50 ms  -32.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.1   -9.0  -17.6  -24.8  -10.8   -8.4  -15.6  -23.9  -31.0  -32.3
+  espectro: centroide    288 Hz | rolloff85    624 Hz | inclinacao  -6.24 dB/oitava | planura  -7.28 dB
+  energia por faixa (%): <300  77.9 | 300-1k  15.2 | 1k-2.5k   6.2 | 2.5k-5k   0.7 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    474 Hz ( 14.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_run_v2.wav
+  papel step | variacao 2 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.58 dBFS | crista 14.42 dB | DC +0.00006
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.070 s | ativo (>-40 dB) 0.240 s | cauda 50 ms  -36.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.3   -8.3  -15.8  -22.8  -12.3   -8.8  -17.0  -23.9  -31.7  -40.6
+  espectro: centroide    234 Hz | rolloff85    431 Hz | inclinacao  -7.03 dB/oitava | planura  -8.19 dB
+  energia por faixa (%): <300  81.2 | 300-1k  15.6 | 1k-2.5k   2.7 | 2.5k-5k   0.5 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    754 Hz ( 18.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_carpet_run_v3.wav
+  papel step | variacao 3 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.71 dBFS | crista 15.29 dB | DC -0.00049
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.060 s | ativo (>-40 dB) 0.220 s | cauda 50 ms  -43.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.8  -10.8  -19.2  -26.9  -13.7  -11.7  -20.4  -29.0  -37.2  -47.8
+  espectro: centroide    239 Hz | rolloff85    452 Hz | inclinacao  -6.74 dB/oitava | planura  -7.66 dB
+  energia por faixa (%): <300  82.8 | 300-1k  12.0 | 1k-2.5k   4.7 | 2.5k-5k   0.5 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    754 Hz ( 16.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_crawl_v1.wav
+  papel step | variacao 1 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.71 dBFS | crista 13.29 dB | DC +0.00001
+  envelope: pico em 0.190 s | ataque 10-90% 0.160 s | queda ate -20 dB 0.170 s | ativo (>-40 dB) 0.390 s | cauda 50 ms  -26.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -12.2  -15.3   -7.8   -2.7   -0.6   -1.6   -3.2   -6.7  -14.7  -30.9
+  espectro: centroide   1860 Hz | rolloff85   2929 Hz | inclinacao  -0.80 dB/oitava | planura  -3.39 dB
+  energia por faixa (%): <300   0.6 | 300-1k  29.8 | 1k-2.5k  50.9 | 2.5k-5k  12.8 | 5k-8k   4.1 | >8k   1.8
+  pico tonal 150-4000 Hz:   1184 Hz (  8.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_crawl_v2.wav
+  papel step | variacao 2 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.14 dBFS | crista 13.86 dB | DC +0.00004
+  envelope: pico em 0.200 s | ataque 10-90% 0.160 s | queda ate -20 dB 0.150 s | ativo (>-40 dB) 0.400 s | cauda 50 ms  -27.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -17.4  -15.1   -7.6   -3.6   -1.6   -2.0   -4.0   -7.9  -16.7  -30.2
+  espectro: centroide   1687 Hz | rolloff85   2649 Hz | inclinacao  -1.74 dB/oitava | planura  -3.17 dB
+  energia por faixa (%): <300   1.2 | 300-1k  40.0 | 1k-2.5k  42.8 | 2.5k-5k  10.8 | 5k-8k   3.5 | >8k   1.6
+  pico tonal 150-4000 Hz:   1012 Hz ( 10.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_crawl_v3.wav
+  papel step | variacao 3 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.94 dBFS | crista 13.06 dB | DC -0.00000
+  envelope: pico em 0.200 s | ataque 10-90% 0.170 s | queda ate -20 dB 0.160 s | ativo (>-40 dB) 0.390 s | cauda 50 ms  -27.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -12.2  -14.1   -6.2   -2.4   -0.8   -1.4   -2.6   -6.6  -13.9  -31.8
+  espectro: centroide   1652 Hz | rolloff85   2627 Hz | inclinacao  -1.75 dB/oitava | planura  -3.35 dB
+  energia por faixa (%): <300   1.1 | 300-1k  42.5 | 1k-2.5k  40.3 | 2.5k-5k  11.0 | 5k-8k   3.6 | >8k   1.5
+  pico tonal 150-4000 Hz:   1098 Hz (  9.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_crouch_v1.wav
+  papel step | variacao 1 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.92 dBFS | crista 14.08 dB | DC -0.00001
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.290 s | ativo (>-40 dB) 0.330 s | cauda 50 ms  -27.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -5.1  -18.4  -11.6   -7.7   -4.9   -4.7   -5.9   -9.4  -17.7  -31.1
+  espectro: centroide   1778 Hz | rolloff85   2993 Hz | inclinacao  -1.46 dB/oitava | planura  -3.08 dB
+  energia por faixa (%): <300   1.0 | 300-1k  37.0 | 1k-2.5k  42.8 | 2.5k-5k  13.4 | 5k-8k   4.2 | >8k   1.7
+  pico tonal 150-4000 Hz:    711 Hz ( 10.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_crouch_v2.wav
+  papel step | variacao 2 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.21 dBFS | crista 13.79 dB | DC +0.00001
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.300 s | ativo (>-40 dB) 0.340 s | cauda 50 ms  -25.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.7  -17.3   -9.6   -5.6   -3.4   -3.8   -4.6   -9.3  -15.3  -29.4
+  espectro: centroide   1736 Hz | rolloff85   2670 Hz | inclinacao  -1.40 dB/oitava | planura  -3.32 dB
+  energia por faixa (%): <300   1.1 | 300-1k  38.4 | 1k-2.5k  43.9 | 2.5k-5k  10.9 | 5k-8k   3.9 | >8k   1.8
+  pico tonal 150-4000 Hz:    775 Hz ( 10.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_crouch_v3.wav
+  papel step | variacao 3 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.98 dBFS | crista 14.02 dB | DC -0.00002
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.300 s | ativo (>-40 dB) 0.340 s | cauda 50 ms  -22.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.7  -16.5   -9.9   -5.0   -3.6   -1.9   -5.0   -7.8  -15.5  -24.4
+  espectro: centroide   1795 Hz | rolloff85   2907 Hz | inclinacao  -1.52 dB/oitava | planura  -2.99 dB
+  energia por faixa (%): <300   1.0 | 300-1k  36.0 | 1k-2.5k  44.0 | 2.5k-5k  13.0 | 5k-8k   4.1 | >8k   1.9
+  pico tonal 150-4000 Hz:   1120 Hz (  9.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_slow_v1.wav
+  papel step | variacao 1 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.88 dBFS | crista 16.12 dB | DC +0.00024
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.040 s | ativo (>-40 dB) 0.330 s | cauda 50 ms  -39.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.3  -23.1  -23.1  -19.4  -16.7  -17.0  -12.2  -21.1  -28.3  -43.1
+  espectro: centroide   2709 Hz | rolloff85   4802 Hz | inclinacao  -0.20 dB/oitava | planura  -2.17 dB
+  energia por faixa (%): <300   0.6 | 300-1k  24.7 | 1k-2.5k  29.7 | 2.5k-5k  31.7 | 5k-8k  11.3 | >8k   2.0
+  pico tonal 150-4000 Hz:    366 Hz ( 10.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_slow_v2.wav
+  papel step | variacao 2 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.35 dBFS | crista 16.65 dB | DC +0.00012
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.030 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -42.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.9  -25.5  -25.0  -20.5  -18.1  -18.7  -12.6  -22.4  -30.3  -46.7
+  espectro: centroide   2604 Hz | rolloff85   4587 Hz | inclinacao  -0.10 dB/oitava | planura  -2.30 dB
+  energia por faixa (%): <300   0.5 | 300-1k  22.8 | 1k-2.5k  36.1 | 2.5k-5k  28.9 | 5k-8k   9.4 | >8k   2.3
+  pico tonal 150-4000 Hz:    366 Hz ( 10.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_slow_v3.wav
+  papel step | variacao 3 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.21 dBFS | crista 15.79 dB | DC +0.00019
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.030 s | ativo (>-40 dB) 0.360 s | cauda 50 ms  -35.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.7  -24.3  -21.2  -17.6  -15.7  -14.9   -9.0  -19.6  -27.1  -35.8
+  espectro: centroide   2807 Hz | rolloff85   4759 Hz | inclinacao   0.33 dB/oitava | planura  -2.35 dB
+  energia por faixa (%): <300   0.4 | 300-1k  17.9 | 1k-2.5k  33.6 | 2.5k-5k  35.3 | 5k-8k  10.8 | >8k   2.0
+  pico tonal 150-4000 Hz:    345 Hz (  8.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_walk_v1.wav
+  papel step | variacao 1 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.43 dBFS | crista 16.57 dB | DC +0.00002
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.030 s | ativo (>-40 dB) 0.250 s | cauda 50 ms  -57.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.9  -24.2  -37.6  -51.9 -228.2 -228.2  -10.5  -32.6  -45.4  -61.2
+  espectro: centroide   2971 Hz | rolloff85   4845 Hz | inclinacao   1.62 dB/oitava | planura  -4.78 dB
+  energia por faixa (%): <300   0.2 | 300-1k  12.4 | 1k-2.5k  36.0 | 2.5k-5k  38.2 | 5k-8k  11.1 | >8k   2.1
+  pico tonal 150-4000 Hz:    366 Hz ( 13.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_walk_v2.wav
+  papel step | variacao 2 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.19 dBFS | crista 16.81 dB | DC -0.00020
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.030 s | ativo (>-40 dB) 0.240 s | cauda 50 ms  -63.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.2  -24.2  -36.5  -48.2  -93.1 -228.7  -13.1  -36.1  -49.7  -68.9
+  espectro: centroide   2916 Hz | rolloff85   4802 Hz | inclinacao   1.65 dB/oitava | planura  -5.87 dB
+  energia por faixa (%): <300   0.2 | 300-1k  13.0 | 1k-2.5k  35.8 | 2.5k-5k  37.4 | 5k-8k  11.6 | >8k   2.1
+  pico tonal 150-4000 Hz:    345 Hz ( 13.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_walk_v3.wav
+  papel step | variacao 3 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.56 dBFS | crista 16.44 dB | DC -0.00006
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.030 s | ativo (>-40 dB) 0.250 s | cauda 50 ms  -58.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.5  -24.8  -38.3  -52.4 -228.5 -228.5  -11.1  -33.4  -46.1  -62.5
+  espectro: centroide   3098 Hz | rolloff85   4780 Hz | inclinacao   1.40 dB/oitava | planura  -4.86 dB
+  energia por faixa (%): <300   0.2 | 300-1k  12.1 | 1k-2.5k  24.8 | 2.5k-5k  49.5 | 5k-8k  11.1 | >8k   2.3
+  pico tonal 150-4000 Hz:    366 Hz ( 12.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_run_v1.wav
+  papel step | variacao 1 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.14 dBFS | crista 15.86 dB | DC -0.00008
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.040 s | ativo (>-40 dB) 0.190 s | cauda 50 ms  -60.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.6  -18.0  -28.3  -37.4  -11.4  -16.0  -28.4  -39.7  -49.8 -227.2
+  espectro: centroide   2497 Hz | rolloff85   4673 Hz | inclinacao   0.63 dB/oitava | planura  -5.69 dB
+  energia por faixa (%): <300   0.3 | 300-1k  19.9 | 1k-2.5k  34.7 | 2.5k-5k  35.5 | 5k-8k   7.8 | >8k   1.8
+  pico tonal 150-4000 Hz:    366 Hz ( 17.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_run_v2.wav
+  papel step | variacao 2 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -7.72 dBFS | crista 16.28 dB | DC +0.00003
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.030 s | ativo (>-40 dB) 0.190 s | cauda 50 ms  -62.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.9  -19.4  -30.2  -39.3  -13.4  -17.7  -30.6  -41.5  -51.7  -92.3
+  espectro: centroide   2862 Hz | rolloff85   5039 Hz | inclinacao   1.11 dB/oitava | planura  -5.56 dB
+  energia por faixa (%): <300   0.2 | 300-1k  18.9 | 1k-2.5k  35.0 | 2.5k-5k  30.6 | 5k-8k  12.6 | >8k   2.7
+  pico tonal 150-4000 Hz:    345 Hz ( 15.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_tile_run_v3.wav
+  papel step | variacao 3 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.07 dBFS | crista 15.93 dB | DC -0.00032
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.030 s | ativo (>-40 dB) 0.190 s | cauda 50 ms  -60.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.2  -20.0  -31.1  -40.8   -9.0  -19.1  -30.4  -40.8  -50.4  -90.2
+  espectro: centroide   2943 Hz | rolloff85   4673 Hz | inclinacao   0.77 dB/oitava | planura  -4.99 dB
+  energia por faixa (%): <300   0.4 | 300-1k  17.8 | 1k-2.5k  26.9 | 2.5k-5k  43.6 | 5k-8k   8.7 | >8k   2.6
+  pico tonal 150-4000 Hz:    366 Hz ( 13.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_crawl_v1.wav
+  papel step | variacao 1 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.75 dBFS | crista 13.25 dB | DC -0.00000
+  envelope: pico em 0.220 s | ataque 10-90% 0.220 s | queda ate -20 dB 0.140 s | ativo (>-40 dB) 0.390 s | cauda 50 ms  -25.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -11.1  -14.5   -6.2   -3.2   -1.0   -1.2   -2.7   -6.7  -14.4  -30.0
+  espectro: centroide   1714 Hz | rolloff85   2735 Hz | inclinacao  -1.80 dB/oitava | planura  -3.05 dB
+  energia por faixa (%): <300   1.3 | 300-1k  40.8 | 1k-2.5k  40.1 | 2.5k-5k  12.3 | 5k-8k   3.8 | >8k   1.7
+  pico tonal 150-4000 Hz:    711 Hz (  9.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_crawl_v2.wav
+  papel step | variacao 2 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.41 dBFS | crista 13.59 dB | DC +0.00003
+  envelope: pico em 0.220 s | ataque 10-90% 0.220 s | queda ate -20 dB 0.130 s | ativo (>-40 dB) 0.390 s | cauda 50 ms  -27.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -9.5  -13.7   -6.7   -2.5   -1.2   -0.7   -2.6   -6.5  -14.6  -30.7
+  espectro: centroide   1592 Hz | rolloff85   2455 Hz | inclinacao  -2.14 dB/oitava | planura  -3.26 dB
+  energia por faixa (%): <300   1.6 | 300-1k  43.5 | 1k-2.5k  40.5 | 2.5k-5k   9.7 | 5k-8k   3.3 | >8k   1.4
+  pico tonal 150-4000 Hz:    732 Hz ( 12.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_crawl_v3.wav
+  papel step | variacao 3 | duracao 0.400 s (17640 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.55 dBFS | crista 13.45 dB | DC -0.00002
+  envelope: pico em 0.180 s | ataque 10-90% 0.180 s | queda ate -20 dB 0.180 s | ativo (>-40 dB) 0.390 s | cauda 50 ms  -26.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -10.2  -13.0   -6.3   -2.9   -1.0   -1.0   -2.0   -5.7  -14.2  -29.6
+  espectro: centroide   1985 Hz | rolloff85   3273 Hz | inclinacao  -1.10 dB/oitava | planura  -2.60 dB
+  energia por faixa (%): <300   1.0 | 300-1k  29.3 | 1k-2.5k  47.1 | 2.5k-5k  15.5 | 5k-8k   4.9 | >8k   2.1
+  pico tonal 150-4000 Hz:   1206 Hz (  8.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_crouch_v1.wav
+  papel step | variacao 1 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.48 dBFS | crista 14.52 dB | DC -0.00000
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.290 s | ativo (>-40 dB) 0.330 s | cauda 50 ms  -30.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.8  -17.5  -13.4   -9.5   -8.4   -5.9   -8.0  -12.2  -19.5  -33.5
+  espectro: centroide   1619 Hz | rolloff85   2713 Hz | inclinacao  -2.64 dB/oitava | planura  -3.12 dB
+  energia por faixa (%): <300   5.7 | 300-1k  42.8 | 1k-2.5k  34.7 | 2.5k-5k  11.8 | 5k-8k   3.6 | >8k   1.4
+  pico tonal 150-4000 Hz:    624 Hz ( 10.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_crouch_v2.wav
+  papel step | variacao 2 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.31 dBFS | crista 14.69 dB | DC +0.00006
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.280 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -32.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.5  -17.2  -15.7  -11.2   -9.0   -9.1  -10.1  -13.7  -21.9  -35.5
+  espectro: centroide   1847 Hz | rolloff85   3122 Hz | inclinacao  -2.07 dB/oitava | planura  -3.29 dB
+  energia por faixa (%): <300   8.0 | 300-1k  29.9 | 1k-2.5k  41.4 | 2.5k-5k  14.6 | 5k-8k   4.4 | >8k   1.7
+  pico tonal 150-4000 Hz:    172 Hz ( 11.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_crouch_v3.wav
+  papel step | variacao 3 | duracao 0.340 s (14994 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.81 dBFS | crista 14.19 dB | DC +0.00003
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.290 s | ativo (>-40 dB) 0.340 s | cauda 50 ms  -26.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.1  -17.5  -13.5   -9.3   -6.9   -5.6   -8.0  -11.6  -19.0  -27.8
+  espectro: centroide   1717 Hz | rolloff85   2842 Hz | inclinacao  -2.35 dB/oitava | planura  -2.96 dB
+  energia por faixa (%): <300   4.9 | 300-1k  38.2 | 1k-2.5k  38.9 | 2.5k-5k  12.6 | 5k-8k   3.9 | >8k   1.6
+  pico tonal 150-4000 Hz:    754 Hz (  9.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_slow_v1.wav
+  papel step | variacao 1 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.50 dBFS | crista 15.50 dB | DC +0.00001
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.050 s | ativo (>-40 dB) 0.360 s | cauda 50 ms  -28.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.8  -19.2  -24.8  -20.9  -19.1  -18.5   -9.1  -18.7  -29.3  -27.3
+  espectro: centroide   2000 Hz | rolloff85   3833 Hz | inclinacao  -1.97 dB/oitava | planura  -5.52 dB
+  energia por faixa (%): <300  24.9 | 300-1k  12.4 | 1k-2.5k  29.7 | 2.5k-5k  26.9 | 5k-8k   4.9 | >8k   1.2
+  pico tonal 150-4000 Hz:    172 Hz ( 16.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_slow_v2.wav
+  papel step | variacao 2 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.37 dBFS | crista 15.63 dB | DC +0.00014
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.050 s | ativo (>-40 dB) 0.360 s | cauda 50 ms  -30.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.6  -19.9  -26.4  -22.4  -19.2  -19.6  -11.0  -20.0  -29.7  -29.1
+  espectro: centroide   2005 Hz | rolloff85   3962 Hz | inclinacao  -2.49 dB/oitava | planura  -5.13 dB
+  energia por faixa (%): <300  25.8 | 300-1k  16.5 | 1k-2.5k  22.4 | 2.5k-5k  28.2 | 5k-8k   6.0 | >8k   1.2
+  pico tonal 150-4000 Hz:    172 Hz ( 16.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_slow_v3.wav
+  papel step | variacao 3 | duracao 0.360 s (15876 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.37 dBFS | crista 15.63 dB | DC +0.00019
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.050 s | ativo (>-40 dB) 0.360 s | cauda 50 ms  -32.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.3  -18.2  -25.0  -21.2  -18.8  -18.0  -11.8  -19.4  -30.2  -31.4
+  espectro: centroide   1806 Hz | rolloff85   3596 Hz | inclinacao  -2.54 dB/oitava | planura  -5.41 dB
+  energia por faixa (%): <300  28.6 | 300-1k  16.1 | 1k-2.5k  28.0 | 2.5k-5k  20.4 | 5k-8k   5.4 | >8k   1.4
+  pico tonal 150-4000 Hz:    172 Hz ( 17.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_walk_v1.wav
+  papel step | variacao 1 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.41 dBFS | crista 15.59 dB | DC +0.00004
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.050 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -38.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.6  -19.0  -32.9  -55.7 -227.9  -21.1  -10.3  -26.5  -39.5  -37.3
+  espectro: centroide   1804 Hz | rolloff85   3381 Hz | inclinacao  -1.89 dB/oitava | planura  -7.13 dB
+  energia por faixa (%): <300  31.7 | 300-1k   7.5 | 1k-2.5k  35.1 | 2.5k-5k  19.7 | 5k-8k   4.5 | >8k   1.5
+  pico tonal 150-4000 Hz:    172 Hz ( 18.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_walk_v2.wav
+  papel step | variacao 2 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.12 dBFS | crista 15.88 dB | DC +0.00014
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.040 s | ativo (>-40 dB) 0.260 s | cauda 50 ms  -59.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.0  -19.5  -34.1  -60.0 -228.3  -19.3  -12.2  -29.0  -42.7  -67.7
+  espectro: centroide   1832 Hz | rolloff85   3531 Hz | inclinacao  -2.39 dB/oitava | planura  -5.66 dB
+  energia por faixa (%): <300  29.2 | 300-1k  13.4 | 1k-2.5k  30.2 | 2.5k-5k  20.8 | 5k-8k   5.1 | >8k   1.4
+  pico tonal 150-4000 Hz:    172 Hz ( 17.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_walk_v3.wav
+  papel step | variacao 3 | duracao 0.320 s (14112 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.15 dBFS | crista 15.85 dB | DC -0.00001
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.050 s | ativo (>-40 dB) 0.320 s | cauda 50 ms  -45.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.5  -18.8  -32.8  -62.6 -227.6 -227.6   -8.2  -25.0  -38.6  -45.0
+  espectro: centroide   2001 Hz | rolloff85   3811 Hz | inclinacao  -1.98 dB/oitava | planura  -6.31 dB
+  energia por faixa (%): <300  30.8 | 300-1k   8.4 | 1k-2.5k  26.7 | 2.5k-5k  27.2 | 5k-8k   5.7 | >8k   1.3
+  pico tonal 150-4000 Hz:    172 Hz ( 17.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_run_v1.wav
+  papel step | variacao 1 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.40 dBFS | crista 15.60 dB | DC -0.00040
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.050 s | ativo (>-40 dB) 0.210 s | cauda 50 ms  -53.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.1  -13.2  -24.5  -35.3  -11.7  -11.7  -22.0  -32.4  -43.3  -73.5
+  espectro: centroide   1695 Hz | rolloff85   3424 Hz | inclinacao  -2.61 dB/oitava | planura  -6.70 dB
+  energia por faixa (%): <300  38.6 | 300-1k  11.5 | 1k-2.5k  24.2 | 2.5k-5k  19.2 | 5k-8k   5.1 | >8k   1.5
+  pico tonal 150-4000 Hz:    172 Hz ( 19.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_run_v2.wav
+  papel step | variacao 2 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.28 dBFS | crista 15.72 dB | DC +0.00013
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.040 s | ativo (>-40 dB) 0.200 s | cauda 50 ms  -56.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.6  -14.8  -26.5  -39.2  -14.0  -12.4  -23.8  -34.7  -46.4  -73.6
+  espectro: centroide   1745 Hz | rolloff85   3747 Hz | inclinacao  -2.26 dB/oitava | planura  -7.54 dB
+  energia por faixa (%): <300  41.9 | 300-1k   6.9 | 1k-2.5k  25.3 | 2.5k-5k  18.4 | 5k-8k   5.8 | >8k   1.7
+  pico tonal 150-4000 Hz:    172 Hz ( 20.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+footstep_concrete_run_v3.wav
+  papel step | variacao 3 | duracao 0.260 s (11466 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.66 dBFS | crista 15.34 dB | DC +0.00038
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.050 s | ativo (>-40 dB) 0.260 s | cauda 50 ms  -42.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.2  -14.1  -24.9  -36.7   -7.4  -12.5  -24.0  -35.6  -56.4  -37.6
+  espectro: centroide   1806 Hz | rolloff85   3682 Hz | inclinacao  -2.48 dB/oitava | planura  -6.30 dB
+  energia por faixa (%): <300  34.4 | 300-1k  11.7 | 1k-2.5k  25.3 | 2.5k-5k  20.9 | 5k-8k   6.1 | >8k   1.5
+  pico tonal 150-4000 Hz:    172 Hz ( 18.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_slow_v1.wav
+  papel one_shot | variacao 1 | duracao 2.200 s (97020 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.05 dBFS | crista 13.95 dB | DC -0.00008
+  envelope: pico em 1.080 s | ataque 10-90% 0.020 s | queda ate -20 dB 0.020 s | ativo (>-40 dB) 2.190 s | cauda 50 ms  -22.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -16.6  -14.7  -11.5  -14.0  -11.1  -14.1  -10.6  -13.6  -16.3  -21.0
+  espectro: centroide    607 Hz | rolloff85    861 Hz | inclinacao  -0.78 dB/oitava | planura -17.92 dB
+  energia por faixa (%): <300   0.0 | 300-1k  89.0 | 1k-2.5k   9.9 | 2.5k-5k   1.0 | 5k-8k   0.1 | >8k   0.0
+  pico tonal 150-4000 Hz:    388 Hz ( 24.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_normal_v1.wav
+  papel one_shot | variacao 1 | duracao 0.900 s (39690 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.97 dBFS | crista 14.03 dB | DC +0.00003
+  envelope: pico em 0.190 s | ataque 10-90% 0.150 s | queda ate -20 dB 0.580 s | ativo (>-40 dB) 0.870 s | cauda 50 ms  -36.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -21.8   -4.1   -1.2   -4.1   -6.4   -7.1   -6.7  -11.3  -18.4  -26.7
+  espectro: centroide    772 Hz | rolloff85   1357 Hz | inclinacao  -5.19 dB/oitava | planura  -6.03 dB
+  energia por faixa (%): <300  35.3 | 300-1k  45.5 | 1k-2.5k  13.0 | 2.5k-5k   5.1 | 5k-8k   0.7 | >8k   0.3
+  pico tonal 150-4000 Hz:    711 Hz ( 18.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_slam_v1.wav
+  papel one_shot | variacao 1 | duracao 0.700 s (30870 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.57 dBFS | crista 14.43 dB | DC -0.00019
+  envelope: pico em 0.010 s | ataque 10-90% 0.010 s | queda ate -20 dB 0.270 s | ativo (>-40 dB) 0.700 s | cauda 50 ms  -36.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.7   -6.4   -9.8  -14.2  -20.1  -23.4  -27.2  -29.8  -32.8  -35.5
+  espectro: centroide    294 Hz | rolloff85    323 Hz | inclinacao  -5.80 dB/oitava | planura  -8.67 dB
+  energia por faixa (%): <300  84.3 | 300-1k  10.4 | 1k-2.5k   3.7 | 2.5k-5k   1.4 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    215 Hz ( 24.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_locked_v1.wav
+  papel one_shot | variacao 1 | duracao 0.900 s (39690 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.10 dBFS | crista 15.90 dB | DC +0.00006
+  envelope: pico em 0.620 s | ataque 10-90% 0.010 s | queda ate -20 dB 0.110 s | ativo (>-40 dB) 0.690 s | cauda 50 ms  -56.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico): -229.6  -25.4  -27.7  -25.2  -26.5 -229.6  -19.1   -7.3  -26.4  -47.2
+  espectro: centroide    825 Hz | rolloff85   2283 Hz | inclinacao  -3.39 dB/oitava | planura -12.68 dB
+  energia por faixa (%): <300  75.1 | 300-1k   3.4 | 1k-2.5k   7.3 | 2.5k-5k  12.0 | 5k-8k   1.7 | >8k   0.6
+  pico tonal 150-4000 Hz:    172 Hz ( 25.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_slow_v2.wav
+  papel one_shot | variacao 2 | duracao 2.200 s (97020 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.94 dBFS | crista 14.06 dB | DC -0.00007
+  envelope: pico em 1.610 s | ataque 10-90% 0.020 s | queda ate -20 dB 0.020 s | ativo (>-40 dB) 2.160 s | cauda 50 ms  -45.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -17.6  -11.6  -12.4  -12.4  -12.4  -12.0  -10.9  -11.4  -15.9  -20.7
+  espectro: centroide    620 Hz | rolloff85    883 Hz | inclinacao  -1.71 dB/oitava | planura -17.04 dB
+  energia por faixa (%): <300   0.0 | 300-1k  88.4 | 1k-2.5k  10.2 | 2.5k-5k   1.3 | 5k-8k   0.1 | >8k   0.0
+  pico tonal 150-4000 Hz:    388 Hz ( 23.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_normal_v2.wav
+  papel one_shot | variacao 2 | duracao 0.900 s (39690 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.83 dBFS | crista 14.17 dB | DC -0.00002
+  envelope: pico em 0.620 s | ataque 10-90% 0.570 s | queda ate -20 dB 0.120 s | ativo (>-40 dB) 0.860 s | cauda 50 ms  -35.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -23.2   -6.4   -2.3   -6.8   -7.7   -8.7   -6.8  -12.4  -20.2  -29.2
+  espectro: centroide    849 Hz | rolloff85   1378 Hz | inclinacao  -5.17 dB/oitava | planura  -5.90 dB
+  energia por faixa (%): <300  30.0 | 300-1k  47.3 | 1k-2.5k  14.4 | 2.5k-5k   7.6 | 5k-8k   0.5 | >8k   0.2
+  pico tonal 150-4000 Hz:    668 Hz ( 18.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_slam_v2.wav
+  papel one_shot | variacao 2 | duracao 0.700 s (30870 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.69 dBFS | crista 14.31 dB | DC +0.00011
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.320 s | ativo (>-40 dB) 0.690 s | cauda 50 ms  -36.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.1   -6.2  -10.5  -15.8  -18.7  -25.1  -25.4  -30.6  -32.8  -35.5
+  espectro: centroide    298 Hz | rolloff85    345 Hz | inclinacao  -6.06 dB/oitava | planura  -8.53 dB
+  energia por faixa (%): <300  83.2 | 300-1k  11.3 | 1k-2.5k   3.7 | 2.5k-5k   1.6 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    237 Hz ( 23.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_locked_v2.wav
+  papel one_shot | variacao 2 | duracao 0.900 s (39690 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.39 dBFS | crista 15.61 dB | DC -0.00000
+  envelope: pico em 0.620 s | ataque 10-90% 0.010 s | queda ate -20 dB 0.110 s | ativo (>-40 dB) 0.690 s | cauda 50 ms  -56.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico): -229.5  -24.3  -20.6  -25.1  -59.7  -25.5  -16.3   -7.6  -26.7  -47.5
+  espectro: centroide    998 Hz | rolloff85   2799 Hz | inclinacao  -3.17 dB/oitava | planura -12.18 dB
+  energia por faixa (%): <300  71.8 | 300-1k   2.3 | 1k-2.5k   8.7 | 2.5k-5k  14.1 | 5k-8k   2.0 | >8k   1.0
+  pico tonal 150-4000 Hz:    172 Hz ( 24.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_slow_v3.wav
+  papel one_shot | variacao 3 | duracao 2.200 s (97020 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.18 dBFS | crista 13.82 dB | DC -0.00008
+  envelope: pico em 1.590 s | ataque 10-90% 0.020 s | queda ate -20 dB 0.020 s | ativo (>-40 dB) 2.190 s | cauda 50 ms  -25.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -16.6  -13.0  -12.8  -10.8  -12.9  -10.4  -11.7  -12.3  -16.0  -20.1
+  espectro: centroide    620 Hz | rolloff85    883 Hz | inclinacao  -1.37 dB/oitava | planura -16.62 dB
+  energia por faixa (%): <300   0.0 | 300-1k  88.7 | 1k-2.5k  10.2 | 2.5k-5k   0.9 | 5k-8k   0.1 | >8k   0.0
+  pico tonal 150-4000 Hz:    409 Hz ( 23.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_normal_v3.wav
+  papel one_shot | variacao 3 | duracao 0.900 s (39690 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.88 dBFS | crista 14.12 dB | DC -0.00002
+  envelope: pico em 0.210 s | ataque 10-90% 0.170 s | queda ate -20 dB 0.550 s | ativo (>-40 dB) 0.860 s | cauda 50 ms  -36.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -21.3   -6.2   -1.9   -5.8   -7.0   -6.9   -7.1  -11.4  -19.8  -28.1
+  espectro: centroide    830 Hz | rolloff85   1335 Hz | inclinacao  -5.10 dB/oitava | planura  -5.78 dB
+  energia por faixa (%): <300  29.8 | 300-1k  46.9 | 1k-2.5k  16.4 | 2.5k-5k   5.9 | 5k-8k   0.7 | >8k   0.2
+  pico tonal 150-4000 Hz:    646 Hz ( 20.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_slam_v3.wav
+  papel one_shot | variacao 3 | duracao 0.700 s (30870 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.65 dBFS | crista 14.35 dB | DC +0.00008
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.280 s | ativo (>-40 dB) 0.690 s | cauda 50 ms  -37.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.4   -6.8   -9.0  -14.0  -23.4  -24.2  -25.5  -29.8  -31.6  -36.3
+  espectro: centroide    261 Hz | rolloff85    280 Hz | inclinacao  -6.17 dB/oitava | planura  -9.89 dB
+  energia por faixa (%): <300  85.4 | 300-1k  10.1 | 1k-2.5k   3.1 | 2.5k-5k   1.2 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    194 Hz ( 25.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+door_locked_v3.wav
+  papel one_shot | variacao 3 | duracao 0.900 s (39690 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.40 dBFS | crista 15.60 dB | DC +0.00017
+  envelope: pico em 0.620 s | ataque 10-90% 0.010 s | queda ate -20 dB 0.110 s | ativo (>-40 dB) 0.680 s | cauda 50 ms  -55.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico): -229.5  -26.1  -26.1  -24.7 -229.5 -229.5  -19.1   -6.8  -25.8  -46.6
+  espectro: centroide    758 Hz | rolloff85   1572 Hz | inclinacao  -3.36 dB/oitava | planura -13.39 dB
+  energia por faixa (%): <300  77.5 | 300-1k   4.5 | 1k-2.5k   5.6 | 2.5k-5k  10.4 | 5k-8k   1.4 | >8k   0.5
+  pico tonal 150-4000 Hz:    172 Hz ( 28.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_light_v1.wav
+  papel one_shot | variacao 1 | duracao 0.450 s (19845 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.10 dBFS | crista 14.91 dB | DC -0.00000
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.120 s | ativo (>-40 dB) 0.240 s | cauda 50 ms  -65.6 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.7   -9.4  -17.6  -25.4  -33.4  -44.1 -227.1 -227.1 -227.1  -65.6
+  espectro: centroide   2027 Hz | rolloff85   3187 Hz | inclinacao   1.24 dB/oitava | planura -26.29 dB
+  energia por faixa (%): <300   0.0 | 300-1k   0.0 | 1k-2.5k  81.5 | 2.5k-5k  18.3 | 5k-8k   0.1 | >8k   0.1
+  pico tonal 150-4000 Hz:   1723 Hz ( 55.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_light_v2.wav
+  papel one_shot | variacao 2 | duracao 0.450 s (19845 amostras)
+  nivel: RMS -24.00 dBFS | pico  -8.83 dBFS | crista 15.17 dB | DC +0.00007
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.120 s | ativo (>-40 dB) 0.230 s | cauda 50 ms -227.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.9   -9.8  -18.1  -25.9  -33.9  -43.7 -227.3 -227.3 -227.3 -227.3
+  espectro: centroide   2162 Hz | rolloff85   3058 Hz | inclinacao   3.18 dB/oitava | planura -25.40 dB
+  energia por faixa (%): <300   0.0 | 300-1k   0.1 | 1k-2.5k  80.1 | 2.5k-5k  19.7 | 5k-8k   0.1 | >8k   0.1
+  pico tonal 150-4000 Hz:   1895 Hz ( 51.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_light_v3.wav
+  papel one_shot | variacao 3 | duracao 0.450 s (19845 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.52 dBFS | crista 14.48 dB | DC +0.00003
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.300 s | ativo (>-40 dB) 0.450 s | cauda 50 ms  -27.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.8   -6.1   -8.6  -11.2  -13.8  -16.5  -18.7  -21.5  -24.0  -27.7
+  espectro: centroide   2347 Hz | rolloff85   3165 Hz | inclinacao   2.59 dB/oitava | planura  -7.54 dB
+  energia por faixa (%): <300   0.0 | 300-1k   1.6 | 1k-2.5k  73.2 | 2.5k-5k  21.4 | 5k-8k   2.6 | >8k   1.1
+  pico tonal 150-4000 Hz:   1873 Hz ( 20.1 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_medium_v1.wav
+  papel one_shot | variacao 1 | duracao 0.700 s (30870 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.51 dBFS | crista 14.49 dB | DC +0.00005
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.300 s | ativo (>-40 dB) 0.500 s | cauda 50 ms  -64.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.8  -10.5  -11.8  -13.3  -21.0  -28.6  -35.2  -42.0  -56.6  -67.2
+  espectro: centroide    579 Hz | rolloff85    797 Hz | inclinacao  -3.00 dB/oitava | planura -18.02 dB
+  energia por faixa (%): <300   0.2 | 300-1k  93.4 | 1k-2.5k   5.4 | 2.5k-5k   0.8 | 5k-8k   0.2 | >8k   0.1
+  pico tonal 150-4000 Hz:    388 Hz ( 34.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_medium_v2.wav
+  papel one_shot | variacao 2 | duracao 0.700 s (30870 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.52 dBFS | crista 14.48 dB | DC +0.00017
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.290 s | ativo (>-40 dB) 0.500 s | cauda 50 ms -226.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.3   -9.9  -10.5  -13.9  -21.5  -28.8  -35.3  -42.0  -56.6 -226.5
+  espectro: centroide    579 Hz | rolloff85    797 Hz | inclinacao  -2.86 dB/oitava | planura -18.61 dB
+  energia por faixa (%): <300   0.2 | 300-1k  93.7 | 1k-2.5k   5.3 | 2.5k-5k   0.6 | 5k-8k   0.2 | >8k   0.0
+  pico tonal 150-4000 Hz:    388 Hz ( 37.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_medium_v3.wav
+  papel one_shot | variacao 3 | duracao 0.700 s (30870 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.44 dBFS | crista 14.56 dB | DC +0.00013
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.310 s | ativo (>-40 dB) 0.600 s | cauda 50 ms  -44.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.5   -7.8  -10.3  -14.5  -21.1  -26.2  -30.0  -34.5  -39.2  -44.0
+  espectro: centroide    992 Hz | rolloff85   1830 Hz | inclinacao  -0.65 dB/oitava | planura -12.40 dB
+  energia por faixa (%): <300   0.2 | 300-1k  74.7 | 1k-2.5k  18.3 | 2.5k-5k   5.2 | 5k-8k   1.2 | >8k   0.5
+  pico tonal 150-4000 Hz:    388 Hz ( 26.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_heavy_v1.wav
+  papel one_shot | variacao 1 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.83 dBFS | crista 14.17 dB | DC +0.00005
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.560 s | ativo (>-40 dB) 0.920 s | cauda 50 ms  -92.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.1   -8.2  -10.0   -7.4  -14.5  -16.6  -17.7  -24.5  -28.1  -43.7
+  espectro: centroide    249 Hz | rolloff85    215 Hz | inclinacao  -6.58 dB/oitava | planura -23.10 dB
+  energia por faixa (%): <300  85.9 | 300-1k  11.6 | 1k-2.5k   2.3 | 2.5k-5k   0.1 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    194 Hz ( 40.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_heavy_v2.wav
+  papel one_shot | variacao 2 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.81 dBFS | crista 14.19 dB | DC +0.00006
+  envelope: pico em 0.010 s | ataque 10-90% 0.010 s | queda ate -20 dB 0.590 s | ativo (>-40 dB) 0.920 s | cauda 50 ms  -91.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.3   -7.4  -10.6   -9.3  -14.8  -14.1  -17.2  -22.0  -25.6  -41.7
+  espectro: centroide    251 Hz | rolloff85    215 Hz | inclinacao  -6.76 dB/oitava | planura -22.27 dB
+  energia por faixa (%): <300  85.7 | 300-1k  11.8 | 1k-2.5k   2.3 | 2.5k-5k   0.1 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    194 Hz ( 43.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+impact_heavy_v3.wav
+  papel one_shot | variacao 3 | duracao 1.000 s (44100 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.77 dBFS | crista 14.23 dB | DC +0.00000
+  envelope: pico em 0.010 s | ataque 10-90% 0.010 s | queda ate -20 dB 0.690 s | ativo (>-40 dB) 0.920 s | cauda 50 ms  -67.2 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.1   -6.6   -8.8   -9.9  -14.6  -15.5  -15.3  -22.0  -25.7  -41.5
+  espectro: centroide    329 Hz | rolloff85    517 Hz | inclinacao  -4.58 dB/oitava | planura -17.85 dB
+  energia por faixa (%): <300  81.9 | 300-1k  12.4 | 1k-2.5k   4.5 | 2.5k-5k   0.9 | 5k-8k   0.2 | >8k   0.1
+  pico tonal 150-4000 Hz:    194 Hz ( 32.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+furniture_drag_v1.wav
+  papel one_shot | variacao 1 | duracao 1.600 s (70560 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.11 dBFS | crista 13.89 dB | DC -0.00002
+  envelope: pico em 0.810 s | ataque 10-90% 0.800 s | queda ate -20 dB 0.720 s | ativo (>-40 dB) 1.570 s | cauda 50 ms  -39.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -9.9   -5.4   -6.2   -6.3   -6.3   -6.0   -6.8   -5.9   -7.8  -16.4
+  espectro: centroide   1658 Hz | rolloff85   2132 Hz | inclinacao  -0.46 dB/oitava | planura  -5.35 dB
+  energia por faixa (%): <300   2.0 | 300-1k  13.2 | 1k-2.5k  73.5 | 2.5k-5k   8.0 | 5k-8k   2.4 | >8k   1.0
+  pico tonal 150-4000 Hz:   1163 Hz ( 12.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+fall_body_v1.wav
+  papel one_shot | variacao 1 | duracao 1.200 s (52920 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.43 dBFS | crista 14.57 dB | DC -0.00001
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.200 s | ativo (>-40 dB) 1.060 s | cauda 50 ms -227.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.4  -15.1  -28.9  -17.6  -22.7  -11.7   -9.1  -12.2  -24.4  -73.0
+  espectro: centroide    540 Hz | rolloff85    581 Hz | inclinacao  -3.34 dB/oitava | planura  -9.72 dB
+  energia por faixa (%): <300  78.2 | 300-1k   9.4 | 1k-2.5k   6.0 | 2.5k-5k   4.6 | 5k-8k   1.2 | >8k   0.6
+  pico tonal 150-4000 Hz:    151 Hz ( 24.8 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+furniture_drag_v2.wav
+  papel one_shot | variacao 2 | duracao 1.600 s (70560 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.15 dBFS | crista 13.85 dB | DC -0.00001
+  envelope: pico em 1.260 s | ataque 10-90% 1.250 s | queda ate -20 dB 0.260 s | ativo (>-40 dB) 1.560 s | cauda 50 ms  -36.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -9.6   -6.1   -5.9   -5.9   -5.6   -6.2   -5.5   -6.2   -7.5  -17.1
+  espectro: centroide   1921 Hz | rolloff85   2455 Hz | inclinacao   0.35 dB/oitava | planura  -5.33 dB
+  energia por faixa (%): <300   1.9 | 300-1k   5.3 | 1k-2.5k  78.5 | 2.5k-5k  10.3 | 5k-8k   2.8 | >8k   1.2
+  pico tonal 150-4000 Hz:   1400 Hz ( 12.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+fall_body_v2.wav
+  papel one_shot | variacao 2 | duracao 1.200 s (52920 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.41 dBFS | crista 14.59 dB | DC +0.00004
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.200 s | ativo (>-40 dB) 1.070 s | cauda 50 ms -227.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.6  -15.6  -29.3  -18.0  -23.0  -12.1   -9.5  -12.6  -24.9  -73.8
+  espectro: centroide    538 Hz | rolloff85    560 Hz | inclinacao  -3.16 dB/oitava | planura  -9.58 dB
+  energia por faixa (%): <300  79.7 | 300-1k   7.9 | 1k-2.5k   5.9 | 2.5k-5k   4.5 | 5k-8k   1.4 | >8k   0.6
+  pico tonal 150-4000 Hz:    151 Hz ( 24.4 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+furniture_drag_v3.wav
+  papel one_shot | variacao 3 | duracao 1.600 s (70560 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.16 dBFS | crista 13.84 dB | DC +0.00000
+  envelope: pico em 0.810 s | ataque 10-90% 0.800 s | queda ate -20 dB 0.720 s | ativo (>-40 dB) 1.560 s | cauda 50 ms  -39.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -9.4   -5.2   -5.2   -6.0   -5.5   -5.4   -5.7   -5.7   -6.1  -16.2
+  espectro: centroide   2218 Hz | rolloff85   2929 Hz | inclinacao   1.12 dB/oitava | planura  -5.36 dB
+  energia por faixa (%): <300   1.9 | 300-1k   2.9 | 1k-2.5k  74.1 | 2.5k-5k  16.2 | 5k-8k   3.5 | >8k   1.4
+  pico tonal 150-4000 Hz:   1658 Hz ( 10.0 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+fall_body_v3.wav
+  papel one_shot | variacao 3 | duracao 1.200 s (52920 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.46 dBFS | crista 14.55 dB | DC +0.00004
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.200 s | ativo (>-40 dB) 1.060 s | cauda 50 ms -227.0 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.1  -14.9  -28.8  -17.4  -22.5  -11.5   -8.9  -12.2  -24.3  -72.5
+  espectro: centroide    521 Hz | rolloff85    452 Hz | inclinacao  -3.18 dB/oitava | planura  -9.45 dB
+  energia por faixa (%): <300  81.0 | 300-1k   7.1 | 1k-2.5k   5.5 | 2.5k-5k   4.6 | 5k-8k   1.2 | >8k   0.5
+  pico tonal 150-4000 Hz:    151 Hz ( 24.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+rain_interior_v1.wav
+  papel loop | variacao 1 | duracao 10.000 s (441000 amostras)
+  nivel: RMS -34.00 dBFS | pico -21.47 dBFS | crista 12.53 dB | DC -0.00000
+  envelope: pico em 1.780 s | ataque 10-90% 1.780 s | queda ate -20 dB 8.210 s | ativo (>-40 dB) 10.000 s | cauda 50 ms   -3.7 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.6   -3.7   -3.6   -3.6   -3.6   -3.6   -3.7   -3.5   -3.7   -3.9
+  espectro: centroide    559 Hz | rolloff85    904 Hz | inclinacao  -7.90 dB/oitava | planura  -9.36 dB
+  energia por faixa (%): <300  30.1 | 300-1k  58.2 | 1k-2.5k  10.9 | 2.5k-5k   0.7 | 5k-8k   0.1 | >8k   0.0
+  pico tonal 150-4000 Hz:    280 Hz ( 17.9 dB sobre a mediana da faixa)
+  emenda do loop: salto / diferenca media entre vizinhos = 0.425 (estalo se acima de 4)
+  alertas: nenhum
+
+rain_window_v1.wav
+  papel loop | variacao 1 | duracao 10.000 s (441000 amostras)
+  nivel: RMS -28.00 dBFS | pico -16.19 dBFS | crista 11.81 dB | DC +0.00000
+  envelope: pico em 1.750 s | ataque 10-90% 1.750 s | queda ate -20 dB 8.240 s | ativo (>-40 dB) 10.000 s | cauda 50 ms   -1.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -1.4   -1.6   -1.5   -1.6   -1.5   -1.5   -1.4   -1.5   -1.5   -1.4
+  espectro: centroide   2617 Hz | rolloff85   4479 Hz | inclinacao  -1.59 dB/oitava | planura  -0.91 dB
+  energia por faixa (%): <300   5.8 | 300-1k  17.4 | 1k-2.5k  35.2 | 2.5k-5k  30.1 | 5k-8k   8.1 | >8k   3.5
+  pico tonal 150-4000 Hz:    172 Hz (  0.9 dB sobre a mediana da faixa)
+  emenda do loop: salto / diferenca media entre vizinhos = 0.507 (estalo se acima de 4)
+  alertas: nenhum
+
+rain_exterior_v1.wav
+  papel loop | variacao 1 | duracao 10.000 s (441000 amostras)
+  nivel: RMS -24.00 dBFS | pico -11.23 dBFS | crista 12.77 dB | DC -0.00000
+  envelope: pico em 3.200 s | ataque 10-90% 3.200 s | queda ate -20 dB 6.790 s | ativo (>-40 dB) 10.000 s | cauda 50 ms   -2.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -2.2   -2.2   -2.2   -2.1   -2.3   -2.3   -2.3   -2.1   -2.3   -2.2
+  espectro: centroide   4089 Hz | rolloff85   7063 Hz | inclinacao  -0.38 dB/oitava | planura  -0.14 dB
+  energia por faixa (%): <300   3.0 | 300-1k  10.7 | 1k-2.5k  19.7 | 2.5k-5k  32.7 | 5k-8k  24.1 | >8k   9.9
+  pico tonal 150-4000 Hz:    560 Hz (  1.6 dB sobre a mediana da faixa)
+  emenda do loop: salto / diferenca media entre vizinhos = 1.739 (estalo se acima de 4)
+  alertas: nenhum
+
+thunder_rumble_v1.wav
+  papel one_shot | variacao 1 | duracao 8.000 s (352800 amostras)
+  nivel: RMS -24.00 dBFS | pico -11.52 dBFS | crista 12.48 dB | DC +0.00000
+  envelope: pico em 1.450 s | ataque 10-90% 1.070 s | queda ate -20 dB 4.820 s | ativo (>-40 dB) 7.700 s | cauda 50 ms  -71.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -16.0   -6.4   -7.4  -10.5   -8.2   -6.3   -6.5  -10.2  -14.6  -27.3
+  espectro: centroide    121 Hz | rolloff85    172 Hz | inclinacao -14.02 dB/oitava | planura -25.49 dB
+  energia por faixa (%): <300  96.1 | 300-1k   3.8 | 1k-2.5k   0.1 | 2.5k-5k   0.0 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    151 Hz ( 47.6 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+thunder_crack_v1.wav
+  papel one_shot | variacao 1 | duracao 3.000 s (132300 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.61 dBFS | crista 14.39 dB | DC -0.00001
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.910 s | ativo (>-40 dB) 2.940 s | cauda 50 ms  -45.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.4   -7.3  -12.8  -16.8  -20.1  -26.1  -30.4  -33.6  -37.8  -41.8
+  espectro: centroide    441 Hz | rolloff85    323 Hz | inclinacao  -5.72 dB/oitava | planura -11.33 dB
+  energia por faixa (%): <300  83.0 | 300-1k  11.9 | 1k-2.5k   1.2 | 2.5k-5k   1.5 | 5k-8k   1.0 | >8k   1.4
+  pico tonal 150-4000 Hz:    172 Hz ( 26.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+thunder_rumble_v2.wav
+  papel one_shot | variacao 2 | duracao 8.000 s (352800 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.29 dBFS | crista 13.71 dB | DC -0.00002
+  envelope: pico em 3.800 s | ataque 10-90% 1.310 s | queda ate -20 dB 1.820 s | ativo (>-40 dB) 7.630 s | cauda 50 ms  -78.9 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -16.3   -8.2  -13.9   -9.4   -6.0   -9.0   -9.6  -11.6  -17.5  -34.0
+  espectro: centroide    131 Hz | rolloff85    194 Hz | inclinacao -14.04 dB/oitava | planura -25.08 dB
+  energia por faixa (%): <300  94.9 | 300-1k   5.0 | 1k-2.5k   0.1 | 2.5k-5k   0.0 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    151 Hz ( 46.7 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+thunder_crack_v2.wav
+  papel one_shot | variacao 2 | duracao 3.000 s (132300 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.47 dBFS | crista 14.53 dB | DC -0.00002
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 1.030 s | ativo (>-40 dB) 2.830 s | cauda 50 ms  -44.4 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.4   -7.3  -12.8  -16.9  -22.6  -25.8  -29.4  -34.1  -37.8  -42.1
+  espectro: centroide    682 Hz | rolloff85    388 Hz | inclinacao  -4.92 dB/oitava | planura  -9.34 dB
+  energia por faixa (%): <300  80.1 | 300-1k  10.7 | 1k-2.5k   2.2 | 2.5k-5k   2.2 | 5k-8k   2.2 | >8k   2.6
+  pico tonal 150-4000 Hz:    172 Hz ( 23.5 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+thunder_rumble_v3.wav
+  papel one_shot | variacao 3 | duracao 8.000 s (352800 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.60 dBFS | crista 13.40 dB | DC -0.00001
+  envelope: pico em 2.180 s | ataque 10-90% 1.070 s | queda ate -20 dB 2.500 s | ativo (>-40 dB) 7.630 s | cauda 50 ms  -78.3 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -24.0  -10.9   -7.3   -7.5   -8.0   -8.2  -11.9  -14.5  -17.0  -32.7
+  espectro: centroide    104 Hz | rolloff85    151 Hz | inclinacao -14.31 dB/oitava | planura -26.91 dB
+  energia por faixa (%): <300  98.1 | 300-1k   1.8 | 1k-2.5k   0.0 | 2.5k-5k   0.0 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    151 Hz ( 50.2 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+thunder_crack_v3.wav
+  papel one_shot | variacao 3 | duracao 3.000 s (132300 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.77 dBFS | crista 14.23 dB | DC -0.00000
+  envelope: pico em 0.060 s | ataque 10-90% 0.060 s | queda ate -20 dB 1.160 s | ativo (>-40 dB) 2.990 s | cauda 50 ms  -34.1 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -4.4   -7.6   -9.0  -13.6  -16.6  -19.4  -21.3  -24.6  -28.0  -30.6
+  espectro: centroide    391 Hz | rolloff85    301 Hz | inclinacao  -5.71 dB/oitava | planura -10.80 dB
+  energia por faixa (%): <300  84.9 | 300-1k  10.7 | 1k-2.5k   1.1 | 2.5k-5k   1.3 | 5k-8k   0.8 | >8k   1.1
+  pico tonal 150-4000 Hz:    151 Hz ( 26.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+thunder_rumble_v4.wav
+  papel one_shot | variacao 4 | duracao 8.000 s (352800 amostras)
+  nivel: RMS -24.00 dBFS | pico -10.87 dBFS | crista 13.13 dB | DC -0.00001
+  envelope: pico em 2.490 s | ataque 10-90% 1.440 s | queda ate -20 dB 0.620 s | ativo (>-40 dB) 7.480 s | cauda 50 ms  -77.5 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):  -26.8  -12.2   -7.4   -7.7   -8.1   -8.9  -11.7  -13.4  -18.6  -33.6
+  espectro: centroide    126 Hz | rolloff85    172 Hz | inclinacao -13.97 dB/oitava | planura -25.09 dB
+  energia por faixa (%): <300  95.5 | 300-1k   4.5 | 1k-2.5k   0.1 | 2.5k-5k   0.0 | 5k-8k   0.0 | >8k   0.0
+  pico tonal 150-4000 Hz:    151 Hz ( 46.9 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+thunder_crack_v4.wav
+  papel one_shot | variacao 4 | duracao 3.000 s (132300 amostras)
+  nivel: RMS -24.00 dBFS | pico  -9.21 dBFS | crista 14.79 dB | DC +0.00011
+  envelope: pico em 0.000 s | ataque 10-90% 0.000 s | queda ate -20 dB 0.910 s | ativo (>-40 dB) 2.370 s | cauda 50 ms  -52.8 dB rel. pico
+  perfil 10 segmentos (dB rel. pico):   -3.8   -9.0  -13.7  -19.6  -24.3  -29.8  -34.6  -39.7  -45.0  -50.5
+  espectro: centroide   1109 Hz | rolloff85    689 Hz | inclinacao  -4.16 dB/oitava | planura  -8.56 dB
+  energia por faixa (%): <300  76.9 | 300-1k   8.9 | 1k-2.5k   1.5 | 2.5k-5k   3.0 | 5k-8k   4.0 | >8k   5.7
+  pico tonal 150-4000 Hz:    151 Hz ( 23.3 dB sobre a mediana da faixa)
+  alertas: nenhum
+
+Total de alertas: 0
