@@ -212,3 +212,5 @@ Validações independentes da fase:
 
 **2ª verificação do BUG-016 (commit `a992082`, QA, 2026-11-21).** Pipeline 1× aprovado (código 0): padrão 469/469, propriedade 171/171, meta 26/26 (`EVIDENCE/F3-011_bug016_v2_pipeline.txt`). Testes `test_f3011_bug016_pesado.gd` (4) e `test_f3011_bug016_verificacao.gd` (7): 11/11 verdes nesta execução do pipeline. Pesado corrigido no caso principal, de costas, quina, soltura e arremesso. **BUG-016 reaberto**: pesado virado de costas, encostado na parede, fica no ponto antigo (0,70 m do alvo) até o jogador se afastar (defeito visual, BAIXO). Sem testes que falham de propósito.
 
+**3ª verificação do BUG-016 (commit `b40c218`, QA, 2026-11-21): FECHADO.** Pipeline 1× aprovado (código 0): padrão 469/469, propriedade 176/176, meta 26/26 (`EVIDENCE/F3-011_bug016_v3_pipeline.txt`). 16/16 testes de BUG-016 verdes, incluindo muro de 0,05 m e 0,10 m, batente estreito, diagonal, giro de 360° encostado (`test_f3011_bug016_b40.gd`, 5 testes novos) e o de virar encostado, que a 2ª rodada reprovava (distância 0,000 m). Sem testes que falham de propósito.
+

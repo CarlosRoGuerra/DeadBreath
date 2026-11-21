@@ -264,7 +264,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 - **Testes:** raio pela fórmula; salas e portais iguais aos do grafo; a cor acompanha a porta; o anel aparece e expira; nada liga em produção.
 
 ### F3-010 · Revisão técnica — Technical Reviewer · HIGH · DONE (revisão e nova verificação: APROVADO COM RESSALVAS, sem CRÍTICO, ALTO ou MÉDIO em aberto; rastreio em `Docs/QA/REVIEWS/F3-010_RESOLUTION.md`)
-### F3-011 · Validação de QA — QA Engineer · EXTRA HIGH · DONE (APROVADO COM RESSALVAS; BUG-014 fechado; BUG-016 corrigido pelo Director; fechamento em `Docs/QA/F3-011_VALIDATION.md`)
+### F3-011 · Validação de QA — QA Engineer · EXTRA HIGH · DONE (APROVADO COM RESSALVAS; BUG-014 e BUG-016 fechados pelo QA; fechamento em `Docs/QA/F3-011_VALIDATION.md`)
 ### F3-012 · Documentação — Director · LOW · DONE
 STEALTH_SYSTEM.md e AUDIO_DESIGN.md.
 

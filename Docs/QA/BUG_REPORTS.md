@@ -2,23 +2,11 @@
 
 | Campo | Valor |
 |---|---|
-| Atualizado | 2026-11-21 (F3-011: BUG-014 fechado pelo QA; BUG-016 aberto pelo QA; BUG-012 a BUG-015 da F2-011 inalterados) |
+| Atualizado | 2026-11-21 (F3-011: BUG-014 e BUG-016 fechados pelo QA; BUG-012 a BUG-015 da F2-011 inalterados) |
 | Severidades | CRÍTICO (bloqueia o jogo ou corrompe dados) · ALTO (quebra mecânica central ou gera informação falsa para a IA) · MÉDIO · BAIXO |
 | Estados | ABERTO · EM CORREÇÃO · CORRIGIDO (aguarda verificação) · FECHADO (verificado por quem não corrigiu) · ACEITO (decisão do Director, com reavaliação marcada) · REABERTO (verificação falhou) |
 
 ## Abertos
-
-### BUG-016: objeto na mão atravessa a parede quando o jogador encosta nela (o objeto segurado não colide com o mundo)
-| Campo | Valor |
-|---|---|
-| Severidade | BAIXO. Visual e de física: o objeto segue a câmera e aparece do outro lado da parede. Sem ganho de jogo direto: soltar e arremessar são recusados dentro de parede (R3-05, verificado). Vira MÉDIO se o objeto na mão permitir ver, ouvir ou alcançar o outro lado |
-| Estado | **CORRIGIDO pela 3ª vez pelo Director** (aguarda a 3ª verificação do QA). O caso da 2ª verificação: virado de costas para a parede, ainda encostado nela, o objeto pesado ficava no ponto antigo porque a câmera já sobrepunha a parede com a forma dele. Correção: se a partida recuada e a câmera sobrepõem o mundo, a varredura avança da câmera rumo à mão em passos de 0,1 m até um ponto livre, só enquanto o raio da câmera até esse ponto não cruza nada (de frente para a parede o raio bate e o objeto não pula). `test_f3011_bug016_pesado.gd::test_pesado_nao_gruda_quando_o_alvo_fica_livre` passa a assertar que o objeto segue a mão de costas para a parede (distância 0,000 m). BUG-016: 11/11. Mutação: sem o avanço, o teste reprova. Histórico: **REABERTO** pela 2ª verificação do QA (commit `a992082`). Pesado, caso principal (de frente para a parede sul, andar 150 ticks): CORRIGIDO (0 ticks sobrepostos, profundidade 0,0000 m, trava em z = -0,404). Verificado também: pesado de costas para a parede norte (0 ticks sobrepostos, segue a mão até o limite da parede sul); quina (0 ticks, chega ao canto); soltar e arremessar perto da parede (solta encostado; arremesso não passa a parede, objeto em z = -0,908). **Defeito restante (BAIXO, visual): com o jogador encostado na parede com o pesado na mão, ao virar de costas para ela, o objeto fica no ponto antigo (distância de 0,70 m do alvo da mão, z = -0,404 contra -1,052)** enquanto a câmera ainda sobrepõe a parede (a forma passa de meia-aresta 0,3 m, maior que o raio do corpo, 0,25 m; a varredura cai no fallback 'fica onde estava'). Ao se afastar da parede, o objeto volta a seguir a mão (distância 0,000 m). Objeto leve: sem defeito em nenhum cenário |
-| Componente | `game/components/world/throwable.gd` (`set_hold_transform`: posição direta com `freeze` cinemático, sem checagem de colisão com o mundo); `game/components/player/player_hold.gd` (`step`, acompanha a câmera a 0,7 m) |
-| Reprodução | Pegar um objeto leve (`try_pick`) no corredor, virado para +Z (parede sul, z = 0, face externa em z = 0,1). Andar 3,0 m para a parede. Resultado medido: jogador parado em z = -0,352 (sem penetração do corpo); objeto em z = +0,348, do outro lado da parede. Esperado: o objeto para antes da parede (ou a mão recua) |
-| Reprodução do pesado (REABERTO) | Corredor, jogador em (9,0; -0,6) virado para +Z; pegar `throwable_heavy` (`try_pick`); andar 150 ticks para a parede sul. Resultado: 139 ticks com o objeto sobre o mundo; profundidade máxima de 0,748 m além da face próxima (z do objeto chegou a 0,348; face externa em 0,10). Esperado: o objeto para do lado do jogador, como o leve (z ≤ -0,10 para o pesado: centro em z ≈ -0,40). Teste: `test_bug016_objeto_pesado_atravessa_a_parede_reaberto` (documenta o defeito; passa enquanto o defeito existir, e deve ser reescrito para assertar que o objeto para quando a correção cobrir o pesado) |
-| Teste que reproduz | `game/tests/property/qa/test_f3011_bug016_verificacao.gd` (7 testes: leve no original, pesado (reaberto), agachado, olhando para o chão, quina, batente, soltar e arremessar dentro de bloco). Antes, `test_f3011_portas_arremessaveis.gd::test_objeto_na_mao_ao_encostar_na_parede` registrava o defeito por nota |
-| Testes da 2ª verificação | `game/tests/property/qa/test_f3011_bug016_pesado.gd` (4 testes: de costas na parede norte; quina; virar encostado e afastar-se (`test_pesado_nao_gruda_quando_o_alvo_fica_livre`, mede o ponto preso e afirma o retorno ao se afastar); soltar e arremessar perto da parede). Evidência: `Docs/QA/EVIDENCE/F3-011_bug016_v2_pipeline.txt` |
-| Evidência | `Docs/QA/EVIDENCE/F3-011_suite_1.txt` (nota do teste) |
 
 ### BUG-010: a porta oscila ao sair do arco: libera e bloqueia de novo no tick seguinte, emitindo blocked duas vezes
 | Campo | Valor |
@@ -79,6 +67,18 @@
 | Evidência | `Docs/QA/EVIDENCE/F2-011_producao_producao.txt` (noclip recusado); saída do pipeline F2-011 |
 
 ## Fechados
+
+### BUG-016: objeto na mão atravessa a parede quando o jogador encosta nela (o objeto segurado não colide com o mundo)
+| Campo | Valor |
+|---|---|
+| Severidade | BAIXO. Visual e de física: o objeto segue a câmera e aparece do outro lado da parede. Sem ganho de jogo direto: soltar e arremessar são recusados dentro de parede (R3-05, verificado). Vira MÉDIO se o objeto na mão permitir ver, ouvir ou alcançar o outro lado |
+| Estado | **FECHADO** em 2026-11-21 pelo QA (3ª verificação, commit `b40c218`; verificado por quem não corrigiu). Evidência: 16/16 testes de BUG-016 verdes (`test_f3011_bug016_verificacao.gd` 7, `test_f3011_bug016_pesado.gd` 4, `test_f3011_bug016_b40.gd` 5); pipeline 1× aprovado: padrão 469/469, propriedade 176/176, meta 26/26 (`EVIDENCE/F3-011_bug016_v3_pipeline.txt`). Cenários: leve no original, agachado, olhando para o chão, quina, batente, soltura e arremesso dentro de bloco; pesado de frente, de costas, na quina, diagonal, muro fino de 0,05 m e de 0,10 m, batente estreito, giro de 360° encostado, virar encostado e afastar-se, soltar e arremessar perto da parede. Em todos: 0 ticks com sobreposição, 0 ticks com o centro do objeto além da face próxima, e a mão volta ao alvo quando o caminho fica livre (distância 0,000 m). Limites: geometrias testadas acima; a mutação que o Director descreveu (retirar o avanço) não foi reproduzida pelo QA |
+| Componente | `game/components/world/throwable.gd` (`set_hold_transform`: posição direta com `freeze` cinemático, sem checagem de colisão com o mundo); `game/components/player/player_hold.gd` (`step`, acompanha a câmera a 0,7 m) |
+| Reprodução | Pegar um objeto leve (`try_pick`) no corredor, virado para +Z (parede sul, z = 0, face externa em z = 0,1). Andar 3,0 m para a parede. Resultado medido: jogador parado em z = -0,352 (sem penetração do corpo); objeto em z = +0,348, do outro lado da parede. Esperado: o objeto para antes da parede (ou a mão recua) |
+| Reprodução do pesado (REABERTO) | Corredor, jogador em (9,0; -0,6) virado para +Z; pegar `throwable_heavy` (`try_pick`); andar 150 ticks para a parede sul. Resultado: 139 ticks com o objeto sobre o mundo; profundidade máxima de 0,748 m além da face próxima (z do objeto chegou a 0,348; face externa em 0,10). Esperado: o objeto para do lado do jogador, como o leve (z ≤ -0,10 para o pesado: centro em z ≈ -0,40). Teste: `test_bug016_objeto_pesado_atravessa_a_parede_reaberto` (documenta o defeito; passa enquanto o defeito existir, e deve ser reescrito para assertar que o objeto para quando a correção cobrir o pesado) |
+| Teste que reproduz | `game/tests/property/qa/test_f3011_bug016_verificacao.gd` (7 testes: leve no original, pesado (reaberto), agachado, olhando para o chão, quina, batente, soltar e arremessar dentro de bloco). Antes, `test_f3011_portas_arremessaveis.gd::test_objeto_na_mao_ao_encostar_na_parede` registrava o defeito por nota |
+| Testes da 2ª verificação | `game/tests/property/qa/test_f3011_bug016_pesado.gd` (4 testes: de costas na parede norte; quina; virar encostado e afastar-se (`test_pesado_nao_gruda_quando_o_alvo_fica_livre`, mede o ponto preso e afirma o retorno ao se afastar); soltar e arremessar perto da parede). Evidência: `Docs/QA/EVIDENCE/F3-011_bug016_v2_pipeline.txt` |
+| Evidência | `Docs/QA/EVIDENCE/F3-011_suite_1.txt` (nota do teste) |
 
 ### BUG-014: gasp de susto sem chamador de produção: `add_startle` não é chamado no jogo (R2-01)
 | Campo | Valor |
