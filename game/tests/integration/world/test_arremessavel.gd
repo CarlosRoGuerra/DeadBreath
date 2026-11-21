@@ -133,6 +133,22 @@ func test_causa_do_jogador_vale_ate_o_objeto_repousar_ou_ser_pego() -> void:
 	assert_false(item.is_player_caused(), "em repouso: fonte própria")
 
 
+## Verificação F3-010, N3: a causa do jogador expira em PLAYER_CAUSED_MAX_S mesmo sem repouso.
+func test_causa_do_jogador_expira_sem_repouso() -> void:
+	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
+	var player: PlayerRoot = PlayerWorld.spawn_player(root, Vector3.ZERO)
+	var item: Throwable = _spawn_item(root, Vector3(0.0, 1.65, -1.0))
+	await wait_physics_frames(SETTLE_FRAMES)
+	assert_true(player.get_hold().try_pick(item), "pega")
+	await wait_physics_frames(1)
+	assert_true(player.get_hold().drop_held(), "solta")
+	assert_true(item.is_player_caused(), "solto: causado pelo jogador")
+	item._physics_process(Throwable.PLAYER_CAUSED_MAX_S * 0.5)
+	assert_true(item.is_player_caused(), "na metade do prazo: ainda do jogador")
+	item._physics_process(Throwable.PLAYER_CAUSED_MAX_S * 0.5 + 0.05)
+	assert_false(item.is_player_caused(), "passado o prazo: fonte própria, mesmo acordado")
+
+
 func test_cooldown_e_velocidade_minima_do_ruido() -> void:
 	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
 	var world: AcousticWorld = AcousticWorld.new()

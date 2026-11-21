@@ -18,6 +18,9 @@ const NOISE_LEVELS: NoiseLevels = preload("res://content/data/acoustics/noise_le
 ## Revisão F3-010, R3-04: depois que o jogador solta ou arremessa, os impactos são "causados pelo jogador" (prefixo
 ## AcousticWorld.PLAYER_CAUSED_PREFIX) até o objeto dormir ou ser pego de novo: não assustam o próprio jogador.
 const PLAYER_CAUSED_TAG: String = "thrown_"
+## Verificação F3-010, N3: a causa do jogador vale no máximo este tempo depois da soltura (ou até o repouso, o que
+## vier primeiro). Um objeto que nunca dorme não fica "do jogador" para sempre.
+const PLAYER_CAUSED_MAX_S: float = 3.0
 
 @export var throwable_id: StringName = &""
 @export_enum("light", "medium", "heavy") var size: String = "light"
@@ -27,6 +30,7 @@ const PLAYER_CAUSED_TAG: String = "thrown_"
 
 var _held_by: Node = null
 var _base_source: StringName = &""
+var _player_caused_left_s: float = 0.0
 var _speed_before_step: float = 0.0
 var _cooldown_s: float = 0.0
 
@@ -85,6 +89,7 @@ func set_held(held: bool, actor: Node) -> void:
 		if actor is PhysicsBody3D:
 			add_collision_exception_with(actor as PhysicsBody3D)
 		_noise.source_id = _base_source
+		_player_caused_left_s = 0.0
 		picked_up.emit(actor)
 		return
 	if _held_by is PhysicsBody3D:
@@ -92,6 +97,7 @@ func set_held(held: bool, actor: Node) -> void:
 	_held_by = null
 	freeze = false
 	_noise.source_id = StringName(AcousticWorld.PLAYER_CAUSED_PREFIX + PLAYER_CAUSED_TAG + String(_base_source))
+	_player_caused_left_s = PLAYER_CAUSED_MAX_S
 	released.emit()
 
 
@@ -121,6 +127,11 @@ func can_place_at(target: Transform3D, player: CollisionObject3D) -> bool:
 func _physics_process(delta: float) -> void:
 	_speed_before_step = linear_velocity.length()
 	_cooldown_s = maxf(_cooldown_s - delta, 0.0)
+	if _player_caused_left_s > 0.0:
+		_player_caused_left_s -= delta
+		if _player_caused_left_s <= 0.0 and not is_held():
+			_player_caused_left_s = 0.0
+			_noise.source_id = _base_source
 
 
 ## Em repouso, o objeto volta a ser fonte própria (um inimigo que o derrube depois não é "causado pelo jogador").

@@ -461,7 +461,7 @@ signal thunder_started(duration_s: float)   ## para a ambiência (NoiseAudioRout
 - **Porta que fecha (F3-004, decisão do Director na F3-002):** interagir com a porta OPEN e parada começa o fechamento; segurar fecha devagar. Durante o movimento o estado continua OPEN (o portal segue aberto) e vira CLOSED no fim. O fechamento usa o mesmo bloqueio com histerese da abertura: para no corpo, emite `blocked` e não empurra.
 - **Ponte de susto implementada (F3-004):** o PlayerRoot registra-se com `register_player_listener` e o ouvido é a câmera.
 - **Correções da revisão F3-010 (Director):**
-  - O que o jogador causa não o assusta: fonte `player` ou `player_<...>` (`AcousticWorld.is_player_source`) não chega ao ouvinte do jogador. Um Throwable solto ou arremessado pelo jogador emite como `player_thrown_<id>` até repousar ou ser pego. A IA (F4) ouve normalmente (R3-04).
+  - O que o jogador causa não o assusta: fonte `player` ou `player_<...>` (`AcousticWorld.is_player_source`) não chega ao ouvinte do jogador. Um Throwable solto ou arremessado pelo jogador emite como `player_thrown_<id>` até repousar, ser pego ou passar 3 s (N3 da verificação). A IA (F4) ouve normalmente (R3-04).
   - O NoiseEmitter recusa categoria corporal (respiração, chiado, tosse, medicação) de fonte que não comece com `enemy`: o corpo do jogador tem produtor único, o BreathEmitter (R3-02).
   - A posição estimada D-07 está pronta em L1 (`HeardNoise.from_propagation`), para o HearingSensor da F4 (R3-01).
 - **Decisões da F3-003b (Director):**

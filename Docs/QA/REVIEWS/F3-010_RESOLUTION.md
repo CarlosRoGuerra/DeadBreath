@@ -5,6 +5,7 @@
 | Revisão | `Docs/QA/REVIEWS/F3-010.md` (commit revisado `5b5a82b`): **APROVADO COM RESSALVAS** (0 CRÍTICO, 0 ALTO, 4 MÉDIO, 5 BAIXO, 5 INFO) |
 | Decisão do Director (2026-11-21) | Corrigir R3-01, R3-02, R3-04, R3-05, R3-06, R3-07 e R3-08 antes da F3-011. Aceitar R3-03 até o playtest com escuta; R3-09 aceito; os INFO vão para a F4 ou a F5. Depois das correções, o revisor faz nova verificação focada |
 | Correções | Feitas pelo Director; pipeline completo e 7 mutações (uma por correção, todas pegas por um teste) |
+| Nova verificação | `Docs/QA/REVIEWS/F3-010_VERIFICATION.md` (commit `6b84b40`): **APROVADO COM RESSALVAS**. R3-01, R3-04..R3-08 resolvidos; R3-02 parcial (N1, N2); 3 BAIXO novos e 1 INFO. Pipeline do revisor: 451/451, 122/122, 26/26 |
 
 | ID | Sev. | Destino | Situação |
 |---|---|---|---|
@@ -22,3 +23,7 @@
 | R3-12 | INFO | Suíte padrão em 8,9 s | Acompanhado a cada fase |
 | R3-13 | INFO | Recursos em uso na saída | F5 (já registrado na F2) |
 | R3-14 | INFO | Som corporal de inimigo no router | F4 (KNOWN_ISSUES GAME-010) |
+| N1 | BAIXO | A recusa da trava não tinha teste que a contasse (a mutação M7 passava) | **Corrigido**: `tests/integration/acoustics/test_fontes_do_mundo_sem_corpo.gd` roda o ciclo inteiro da porta e um impacto de arremessável sem nenhuma recusa, com cada evento na categoria da fonte. A M7 (porta emitindo tosse) agora reprova |
+| N2 | BAIXO | A trava depende só do prefixo `enemy` | **F4**: campo explícito de origem junto com os inimigos (KNOWN_ISSUES GAME-010) |
+| N3 | BAIXO | A causa do jogador não tinha prazo | **Corrigido**: vale até o repouso ou até `Throwable.PLAYER_CAUSED_MAX_S` (3 s) depois da soltura, o que vier primeiro. Teste `test_causa_do_jogador_expira_sem_repouso`. Mutação: tirar o prazo reprova |
+| N4 | INFO | Qualquer `player_<...>` conta como causado pelo jogador | Convenção registrada em COMPONENT_CONTRACTS §6.5 e §6.6; hoje só o Throwable usa |
