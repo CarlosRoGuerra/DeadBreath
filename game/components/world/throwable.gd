@@ -16,6 +16,8 @@ const SHAPE_PATH: NodePath = ^"CollisionShape3D"
 const DROP_MASK: int = 7
 ## BUG-016: a mão não atravessa o mundo. A forma é varrida contra o mundo estático (1) e dinâmico (2).
 const HOLD_SWEEP_MASK: int = 3
+## Passo do avanço da câmera rumo à mão quando a câmera já sobrepõe o mundo com a forma do objeto.
+const HOLD_FORWARD_STEP_M: float = 0.1
 const NOISE_LEVELS: NoiseLevels = preload("res://content/data/acoustics/noise_levels.tres")
 ## Revisão F3-010, R3-04: depois que o jogador solta ou arremessa, os impactos são "causados pelo jogador" (prefixo
 ## AcousticWorld.PLAYER_CAUSED_PREFIX) até o objeto dormir ou ser pego de novo: não assustam o próprio jogador.
@@ -139,6 +141,28 @@ func safe_hold_transform(from_position: Vector3, target: Transform3D, player: Co
 		var fractions: PackedFloat32Array = space.cast_motion(query)
 		var safe: float = fractions[0] if fractions.size() > 0 else 1.0
 		return Transform3D(target.basis, start + motion * safe)
+	# Os dois pontos sobrepõem o mundo: objeto maior que o raio do corpo, com a câmera encostada (2ª verificação do
+	# BUG-016: de costas para a parede, o objeto pesado ficava no ponto antigo). Avança da câmera rumo à mão em passos
+	# curtos até um ponto livre, só enquanto o raio da câmera até esse ponto não cruza nada: de frente para a parede o
+	# raio bate nela, e o objeto não pula para o outro lado.
+	var direction: Vector3 = toward.normalized()
+	var ray: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from_position, from_position,
+		HOLD_SWEEP_MASK, exclude)
+	var advance: float = HOLD_FORWARD_STEP_M
+	while advance < toward.length():
+		var candidate: Vector3 = from_position + direction * advance
+		ray.to = candidate
+		if not space.intersect_ray(ray).is_empty():
+			break
+		query.transform = Transform3D(target.basis, candidate) * shape_node.transform
+		query.motion = Vector3.ZERO
+		if space.intersect_shape(query, 1).is_empty():
+			var rest: Vector3 = target.origin - candidate
+			query.motion = rest
+			var rest_fractions: PackedFloat32Array = space.cast_motion(query)
+			var rest_safe: float = rest_fractions[0] if rest_fractions.size() > 0 else 1.0
+			return Transform3D(target.basis, candidate + rest * rest_safe)
+		advance += HOLD_FORWARD_STEP_M
 	return global_transform
 
 
