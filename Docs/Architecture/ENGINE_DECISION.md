@@ -206,6 +206,25 @@ Projeto descartável em `spikes/disc003/`; evidência bruta em `Docs/QA/EVIDENCE
 - Em `DEFAULT`, o 4.7.2 usa GodotPhysics3D (números idênticos aos da execução com GodotPhysics3D explícito).
 - Rampa de 30°: parado, deslocamento = 0 nos dois motores. Vão de 0,6 m: rastejando (0,55 m) passa; em pé é bloqueado; a checagem de teto acusou bloqueio em 168/168 amostras sob a laje e 0/230 fora dela.
 
+### 7.2 Reavaliação da física com corpos dinâmicos (F3-005, RSK-13; 2026-11-21)
+
+Spike em `spikes/f3_physics/`; evidência em `Docs/QA/EVIDENCE/F3-005_physics_*` (resumo em `F3-005_physics_resumo.txt`) e `F3-005_rerun_V6_*`.
+
+| Cenário | GodotPhysics3D | Jolt Physics |
+|---|---|---|
+| Pilha de 5 caixas (10 s) | topo afunda 35,7 mm; inclinação 0,35° | topo afunda 2,1 mm; inclinação 0,19° |
+| Arremesso contra parede, queda de esfera | bate, quica e repousa | equivalente |
+| Túnel a 15 e 40 m/s (parede de 1 cm) | não atravessa | não atravessa |
+| Jogador contra caixa de 0,5 kg | o CharacterBody3D fica bloqueado; a caixa não se move | idem |
+| Custo com 30 caixas | 45,2 ms (medida com janela, pouco confiável) | 32,3 ms (idem) |
+| V6 da F0 (reexecutado) | ALL_PASS | ALL_PASS |
+| **Suíte completa do jogo** (Director, `F3-005_pipeline_jolt_director.txt`) | **verde** | **30 falhas**: todas de escada (BUG-001/002, MOT-04). Na descida o corpo fica no ar (12 ticks) |
+
+**Decisão do Director: manter o GodotPhysics3D.** O controlador do jogador foi validado nele (achado do V6: cilindro + GodotPhysics3D perde o chão em 0% dos ticks na escada), e as correções de escada da F1 dependem disso. O ganho do Jolt é a estabilidade de pilhas, que não é mecânica central. Arremesso, quique, repouso e túnel deram resultados equivalentes. **Consequências:**
+- Level design evita pilhas com mais de 2 corpos dinâmicos (móveis grandes são estáticos).
+- O jogador não empurra RigidBody3D sozinho: se esbarrar em objetos derrubar coisas (F3-004), o impulso é aplicado pelo código.
+- **Reabrir** se a F4+ precisar de pilhas dinâmicas ou se o custo de física passar do orçamento numa medida sem janela. Trocar exigiria refazer as correções de escada no Jolt.
+
 ## 8. Consequências
 
 **Positivas**

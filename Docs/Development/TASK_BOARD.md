@@ -244,7 +244,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 - **Testes:** STL-01 no jogo (rastejar < agachado < andar < correr < tosse < queda), integração de cada fonte; reavaliação da física (abaixo).
 
 ### F3-005 · LightExposureProbe + reavaliação da física
-- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F1 · **Status:** REVIEW. Probe entregue (17 testes padrão e 2 de propriedade). Spike de física nos dois motores: V6 ALL_PASS em ambos; a pilha de caixas afunda 35,7 mm no GodotPhysics3D e 2,1 mm no Jolt. Decisão do motor: ver RSK-13 em KNOWN_ISSUES
+- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F1 · **Status:** REVIEW. Probe entregue (17 testes padrão e 2 de propriedade). Spike de física nos dois motores: V6 ALL_PASS em ambos; a pilha de caixas afunda 35,7 mm no GodotPhysics3D e 2,1 mm no Jolt. **Decisão do Director: manter o GodotPhysics3D.** Com o Jolt, a suíte completa tem 30 falhas de escada (ENGINE_DECISION §7.2)
 - **Descrição:** `LightExposureProbe` (L2): exposição 0..1 em pontos de amostra a partir das luzes (alcance, atenuação, cone e oclusão por raio), para a F4 (visão do inimigo e PerceivableTarget). **RSK-13:** rodar de novo o spike V6 e um teste de corpos dinâmicos (pilha, arremesso, repouso, colisão com o jogador) em GodotPhysics3D e Jolt; registrar a decisão.
 - **Testes:** exposição no escuro ≈ 0, sob luz direta alta, atrás de parede ≈ 0; resultados do spike.
 

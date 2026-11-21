@@ -38,7 +38,7 @@
 | RSK-10 | Áudio nativo insuficiente para música adaptativa | Baixa | Reavaliar FMOD (licença e compatibilidade não verificadas) | F3/F7 |
 | RSK-11 | Licenciamento de assets externos | Média | `ASSET_LICENSES.md` (F1-014); D-06 aprovada: só CC0 sem aprovação extra; checklist do Technical Reviewer confere | Primeiro asset externo |
 | RSK-12 | Custo e perda de contexto entre subagentes | Média | Documentos como memória do projeto; política de custo em AGENT_ASSIGNMENTS §1 | Contínuo |
-| RSK-13 | Física reavaliada com corpos dinâmicos | Baixa | GodotPhysics3D escolhido pelo comportamento do CharacterBody3D (V6). Objetos arremessáveis (F3) podem favorecer o Jolt | F3-004: rodar de novo o spike V6 + teste com RigidBody3D |
+| RSK-13 | Física reavaliada com corpos dinâmicos | Baixa | **Reavaliada na F3-005 (ENGINE_DECISION §7.2): mantido o GodotPhysics3D.** Com o Jolt, 30 testes de escada falham (corpo no ar na descida). O Jolt só ganha em pilhas de caixas (35,7 mm contra 2,1 mm de afundamento); arremesso e túnel são equivalentes. Level design evita pilhas com mais de 2 corpos dinâmicos | Reabrir se a F4+ precisar de pilhas dinâmicas ou se o custo de física passar do orçamento (medida sem janela) |
 | RSK-14 | Variação entre execuções do V5 | Baixa | p95 variou de 1,21 a 1,92 ms (Vulkan) em 2 execuções; margem grande frente ao limite de 6,9 ms. Medições de desempenho futuras usam ao menos 3 execuções | Medição perto do limite |
 
 ## Jogo
