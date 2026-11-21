@@ -126,9 +126,14 @@ func test_rain_output_level_is_the_floor_for_every_layer() -> void:
 
 
 func test_thunder_gain_is_muffled_inside_rooms() -> void:
-	assert_almost_eq(RainAmbience.thunder_gain_for_floor(38.0), NoiseGain.MAX_GAIN_DB, TOL, "ao ar livre: teto (+6 dB)")
-	assert_almost_eq(RainAmbience.thunder_gain_for_floor(22.0), NoiseGain.MAX_GAIN_DB - 16.0, TOL, "cômodo interno: 16 dB abaixo")
+	# Revisão F3-010, R3-07: o trovão soa no nível do mascaramento (piso + 20 dB).
+	assert_almost_eq(RainAmbience.thunder_gain_for_floor(38.0), NoiseGain.gain_for_db(58.0), TOL, "ao ar livre: 58 dB")
+	assert_almost_eq(RainAmbience.thunder_gain_for_floor(22.0), -3.0, TOL, "cômodo interno: 42 dB, −3 dB")
 	assert_almost_eq(RainAmbience.thunder_gain_for_floor(60.0), NoiseGain.MAX_GAIN_DB, TOL, "nunca acima do teto")
+	for floor_db: float in [12.0, 22.0, 28.0, 38.0]:
+		var equivalent: float = NoiseGain.gain_for_db(floor_db + AcousticWorld.THUNDER_OFFSET_DB)
+		assert_almost_eq(RainAmbience.thunder_gain_for_floor(floor_db), equivalent, TOL,
+			"piso %.0f: o trovão soa no limiar que impõe" % floor_db)
 
 
 func _event(category: Enums.NoiseCategory, level_db: float, sound: StringName) -> NoiseEvent:

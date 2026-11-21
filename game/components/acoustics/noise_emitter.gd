@@ -11,9 +11,23 @@ const LOG_CATEGORY: StringName = &"acoustics"
 var _warned_no_world: bool = false
 
 
+## Revisão F3-010, R3-02: o som do corpo do jogador tem produtor único (BreathEmitter; NOI-05). Pelo NoiseEmitter,
+## categoria corporal (respiração, chiado, tosse, medicação) só vale para fonte inimiga (respiração e tosse dos
+## inimigos, F4). Qualquer outra fonte é recusada com Log.error, sem evento.
+static func is_body_category(category: Enums.NoiseCategory) -> bool:
+	return category == Enums.NoiseCategory.BREATHING \
+		or category == Enums.NoiseCategory.WHEEZING \
+		or category == Enums.NoiseCategory.COUGHING \
+		or category == Enums.NoiseCategory.MEDICATION
+
+
 ## Emite um som da fonte deste nó. A sala do evento é preenchida pelo AcousticWorld (room_at).
 func emit_noise(category: Enums.NoiseCategory, intensity_db: float, duration: float = 0.0,
 		sound_id: StringName = &"") -> void:
+	if is_body_category(category) and not String(source_id).begins_with(AcousticWorld.ENEMY_SOURCE_PREFIX):
+		Log.error(LOG_CATEGORY, "NoiseEmitter '%s' (fonte '%s') não emite som do corpo: o produtor único é o BreathEmitter" \
+			% [name, source_id])
+		return
 	var world: AcousticWorld = _find_world()
 	if world == null:
 		_warn_no_world()

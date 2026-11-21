@@ -11,6 +11,7 @@ const WALL_Z: float = -2.6
 const LEVEL_MIN_DB: float = 50.0
 const LEVEL_MAX_DB: float = 80.0
 const TOL: float = 0.001
+const REST_MAX_FRAMES: int = 300
 
 var _events: Array[NoiseEvent] = []
 
@@ -70,7 +71,9 @@ func test_pega_segura_e_arremessa_com_impacto_de_ruido() -> void:
 	if impacts.size() >= 1:
 		var event: NoiseEvent = impacts[0]
 		assert_eq(event.sound_id, &"impact", "sound_id impact")
-		assert_eq(event.source_id, &"throwable_test", "fonte: o id do objeto")
+		assert_eq(event.source_id, &"player_thrown_throwable_test",
+			"fonte: o id do objeto, marcado como causado pelo jogador (revisão F3-010, R3-04)")
+		assert_true(AcousticWorld.is_player_source(event.source_id), "o AcousticWorld reconhece a causa do jogador")
 		assert_true(event.intensity_db >= LEVEL_MIN_DB - TOL and event.intensity_db <= LEVEL_MAX_DB + TOL,
 			"intensidade de impacto entre 50 e 80 dB (%.1f)" % event.intensity_db)
 
@@ -88,6 +91,46 @@ func test_soltar_so_quando_a_forma_cabe() -> void:
 	await wait_physics_frames(2)
 	assert_false(player.get_hold().drop_held(), "dentro de uma parede não solta: continua segurando")
 	assert_true(item.is_held(), "segue na mão")
+
+
+## Revisão F3-010, R3-05: arremessar com a mão dentro de uma parede não solta o objeto lá dentro.
+func test_arremessar_com_a_mao_dentro_de_parede_continua_segurando() -> void:
+	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
+	var player: PlayerRoot = PlayerWorld.spawn_player(root, Vector3.ZERO)
+	var item: Throwable = _spawn_item(root, Vector3(0.0, 1.65, -1.0))
+	await wait_physics_frames(SETTLE_FRAMES)
+	assert_true(player.get_hold().try_pick(item), "a mão livre pega o objeto")
+	await wait_physics_frames(1)
+	PlayerWorld.add_box(root, Vector3(0.0, 1.4, -0.7), Vector3(0.6, 0.6, 0.6), &"wood")
+	await wait_physics_frames(2)
+	assert_false(player.get_hold().throw_held(), "dentro de uma parede não arremessa")
+	assert_true(item.is_held(), "segue na mão")
+
+
+## Revisão F3-010, R3-04: o objeto volta a ser fonte própria quando é pego de novo e quando dorme.
+func test_causa_do_jogador_vale_ate_o_objeto_repousar_ou_ser_pego() -> void:
+	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
+	var player: PlayerRoot = PlayerWorld.spawn_player(root, Vector3.ZERO)
+	PlayerWorld.add_box(root, Vector3(0.0, -0.1, 0.0), Vector3(8.0, 0.2, 8.0), &"wood")
+	var item: Throwable = _spawn_item(root, Vector3(0.0, 1.65, -1.0))
+	await wait_physics_frames(SETTLE_FRAMES)
+	assert_false(item.is_player_caused(), "no lugar: fonte própria")
+	assert_true(player.get_hold().try_pick(item), "pega")
+	await wait_physics_frames(1)
+	assert_true(player.get_hold().drop_held(), "solta no lugar")
+	assert_true(item.is_player_caused(), "solto pelo jogador: causado pelo jogador")
+	assert_true(player.get_hold().try_pick(item), "pega de novo")
+	assert_false(item.is_player_caused(), "na mão: fonte própria de novo")
+	assert_true(player.get_hold().drop_held(), "solta outra vez")
+	assert_true(item.is_player_caused(), "solto de novo: causado pelo jogador")
+	# Repouso natural: cai no chão e dorme (a física decide; até 5 s simulados).
+	var frames: int = 0
+	while not item.sleeping and frames < REST_MAX_FRAMES:
+		await wait_physics_frames(1)
+		frames += 1
+	note("o objeto dormiu depois de %d ticks" % frames)
+	assert_true(item.sleeping, "o objeto entrou em repouso")
+	assert_false(item.is_player_caused(), "em repouso: fonte própria")
 
 
 func test_cooldown_e_velocidade_minima_do_ruido() -> void:

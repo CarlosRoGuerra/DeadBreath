@@ -36,11 +36,14 @@ func try_pick(item: Throwable) -> bool:
 	return true
 
 
-## Arremessa para onde a câmera olha, com um pouco de elevação. Sem objeto na mão, não faz nada.
+## Arremessa para onde a câmera olha, com um pouco de elevação. Sem objeto na mão, não faz nada. Revisão F3-010,
+## R3-05: com a mão dentro de uma parede (a forma não cabe), não arremessa e continua segurando, como na soltura.
 func throw_held() -> bool:
 	if not is_holding() or _camera == null:
 		return false
 	var item: Throwable = _held
+	if not item.can_place_at(item.global_transform, _body):
+		return false
 	var forward: Vector3 = -_camera.global_transform.basis.z
 	_release(item)
 	item.linear_velocity = forward * THROW_SPEED_MS + Vector3.UP * THROW_LIFT_MS

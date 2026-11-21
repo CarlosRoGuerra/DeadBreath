@@ -460,12 +460,101 @@ signal thunder_started(duration_s: float)   ## para a ambiência (NoiseAudioRout
   - `RoomVolume` usa o AABB do `BoxShape3D` filho: as salas ficam alinhadas aos eixos.
 - **Porta que fecha (F3-004, decisão do Director na F3-002):** interagir com a porta OPEN e parada começa o fechamento; segurar fecha devagar. Durante o movimento o estado continua OPEN (o portal segue aberto) e vira CLOSED no fim. O fechamento usa o mesmo bloqueio com histerese da abertura: para no corpo, emite `blocked` e não empurra.
 - **Ponte de susto implementada (F3-004):** o PlayerRoot registra-se com `register_player_listener` e o ouvido é a câmera.
+- **Correções da revisão F3-010 (Director):**
+  - O que o jogador causa não o assusta: fonte `player` ou `player_<...>` (`AcousticWorld.is_player_source`) não chega ao ouvinte do jogador. Um Throwable solto ou arremessado pelo jogador emite como `player_thrown_<id>` até repousar ou ser pego. A IA (F4) ouve normalmente (R3-04).
+  - O NoiseEmitter recusa categoria corporal (respiração, chiado, tosse, medicação) de fonte que não comece com `enemy`: o corpo do jogador tem produtor único, o BreathEmitter (R3-02).
+  - A posição estimada D-07 está pronta em L1 (`HeardNoise.from_propagation`), para o HearingSensor da F4 (R3-01).
 - **Decisões da F3-003b (Director):**
   - Posição da voz 3D = `PropagationResult.entry_point`. No caminho direto é a fonte; por portal, é o portal por onde o som entra na sala do ouvinte.
   - Reverb = barramento da sala do **ouvinte** (`RoomVolume.reverb_bus`: `reverb_small`, `reverb_large` ou vazio = Master).
   - Regra de ganho comprimida acima de 45 dB, com limitador no Master (DATA §2.4).
   - **Contrato dos passos (para a F3-004):** o `NoiseEvent` de passo usa `sound_id = footstep_<superfície>` e `intensity_db = NoiseLevels.footstep_level(marcha, superfície)` sem outro modificador; corrida usa a categoria RUNNING. O router recupera a marcha descontando o modificador da superfície. A F3-004 testa, para cada marcha e superfície, que o arquivo tocado é o da marcha certa.
 - **Categoria VOICE:** aprovada (P-03), DATA §2.1 (fala 55 / grito 75 dB).
+
+### 6.6 API pública acrescentada na Fase 3 (revisão F3-010, R3-08) — v1.0
+
+Os métodos que só servem a testes ou ferramentas de depuração estão marcados com `## teste`.
+
+```gdscript
+## AcousticGraph (L1, sim/acoustics; além de §6.1)
+func add_room(room_id: StringName, bounds: AABB, ambient_floor_db: float) -> void
+func add_portal(portal_id: StringName, room_a: StringName, room_b: StringName, position: Vector3) -> void
+func set_portal_open(portal_id: StringName, open: bool) -> void
+func is_portal_open(portal_id: StringName) -> bool
+func set_weather_floor_offset(offset_db: float) -> void
+func weather_floor_offset_db() -> float
+func room_at(position: Vector3) -> StringName
+func ambient_floor_at(position: Vector3) -> float
+func effective_threshold_db(listener_position: Vector3, hearing_threshold_db: float, masking_margin_db: float) -> float
+
+## HeardNoise (L1; D-07, revisão F3-010 R3-01). O HearingSensor da F4 recebe o resultado desta função.
+static func from_propagation(event: NoiseEvent, result: PropagationResult, threshold_db: float,
+		config: AcousticConfig, rng: RandomNumberGenerator) -> HeardNoise
+static func confidence_for(perceived_db: float, threshold_db: float) -> float
+static func disk_offset(radius: float, rng: RandomNumberGenerator) -> Vector3
+
+## AcousticWorld (L2; além de §6.3–§6.5)
+@export var config: AcousticConfig                 ## vazio: content/data/acoustics/acoustic_config.tres
+@export var thunder_enabled: bool = false          ## o nível liga
+@export var thunder_interval_min_s: float = 60.0
+@export var thunder_interval_max_s: float = 180.0
+@export var weather_seed: int = 1
+const PLAYER_CAUSED_PREFIX: String = "player_"     ## fonte causada pelo jogador (R3-04)
+static func is_player_source(source_id: StringName) -> bool
+func set_player_ear(ear: Node3D) -> void
+func unregister_player_listener() -> void
+func has_geometry() -> bool
+func rebuild_graph() -> void
+func player_threshold_db(position: Vector3) -> float
+func advance(delta: float) -> void                 ## teste: avança o relógio e resolve a fila
+func now() -> float                                ## teste
+func pending_count() -> int                        ## teste
+func flush() -> void                               ## teste: resolve a fila agora
+
+## RoomVolume e Portal (L2, nós de nível; DATA §2.5)
+RoomVolume: @export room_id, ambient_floor_db, reverb_bus; func bounds_world() -> AABB
+Portal: @export portal_id, room_a, room_b, door (NodePath da Door)
+
+## NoiseEmitter (L2; §6.3). Recusa categoria corporal de fonte que não seja inimiga (R3-02).
+static func is_body_category(category: Enums.NoiseCategory) -> bool
+
+## Door (L2; além de §3): fecha pela interação (F3-004)
+signal closed(slow: bool)
+func is_closing() -> bool
+
+## Throwable (L2) e PlayerHold (L2, jogador)
+signal picked_up(actor: Node)
+signal released()
+@export var throwable_id: StringName
+func is_held() -> bool
+func get_held_by() -> Node
+func get_size() -> StringName
+func is_player_caused() -> bool                    ## solto ou arremessado pelo jogador, até repousar ou ser pego
+func get_noise_source() -> StringName
+func can_place_at(target: Transform3D, player: CollisionObject3D) -> bool
+PlayerHold: func try_pick(item) -> bool; func throw_held() -> bool; func drop_held() -> bool; func get_held() -> Throwable
+PlayerRoot: func get_hold() -> PlayerHold
+LevelSlots: func get_throwables() -> Array[Throwable]
+
+## LightExposureProbe (L2, perception; DATA §9). O PerceivableTarget da F4 (§7.1) lê get_exposure().
+@export var update_hz: float = 10.0
+@export var ambient_floor: float = 0.0
+@export var sample_offsets: PackedVector3Array
+func get_exposure() -> float
+func sample_now() -> float
+func get_sample_count() -> int                     ## teste
+
+## Áudio e UI (L3)
+NoiseGain: static func gain_for_db(perceived_db: float) -> float
+NoiseAudioRouter: func bind_world(world); func set_listener(listener); func set_random_seed(seed) ## teste
+                  static func choose_sound(event: NoiseEvent) -> Dictionary
+                  var played_log                   ## teste
+RainAmbience: func bind_world(world); func set_listener(listener); func active_layer() -> StringName
+              static func layer_for_floor(floor_db) -> StringName; static func thunder_gain_for_floor(floor_db) -> float
+              func tick(delta) e func layer_output_db(layer)   ## teste
+Subtitles: func text_for(text_key) -> String; func show_subtitle(text_key, duration_s) -> bool
+           func get_visible_texts() -> PackedStringArray; func advance(delta)   ## teste
+```
 
 ## 7. Percepção da IA (L2) — AI Engineer — Fase 4
 

@@ -66,6 +66,46 @@ func test_som_do_proprio_jogador_nao_assusta() -> void:
 	assert_almost_eq(player.get_physiology().get_snapshot().stress, before, 0.0001, "o próprio som não assusta")
 
 
+## Revisão F3-010, R3-04: impacto de objeto que o próprio jogador arremessou não assusta.
+func test_impacto_do_objeto_arremessado_pelo_jogador_nao_assusta() -> void:
+	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
+	var parts: Dictionary = _setup(root)
+	var world: AcousticWorld = parts["world"] as AcousticWorld
+	var player: PlayerRoot = parts["player"] as PlayerRoot
+	await wait_physics_frames(SETTLE_FRAMES)
+	var before: float = player.get_physiology().get_snapshot().stress
+	_send(world, Enums.NoiseCategory.OBJECT_IMPACT, 80.0, &"player_thrown_throwable_test")
+	assert_almost_eq(player.get_physiology().get_snapshot().stress, before, 0.0001, "o próprio arremesso não assusta")
+	_send(world, Enums.NoiseCategory.OBJECT_IMPACT, 80.0, &"throwable_test")
+	assert_true(player.get_physiology().get_snapshot().stress > before, "o mesmo impacto sem causa do jogador assusta")
+
+
+## Revisão F3-010, R3-06: corrida e queda do próprio jogador, pelos sinais reais do motor, não assustam. A corrida
+## (60 dB a cerca de 1,6 m do ouvido) e a queda (80 dB) passam de 55 dB percebidos.
+func test_corrida_e_queda_do_proprio_jogador_nao_assustam() -> void:
+	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
+	var parts: Dictionary = _setup(root)
+	var world: AcousticWorld = parts["world"] as AcousticWorld
+	var player: PlayerRoot = parts["player"] as PlayerRoot
+	await wait_physics_frames(SETTLE_FRAMES)
+	var resolved: Array[NoiseEvent] = []
+	var on_resolved: Callable = func(event: NoiseEvent, _result: PropagationResult) -> void: resolved.append(event)
+	world.noise_resolved_for_player.connect(on_resolved)
+	var before: float = player.get_physiology().get_snapshot().stress
+	for step: int in range(6):
+		player.get_motor().footstep.emit(&"wood", Enums.Gait.SPRINT, Enums.Stance.STAND)
+	player.get_motor().landed.emit(6.0)
+	world.flush()
+	world.noise_resolved_for_player.disconnect(on_resolved)
+	var loud: int = 0
+	for event: NoiseEvent in resolved:
+		if event.intensity_db >= 60.0:
+			loud += 1
+	assert_eq(loud, 7, "pré-condição: 6 passadas de corrida e 1 queda foram emitidas")
+	assert_almost_eq(player.get_physiology().get_snapshot().stress, before, 0.0001,
+		"o próprio barulho de corrida e queda não assusta")
+
+
 func test_som_fraco_nao_assusta() -> void:
 	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
 	var parts: Dictionary = _setup(root)

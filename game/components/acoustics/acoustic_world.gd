@@ -22,6 +22,8 @@ const PROCESS_PRIORITY: int = -60
 const LOG_CATEGORY: StringName = &"acoustics"
 const CONFIG_PATH: String = "res://content/data/acoustics/acoustic_config.tres"
 const PLAYER_SOURCE_ID: StringName = &"player"
+## Fonte causada pelo jogador (revisão F3-010, R3-04): "player_<...>", ex.: objeto que ele soltou ou arremessou.
+const PLAYER_CAUSED_PREFIX: String = "player_"
 ## Fonte inimiga: o id do emissor começa com este prefixo (convenção F3-002; a F4 confirma).
 const ENEMY_SOURCE_PREFIX: String = "enemy"
 ## Ouvinte do jogador (DATA §2.3): hearing_threshold_db 10 e margem 0 sobre o piso da sala.
@@ -101,6 +103,12 @@ func register_player_listener(on_heard: Callable, ear: Node3D) -> void:
 
 func unregister_player_listener() -> void:
 	_player_on_heard = Callable()
+
+
+## O jogador ou algo que ele causou ("player_<...>"). O ouvinte do jogador não recebe esses eventos: sem susto e sem
+## legenda pelo próprio barulho. A IA (F4) ouve normalmente, na posição do evento.
+static func is_player_source(source_id: StringName) -> bool:
+	return source_id == PLAYER_SOURCE_ID or String(source_id).begins_with(PLAYER_CAUSED_PREFIX)
 
 
 ## Enfileira um NoiseEvent. O id, o timestamp e a sala (room_at da posição, quando há geometria) são atribuídos aqui.
@@ -195,7 +203,7 @@ func _deliver_to_player(event: NoiseEvent, result: PropagationResult) -> void:
 	var threshold: float = player_threshold_db(_ear.global_position)
 	if result.perceived_db < threshold:
 		return
-	if _player_on_heard.is_valid() and event.source_id != PLAYER_SOURCE_ID:
+	if _player_on_heard.is_valid() and not is_player_source(event.source_id):
 		var heard: PlayerHeardNoise = PlayerHeardNoise.new()
 		heard.category = event.category
 		heard.perceived_db = result.perceived_db
@@ -219,7 +227,7 @@ func _maybe_subtitle(event: NoiseEvent, perceived_db: float, threshold_db: float
 		Enums.NoiseCategory.DOOR, Enums.NoiseCategory.VOICE:
 			relevant = true
 		Enums.NoiseCategory.FOOTSTEP, Enums.NoiseCategory.RUNNING:
-			relevant = event.source_id != PLAYER_SOURCE_ID and perceived_db >= threshold_db + NEAR_MARGIN_DB
+			relevant = not is_player_source(event.source_id) and perceived_db >= threshold_db + NEAR_MARGIN_DB
 	if not relevant:
 		return
 	var last_s: float = float(_subtitle_last_s.get(event.sound_id, -INF))

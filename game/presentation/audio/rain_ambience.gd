@@ -10,9 +10,9 @@ extends Node
 ## mundo (NoiseGain). Ou seja: o nível que o jogador ouve da chuva é o piso da sala, na mesma escala dos eventos, e
 ## o que a IA usa como mascaramento é o mesmo número (piso + offset de trovão).
 ##
-## Trovão: thunder_started(duration) do AcousticWorld toca thunder_rumble (sempre) e thunder_crack (com chance). Ao ar
-## livre o trovão sai no teto de ganho (NoiseGain.MAX_GAIN_DB, o som mais alto do jogo); dentro de uma sala cai pelo
-## quanto o piso fica abaixo do exterior (ver thunder_gain_for_floor).
+## Trovão: thunder_started(duration) do AcousticWorld toca thunder_rumble (sempre) e thunder_crack (com chance). O
+## nível ouvido é o do mascaramento que ele cria: piso da sala + THUNDER_OFFSET_DB, pela regra de NoiseGain (revisão
+## F3-010, R3-07; ver thunder_gain_for_floor).
 ## Sem sinal de tempo real: tick(delta) é chamado por _process; os testes chamam direto.
 
 const LAYER_INTERIOR: StringName = &"rain_interior"
@@ -124,10 +124,10 @@ static func gain_for_floor(floor_db: float, clip_rms_dbfs: float) -> float:
 	return clampf(raw, MIN_LAYER_DB, 0.0)
 
 
-## Ganho de trovão no piso dado: o teto de NoiseGain ao ar livre, menos a diferença para o exterior dentro das salas
-## (o trovão é clima, não evento com nível em dB).
+## Ganho de trovão no piso dado: o trovão soa no nível do limiar que ele impõe (piso + 20 dB, AcousticWorld), pela
+## mesma regra dos eventos. Ao ar livre (38) = 58 dB, +3,25 dB; cômodo interno (22) = 42 dB, −3 dB.
 static func thunder_gain_for_floor(floor_db: float) -> float:
-	return clampf(NoiseGain.MAX_GAIN_DB + floor_db - OUTSIDE_FLOOR_DB, MIN_LAYER_DB, NoiseGain.MAX_GAIN_DB)
+	return NoiseGain.gain_for_db(floor_db + AcousticWorld.THUNDER_OFFSET_DB)
 
 
 func active_layer() -> StringName:

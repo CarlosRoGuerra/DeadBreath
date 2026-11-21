@@ -174,9 +174,9 @@ Testes novos do QA (todos com prefixo `test_f2011_`, em `game/tests/*/qa/`):
 - `game/tests/property/qa/test_f2011_fisiologia.gd` (11 testes: PHY-01..11, ACC-01..03)
 - `game/tests/property/qa/test_f2011_persistencia_aviso.gd` (2 testes)
 - `game/tests/property/qa/test_f2011_estresse_10min.gd` (2 testes)
-- `game/tests/integration/qa/test_f2011_bombinha_q.gd` (4 testes)
+- `game/tests/integration/qa/test_f2011_bombinha_q.gd` (4 testes); desde a F3 em `game/tests/property/qa/` (cenário de cena inteira na suíte lenta, orçamento da suíte padrão)
 - `game/tests/integration/qa/test_f2011_crise_opcoes.gd` (3 testes)
-- `game/tests/integration/qa/test_f2011_audio_corpo.gd` (1 teste)
+- `game/tests/integration/qa/test_f2011_audio_corpo.gd` (1 teste); desde a F3 em `game/tests/property/qa/` (cenário de cena inteira na suíte lenta, orçamento da suíte padrão)
 
 Probes (fora do runner, rodados em processo próprio): `game/tests/integration/qa/probes/f2011_cenario.gd` e `f2011_cenario_core.gd` (gravação), `f2011_pausa.gd` e `f2011_pausa_core.gd` (pausa), `f2011_probe_producao.gd` (modo `--production`).
 

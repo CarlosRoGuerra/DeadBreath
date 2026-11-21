@@ -14,6 +14,8 @@ const ALLOWED_EMITTER_FILES: Array[String] = [
 	"res://components/acoustics/acoustic_world.gd",
 	"res://components/acoustics/noise_emitter.gd",
 ]
+## A fábrica NoiseEvent.create usa NoiseEvent.new() por dentro (revisão F3-010, R3-02).
+const EVENT_FACTORY_FILE: String = "res://sim/acoustics/noise_event.gd"
 const ALLOWED_EVENT_CREATORS: Array[String] = [
 	"res://components/player/breath_emitter.gd",
 	"res://components/acoustics/noise_emitter.gd",
@@ -129,6 +131,14 @@ func test_noi_inv_1_only_listed_scripts_emit_or_create_body_noise() -> void:
 					violations.append("%s chama emit_noise em '%s' (fora da lista, só em NoiseEmitter)" % [path, receiver])
 		if not SourceScan.find_all(code, "NoiseEvent\\.create\\(").is_empty() and not ALLOWED_EVENT_CREATORS.has(path):
 			violations.append("%s cria NoiseEvent" % path)
+		# Revisão F3-010, R3-02: formas indiretas. NoiseEvent.new() fora dos criadores; "emit_noise" como texto
+		# (call, callv, Callable) fora da lista de emissores.
+		if not SourceScan.find_all(code, "NoiseEvent\\.new\\(").is_empty() and not ALLOWED_EVENT_CREATORS.has(path) \
+				and path != EVENT_FACTORY_FILE:
+			violations.append("%s cria NoiseEvent com new()" % path)
+		var with_strings: String = SourceScan.code_of(SourceScan.read(path), false)
+		if not SourceScan.find_all(with_strings, "[\"']emit_noise[\"']").is_empty() and not ALLOWED_EMITTER_FILES.has(path):
+			violations.append("%s cita \"emit_noise\" como texto (chamada indireta)" % path)
 	note("arquivos de game/ varridos (sem testes): %d" % scanned)
 	assert_eq(violations.size(), 0, "violações de NOI-INV-1: " + "; ".join(violations))
 

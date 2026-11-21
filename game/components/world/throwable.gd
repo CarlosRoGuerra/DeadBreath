@@ -15,6 +15,9 @@ const SHAPE_PATH: NodePath = ^"CollisionShape3D"
 ## Máscara do teste de soltura: mundo estático (1), dinâmico (2) e jogador (4).
 const DROP_MASK: int = 7
 const NOISE_LEVELS: NoiseLevels = preload("res://content/data/acoustics/noise_levels.tres")
+## Revisão F3-010, R3-04: depois que o jogador solta ou arremessa, os impactos são "causados pelo jogador" (prefixo
+## AcousticWorld.PLAYER_CAUSED_PREFIX) até o objeto dormir ou ser pego de novo: não assustam o próprio jogador.
+const PLAYER_CAUSED_TAG: String = "thrown_"
 
 @export var throwable_id: StringName = &""
 @export_enum("light", "medium", "heavy") var size: String = "light"
@@ -23,6 +26,7 @@ const NOISE_LEVELS: NoiseLevels = preload("res://content/data/acoustics/noise_le
 @onready var _noise: NoiseEmitter = $NoiseEmitter
 
 var _held_by: Node = null
+var _base_source: StringName = &""
 var _speed_before_step: float = 0.0
 var _cooldown_s: float = 0.0
 
@@ -32,7 +36,18 @@ func _ready() -> void:
 	max_contacts_reported = 4
 	body_entered.connect(_on_body_entered)
 	_grip.interacted.connect(_on_grip_interacted)
-	_noise.source_id = throwable_id if throwable_id != &"" else StringName(name)
+	sleeping_state_changed.connect(_on_sleeping_state_changed)
+	_base_source = throwable_id if throwable_id != &"" else StringName(name)
+	_noise.source_id = _base_source
+
+
+## source_id atual dos impactos: o id do objeto, ou o id marcado como causado pelo jogador depois de solto por ele.
+func get_noise_source() -> StringName:
+	return _noise.source_id
+
+
+func is_player_caused() -> bool:
+	return _noise.source_id != _base_source
 
 
 func is_held() -> bool:
@@ -69,12 +84,14 @@ func set_held(held: bool, actor: Node) -> void:
 		angular_velocity = Vector3.ZERO
 		if actor is PhysicsBody3D:
 			add_collision_exception_with(actor as PhysicsBody3D)
+		_noise.source_id = _base_source
 		picked_up.emit(actor)
 		return
 	if _held_by is PhysicsBody3D:
 		remove_collision_exception_with(_held_by as PhysicsBody3D)
 	_held_by = null
 	freeze = false
+	_noise.source_id = StringName(AcousticWorld.PLAYER_CAUSED_PREFIX + PLAYER_CAUSED_TAG + String(_base_source))
 	released.emit()
 
 
@@ -104,6 +121,12 @@ func can_place_at(target: Transform3D, player: CollisionObject3D) -> bool:
 func _physics_process(delta: float) -> void:
 	_speed_before_step = linear_velocity.length()
 	_cooldown_s = maxf(_cooldown_s - delta, 0.0)
+
+
+## Em repouso, o objeto volta a ser fonte própria (um inimigo que o derrube depois não é "causado pelo jogador").
+func _on_sleeping_state_changed() -> void:
+	if sleeping and not is_held():
+		_noise.source_id = _base_source
 
 
 func _on_grip_interacted(actor: Node) -> void:
