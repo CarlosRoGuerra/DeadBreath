@@ -28,7 +28,7 @@ Uma tarefa só fica **APPROVED** com: implementação concluída, critérios ate
 |---|---|---|---|---|
 | P-01 | **Abafar a tosse**: segurar uma tecla durante o aviso (65 → 48 dB), ao custo de stamina e de aumento da severidade | Agência na crise; reforça o tema sem aleatoriedade | Baixo | Avaliar na F2 |
 | P-02 | **Prender a respiração** por poucos segundos (silencia BREATHING/WHEEZING; recuperação mais ruidosa depois) | Mecânica de esconderijo coerente com o tema | Médio (balanceamento com a asma) | Avaliar na F2 |
-| P-03 | Categoria de ruído **VOICE** (falas e gritos dos criminosos) | Comunicação do esquadrão audível e justa; base das legendas de fala | Baixo | Aprovar com a F3 |
+| P-03 | Categoria de ruído **VOICE** (falas e gritos dos criminosos) | Comunicação do esquadrão audível e justa; base das legendas de fala | Baixo | **APROVADA** pelo Director na abertura da F3 (2026-11-20) |
 | P-04 | **Localização EN + PT-BR** | Alcance de mercado; o usuário é falante de PT-BR | Médio (textos, legendas, testes). As chaves de tradução desde a F1 reduzem o custo. | Decidir na F6 |
 | P-05 | **Distribuição na Steam** (Steamworks: conquistas opcionais, página) | Canal principal para indie horror no PC | Médio (taxa de publicação, requisitos de build, testes) | Decidir antes da F8 |
 | P-06 | **Ferimentos com efeito físico** (mancar por 30 s após queda) | Consequência física mais tangível | Médio (movimento, animação, balanceamento). Hoje ferimento = pico de estresse. | Avaliar na F6 |
@@ -215,16 +215,59 @@ RESPIRATORY_SYSTEM.md, STRESS_SYSTEM.md, STAMINA_SYSTEM.md, CHANGELOG, TEST_RESU
 
 ---
 
-## 5. Backlog das Fases 3–6 (resumo; cards completos ao abrir cada fase — DIR-02)
+## 4c. FASE 3 — Furtividade e áudio (detalhada, aberta em 2026-11-20)
+
+Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (NoiseAudioRouter, legendas); DATA_STRUCTURES §2–§2.5. Decisões de abertura: **P-03 (VOICE) aprovada**; ponte de susto pelo ouvinte do jogador (§6.5); NOI-01 fica sem alvo real até a F4 (precisa do HearingSensor); a física é reavaliada com corpos dinâmicos (RSK-13).
+
+**Ondas e escritores**
+- **Onda A (paralela):** F3-001 (AI Eng.) ∥ F3-003a (Audio Eng.) ∥ F3-005 + reavaliação da física (Gameplay Eng.).
+- **Onda B:** F3-002 (AI) ∥ F3-003b (Audio) ∥ F3-004 e F3-006 (Gameplay) ∥ F3-007 (Level Designer). Só o Gameplay Engineer altera `player_root.gd`/`player.tscn`; só o Level Designer altera `sandbox.tscn` e `tools/level/`; o Director integra a cena jogável.
+- **Onda C:** F3-010 revisão, F3-011 QA, F3-012 documentação (STEALTH_SYSTEM.md, AUDIO_DESIGN.md).
+
+### F3-001 · AcousticGraph (L1) + tipos de dados
+- **Responsável:** AI Engineer · **Esforço:** EXTRA HIGH · **Depende de:** Gate F2 · **Status:** IN_PROGRESS
+- **Descrição:** `sim/acoustics/acoustic_graph.gd` (§6.1): salas, portais com posição e estado aberto/fechado, Dijkstra pelo grafo, caminho através de paredes (perda por parede) e de pisos, `room_at`, `weather_offset`, regra de audibilidade (DATA §2.3). `AcousticConfig` (Resource, §2.2) + `.tres`. `HeardNoise` e `PlayerHeardNoise` (§2) em L1. Determinístico; fechar porta nunca aumenta o nível.
+- **Aceitação/Testes:** STL-01 (ordem das intensidades), STL-02, STL-03, STL-07 (7 exemplos de DATA §2.3, ±0,2 m), NOI-02, NOI-03 (reflexão dos campos permitidos). A assinatura de `propagate` é a mesma do `AcousticPropagation.perceive` da F2.
+
+### F3-002 · AcousticWorld completo, RoomVolume, Portal, chuva e trovão, ponte de susto
+- **Responsável:** AI Engineer · **Esforço:** HIGH · **Depende de:** F3-001 · **Status:** BACKLOG
+- **Descrição:** o AcousticWorld troca a propagação provisória pelo grafo, construído a partir dos nós `RoomVolume`/`Portal` do nível. As portas atualizam o portal ligado (`Door.state_changed`). Clima com chuva por sala (`ambient_floor_db`) e trovão (+20 dB por 2,5 s, agendado por RNG próprio). Entrega de `PlayerHeardNoise` ao ouvinte do jogador (§6.5) para eventos de outra fonte. `NoiseEmitter` (§6.3) para fontes do mundo. A interface da F2 continua compatível.
+- **Testes:** integração (porta fechando reduz o nível percebido; trovão eleva o limiar; o ouvinte do jogador só recebe eventos de outras fontes, sem posição nem id), NOI-05.
+
+### F3-003 · Som do mundo
+- **F3-003a (Audio Eng., onda A, HIGH, IN_PROGRESS):** biblioteca de sons do mundo em `game/content/audio/world/` com manifesto: passos por superfície (madeira, tapete, azulejo, concreto) e marcha, corrida, porta (lenta, normal, batida, trancada), impactos de objeto (leve, médio, pesado), arrasto de móvel, queda, chuva (camadas: interna abafada, janela, externa) e trovões. Procedural quando soar bem; CC0 (D-06) com registro em `ASSET_LICENSES.md` quando a síntese não convencer. Gerador determinístico para o que for procedural.
+- **F3-003b (Audio Eng., onda B, EXTRA HIGH, BACKLOG):** `NoiseAudioRouter` (L3, §14): toca os eventos que não são do corpo do jogador em 3D (só panning), com `volume_db` derivado de `perceived_db` (NOI-04: ≤ 0,5 dB), atenuação nativa desligada (NOI-INV-2) e reverb por sala (barramento do `RoomVolume`). Ambiência de chuva e trovão guiada pelo estado de clima do AcousticWorld.
+
+### F3-004 · Ruídos do jogador e do mundo; objetos de distração
+- **Responsável:** Gameplay Eng. (+ Audio) · **Esforço:** HIGH · **Depende de:** F3-002 · **Status:** BACKLOG
+- **Descrição:** passos e corrida (sinal `footstep` → evento FOOTSTEP/RUNNING com modificador de superfície, DATA §2.1), queda (`landed` → FALL), portas (`opened`, `blocked`, `locked_feedback`, `interaction_failed` → DOOR), objetos arremessáveis (RigidBody3D; pegar, arremessar, impacto → OBJECT_IMPACT 50–80 dB por velocidade). Ponte de susto no PlayerRoot (§6.5).
+- **Testes:** STL-01 no jogo (rastejar < agachado < andar < correr < tosse < queda), integração de cada fonte; reavaliação da física (abaixo).
+
+### F3-005 · LightExposureProbe + reavaliação da física
+- **Responsável:** Gameplay Eng. · **Esforço:** MEDIUM · **Depende de:** F1 · **Status:** IN_PROGRESS
+- **Descrição:** `LightExposureProbe` (L2): exposição 0..1 em pontos de amostra a partir das luzes (alcance, atenuação, cone e oclusão por raio), para a F4 (visão do inimigo e PerceivableTarget). **RSK-13:** rodar de novo o spike V6 e um teste de corpos dinâmicos (pilha, arremesso, repouso, colisão com o jogador) em GodotPhysics3D e Jolt; registrar a decisão.
+- **Testes:** exposição no escuro ≈ 0, sob luz direta alta, atrás de parede ≈ 0; resultados do spike.
+
+### F3-006 · Legendas (ACC-04)
+- **Responsável:** Gameplay Eng. + Audio · **Esforço:** MEDIUM · **Depende de:** F3-002 · **Status:** BACKLOG
+- **Descrição:** o AcousticWorld emite `EventBus.subtitle_requested(text_key, duration)` para sons relevantes ouvidos pelo jogador (tosse, porta, passos próximos, falas); UI de legendas com `subtitles_enabled` e `subtitles_size`.
+- **Testes:** ACC-04.
+
+### F3-007 · Sandbox acústica
+- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F3-001 · **Status:** BACKLOG
+- **Descrição:** trocar os marcadores de sala e portal da sandbox por `RoomVolume`/`Portal`, com `ambient_floor_db` coerente (DATA §2.3) e portas ligadas aos portais; uma área com janela/exterior para testar a chuva; pontos de objetos arremessáveis.
+
+### F3-010 · Revisão técnica — Technical Reviewer · HIGH · BACKLOG
+### F3-011 · Validação de QA — QA Engineer · EXTRA HIGH · BACKLOG
+### F3-012 · Documentação — Director · LOW · BACKLOG
+STEALTH_SYSTEM.md e AUDIO_DESIGN.md.
+
+---
+
+## 5. Backlog das Fases 4–6 (resumo; cards completos ao abrir cada fase — DIR-02)
 
 | ID | Tarefa | Responsável | Esforço | Depende de |
 |---|---|---|---|---|
-| F3-001 | AcousticGraph (L1) + testes (pode rodar em paralelo com a F2) | AI Eng. | EXTRA HIGH | F1 |
-| F3-002 | AcousticWorld completo, NoiseEmitter, RoomVolume, Portal, piso de chuva e trovão; **ponte de susto** (ruído não causado pelo jogador com `perceived_db ≥ 55` → `add_startle`; revisão F2-010, R2-01) | AI Eng. | HIGH | F3-001, F2-006 |
-| F3-003 | NoiseAudioRouter (atenuação nativa desligada, reverb por sala) | Audio Eng. | EXTRA HIGH | F3-002 |
-| F3-004 | Ruídos do jogador e do mundo; objetos de distração arremessáveis | Gameplay + Audio | HIGH | F3-002 |
-| F3-005 | Exposição à luz do jogador (LightExposureProbe) | Gameplay Eng. | MEDIUM | F1 |
-| F3-006 | Legendas de sons relevantes | Gameplay + Audio | MEDIUM | F3-002 |
 | F4-001 | PerceivableTarget + VisionSensor | AI Eng. | EXTRA HIGH | F3-005 |
 | F4-002 | HearingSensor | AI Eng. | HIGH | F3-002 |
 | F4-003 | EnemyBrain (FSM) + PerceptionMemory (L1) | AI Eng. | EXTRA HIGH | F4-001, F4-002 |

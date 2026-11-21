@@ -436,6 +436,24 @@ Até a F3, o `AcousticWorld` existe só com o necessário para o produtor único
 - Emite `noise_resolved_for_player(event, result)` para todo evento; não há `HearingSensor` nem `PlayerThreatMonitor` na F2.
 - `source_id` do jogador: `&"player"`.
 
+### 6.5 Acréscimos congelados para a Fase 3 (v1.0, 2026-11-20)
+
+```gdscript
+## AcousticWorld (substitui a §6.4 a partir da F3; interface da F2 mantida)
+func register_player_listener(on_heard: Callable, ear: Node3D) -> void
+## on_heard(heard: PlayerHeardNoise) é chamado para cada evento de OUTRA fonte audível no ouvido do jogador.
+## F3: o PlayerRoot registra a ponte de susto. F4: o PlayerThreatMonitor registra-se no lugar, sem mudar a interface.
+func get_graph() -> AcousticGraph
+func get_weather_offset() -> float          ## trovão ativo: +20 dB por 2,5 s
+signal thunder_started(duration_s: float)   ## para a ambiência (NoiseAudioRouter) e para o level design
+```
+
+- **Grafo a partir do nível:** o AcousticWorld lê os `RoomVolume` e `Portal` (DATA §2.5) do nível em que está. Portal com `door` atualiza o estado aberto/fechado pelo `Door.state_changed` (OPEN = aberto; CLOSED/LOCKED = fechado; porta em movimento conta como aberta).
+- **Ponte de susto (DATA §1.3):** o PlayerRoot recebe o `PlayerHeardNoise` e, se `perceived_db ≥ 55` e a fonte não é o jogador, chama `physiology.add_startle(clamp((dB − 55)/2 + 10, 10, 25))`.
+- **Legendas:** o AcousticWorld emite `EventBus.subtitle_requested(text_key, duration)` para os sons relevantes audíveis pelo jogador (F3-006). A chave vem do `sound_id` (`subtitle.<sound_id>`).
+- **NOI-01** (só o AcousticWorld chama `HearingSensor.receive`) tem alvo real a partir da F4.
+- **Categoria VOICE:** aprovada (P-03), DATA §2.1 (fala 55 / grito 75 dB).
+
 ## 7. Percepção da IA (L2) — AI Engineer — Fase 4
 
 ### 7.1 PerceivableTarget — componente-filho do jogador
@@ -630,7 +648,7 @@ func compute() -> DifficultyModifiers
 | Componente | Consome | Regra |
 |---|---|---|
 | `BreathingAudio` | `AcousticWorld.noise_resolved_for_player` com `source_id == &"player"` e categoria BREATHING, WHEEZING, COUGHING ou MEDICATION (acréscimo da F2: o puff da bombinha é som do próprio corpo) | Toca os sons do corpo do jogador em 2D (som "dentro da cabeça"), com sons procedurais de `content/audio/body/` escolhidos por `sound_id`. **Nunca dispara som por conta própria.** |
-| `NoiseAudioRouter` | `noise_resolved_for_player` para todos os outros eventos | Toca o som no espaço com `volume_db` derivado de `PropagationResult` e reverb da sala. Ignora os eventos tratados pelo BreathingAudio. |
+| `NoiseAudioRouter` | `noise_resolved_for_player` para todos os outros eventos | Toca o som no espaço com `volume_db` derivado de `PropagationResult` (mesma regra de ganho do BreathingAudio, NOI-04 ≤ 0,5 dB) e reverb da sala. Ignora os eventos tratados pelo BreathingAudio. Também toca a ambiência de chuva e trovão a partir do estado de clima do AcousticWorld (F3-003b). |
 | `AdaptiveMusic` | `PlayerThreatMonitor.threat_changed` | Usa **apenas** a ameaça percebida pelo jogador. Não assina estados reais de inimigos. |
 | `CameraEffects` | Sinais do PhysiologyComponent | Tremor, balanço respiratório e efeitos de tosse, escalados pelas opções de acessibilidade. |
 
