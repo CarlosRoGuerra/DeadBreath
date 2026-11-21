@@ -257,6 +257,12 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 - **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F3-001 · **Status:** REVIEW. Seis `RoomVolume` (sala 28 dB com janela; cozinha, corredor, hall e mezanino 22; quintal exterior 38, sem teto), seis `Portal` (cinco com porta real do `LevelSlots`, um vão aberto hall–mezanino), porta nova `door_hall_quintal`, cinco `throwable_slot`. Porta corredor–hall muda 15,0 dB no nível real. Achados: a janela só muda o piso de ruído (não há abertura para fora); o vão do mezanino conta como portal aberto
 - **Descrição:** trocar os marcadores de sala e portal da sandbox por `RoomVolume`/`Portal`, com `ambient_floor_db` coerente (DATA §2.3) e portas ligadas aos portais; uma área com janela/exterior para testar a chuva; pontos de objetos arremessáveis.
 
+### F3-008 · Visão de debug acústica (anéis de ruído e grafo)
+- **Responsável:** Tools Programmer · **Esforço:** MEDIUM · **Depende de:** F3-002 · **Status:** REVIEW. Integrada na `sandbox_playable` pelo Director; 13 testes (raio pela fórmula com 4 casos calculados à mão, salas e portais iguais aos do grafo, cor acompanhando a porta, anel que expira, nada liga em produção); captura em `Docs/QA/EVIDENCE/F3-008_visao_acustica_debug.png`. A revisão técnica F3-010 foi anterior a este card: ele é validado pelo QA na F3-011
+- **Origem:** item do escopo da Fase 3 no ROADMAP ("Debug: anéis de ruído e grafo") que ficou sem card na abertura. O Director notou antes da F3-011 e abriu o card.
+- **Descrição:** `AcousticDebugView` (L3), tecla F5, só em build de desenvolvimento. Mostra as salas em arame com cor pelo piso de ruído, os portais verdes ou vermelhos acompanhando as portas, e anéis de ruído no chão. O raio do anel é o alcance em campo livre até o limiar da sala (DATA §2.2) e o anel some em cerca de 1,5 s. Sem custo quando desligada.
+- **Testes:** raio pela fórmula; salas e portais iguais aos do grafo; a cor acompanha a porta; o anel aparece e expira; nada liga em produção.
+
 ### F3-010 · Revisão técnica — Technical Reviewer · HIGH · DONE (revisão e nova verificação: APROVADO COM RESSALVAS, sem CRÍTICO, ALTO ou MÉDIO em aberto; rastreio em `Docs/QA/REVIEWS/F3-010_RESOLUTION.md`)
 ### F3-011 · Validação de QA — QA Engineer · EXTRA HIGH · BACKLOG
 ### F3-012 · Documentação — Director · LOW · BACKLOG

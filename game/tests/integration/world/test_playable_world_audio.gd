@@ -3,6 +3,7 @@ extends TestCase
 ## ao AcousticWorld dela; um som do mundo perto do jogador toca no router com a regra de ganho compartilhada; a camada
 ## de chuva segue o piso da sala do ouvinte; o trovão está ligado no nível (contrato da F3-002) e chega à ambiência.
 ## Integração da F3-006: a mesma porta gera a legenda na UI de legendas da cena (ACC-04).
+## Integração da F3-008: a visão de debug acústica está na cena, desligada por padrão e lendo as 6 salas do nível.
 ## A cena é carregada uma vez: os testes só emitem eventos e leem registros (orçamento da suíte < 10 s).
 
 const PLAYABLE_PATH: String = "res://content/levels/sandbox_playable.tscn"
@@ -72,6 +73,19 @@ func test_porta_do_mundo_perto_do_jogador_toca_no_router_com_a_regra_de_ganho() 
 	if subtitles != null:
 		assert_true(subtitles.get_visible_texts().has(subtitles.text_for(&"subtitle.door_normal")),
 			"a porta do mundo aparece na legenda (ACC-04): %s" % [subtitles.get_visible_texts()])
+
+
+func test_visao_de_debug_acustica_na_cena_desligada_por_padrao() -> void:
+	var view: AcousticDebugView = _root.get_node_or_null("AcousticDebugView") as AcousticDebugView
+	assert_not_null(view, "a cena tem a AcousticDebugView")
+	if view == null:
+		return
+	assert_false(view.is_view_visible(), "nasce desligada")
+	assert_eq(view.get_ring_count(), 0, "desligada não acumula anéis")
+	if view.toggle_view():
+		assert_eq(view.get_room_count(), 6, "ligada, mostra as 6 salas da sandbox")
+		view.toggle_view()
+	assert_false(view.is_view_visible(), "volta a desligar")
 
 
 func test_camada_de_chuva_segue_o_piso_da_sala_do_ouvinte() -> void:

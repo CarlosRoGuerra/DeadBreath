@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="PackedScene" path="res://content/levels/sandbox.tscn" id="1_level"]
 [ext_resource type="Script" path="res://components/world/level_slots.gd" id="2_slots"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://presentation/audio/noise_audio_router.gd" id="9_noise_router"]
 [ext_resource type="Script" path="res://presentation/audio/rain_ambience.gd" id="10_rain"]
 [ext_resource type="Script" path="res://presentation/ui/subtitles.gd" id="11_subtitles"]
+[ext_resource type="Script" path="res://presentation/debug/acoustic_debug_view.gd" id="12_acoustic_debug"]
 
 [node name="SandboxPlayable" type="Node"]
 
@@ -47,3 +48,6 @@ script = ExtResource("8_balance")
 
 [node name="Subtitles" type="CanvasLayer" parent="."]
 script = ExtResource("11_subtitles")
+
+[node name="AcousticDebugView" type="Node3D" parent="."]
+script = ExtResource("12_acoustic_debug")
