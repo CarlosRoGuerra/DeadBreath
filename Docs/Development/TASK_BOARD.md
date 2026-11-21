@@ -230,7 +230,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 - **Aceitação/Testes:** STL-01 (ordem das intensidades), STL-02, STL-03, STL-07 (7 exemplos de DATA §2.3, ±0,2 m), NOI-02, NOI-03 (reflexão dos campos permitidos). A assinatura de `propagate` é a mesma do `AcousticPropagation.perceive` da F2.
 
 ### F3-002 · AcousticWorld completo, RoomVolume, Portal, chuva e trovão, ponte de susto
-- **Responsável:** AI Engineer · **Esforço:** HIGH · **Depende de:** F3-001 · **Status:** BACKLOG
+- **Responsável:** AI Engineer · **Esforço:** HIGH · **Depende de:** F3-001 · **Status:** REVIEW. Pipeline verde (363/363). Porta real sincroniza o portal (15 dB), trovão (limiar 19 → 39 dB), ouvinte do jogador, `room_id`, legendas, NOI-05; decisões em COMPONENT_CONTRACTS §6.5
 - **Descrição:** a tabela de intensidades de DATA §2.1 passa a ser um Resource (`NoiseLevels` + `.tres`), substituindo as constantes provisórias de `AcousticLevels` (decisão D-03). O AcousticWorld troca a propagação provisória pelo grafo, construído a partir dos nós `RoomVolume`/`Portal` do nível. As portas atualizam o portal ligado (`Door.state_changed`). Clima com chuva por sala (`ambient_floor_db`) e trovão (+20 dB por 2,5 s, agendado por RNG próprio). Entrega de `PlayerHeardNoise` ao ouvinte do jogador (§6.5) para eventos de outra fonte. `NoiseEmitter` (§6.3) para fontes do mundo. A interface da F2 continua compatível.
 - **Testes:** integração (porta fechando reduz o nível percebido; trovão eleva o limiar; o ouvinte do jogador só recebe eventos de outras fontes, sem posição nem id), NOI-05.
 
@@ -240,7 +240,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 
 ### F3-004 · Ruídos do jogador e do mundo; objetos de distração
 - **Responsável:** Gameplay Eng. (+ Audio) · **Esforço:** HIGH · **Depende de:** F3-002 · **Status:** BACKLOG
-- **Descrição:** passos e corrida (sinal `footstep` → evento FOOTSTEP/RUNNING com modificador de superfície, DATA §2.1), queda (`landed` → FALL), portas (`opened`, `blocked`, `locked_feedback`, `interaction_failed` → DOOR), objetos arremessáveis (RigidBody3D; pegar, arremessar, impacto → OBJECT_IMPACT 50–80 dB por velocidade). Ponte de susto no PlayerRoot (§6.5).
+- **Descrição:** **porta que fecha** (decisão do Director na F3-002: hoje a Door só abre; acrescentar OPEN → CLOSED por interação, segurar = fechar devagar 30 dB, tocar = normal 50 dB, e o teste "porta fechando reduz o percebido"); passos e corrida (sinal `footstep` → evento FOOTSTEP/RUNNING com modificador de superfície, DATA §2.1), queda (`landed` → FALL), portas (`opened`, `blocked`, `locked_feedback`, `interaction_failed` → DOOR), objetos arremessáveis (RigidBody3D; pegar, arremessar, impacto → OBJECT_IMPACT 50–80 dB por velocidade). Ponte de susto no PlayerRoot (§6.5).
 - **Testes:** STL-01 no jogo (rastejar < agachado < andar < correr < tosse < queda), integração de cada fonte; reavaliação da física (abaixo).
 
 ### F3-005 · LightExposureProbe + reavaliação da física

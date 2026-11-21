@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="NoiseLevels" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://sim/acoustics/noise_levels.gd" id="1_levels"]
+
+[resource]
+script = ExtResource("1_levels")
+footstep_crawl_db = 18.0
+footstep_crouch_db = 25.0
+footstep_slow_db = 32.0
+footstep_walk_db = 40.0
+running_db = 60.0
+cough_db = 65.0
+door_slow_db = 30.0
+door_normal_db = 50.0
+door_slam_db = 75.0
+object_impact_range_db = Vector2(50, 80)
+medication_db = 38.0
+furniture_range_db = Vector2(55, 70)
+fall_db = 80.0
+voice_talk_db = 55.0
+voice_shout_db = 75.0
+surface_wood_loose_db = 6.0
+surface_carpet_db = -8.0
+surface_tile_db = 3.0
+surface_concrete_db = 0.0

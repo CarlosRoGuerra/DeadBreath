@@ -7,12 +7,16 @@ extends TestCase
 ## Autor: Audio Engineer (F2-006b).
 
 const TOL: float = 0.0001
+## F3-002: NoiseEmitter (COMPONENT_CONTRACTS §6.3) é o emissor das fontes do mundo; cria o NoiseEvent e o entrega
+## ao AcousticWorld, que é o único caminho para a IA (NOI-INV-1).
 const ALLOWED_EMITTER_FILES: Array[String] = [
 	"res://components/player/breath_emitter.gd",
 	"res://components/acoustics/acoustic_world.gd",
+	"res://components/acoustics/noise_emitter.gd",
 ]
 const ALLOWED_EVENT_CREATORS: Array[String] = [
 	"res://components/player/breath_emitter.gd",
+	"res://components/acoustics/noise_emitter.gd",
 ]
 
 var _world: AcousticWorld = null

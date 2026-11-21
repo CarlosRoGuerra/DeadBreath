@@ -452,6 +452,12 @@ signal thunder_started(duration_s: float)   ## para a ambiência (NoiseAudioRout
 - **Ponte de susto (DATA §1.3):** o PlayerRoot recebe o `PlayerHeardNoise` e, se `perceived_db ≥ 55` e a fonte não é o jogador, chama `physiology.add_startle(clamp((dB − 55)/2 + 10, 10, 25))`.
 - **Legendas:** o AcousticWorld emite `EventBus.subtitle_requested(text_key, duration)` para os sons relevantes audíveis pelo jogador (F3-006). A chave vem do `sound_id` (`subtitle.<sound_id>`).
 - **NOI-01** (só o AcousticWorld chama `HearingSensor.receive`) tem alvo real a partir da F4.
+- **Decisões ratificadas na F3-002:**
+  - `source_is_enemy` = `source_id` começa com `enemy` (convenção; rever na F4).
+  - Trovão desligado por padrão (`thunder_enabled`), com intervalo de 60 a 180 s (RNG próprio, `weather_seed`); o level design liga por nível.
+  - Legendas: a tosse (não o pigarro), as portas e a fala, sempre que audíveis; passos ou corrida de outra fonte só quando `perceived_db ≥ limiar do jogador + 10 dB`. O mesmo `sound_id` não repete antes de 2 s, e a duração mínima é 1,5 s.
+  - Sem `RoomVolume` no nível, o AcousticWorld volta à propagação provisória da F2.
+  - `RoomVolume` usa o AABB do `BoxShape3D` filho: as salas ficam alinhadas aos eixos.
 - **Categoria VOICE:** aprovada (P-03), DATA §2.1 (fala 55 / grito 75 dB).
 
 ## 7. Percepção da IA (L2) — AI Engineer — Fase 4
