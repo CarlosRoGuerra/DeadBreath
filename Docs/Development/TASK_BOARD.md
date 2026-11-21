@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 2 — Fisiologia: concluída; Gate F2 aguardando aprovação do usuário** |
+| Fase atual | **FASE 3 — Furtividade e áudio** (Gate F2 aprovado pelo usuário em 2026-11-20) |
 | Estados | BACKLOG · READY · IN_PROGRESS · REVIEW · TESTING · APPROVED · BLOCKED |
 
 Uma tarefa só fica **APPROVED** com: implementação concluída, critérios atendidos, testes executados (com saída registrada), revisão técnica concluída e documentação atualizada.

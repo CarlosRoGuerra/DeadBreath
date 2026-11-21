@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 2 — Fisiologia: concluída; Gate F2 aguardando aprovação do usuário** |
+| Fase atual | **FASE 3 — Furtividade e áudio** (Gate F2 aprovado em 2026-11-20) |
 | Responsável | Project Director |
 
 Cada fase termina num **gate**. A fase seguinte só começa com o gate aprovado: critérios cumpridos, testes executados com evidência, revisão técnica concluída, documentação atualizada e aprovação do usuário.
@@ -85,7 +85,7 @@ Protótipo controlável em primeira pessoa numa sandbox greybox.
 
 **Gate F2:** PHY-01..PHY-11 verdes (com `ThreatSample` injetado ou `StubThreatSource`; as fontes reais de ameaça só existem na F4), ACC-01..03 verdes; cenário "correr até a crise e se recuperar" gravado; RESPIRATORY, STRESS e STAMINA_SYSTEM.md escritos.
 
-**Situação do Gate F2 (2026-11-20): critérios cumpridos; aguarda aprovação do usuário.**
+**Gate F2: APROVADO pelo usuário em 2026-11-20** (critérios abaixo cumpridos, com as ressalvas registradas).
 1. PHY-01..PHY-11 verdes (com `StubThreatSource`): ✔ (propriedades com 200 sequências).
 2. ACC-01..03 verdes: ✔.
 3. Cenário "correr até a crise e se recuperar" gravado: ✔ (`EVIDENCE/F2-011_cenario_*`: 6 capturas, telemetria CSV, log de sons).

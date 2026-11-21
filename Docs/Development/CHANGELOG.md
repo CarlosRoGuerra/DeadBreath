@@ -4,7 +4,7 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
 ## [Não lançado]
 
-### Fase 2 — Fisiologia (2026-11-20; Gate F2 aguardando aprovação do usuário)
+### Fase 2 — Fisiologia (2026-11-20; Gate F2 aprovado pelo usuário)
 
 #### Adicionado
 - Estamina, estresse e asma como modelos separados (L1 puros, determinísticos, com `to_dict`/`from_dict`), acoplamento (sprint e firmeza das mãos) e PhysiologyComponent no jogador.
