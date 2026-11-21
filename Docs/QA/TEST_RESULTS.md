@@ -208,3 +208,5 @@ Validações independentes da fase:
 - **Testes que falham de propósito:** nenhum.
 - **Revisão do pipeline:** o `--import` regravou `game/default_bus_layout.tres` (só formato, sem mudança de comportamento); não revertido, para o Director decidir.
 
+**Verificação do BUG-016 (commit `8c158df`, QA, 2026-11-21).** Pipeline 1× aprovado (código 0): padrão 469/469, propriedade 167/167, meta 26/26 (`EVIDENCE/F3-011_bug016_pipeline.txt`). Testes novos `test_f3011_bug016_verificacao.gd`: 7/7 verdes. Resultado: objeto leve corrigido (original, agachado, olhando para o chão, quina, batente e soltura recusada dentro de bloco, sem sobreposição em nenhum tick). **Objeto pesado: BUG-016 reaberto**, objeto atravessa a parede (profundidade de 0,748 m, 139 ticks); o teste documenta o defeito. Sem testes que falham de propósito.
+

@@ -108,25 +108,52 @@ func set_hold_transform(target: Transform3D) -> void:
 	global_transform = target
 
 
-## BUG-016 (F3-011): posição segura da mão. Varre a forma do objeto da câmera (from_position) até a posição desejada e
-## para no primeiro contato com o mundo; o jogador e o próprio objeto ficam de fora. Sem forma, devolve o alvo.
+## BUG-016 (F3-011; reaberto pelo QA para o objeto pesado): posição segura da mão. Varre a forma do objeto até a posição
+## desejada e para no primeiro contato com o mundo; o jogador e o próprio objeto ficam de fora. A varredura parte de um
+## ponto recuado (a câmera menos o alcance da forma, rumo ao corpo), para que um objeto grande não comece a varredura
+## já dentro da parede quando o jogador está encostado nela (o cast_motion não detecta a parede nesse caso). Se esse
+## ponto sobrepõe o mundo (costas na parede), tenta da câmera; se os dois sobrepõem, o objeto fica onde estava.
 func safe_hold_transform(from_position: Vector3, target: Transform3D, player: CollisionObject3D) -> Transform3D:
 	var shape_node: CollisionShape3D = get_node_or_null(SHAPE_PATH) as CollisionShape3D
 	if shape_node == null or shape_node.shape == null or not is_inside_tree():
 		return target
-	var motion: Vector3 = target.origin - from_position
-	var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
-	query.shape = shape_node.shape
-	query.transform = Transform3D(target.basis, from_position) * shape_node.transform
-	query.motion = motion
-	query.collision_mask = HOLD_SWEEP_MASK
+	var toward: Vector3 = target.origin - from_position
+	if toward.length() < 0.0001:
+		return target
 	var exclude: Array[RID] = [get_rid()]
 	if player != null:
 		exclude.append(player.get_rid())
+	var space: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
+	query.shape = shape_node.shape
+	query.collision_mask = HOLD_SWEEP_MASK
 	query.exclude = exclude
-	var fractions: PackedFloat32Array = get_world_3d().direct_space_state.cast_motion(query)
-	var safe: float = fractions[0] if fractions.size() > 0 else 1.0
-	return Transform3D(target.basis, from_position + motion * safe)
+	var starts: Array[Vector3] = [from_position - toward.normalized() * shape_reach(shape_node.shape), from_position]
+	for start: Vector3 in starts:
+		query.transform = Transform3D(target.basis, start) * shape_node.transform
+		query.motion = Vector3.ZERO
+		if not space.intersect_shape(query, 1).is_empty():
+			continue
+		var motion: Vector3 = target.origin - start
+		query.motion = motion
+		var fractions: PackedFloat32Array = space.cast_motion(query)
+		var safe: float = fractions[0] if fractions.size() > 0 else 1.0
+		return Transform3D(target.basis, start + motion * safe)
+	return global_transform
+
+
+## Alcance da forma a partir do centro (raio da esfera que a contém).
+static func shape_reach(shape: Shape3D) -> float:
+	if shape is BoxShape3D:
+		return (shape as BoxShape3D).size.length() * 0.5
+	if shape is SphereShape3D:
+		return (shape as SphereShape3D).radius
+	if shape is CylinderShape3D:
+		var cylinder: CylinderShape3D = shape as CylinderShape3D
+		return Vector2(cylinder.radius, cylinder.height * 0.5).length()
+	if shape is CapsuleShape3D:
+		return (shape as CapsuleShape3D).height * 0.5
+	return 0.5
 
 
 ## A forma cabe na posição dada, sem sobrepor mundo nem jogador? Usada antes de soltar.
