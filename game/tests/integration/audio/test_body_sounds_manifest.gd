@@ -74,19 +74,6 @@ func _stream(file: String) -> AudioStreamWAV:
 	return res as AudioStreamWAV
 
 
-func _peak_dbfs(stream: AudioStreamWAV) -> float:
-	var data: PackedByteArray = stream.data
-	var count: int = data.size() / 2
-	var peak: int = 0
-	for i in range(count):
-		var a: int = absi(data.decode_s16(i * 2))
-		if a > peak:
-			peak = a
-	if peak == 0:
-		return -120.0
-	return 20.0 * log(float(peak) / 32768.0) / log(10.0)
-
-
 func test_manifest_present_and_lists_every_wav_on_disk() -> void:
 	assert_false(_read_manifest().is_empty(), "manifest.json ausente ou invalido")
 	var listed: Dictionary = {}
@@ -133,30 +120,6 @@ func test_format_is_mono_16_bit_44100_with_declared_samples() -> void:
 		assert_false(stream.stereo, file + ": deve ser mono")
 		assert_eq(stream.mix_rate, EXPECTED_SAMPLE_RATE, file + ": taxa de amostragem")
 		assert_eq(stream.data.size() / 2, int(item["samples"]), file + ": numero de amostras")
-
-
-func test_no_clipping_peak_below_minus_1_dbfs() -> void:
-	for item: Dictionary in _items():
-		var file: String = String(item["file"])
-		var stream: AudioStreamWAV = _stream(file)
-		if stream == null:
-			fail("sem stream: " + file)
-			continue
-		var peak_db: float = _peak_dbfs(stream)
-		assert_true(peak_db < PEAK_LIMIT_DBFS,
-			"%s: pico %.2f dBFS (limite %.1f)" % [file, peak_db, PEAK_LIMIT_DBFS])
-
-
-func test_declared_peak_matches_measured_peak() -> void:
-	for item: Dictionary in _items():
-		var file: String = String(item["file"])
-		var stream: AudioStreamWAV = _stream(file)
-		if stream == null:
-			fail("sem stream: " + file)
-			continue
-		var measured: float = _peak_dbfs(stream)
-		assert_almost_eq(measured, float(item["peak_dbfs"]), PEAK_DECLARED_TOLERANCE_DB,
-			"pico declarado vs medido: " + file)
 
 
 func test_cough_warning_lasts_1_5_seconds() -> void:

@@ -1,5 +1,6 @@
 extends TestCase
 ## F3-003a (Docs/Development/TASK_BOARD §4c; contrato de dados em content/audio/world/manifest.json).
+## A varredura de pico sobre todos os clips está em tests/property/audio/test_world_peaks.gd (regra de tempo da suíte).
 ## Para cada item do manifesto dos sons do mundo confere: manifesto × disco, importação como AudioStreamWAV com
 ## a duração e o formato declarados (PCM 16 bits, mono, 44,1 kHz), pico real abaixo de -1 dBFS, os sound_id
 ## exigidos com variações, e os loops de chuva com a emenda sem estalo (medida no áudio importado, não no que o
@@ -62,19 +63,6 @@ func _wav_names_on_disk() -> Array[String]:
 func _stream(file: String) -> AudioStreamWAV:
 	var res: Resource = load(WORLD_DIR + file)
 	return res as AudioStreamWAV
-
-
-func _peak_dbfs(stream: AudioStreamWAV) -> float:
-	var data: PackedByteArray = stream.data
-	var count: int = data.size() / 2
-	var peak: int = 0
-	for i in range(count):
-		var a: int = absi(data.decode_s16(i * 2))
-		if a > peak:
-			peak = a
-	if peak == 0:
-		return -120.0
-	return 20.0 * log(float(peak) / 32768.0) / log(10.0)
 
 
 ## Razão salto / diferença média entre vizinhos, no próprio loop (a última amostra contra a primeira).
@@ -143,18 +131,6 @@ func test_every_item_imports_as_wav_with_declared_duration_and_format() -> void:
 		assert_false(stream.stereo, file + ": deve ser mono")
 		assert_eq(stream.mix_rate, EXPECTED_SAMPLE_RATE, file + ": taxa de amostragem")
 		assert_eq(stream.data.size() / 2, int(item["samples"]), file + ": número de amostras")
-
-
-func test_no_clipping_and_declared_peak_matches() -> void:
-	for item: Dictionary in _items():
-		var file: String = String(item["file"])
-		var stream: AudioStreamWAV = _stream(file)
-		if stream == null:
-			fail("sem stream: " + file)
-			continue
-		var peak_db: float = _peak_dbfs(stream)
-		assert_true(peak_db < PEAK_LIMIT_DBFS, "%s: pico %.2f dBFS (limite %.1f)" % [file, peak_db, PEAK_LIMIT_DBFS])
-		assert_almost_eq(peak_db, float(item["peak_dbfs"]), PEAK_DECLARED_TOLERANCE_DB, "pico declarado vs medido: " + file)
 
 
 func test_loops_are_flagged_forward_looped_and_seamless() -> void:

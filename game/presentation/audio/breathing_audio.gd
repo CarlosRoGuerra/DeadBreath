@@ -16,10 +16,10 @@ const WORLD_GROUP: StringName = &"acoustic_world"
 const MANIFEST_PATH: String = "res://content/audio/body/manifest.json"
 const BODY_DIR: String = "res://content/audio/body/"
 const LOG_CATEGORY: StringName = &"audio"
-## Percepção (dB) que toca em 0 dB de ganho. Acima disso o ganho fica em 0 dB: tosse e gasp não passam do
-## nível do clip, e o mixer não clipa. Abaixo, o ganho cai até MIN_GAIN_DB (silêncio audível do ciclo calmo).
-const BODY_REFERENCE_DB: float = 45.0
-const MIN_GAIN_DB: float = -45.0
+## Percepção (dB) que toca em 0 dB de ganho. Acima disso o ganho sobe comprimido (NoiseGain, 4:1 até +6 dB): a tosse
+## soa acima da respiração. Abaixo, o ganho cai até MIN_GAIN_DB (silêncio audível do ciclo calmo).
+const BODY_REFERENCE_DB: float = NoiseGain.BODY_REFERENCE_DB
+const MIN_GAIN_DB: float = NoiseGain.MIN_GAIN_DB
 const LAYER_SOUND: StringName = &"wheeze"
 const ROLE_INHALE: StringName = &"inhale"
 const ROLE_EXHALE: StringName = &"exhale"
@@ -81,9 +81,9 @@ func set_random_seed(seed_value: int) -> void:
 	_rng.seed = seed_value
 
 
-## Ganho (dB) a partir do nível percebido: 0 dB em BODY_REFERENCE_DB ou acima, MIN_GAIN_DB como piso.
+## Ganho (dB) a partir do nível percebido: a regra compartilhada NoiseGain (1:1 até a referência, comprimida acima).
 static func gain_for_db(perceived_db: float) -> float:
-	return clampf(perceived_db - BODY_REFERENCE_DB, MIN_GAIN_DB, 0.0)
+	return NoiseGain.gain_for_db(perceived_db)
 
 
 func variation_count(sound_id: StringName, role: StringName) -> int:

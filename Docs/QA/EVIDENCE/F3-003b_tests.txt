@@ -1,0 +1,83 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-21 01:02:47 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 80 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/audio/test_noise_selection.gd::test_body_categories_are_recognised  0 ms  (asserts: 6)
+PASS  unit/audio/test_noise_selection.gd::test_choose_sound_for_steps_impacts_and_doors  0 ms  (asserts: 5)
+PASS  unit/audio/test_noise_selection.gd::test_choose_sound_without_sound_id_is_empty  0 ms  (asserts: 1)
+PASS  unit/audio/test_noise_selection.gd::test_gain_rule_is_the_breathing_rule  0 ms  (asserts: 7)
+PASS  unit/audio/test_noise_selection.gd::test_gait_bands_follow_data_levels  0 ms  (asserts: 4)
+PASS  unit/audio/test_noise_selection.gd::test_impact_bands_by_intensity  0 ms  (asserts: 4)
+PASS  unit/audio/test_noise_selection.gd::test_rain_layer_follows_room_floor  0 ms  (asserts: 6)
+PASS  unit/audio/test_noise_selection.gd::test_rain_output_level_is_the_floor_for_every_layer  0 ms  (asserts: 5)
+PASS  unit/audio/test_noise_selection.gd::test_router_constants_match_noise_levels_resource  1 ms  (asserts: 9)
+PASS  unit/audio/test_noise_selection.gd::test_running_is_always_run_and_high_levels_are_run  0 ms  (asserts: 2)
+PASS  unit/audio/test_noise_selection.gd::test_surface_offset_is_removed_before_banding  0 ms  (asserts: 2)
+PASS  unit/audio/test_noise_selection.gd::test_thunder_gain_is_muffled_inside_rooms  0 ms  (asserts: 3)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_breath_families_fit_the_period_range  0 ms  (asserts: 4)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_cough_warning_lasts_1_5_seconds  2 ms  (asserts: 4)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_every_item_imports_as_wav_with_declared_duration  24 ms  (asserts: 82)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_format_is_mono_16_bit_44100_with_declared_samples  25 ms  (asserts: 164)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_manifest_present_and_lists_every_wav_on_disk  2 ms  (asserts: 44)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_required_sound_ids_have_roles_and_variations  0 ms  (asserts: 11)
+PASS  integration/audio/test_breathing_audio.gd::test_breath_event_plays_inhale_then_exhale_chained_to_the_period  26 ms  (asserts: 5)
+PASS  integration/audio/test_breathing_audio.gd::test_events_from_other_sources_or_categories_are_ignored  25 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_every_required_sound_has_variations_loaded  24 ms  (asserts: 11)
+PASS  integration/audio/test_breathing_audio.gd::test_exhale_is_never_cut_by_the_next_event_timing  25 ms  (asserts: 2)
+PASS  integration/audio/test_breathing_audio.gd::test_gain_mapping_bounds  24 ms  (asserts: 3)
+PASS  integration/audio/test_breathing_audio.gd::test_manifest_families_match_breath_params_table  25 ms  (asserts: 10)
+PASS  integration/audio/test_breathing_audio.gd::test_non_wheezing_breath_has_no_layer  29 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_one_shots_play_their_own_files  26 ms  (asserts: 9)
+PASS  integration/audio/test_breathing_audio.gd::test_pitch_stays_within_the_fit_tolerance  24 ms  (asserts: 2)
+PASS  integration/audio/test_breathing_audio.gd::test_players_are_not_spatial_and_source_has_no_attenuation  29 ms  (asserts: 4)
+PASS  integration/audio/test_breathing_audio.gd::test_silent_without_events  21 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_volume_comes_from_perceived_level_not_from_the_source  23 ms  (asserts: 3)
+PASS  integration/audio/test_breathing_audio.gd::test_wheezing_cycle_adds_layer_starting_with_exhale  27 ms  (asserts: 3)
+PASS  integration/audio/test_bus_layout.gd::test_large_room_reverb_is_longer_than_small  0 ms  (asserts: 2)
+PASS  integration/audio/test_bus_layout.gd::test_master_bus_is_present  0 ms  (asserts: 1)
+PASS  integration/audio/test_bus_layout.gd::test_reverb_buses_exist_with_reverb_effects  0 ms  (asserts: 6)
+PASS  integration/audio/test_bus_layout.gd::test_reverb_buses_send_to_master  0 ms  (asserts: 2)
+PASS  integration/audio/test_noise_audio_router.gd::test_breathing_audio_ignores_world_events  87 ms  (asserts: 2)
+PASS  integration/audio/test_noise_audio_router.gd::test_bus_is_master_outside_any_room  2 ms  (asserts: 2)
+PASS  integration/audio/test_noise_audio_router.gd::test_footstep_file_follows_surface_and_gait  1 ms  (asserts: 7)
+PASS  integration/audio/test_noise_audio_router.gd::test_impact_file_follows_intensity_band  1 ms  (asserts: 4)
+Godot_v4.7.2-stable_win64_console.exe : 2026-11-21 01:02:48 [WARN] [audio] sem arquivo para door_inexistente (marcha )
+No linha:1 caractere:878
++ ... Length)) }; & $g --headless --fixed-fps 60 --path D:\Dev\DeadBreath\g ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-11-21 01:0...tente (marcha ):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+PASS  integration/audio/test_noise_audio_router.gd::test_missing_sound_plays_nothing  0 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_noi_04_volume_matches_perceived_rule_over_20_events  2 ms  (asserts: 29)
+PASS  integration/audio/test_noise_audio_router.gd::test_perceived_level_comes_from_the_propagation_not_the_source  1 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_pitch_is_contained_within_four_percent  1 ms  (asserts: 20)
+PASS  integration/audio/test_noise_audio_router.gd::test_position_is_the_entry_point_of_the_path  1 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_reverb_bus_follows_the_listener_room  1 ms  (asserts: 3)
+PASS  integration/audio/test_noise_audio_router.gd::test_router_ignores_the_players_own_body_sounds  0 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_router_plays_the_players_steps_and_doors_as_world_sounds  1 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_same_variation_is_not_repeated_back_to_back  1 ms  (asserts: 12)
+PASS  integration/audio/test_noise_audio_router.gd::test_sound_below_the_player_threshold_is_not_played  1 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_voices_are_3d_with_native_attenuation_disabled  1 ms  (asserts: 3)
+PASS  integration/audio/test_noise_audio_router.gd::test_voices_are_limited_to_the_maximum  1 ms  (asserts: 2)
+PASS  integration/audio/test_rain_ambience.gd::test_crossfade_between_layers_is_continuous_and_complete  4 ms  (asserts: 7)
+PASS  integration/audio/test_rain_ambience.gd::test_crossfade_is_power_constant  4 ms  (asserts: 60)
+PASS  integration/audio/test_rain_ambience.gd::test_layer_follows_the_listener_room_floor  1 ms  (asserts: 2)
+PASS  integration/audio/test_rain_ambience.gd::test_output_level_equals_the_room_floor_minus_69  4 ms  (asserts: 2)
+PASS  integration/audio/test_rain_ambience.gd::test_outside_every_room_is_the_exterior_layer  1 ms  (asserts: 1)
+PASS  integration/audio/test_rain_ambience.gd::test_thunder_plays_on_the_world_signal  0 ms  (asserts: 2)
+PASS  integration/audio/test_rain_ambience.gd::test_thunder_stays_silent_when_disabled  0 ms  (asserts: 1)
+PASS  integration/audio/test_rain_ambience.gd::test_thunder_voices_are_not_positional  1 ms  (asserts: 6)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_every_item_imports_as_wav_with_declared_duration_and_format  2 ms  (asserts: 588)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_loops_are_flagged_forward_looped_and_seamless  39 ms  (asserts: 7)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_manifest_present_and_lists_every_wav_on_disk  3 ms  (asserts: 101)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_required_sound_ids_have_variations_and_gaits  21 ms  (asserts: 34)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_world_total_size_is_within_budget  2 ms  (asserts: 1)
+PASS  integration/qa/test_f2011_audio_corpo.gd::test_cada_som_do_corpo_tem_um_evento_em_repouso_e_na_corrida  580 ms  (asserts: 10)
+      nota: repouso: eventos de respiração=1 (chiado=0), pontuais=0; sons: inspiração=1 expiração=1 camada=0 pontual=0
+      nota: corrida: eventos de respiração=2 (chiado=0), pontuais=0; sons: inspiração=2 expiração=2 camada=0 pontual=0
+PASS  integration/world/test_playable_body_chain.gd::test_breathing_cycle_reaches_the_world_and_the_head_audio  84 ms  (asserts: 2)
+
+RESUMO: total=66 passou=66 falhou=0 sem_assert=0 tempo_total_ms=2882
+RESULTADO: APROVADO (codigo de saida 0)
+

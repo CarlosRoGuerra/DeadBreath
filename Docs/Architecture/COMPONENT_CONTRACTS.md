@@ -458,6 +458,11 @@ signal thunder_started(duration_s: float)   ## para a ambiência (NoiseAudioRout
   - Legendas: a tosse (não o pigarro), as portas e a fala, sempre que audíveis; passos ou corrida de outra fonte só quando `perceived_db ≥ limiar do jogador + 10 dB`. O mesmo `sound_id` não repete antes de 2 s, e a duração mínima é 1,5 s.
   - Sem `RoomVolume` no nível, o AcousticWorld volta à propagação provisória da F2.
   - `RoomVolume` usa o AABB do `BoxShape3D` filho: as salas ficam alinhadas aos eixos.
+- **Decisões da F3-003b (Director):**
+  - Posição da voz 3D = `PropagationResult.entry_point`. No caminho direto é a fonte; por portal, é o portal por onde o som entra na sala do ouvinte.
+  - Reverb = barramento da sala do **ouvinte** (`RoomVolume.reverb_bus`: `reverb_small`, `reverb_large` ou vazio = Master).
+  - Regra de ganho comprimida acima de 45 dB, com limitador no Master (DATA §2.4).
+  - **Contrato dos passos (para a F3-004):** o `NoiseEvent` de passo usa `sound_id = footstep_<superfície>` e `intensity_db = NoiseLevels.footstep_level(marcha, superfície)` sem outro modificador; corrida usa a categoria RUNNING. O router recupera a marcha descontando o modificador da superfície. A F3-004 testa, para cada marcha e superfície, que o arquivo tocado é o da marcha certa.
 - **Categoria VOICE:** aprovada (P-03), DATA §2.1 (fala 55 / grito 75 dB).
 
 ## 7. Percepção da IA (L2) — AI Engineer — Fase 4

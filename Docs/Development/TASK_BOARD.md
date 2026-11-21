@@ -236,7 +236,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 
 ### F3-003 · Som do mundo
 - **F3-003a (Audio Eng., onda A, HIGH, IN_PROGRESS):** biblioteca de sons do mundo em `game/content/audio/world/` com manifesto: passos por superfície (madeira, tapete, azulejo, concreto) e marcha, corrida, porta (lenta, normal, batida, trancada), impactos de objeto (leve, médio, pesado), arrasto de móvel, queda, chuva (camadas: interna abafada, janela, externa) e trovões. Procedural quando soar bem; CC0 (D-06) com registro em `ASSET_LICENSES.md` quando a síntese não convencer. Gerador determinístico para o que for procedural.
-- **F3-003b (Audio Eng., onda B, EXTRA HIGH, BACKLOG):** `NoiseAudioRouter` (L3, §14): toca os eventos que não são do corpo do jogador em 3D (só panning), com `volume_db` derivado de `perceived_db` (NOI-04: ≤ 0,5 dB), atenuação nativa desligada (NOI-INV-2) e reverb por sala (barramento do `RoomVolume`). Ambiência de chuva e trovão guiada pelo estado de clima do AcousticWorld.
+- **F3-003b (Audio Eng., onda B, EXTRA HIGH, REVIEW; integrada pelo Director na `sandbox_playable.tscn`, com trovão ligado):** `NoiseAudioRouter` (L3, §14): toca os eventos que não são do corpo do jogador em 3D (só panning), com `volume_db` derivado de `perceived_db` (NOI-04: ≤ 0,5 dB), atenuação nativa desligada (NOI-INV-2) e reverb por sala (barramento do `RoomVolume`). Ambiência de chuva e trovão guiada pelo estado de clima do AcousticWorld.
 
 ### F3-004 · Ruídos do jogador e do mundo; objetos de distração
 - **Responsável:** Gameplay Eng. (+ Audio) · **Esforço:** HIGH · **Depende de:** F3-002 · **Status:** BACKLOG

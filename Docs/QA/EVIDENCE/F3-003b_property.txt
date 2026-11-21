@@ -1,0 +1,11 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-21 01:02:46 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 24 arquivo(s) de teste em: res://tests/property
+PASS  property/audio/test_body_peaks.gd::test_declared_peak_matches_measured_peak  94 ms  (asserts: 41)
+PASS  property/audio/test_body_peaks.gd::test_no_clipping_peak_below_minus_1_dbfs  85 ms  (asserts: 41)
+PASS  property/audio/test_world_peaks.gd::test_no_clipping_and_declared_peak_matches  208 ms  (asserts: 196)
+
+RESUMO: total=3 passou=3 falhou=0 sem_assert=0 tempo_total_ms=916
+RESULTADO: APROVADO (codigo de saida 0)
+

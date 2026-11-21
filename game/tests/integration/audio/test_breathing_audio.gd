@@ -149,7 +149,7 @@ func test_volume_comes_from_perceived_level_not_from_the_source() -> void:
 
 
 func test_gain_mapping_bounds() -> void:
-	assert_almost_eq(BreathingAudio.gain_for_db(60.0), 0.0, TOL, "acima da referência: 0 dB (sem clipping)")
+	assert_almost_eq(BreathingAudio.gain_for_db(60.0), 3.75, TOL, "acima da referência: comprimido 4:1 (60 dB = +3,75 dB)")
 	assert_almost_eq(BreathingAudio.gain_for_db(20.0), -25.0, TOL, "respiração calma (20 dB) = -25 dB")
 	assert_almost_eq(BreathingAudio.gain_for_db(-100.0), BreathingAudio.MIN_GAIN_DB, TOL, "piso de ganho")
 
