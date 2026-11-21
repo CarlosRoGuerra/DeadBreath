@@ -1,0 +1,106 @@
+{
+  "physics_engine_setting": "Jolt Physics",
+  "scenarios": {
+    "cost_30": {
+      "active_bodies": 30,
+      "sleeping_at_end": 30,
+      "step_ms_avg": 32.2997826086953,
+      "step_ms_max": 51.391,
+      "step_ms_sum": 9657.63499999989,
+      "step_samples": 299
+    },
+    "drop_floor": {
+      "bounce_rise_m": 0.446945309638977,
+      "final_sleeping": true,
+      "final_speed": 0.0,
+      "impact_y": 0.0576388835906982,
+      "min_y": 0.0576388835906982,
+      "penetrated_floor": false,
+      "prev_y": 0.100000008940697,
+      "rise_apex_y": 0.504584193229675,
+      "state": 2
+    },
+    "player_kick": {
+      "box_displacement_m": 3.3165602684021,
+      "box_max_speed_ms": 3.96066689491272,
+      "box_max_x": 4.8165602684021,
+      "box_x": 4.8165602684021,
+      "box_x0": 1.5,
+      "gap_min_m": 0.418125629425049,
+      "kick": true,
+      "kick_tick": 39,
+      "kicked": true,
+      "player_on_floor": true,
+      "player_passed_box": false,
+      "player_x": 4.39843463897705
+    },
+    "player_push": {
+      "box_displacement_m": -0.000000715255737304688,
+      "box_max_speed_ms": 0.000108557542262133,
+      "box_max_x": 1.49999976158142,
+      "box_x": 1.49999928474426,
+      "box_x0": 1.5,
+      "gap_min_m": 0.40019428730011,
+      "kick": false,
+      "kicked": false,
+      "player_on_floor": true,
+      "player_passed_box": false,
+      "player_x": 1.09980499744415
+    },
+    "stack_5": {
+      "all_sleeping_at_end": true,
+      "jitter_mm_per_tick_last5s": 0.0,
+      "jitter_n": 1505,
+      "jitter_sum_m": 0.0,
+      "max_drift_xz_m": 0.0034080424811691,
+      "max_tilt_deg": 0.191797000879986,
+      "sleep_tick": 30,
+      "top_center_sink_m": 0.00212061405181885
+    },
+    "throw_wall": {
+      "final_sleeping": false,
+      "final_speed": 2.41239595413208,
+      "final_x": -8.07273197174072,
+      "max_x": 1.80262720584869,
+      "min_y": 0.5,
+      "passed_through_wall": false,
+      "penetrated_floor": false,
+      "reached_wall": false,
+      "rebound_ratio": 0.0,
+      "vx_prev": -2.41239595413208
+    },
+    "tunnel_15_cd": {
+      "continuous_cd": true,
+      "final_speed": 0.0,
+      "final_x": -0.0199999958276749,
+      "max_x": -0.0199999958276749,
+      "passed_through_wall": false,
+      "speed_ms": 15.0
+    },
+    "tunnel_15_nocd": {
+      "continuous_cd": false,
+      "final_speed": 0.0,
+      "final_x": -0.0149417035281658,
+      "max_x": -0.0149417035281658,
+      "passed_through_wall": false,
+      "speed_ms": 15.0
+    },
+    "tunnel_40_cd": {
+      "continuous_cd": true,
+      "final_speed": 0.0,
+      "final_x": -0.0200000405311584,
+      "max_x": -0.0200000405311584,
+      "passed_through_wall": false,
+      "speed_ms": 40.0
+    },
+    "tunnel_40_nocd": {
+      "continuous_cd": false,
+      "final_speed": 0.0,
+      "final_x": -0.00665909051895142,
+      "max_x": -0.00665909051895142,
+      "passed_through_wall": false,
+      "speed_ms": 40.0
+    }
+  },
+  "ticks_per_second": 60
+}

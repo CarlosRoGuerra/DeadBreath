@@ -1,0 +1,1569 @@
+Godot: D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe
+Projeto: D:\Dev\DeadBreath\game
+
+=== Etapa [importacao] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --path D:\Dev\DeadBreath\game --import
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Inicialização do Projeto (5 steps)
+[   0% ] first_scan_filesystem | Escaneando estrutura de arquivos...
+[  16% ] first_scan_filesystem | Carregando nomes de classe globais...
+[  33% ] first_scan_filesystem | Verificando GDExtensions...
+[  50% ] first_scan_filesystem | Criando scripts autoload...
+[  66% ] first_scan_filesystem | Inicializando plugins...
+[  83% ] first_scan_filesystem | Iniciando escaneamento de arquivos...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registrando classes globais... (6 steps)
+[   0% ] update_scripts_classes | RainAmbience
+[  14% ] update_scripts_classes | 
+[  28% ] update_scripts_classes | 
+[  42% ] update_scripts_classes | 
+[  57% ] update_scripts_classes | 
+[  71% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Carregando editor (5 steps)
+[   0% ] loading_editor_layout | Carregando layout do editor...
+[  16% ] loading_editor_layout | Carregando abas...
+[ DONE ] loading_editor_layout
+
+--- Etapa [importacao]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=3077 -> OK
+
+=== Etapa [arc04] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --fixed-fps 60 --path D:\Dev\DeadBreath\game -s res://tests/run_all.gd -- --level=architecture --filter=arc04
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-21 01:00:43 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 5 arquivo(s) de teste em: res://tests/architecture
+PASS  architecture/test_arc04_parse.gd::test_todos_os_scripts_compilam  1854 ms  (asserts: 2)
+      nota: scripts verificados em res://: 193
+
+RESUMO: total=1 passou=1 falhou=0 sem_assert=0 tempo_total_ms=1878
+RESULTADO: APROVADO (codigo de saida 0)
+--- Etapa [arc04]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=2350 -> OK
+
+=== Etapa [runner] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --fixed-fps 60 --path D:\Dev\DeadBreath\game -s res://tests/run_all.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-21 01:00:46 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 80 arquivo(s) de teste em: res://tests/unit, res://tests/integration, res://tests/scenarios, res://tests/architecture
+PASS  unit/acoustics/test_acoustic_config.gd::test_tres_de_producao_igual_aos_padroes_do_codigo  1 ms  (asserts: 8)
+PASS  unit/acoustics/test_acoustic_config.gd::test_tres_de_producao_tem_os_valores_da_tabela_2_2  0 ms  (asserts: 8)
+PASS  unit/acoustics/test_audibilidade.gd::test_clima_soma_ao_piso_e_so_ao_limiar  1 ms  (asserts: 3)
+PASS  unit/acoustics/test_audibilidade.gd::test_fora_de_sala_usa_o_piso_exterior  1 ms  (asserts: 2)
+PASS  unit/acoustics/test_audibilidade.gd::test_limiar_com_chuva_no_porao_para_o_jogador  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_audibilidade.gd::test_limiar_do_jogador_e_o_piso_da_sala  1 ms  (asserts: 4)
+PASS  unit/acoustics/test_audibilidade.gd::test_tabela_de_limiares_por_perfil_de_data_2_3  1 ms  (asserts: 12)
+PASS  unit/acoustics/test_breath_params.gd::test_chain_timing_never_cuts_exhale_and_fits_period  1 ms  (asserts: 472)
+PASS  unit/acoustics/test_breath_params.gd::test_chain_timing_unknown_or_bad_period_is_empty  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_breath_params.gd::test_every_period_in_range_maps_to_a_known_family  1 ms  (asserts: 54)
+PASS  unit/acoustics/test_breath_params.gd::test_family_follows_period_when_state_does_not_fit  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_breath_params.gd::test_full_wheeze_is_42_db  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_breath_params.gd::test_intensity_is_linear_in_rate  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_breath_params.gd::test_labored_state_prefers_labored_when_it_fits  0 ms  (asserts: 1)
+PASS  unit/acoustics/test_breath_params.gd::test_max_rate_gives_fast_period_and_35_db  0 ms  (asserts: 3)
+PASS  unit/acoustics/test_breath_params.gd::test_rate_is_clamped_to_contract_range  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_breath_params.gd::test_rest_rate_gives_calm_period_and_20_db  0 ms  (asserts: 5)
+PASS  unit/acoustics/test_breath_params.gd::test_wheeze_keeps_breath_family_not_wheeze_id  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_breath_params.gd::test_wheeze_threshold_is_strictly_above_0_1  0 ms  (asserts: 4)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_busca_escolhe_o_maior_nivel_e_nao_o_caminho_mais_curto  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_caminho_direto_vence_com_porta_longe  1 ms  (asserts: 2)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_dijkstra_encadeia_dois_portais  1 ms  (asserts: 4)
+ERROR: AcousticGraph.add_room: sala 'sala' já existe
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] add_room (res://sim/acoustics/acoustic_graph.gd:100)
+       [1] test_entradas_invalidas_sao_recusadas (res://tests/unit/acoustics/test_grafo_caminhos.gd:169)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+ERROR: AcousticGraph.add_room: sala 'vazia' com volume não positivo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] add_room (res://sim/acoustics/acoustic_graph.gd:103)
+       [1] test_entradas_invalidas_sao_recusadas (res://tests/unit/acoustics/test_grafo_caminhos.gd:171)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+ERROR: AcousticGraph.add_portal: portal 'p' liga sala inexistente
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] add_portal (res://sim/acoustics/acoustic_graph.gd:124)
+       [1] test_entradas_invalidas_sao_recusadas (res://tests/unit/acoustics/test_grafo_caminhos.gd:173)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+ERROR: AcousticGraph.add_portal: portal 'p' liga a sala 'sala' a ela mesma
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] add_portal (res://sim/acoustics/acoustic_graph.gd:127)
+       [1] test_entradas_invalidas_sao_recusadas (res://tests/unit/acoustics/test_grafo_caminhos.gd:175)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+ERROR: AcousticGraph.set_portal_open: portal 'inexistente' não existe
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] set_portal_open (res://sim/acoustics/acoustic_graph.gd:141)
+       [1] test_entradas_invalidas_sao_recusadas (res://tests/unit/acoustics/test_grafo_caminhos.gd:177)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+ERROR: AcousticGraph.is_portal_open: portal 'inexistente' não existe
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] is_portal_open (res://sim/acoustics/acoustic_graph.gd:150)
+       [1] test_entradas_invalidas_sao_recusadas (res://tests/unit/acoustics/test_grafo_caminhos.gd:179)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_entradas_invalidas_sao_recusadas  1 ms  (asserts: 3)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_exterior_para_sala_conta_uma_parede  1 ms  (asserts: 2)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_fora_de_salas_so_caminho_direto  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_mesma_sala_so_perda_por_distancia  1 ms  (asserts: 4)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_parede_entre_salas_vizinhas_conta_uma_vez  1 ms  (asserts: 2)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_porta_fechada_desvia_para_a_rota_alternativa  0 ms  (asserts: 4)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_room_at_e_semiaberto  1 ms  (asserts: 4)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_salas_empilhadas_contam_piso_e_nao_parede  1 ms  (asserts: 2)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_salas_sem_portal_so_pelo_caminho_direto  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_grafo_caminhos.gd::test_vao_entre_salas_conta_duas_paredes  1 ms  (asserts: 1)
+PASS  unit/acoustics/test_noi02_propagacao_pura.gd::test_assinatura_de_propagate_igual_a_de_perceive  1 ms  (asserts: 3)
+PASS  unit/acoustics/test_noi02_propagacao_pura.gd::test_fechar_porta_nao_aumenta_amostra_fixa  1 ms  (asserts: 4)
+PASS  unit/acoustics/test_noi02_propagacao_pura.gd::test_grafos_iguais_construidos_separadamente_dao_o_mesmo_resultado  1 ms  (asserts: 1)
+PASS  unit/acoustics/test_noi02_propagacao_pura.gd::test_mesmo_grafo_e_evento_mesmo_resultado  1 ms  (asserts: 1)
+PASS  unit/acoustics/test_noi02_propagacao_pura.gd::test_ordem_das_consultas_nao_muda_resultado  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_noi02_propagacao_pura.gd::test_propagar_nao_altera_evento_nem_grafo  1 ms  (asserts: 4)
+PASS  unit/acoustics/test_noi02_propagacao_pura.gd::test_sem_portal_bate_com_a_propagacao_provisoria_da_f2  1 ms  (asserts: 1)
+PASS  unit/acoustics/test_noi03_campos_ouvido.gd::test_campos_sao_os_unicos_com_variavel_de_script  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_noi03_campos_ouvido.gd::test_heard_noise_tem_exatamente_os_campos_permitidos  0 ms  (asserts: 41)
+PASS  unit/acoustics/test_noi03_campos_ouvido.gd::test_player_heard_noise_tem_exatamente_os_campos_permitidos  0 ms  (asserts: 41)
+PASS  unit/acoustics/test_propagation.gd::test_direct_path_entry_point_is_source  0 ms  (asserts: 3)
+PASS  unit/acoustics/test_propagation.gd::test_loss_at_known_distances  0 ms  (asserts: 4)
+PASS  unit/acoustics/test_propagation.gd::test_perceive_is_deterministic_and_does_not_mutate_event  0 ms  (asserts: 3)
+PASS  unit/acoustics/test_propagation.gd::test_perceived_drops_with_distance  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_stl01_intensidades.gd::test_modificadores_de_superficie_de_data_2_1  1 ms  (asserts: 5)
+PASS  unit/acoustics/test_stl01_intensidades.gd::test_ordem_base_rastejar_agachado_andar_correr_tosse_queda  0 ms  (asserts: 5)
+PASS  unit/acoustics/test_stl01_intensidades.gd::test_ordem_das_marchas_em_cada_superficie  1 ms  (asserts: 16)
+ERROR: NoiseLevels.footstep_level: superfície 'lava' desconhecida
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] footstep_level (res://sim/acoustics/noise_levels.gd:61)
+       [1] test_superficie_ou_marcha_desconhecida_e_recusada (res://tests/unit/acoustics/test_stl01_intensidades.gd:105)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+ERROR: NoiseLevels.running_level: superfície 'lava' desconhecida
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] running_level (res://sim/acoustics/noise_levels.gd:69)
+       [1] test_superficie_ou_marcha_desconhecida_e_recusada (res://tests/unit/acoustics/test_stl01_intensidades.gd:107)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+PASS  unit/acoustics/test_stl01_intensidades.gd::test_superficie_ou_marcha_desconhecida_e_recusada  1 ms  (asserts: 2)
+PASS  unit/acoustics/test_stl01_intensidades.gd::test_tres_de_producao_igual_aos_padroes_do_codigo  1 ms  (asserts: 7)
+PASS  unit/acoustics/test_stl01_intensidades.gd::test_valores_base_de_data_2_1  0 ms  (asserts: 8)
+PASS  unit/acoustics/test_stl02_03_parede_porta.gd::test_stl02_atraves_de_parede_perde_25_db_na_mesma_distancia  1 ms  (asserts: 5)
+PASS  unit/acoustics/test_stl02_03_parede_porta.gd::test_stl03_porta_fechada_reduz_15_db_com_a_porta_na_rota  1 ms  (asserts: 5)
+PASS  unit/acoustics/test_stl02_03_parede_porta.gd::test_stl03_porta_longe_da_rota_nao_muda_o_nivel  0 ms  (asserts: 2)
+PASS  unit/acoustics/test_stl07_alcances.gd::test_exemplo_1_respiracao_calma_no_guarda_roupa_e_inaudivel  0 ms  (asserts: 2)
+      nota: STL-07 respiração calma no guarda-roupa: 20 − 6 = 14 dB < 19 dB, alcance medido 0.000 m
+PASS  unit/acoustics/test_stl07_alcances.gd::test_exemplo_2_respiracao_ofegante_no_guarda_roupa_1_7_m  2 ms  (asserts: 1)
+      nota: STL-07 respiração ofegante no guarda-roupa: esperado 1.70 m, medido 1.743 m, diferença 0.043 m
+PASS  unit/acoustics/test_stl07_alcances.gd::test_exemplo_3_chiado_forte_no_guarda_roupa_6_6_m  1 ms  (asserts: 1)
+      nota: STL-07 chiado forte no guarda-roupa: esperado 6.60 m, medido 6.564 m, diferença -0.036 m
+PASS  unit/acoustics/test_stl07_alcances.gd::test_exemplo_4_tosse_atraves_de_uma_parede_10_m  2 ms  (asserts: 1)
+      nota: STL-07 tosse através de uma parede: esperado 10.00 m, medido 10.000 m, diferença 0.000 m
+PASS  unit/acoustics/test_stl07_alcances.gd::test_exemplo_5_tosse_atraves_de_duas_paredes_e_inaudivel  1 ms  (asserts: 5)
+      nota: STL-07 tosse através de duas paredes: ouvinte em x=1.0 m, 11.33 dB percebidos, limiar 19.0 dB
+      nota: STL-07 tosse através de duas paredes: ouvinte em x=1.5 m, 8.78 dB percebidos, limiar 19.0 dB
+      nota: STL-07 tosse através de duas paredes: ouvinte em x=3.0 m, 3.77 dB percebidos, limiar 19.0 dB
+      nota: STL-07 tosse através de duas paredes: ouvinte em x=10.0 m, -6.47 dB percebidos, limiar 19.0 dB
+      nota: STL-07 tosse através de duas paredes: ouvinte em x=50.0 m, -24.12 dB percebidos, limiar 19.0 dB
+PASS  unit/acoustics/test_stl07_alcances.gd::test_exemplo_6_tosse_no_quintal_24_m  1 ms  (asserts: 1)
+      nota: STL-07 tosse no quintal (limiar 35): esperado 24.00 m, medido 23.991 m, diferença -0.009 m
+PASS  unit/acoustics/test_stl07_alcances.gd::test_exemplo_7_respiracao_ofegante_no_porao_2_7_m  1 ms  (asserts: 1)
+      nota: STL-07 respiração ofegante no porão (limiar 15): esperado 2.70 m, medido 2.731 m, diferença 0.031 m
+PASS  unit/audio/test_noise_selection.gd::test_body_categories_are_recognised  0 ms  (asserts: 6)
+PASS  unit/audio/test_noise_selection.gd::test_choose_sound_for_steps_impacts_and_doors  0 ms  (asserts: 5)
+PASS  unit/audio/test_noise_selection.gd::test_choose_sound_without_sound_id_is_empty  0 ms  (asserts: 1)
+PASS  unit/audio/test_noise_selection.gd::test_gain_rule_is_the_breathing_rule  0 ms  (asserts: 7)
+PASS  unit/audio/test_noise_selection.gd::test_gait_bands_follow_data_levels  0 ms  (asserts: 4)
+PASS  unit/audio/test_noise_selection.gd::test_impact_bands_by_intensity  0 ms  (asserts: 4)
+PASS  unit/audio/test_noise_selection.gd::test_rain_layer_follows_room_floor  0 ms  (asserts: 6)
+PASS  unit/audio/test_noise_selection.gd::test_rain_output_level_is_the_floor_for_every_layer  0 ms  (asserts: 5)
+PASS  unit/audio/test_noise_selection.gd::test_router_constants_match_noise_levels_resource  1 ms  (asserts: 9)
+PASS  unit/audio/test_noise_selection.gd::test_running_is_always_run_and_high_levels_are_run  0 ms  (asserts: 2)
+PASS  unit/audio/test_noise_selection.gd::test_surface_offset_is_removed_before_banding  0 ms  (asserts: 2)
+PASS  unit/audio/test_noise_selection.gd::test_thunder_gain_is_muffled_inside_rooms  0 ms  (asserts: 3)
+PASS  unit/autoload/test_game_state.gd::test_production_flag_follows_build_and_argument  0 ms  (asserts: 1)
+PASS  unit/autoload/test_game_state.gd::test_set_chapter_emits_once_per_change  0 ms  (asserts: 2)
+2026-11-21 01:00:46 [WARN] [ai] passa
+2026-11-21 01:00:46 [INFO] [core] passa também
+2026-11-21 01:00:46 [ERROR] [core] erro
+PASS  unit/autoload/test_log.gd::test_filters_by_category_level  2 ms  (asserts: 1)
+2026-11-21 01:00:46 [WARN] [teste] execução anterior
+PASS  unit/autoload/test_log.gd::test_rotates_previous_file  6 ms  (asserts: 1)
+PASS  unit/autoload/test_log.gd::test_set_level_is_clamped  2 ms  (asserts: 3)
+2026-11-21 01:00:46 [WARN] [teste] linha gravada no arquivo
+PASS  unit/autoload/test_log.gd::test_writes_log_file  3 ms  (asserts: 2)
+PASS  unit/autoload/test_settings.gd::test_acc06_all_keys_survive_restart  5 ms  (asserts: 24)
+PASS  unit/autoload/test_settings.gd::test_changed_signal_only_on_real_change  2 ms  (asserts: 1)
+PASS  unit/autoload/test_settings.gd::test_clamps_numbers_and_accepts_int_for_float  2 ms  (asserts: 4)
+ERROR: ConfigFile parse error at <string>:0: Expected value, got ''=''.
+   at: _parse (core/io/config_file.cpp:293)
+   GDScript backtrace (most recent call first):
+       [0] _is_config_text (res://autoload/settings.gd:189)
+       [1] read_text (res://core/atomic_file.gd:74)
+       [2] load_from_disk (res://autoload/settings.gd:136)
+       [3] test_corrupt_file_falls_back_to_defaults (res://tests/unit/autoload/test_settings.gd:115)
+       [4] _run_file (res://tests/run_all.gd:243)
+       [5] wait_physics_frames (res://tests/framework/test_case.gd:177)
+2026-11-21 01:00:46 [INFO] [settings] sem arquivo de opções válido em user://test_tmp/008_test_corrupt_file_falls_back_to_defaults/settings.cfg; usando padrões
+PASS  unit/autoload/test_settings.gd::test_corrupt_file_falls_back_to_defaults  3 ms  (asserts: 12)
+PASS  unit/autoload/test_settings.gd::test_get_value_returns_copy_of_collections  2 ms  (asserts: 1)
+2026-11-21 01:00:46 [WARN] [settings] valor não finito rejeitado para 'fov': nan
+PASS  unit/autoload/test_settings.gd::test_non_finite_value_in_file_is_ignored_on_load  4 ms  (asserts: 4)
+2026-11-21 01:00:46 [WARN] [settings] valor não finito rejeitado para 'fov': nan
+2026-11-21 01:00:46 [WARN] [settings] valor não finito rejeitado para 'mouse_sensitivity': inf
+2026-11-21 01:00:46 [WARN] [settings] valor não finito rejeitado para 'master_volume': -inf
+PASS  unit/autoload/test_settings.gd::test_rejects_non_finite_numbers  2 ms  (asserts: 4)
+2026-11-21 01:00:46 [WARN] [settings] tipo inválido para 'fov': esperado float, recebido String
+2026-11-21 01:00:46 [WARN] [settings] chave desconhecida: 'chave_inexistente'
+PASS  unit/autoload/test_settings.gd::test_rejects_wrong_type_and_unknown_key_with_warning  2 ms  (asserts: 3)
+PASS  unit/autoload/test_settings.gd::test_schema_has_exactly_the_contract_keys  2 ms  (asserts: 1)
+PASS  unit/balance/test_f2008_regras_do_painel.gd::test_ameaca_vem_dos_sliders_pela_regra_de_data_1_5  0 ms  (asserts: 8)
+PASS  unit/balance/test_f2008_regras_do_painel.gd::test_exportacao_so_para_user_balance  0 ms  (asserts: 8)
+PASS  unit/balance/test_f2008_regras_do_painel.gd::test_padroes_dos_tres_estao_dentro_das_faixas_e_as_propriedades_existem  6 ms  (asserts: 38)
+PASS  unit/balance/test_f2008_regras_do_painel.gd::test_valor_do_slider_e_limitado_a_faixa  0 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_read_missing_file_is_not_ok  3 ms  (asserts: 2)
+PASS  unit/core/test_atomic_file.gd::test_recovers_from_tmp_when_swap_was_interrupted  5 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_second_write_keeps_previous_as_backup  7 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_simulated_crash_keeps_previous_version  5 ms  (asserts: 5)
+PASS  unit/core/test_atomic_file.gd::test_validator_falls_back_to_backup_when_main_is_corrupt  8 ms  (asserts: 4)
+PASS  unit/core/test_atomic_file.gd::test_write_then_read_roundtrip  4 ms  (asserts: 5)
+2026-11-21 01:00:46 [WARN] [settings] input_bindings: ação desconhecida 'acao_inexistente' ignorada
+2026-11-21 01:00:46 [WARN] [settings] input_bindings: ligações inválidas para 'crouch' ignoradas
+PASS  unit/input/test_input_bindings.gd::test_apply_ignora_acao_desconhecida_e_ligacao_invalida  0 ms  (asserts: 2)
+2026-11-21 01:00:46 [WARN] [settings] input_bindings: ação desconhecida 'ui_accept' ignorada
+PASS  unit/input/test_input_bindings.gd::test_apply_nao_mexe_nas_acoes_ui  0 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_apply_sempre_parte_dos_padroes  1 ms  (asserts: 1)
+PASS  unit/input/test_input_bindings.gd::test_controls_menu_rejeita_tecla_sem_codigo_fisico_e_mouse_fora_de_faixa  0 ms  (asserts: 5)
+PASS  unit/input/test_input_bindings.gd::test_current_overrides_nunca_grava_acao_vazia  0 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_describe_le_teclas_e_mouse  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_entry_from_event_e_round_trip_com_o_inputmap  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_find_conflicts_aponta_a_outra_acao  0 ms  (asserts: 2)
+PASS  unit/input/test_input_bindings.gd::test_rebind_e_current_overrides_refletem_so_o_que_mudou  0 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_rebind_recusa_entrada_invalida_sem_alterar_nada  0 ms  (asserts: 4)
+PASS  unit/input/test_input_bindings.gd::test_rebindable_actions_exclui_ui_e_inclui_as_do_jogo  0 ms  (asserts: 14)
+PASS  unit/input/test_input_bindings.gd::test_validate_aceita_listas_de_eventos_validos  1 ms  (asserts: 3)
+PASS  unit/input/test_input_bindings.gd::test_validate_rejeita_formatos_invalidos  0 ms  (asserts: 6)
+PASS  unit/interaction/test_required_hold.gd::test_com_maos_firmes_e_steadiness_um_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_meio_o_multiplicador_e_um_e_tres_quartos  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_com_steadiness_zero_o_tempo_e_duas_vezes_e_meia  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_sem_maos_firmes_o_tempo_e_o_hold_time  0 ms  (asserts: 1)
+PASS  unit/interaction/test_required_hold.gd::test_steadiness_fora_da_faixa_e_limitada  0 ms  (asserts: 2)
+PASS  unit/perception/test_light_falloff.gd::test_alcance_invalido_nao_ilumina  0 ms  (asserts: 2)
+PASS  unit/perception/test_light_falloff.gd::test_alcance_zera_e_centro_vale_um  0 ms  (asserts: 4)
+PASS  unit/perception/test_light_falloff.gd::test_atenuacao_maior_escurece_as_bordas  0 ms  (asserts: 2)
+PASS  unit/perception/test_light_falloff.gd::test_combinacao_limitada_e_com_piso_ambiente  0 ms  (asserts: 4)
+PASS  unit/perception/test_light_falloff.gd::test_cone_dentro_e_entre_zero_e_um  0 ms  (asserts: 2)
+PASS  unit/perception/test_light_falloff.gd::test_cone_eixo_vale_um_e_borda_zero  0 ms  (asserts: 3)
+PASS  unit/perception/test_light_falloff.gd::test_radial_decresce_com_a_distancia  0 ms  (asserts: 9)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_histerese_de_exaustao_reabilita_em_25  1 ms  (asserts: 3)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_multiplicador_do_acoplamento_e_zona_segura  1 ms  (asserts: 2)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_regeneracao_por_marcha_e_repouso  3 ms  (asserts: 4)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_sem_regeneracao_durante_regen_delay  1 ms  (asserts: 3)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_stamina_fica_entre_0_e_100  6 ms  (asserts: 1)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_tanque_cheio_sprint_dura_8_3_s  1 ms  (asserts: 2)
+      nota: sprint de tanque cheio até esgotar a stamina: 8.333 s (500 ticks a 1/60 s)
+PASS  unit/physiology/test_f2001_stamina_model.gd::test_to_dict_from_dict_preserva_todos_os_campos  0 ms  (asserts: 4)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_ameaca_zera_o_atraso  1 ms  (asserts: 1)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_atraso_de_decaimento_e_zona_segura  0 ms  (asserts: 2)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_decaimento_de_100_a_0_em_37_3_s  9 ms  (asserts: 1)
+      nota: decaimento do estresse de 100 a 0 sem ameaça: 37.333 s (atraso 4 s + 100/3 s)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_faixas_nos_limiares  1 ms  (asserts: 8)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_ganhos_por_ameaca_somam_por_segundo  0 ms  (asserts: 4)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_pico_de_ferimento_e_clamp  1 ms  (asserts: 2)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_pico_de_susto_segue_a_formula  0 ms  (asserts: 5)
+PASS  unit/physiology/test_f2002_stress_model.gd::test_to_dict_from_dict_preserva_todos_os_campos  1 ms  (asserts: 1)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_agua_reduz_o_hazard_de_tosse_e_consumivel_desconhecido_falha  1 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_comprimido_reduz_a_subida  0 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_derivados_em_severidade_alta  1 ms  (asserts: 5)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_ema_do_esforco_com_tau_de_8_s  2 ms  (asserts: 2)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_permanencia_minima_de_1_s  0 ms  (asserts: 2)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_recovery_progress_segue_o_pico  1 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_tabela_de_transicoes  0 ms  (asserts: 18)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_to_dict_from_dict_preserva_todos_os_campos  2 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_tosse_agendada_acontece_quando_a_severidade_se_mantem  2 ms  (asserts: 3)
+PASS  unit/physiology/test_f2003_respiratory_model.gd::test_tosse_agendada_e_cancelada_quando_a_severidade_cai_abaixo_de_0_55  1 ms  (asserts: 3)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_configs_em_arquivo_tem_a_tabela_e_igualam_o_padrao_do_codigo  4 ms  (asserts: 101)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_exaustao_proibe_o_sprint  5 ms  (asserts: 2)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_firmeza_da_mao_segue_estresse_e_chiado  3 ms  (asserts: 2)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_limite_de_sprint_so_depois_de_0_6  9 ms  (asserts: 4)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_regeneracao_cai_com_severidade_e_estresse  5 ms  (asserts: 2)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_sem_estado_o_acoplamento_e_neutro  2 ms  (asserts: 5)
+PASS  unit/physiology/test_f2004_acoplamento_e_configs.gd::test_tremor_segue_smoothstep_de_50_a_100  7 ms  (asserts: 3)
+PASS  unit/physiology/test_per07_reprodutibilidade.gd::test_per07_aviso_agendado_com_bombinha_alivio_agua_e_exaustao  11 ms  (asserts: 8)
+      nota: transportes de texto (ponto (a)), campos que mudam: JSON 10, var_to_str 3, base64 binário 0
+      nota: ponto (a): 180 ticks após o carregamento, divergências 0; avisos 0, tosses 1, tosses canceladas 0
+PASS  unit/physiology/test_per07_reprodutibilidade.gd::test_per07_cooldown_de_tosse_ativo  11 ms  (asserts: 4)
+      nota: transportes de texto (ponto (b)), campos que mudam: JSON 4, var_to_str 0, base64 binário 0
+      nota: ponto (b): 180 ticks após o carregamento, divergências 0; avisos 0, tosses 0, tosses canceladas 0
+PASS  unit/physiology/test_phy01_03_respiracao.gd::test_phy01_sprint_leva_a_laboured_antes_do_esgotamento  5 ms  (asserts: 3)
+      nota: PHY-01: esgotamento em 8.333 s; LABORED em 5.550 s (DATA §1.4: ≈ 5,5 s); estado no esgotamento LABORED, severidade 0.453, EMA 0.647
+PASS  unit/physiology/test_phy01_03_respiracao.gd::test_phy02_estresse_80_eleva_o_alvo_em_pelo_menos_0_25  7 ms  (asserts: 2)
+      nota: PHY-02 (20 s, EMA ainda em subida): alvo com estresse 0 = 0.5783; com estresse 80 = 0.8640; diferença 0.2857 (limite 0,25)
+PASS  unit/physiology/test_phy01_03_respiracao.gd::test_phy03_descanso_leva_0_6_abaixo_de_0_2_em_ate_25_s  3 ms  (asserts: 3)
+      nota: PHY-03: severidade 0,6 em repouso → < 0,2 em 6.67 s (EMA inicial 0) e 8.80 s (EMA inicial 0,857, após sprint longo)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy04_alivio_decai_linearmente_em_90_s  7 ms  (asserts: 2)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy04_bombinha_reduz_0_30_em_ate_3_s  1 ms  (asserts: 2)
+      nota: PHY-04: redução absoluta da severidade em 3 s com a bombinha: 0.4400 (limite 0,30; nominal 0,35 + queda natural)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy04_cooldown_da_bombinha_recusa_a_segunda_dose  3 ms  (asserts: 3)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy05_bombinha_nao_altera_a_stamina  3 ms  (asserts: 2)
+PASS  unit/physiology/test_phy04_05_medicacao.gd::test_phy05_zerar_a_stamina_nao_altera_a_severidade_no_mesmo_tick  9 ms  (asserts: 3)
+      nota: PHY-05: maior diferença de severidade entre stamina 100 e stamina 0, em 10 s: 0.000000
+PASS  unit/physiology/test_phy08_10_11_determinismo_histerese_dt.gd::test_phy08_mesmo_rng_e_mesmas_entradas_geram_snapshots_identicos  41 ms  (asserts: 2)
+      nota: PHY-08 (curto): 1800 ticks, 2 tosse(s) no caminho exercitado pelo RNG, divergências: 0
+PASS  unit/physiology/test_phy08_10_11_determinismo_histerese_dt.gd::test_phy10_oscilacao_curta_em_0_20_e_sem_saida_em_0_30_nao_gera_ping_pong  4 ms  (asserts: 2)
+      nota: PHY-10 NORMAL→ACCELERATED em 0,20: 1 transição(ões) em 10 s de oscilação
+      nota: PHY-10 RECOVERING sem saída em 0,30: 0 transição(ões) em 10 s de oscilação
+PASS  unit/physiology/test_phy08_10_11_determinismo_histerese_dt.gd::test_phy10_permanencia_minima_bloqueia_transicao_imediata  1 ms  (asserts: 2)
+      nota: PHY-10 permanência: NORMAL com severidade 0,7 mudou em 1.000 s (mínimo 1,0 s)
+PASS  unit/physiology/test_phy08_10_11_determinismo_histerese_dt.gd::test_phy11_severidade_independe_do_passo_de_tempo  16 ms  (asserts: 1)
+      nota: PHY-11 (curto): severidade com dt 0,1 e 1/60 em checkpoints de 10 s, diferença máxima 0.00857 (limite 0,02)
+PASS  unit/player/test_camera_effects_escalas.gd::test_acc01_reducao_total_zera_balanco_tremor_e_solavanco  0 ms  (asserts: 3)
+PASS  unit/player/test_camera_effects_escalas.gd::test_acc01_sem_reducao_amplitude_normal  0 ms  (asserts: 4)
+PASS  unit/player/test_camera_effects_escalas.gd::test_acc02_intensidade_escala_linearmente  0 ms  (asserts: 20)
+PASS  unit/player/test_camera_effects_escalas.gd::test_frequencia_do_balanco_em_hz  0 ms  (asserts: 2)
+PASS  unit/player/test_camera_effects_escalas.gd::test_vinheta_so_na_crise  0 ms  (asserts: 3)
+PASS  unit/player/test_inventory_model.gd::test_bombinha_vale_tres_doses_por_unidade  0 ms  (asserts: 3)
+PASS  unit/player/test_inventory_model.gd::test_consumir_dose_nao_fica_negativo  0 ms  (asserts: 7)
+PASS  unit/player/test_inventory_model.gd::test_item_sem_entrada_vale_uma_dose  0 ms  (asserts: 2)
+PASS  unit/player/test_inventory_model.gd::test_serializacao_round_trip  0 ms  (asserts: 2)
+PASS  unit/player/test_inventory_model.gd::test_unidades_invalidas_nao_mudam_nada  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_agachado_e_rastejando  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_esforco_em_pe_por_marcha  0 ms  (asserts: 4)
+PASS  unit/player/test_mot02_exertion.gd::test_mot02_limites_do_contrato_para_todas_as_combinacoes  0 ms  (asserts: 13)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_limites_nao_mudam_a_velocidade_de_caminhada  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_abaixo_de_um_reduz_o_sprint  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_acima_de_um_nao_aumenta_o_sprint  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_multiplicador_negativo_nao_gera_velocidade_negativa  0 ms  (asserts: 1)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_neutro_mantem_a_config  0 ms  (asserts: 2)
+PASS  unit/player/test_mot03_limits.gd::test_mot03_sprint_proibido_pelo_acoplamento_fica_proibido  0 ms  (asserts: 2)
+2026-11-21 01:00:47 [ERROR] [player] PlayerMotorConfig ausente; usando os padrões do código
+PASS  unit/player/test_motor_config.gd::test_config_ausente_usa_padroes_e_registra_erro  0 ms  (asserts: 3)
+PASS  unit/player/test_motor_config.gd::test_config_do_arquivo_tem_os_valores_da_tabela  1 ms  (asserts: 27)
+PASS  unit/player/test_motor_config.gd::test_config_padrao_do_codigo_tem_os_valores_da_tabela  0 ms  (asserts: 26)
+PASS  integration/acoustics/test_acoustic_world.gd::test_event_is_resolved_on_the_physics_tick_not_on_emit  1 ms  (asserts: 4)
+PASS  integration/acoustics/test_acoustic_world.gd::test_every_event_is_reported_in_emission_order  0 ms  (asserts: 6)
+PASS  integration/acoustics/test_acoustic_world.gd::test_ids_and_timestamps_are_assigned_in_order  0 ms  (asserts: 5)
+PASS  integration/acoustics/test_acoustic_world.gd::test_noi_inv_1_only_listed_scripts_emit_or_create_body_noise  337 ms  (asserts: 1)
+      nota: arquivos de game/ varridos (sem testes): 64
+PASS  integration/acoustics/test_acoustic_world.gd::test_propagation_is_deterministic_and_farther_is_quieter  0 ms  (asserts: 10)
+PASS  integration/acoustics/test_acoustic_world.gd::test_resolution_uses_listener_distance  1 ms  (asserts: 2)
+PASS  integration/acoustics/test_acoustic_world.gd::test_world_is_in_group_with_physics_priority_minus_60  0 ms  (asserts: 2)
+2026-11-21 01:00:47 [WARN] [acoustics] AcousticWorld sem ouvido do jogador nem câmera ativa; propagando a partir da origem
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_emissor_de_fonte_do_mundo_entrega_ao_mundo  2 ms  (asserts: 5)
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_legendas_para_sons_relevantes_audiveis  2 ms  (asserts: 4)
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_ouvinte_do_jogador_recebe_so_outras_fontes_sem_dados_da_fonte  2 ms  (asserts: 8)
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_porta_fechada_reduz_15_db_e_abrir_sobe_o_nivel  2 ms  (asserts: 6)
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_portal_sem_porta_nasce_aberto  1 ms  (asserts: 1)
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_room_id_e_preenchido_pelo_mundo  1 ms  (asserts: 3)
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_room_volume_envolve_a_caixa_de_colisao  0 ms  (asserts: 5)
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_sem_salas_o_mundo_mantem_a_regra_provisoria_da_f2  2 ms  (asserts: 5)
+PASS  integration/acoustics/test_acoustic_world_nivel.gd::test_trovao_eleva_o_limiar_e_dispara_o_sinal  2 ms  (asserts: 9)
+PASS  integration/acoustics/test_breath_emitter.gd::test_body_sound_with_explicit_category_and_level  1 ms  (asserts: 4)
+PASS  integration/acoustics/test_breath_emitter.gd::test_breathing_event_fields  1 ms  (asserts: 8)
+PASS  integration/acoustics/test_breath_emitter.gd::test_cancelled_cough_makes_no_sound  0 ms  (asserts: 1)
+PASS  integration/acoustics/test_breath_emitter.gd::test_cough_warning_is_low_and_cough_is_65_db  1 ms  (asserts: 7)
+PASS  integration/acoustics/test_breath_emitter.gd::test_cycle_spacing_matches_period  4 ms  (asserts: 2)
+PASS  integration/acoustics/test_breath_emitter.gd::test_gasp_is_42_db_and_keeps_cycle_phase  1 ms  (asserts: 6)
+PASS  integration/acoustics/test_breath_emitter.gd::test_next_event_is_period_minus_phase  1 ms  (asserts: 1)
+PASS  integration/acoustics/test_breath_emitter.gd::test_one_event_per_cycle_at_rest  3 ms  (asserts: 2)
+PASS  integration/acoustics/test_breath_emitter.gd::test_period_follows_snapshot_on_next_cycle  1 ms  (asserts: 4)
+PASS  integration/acoustics/test_breath_emitter.gd::test_to_dict_round_trip_keeps_cycle_phase  3 ms  (asserts: 4)
+PASS  integration/acoustics/test_breath_emitter.gd::test_wheezing_cycles_are_wheezing_category  0 ms  (asserts: 4)
+2026-11-21 01:00:47 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/acoustics/test_breath_emitter.gd::test_without_world_nothing_is_emitted_and_warning_is_logged_once  1 ms  (asserts: 3)
+PASS  integration/acoustics/test_noi05_respiracao_produtor_unico.gd::test_noi05_cada_som_de_respiracao_tem_um_evento_e_vice_versa  42 ms  (asserts: 5)
+      nota: NOI-05 janela de 10 s: 600 ticks em LABORED, 0 em SYMPTOMATIC (fora de LABORED: 0)
+      nota: NOI-05 eventos de respiração do jogador: 5; inspirações tocadas: 5; expirações tocadas: 6
+PASS  integration/audio/test_body_sounds_manifest.gd::test_breath_families_fit_the_period_range  0 ms  (asserts: 4)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_cough_warning_lasts_1_5_seconds  3 ms  (asserts: 4)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_declared_peak_matches_measured_peak  73 ms  (asserts: 41)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_every_item_imports_as_wav_with_declared_duration  24 ms  (asserts: 82)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_format_is_mono_16_bit_44100_with_declared_samples  24 ms  (asserts: 164)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_manifest_present_and_lists_every_wav_on_disk  2 ms  (asserts: 44)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_no_clipping_peak_below_minus_1_dbfs  81 ms  (asserts: 41)
+PASS  integration/audio/test_body_sounds_manifest.gd::test_required_sound_ids_have_roles_and_variations  0 ms  (asserts: 11)
+PASS  integration/audio/test_breathing_audio.gd::test_breath_event_plays_inhale_then_exhale_chained_to_the_period  26 ms  (asserts: 5)
+PASS  integration/audio/test_breathing_audio.gd::test_events_from_other_sources_or_categories_are_ignored  24 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_every_required_sound_has_variations_loaded  24 ms  (asserts: 11)
+PASS  integration/audio/test_breathing_audio.gd::test_exhale_is_never_cut_by_the_next_event_timing  25 ms  (asserts: 2)
+PASS  integration/audio/test_breathing_audio.gd::test_gain_mapping_bounds  24 ms  (asserts: 3)
+PASS  integration/audio/test_breathing_audio.gd::test_manifest_families_match_breath_params_table  25 ms  (asserts: 10)
+PASS  integration/audio/test_breathing_audio.gd::test_non_wheezing_breath_has_no_layer  24 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_one_shots_play_their_own_files  23 ms  (asserts: 9)
+PASS  integration/audio/test_breathing_audio.gd::test_pitch_stays_within_the_fit_tolerance  23 ms  (asserts: 2)
+PASS  integration/audio/test_breathing_audio.gd::test_players_are_not_spatial_and_source_has_no_attenuation  29 ms  (asserts: 4)
+PASS  integration/audio/test_breathing_audio.gd::test_silent_without_events  22 ms  (asserts: 1)
+PASS  integration/audio/test_breathing_audio.gd::test_volume_comes_from_perceived_level_not_from_the_source  26 ms  (asserts: 3)
+PASS  integration/audio/test_breathing_audio.gd::test_wheezing_cycle_adds_layer_starting_with_exhale  25 ms  (asserts: 3)
+PASS  integration/audio/test_bus_layout.gd::test_large_room_reverb_is_longer_than_small  0 ms  (asserts: 2)
+PASS  integration/audio/test_bus_layout.gd::test_master_bus_is_present  0 ms  (asserts: 1)
+PASS  integration/audio/test_bus_layout.gd::test_reverb_buses_exist_with_reverb_effects  0 ms  (asserts: 6)
+PASS  integration/audio/test_bus_layout.gd::test_reverb_buses_send_to_master  0 ms  (asserts: 2)
+PASS  integration/audio/test_noise_audio_router.gd::test_breathing_audio_ignores_world_events  86 ms  (asserts: 2)
+PASS  integration/audio/test_noise_audio_router.gd::test_bus_is_master_outside_any_room  60 ms  (asserts: 2)
+PASS  integration/audio/test_noise_audio_router.gd::test_footstep_file_follows_surface_and_gait  61 ms  (asserts: 7)
+PASS  integration/audio/test_noise_audio_router.gd::test_impact_file_follows_intensity_band  61 ms  (asserts: 4)
+2026-11-21 01:00:48 [WARN] [audio] sem arquivo para door_inexistente (marcha )
+PASS  integration/audio/test_noise_audio_router.gd::test_missing_sound_plays_nothing  60 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_noi_04_volume_matches_perceived_rule_over_20_events  60 ms  (asserts: 29)
+PASS  integration/audio/test_noise_audio_router.gd::test_perceived_level_comes_from_the_propagation_not_the_source  59 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_pitch_is_contained_within_four_percent  60 ms  (asserts: 20)
+PASS  integration/audio/test_noise_audio_router.gd::test_position_is_the_entry_point_of_the_path  61 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_reverb_bus_follows_the_listener_room  62 ms  (asserts: 3)
+PASS  integration/audio/test_noise_audio_router.gd::test_router_ignores_the_players_own_body_sounds  59 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_router_plays_the_players_steps_and_doors_as_world_sounds  60 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_same_variation_is_not_repeated_back_to_back  60 ms  (asserts: 12)
+PASS  integration/audio/test_noise_audio_router.gd::test_sound_below_the_player_threshold_is_not_played  59 ms  (asserts: 1)
+PASS  integration/audio/test_noise_audio_router.gd::test_voices_are_3d_with_native_attenuation_disabled  59 ms  (asserts: 3)
+PASS  integration/audio/test_noise_audio_router.gd::test_voices_are_limited_to_the_maximum  64 ms  (asserts: 2)
+PASS  integration/audio/test_rain_ambience.gd::test_crossfade_between_layers_is_continuous_and_complete  69 ms  (asserts: 7)
+PASS  integration/audio/test_rain_ambience.gd::test_crossfade_is_power_constant  61 ms  (asserts: 60)
+PASS  integration/audio/test_rain_ambience.gd::test_layer_follows_the_listener_room_floor  65 ms  (asserts: 2)
+PASS  integration/audio/test_rain_ambience.gd::test_output_level_equals_the_room_floor_minus_69  75 ms  (asserts: 2)
+PASS  integration/audio/test_rain_ambience.gd::test_outside_every_room_is_the_exterior_layer  71 ms  (asserts: 1)
+PASS  integration/audio/test_rain_ambience.gd::test_thunder_plays_on_the_world_signal  60 ms  (asserts: 2)
+PASS  integration/audio/test_rain_ambience.gd::test_thunder_stays_silent_when_disabled  73 ms  (asserts: 1)
+PASS  integration/audio/test_rain_ambience.gd::test_thunder_voices_are_not_positional  110 ms  (asserts: 6)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_every_item_imports_as_wav_with_declared_duration_and_format  68 ms  (asserts: 588)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_loops_are_flagged_forward_looped_and_seamless  49 ms  (asserts: 7)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_manifest_present_and_lists_every_wav_on_disk  5 ms  (asserts: 101)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_no_clipping_and_declared_peak_matches  217 ms  (asserts: 196)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_required_sound_ids_have_variations_and_gaits  26 ms  (asserts: 34)
+PASS  integration/audio/test_world_sounds_manifest.gd::test_world_total_size_is_within_budget  102 ms  (asserts: 1)
+PASS  integration/autoload/test_event_bus.gd::test_catalog_matches_contract  0 ms  (asserts: 18)
+PASS  integration/autoload/test_event_bus.gd::test_emit_reaches_listener_with_payload  0 ms  (asserts: 2)
+PASS  integration/autoload/test_event_bus.gd::test_enum_payload_round_trip  0 ms  (asserts: 1)
+PASS  integration/autoload/test_event_bus.gd::test_payloads_use_only_native_types  0 ms  (asserts: 12)
+2026-11-21 01:00:50 [WARN] [save] slot 'slot_b' recuperado da cópia 'bak'
+PASS  integration/autoload/test_save_service.gd::test_corrupt_main_recovers_from_backup_with_warning  11 ms  (asserts: 4)
+2026-11-21 01:00:50 [ERROR] [save] slot 'quebrado' inválido ou corrompido; nenhuma cópia legível
+PASS  integration/autoload/test_save_service.gd::test_corrupt_slot_without_copies_returns_empty_and_logs_error  7 ms  (asserts: 2)
+2026-11-21 01:00:50 [INFO] [save] slot 'nao_existe' ausente
+PASS  integration/autoload/test_save_service.gd::test_missing_slot_returns_empty  6 ms  (asserts: 2)
+2026-11-21 01:00:50 [ERROR] [save] falha ao gravar o slot 'checkpoint': Can't write file
+PASS  integration/autoload/test_save_service.gd::test_per09_simulated_crash_keeps_previous_file_readable  8 ms  (asserts: 3)
+2026-11-21 01:00:50 [ERROR] [save] nome de slot inválido: '../fora'
+2026-11-21 01:00:50 [ERROR] [save] nome de slot inválido: 'Maiuscula'
+2026-11-21 01:00:50 [ERROR] [save] nome de slot inválido: ''
+2026-11-21 01:00:50 [ERROR] [save] nome de slot inválido: 'com espaço'
+2026-11-21 01:00:50 [ERROR] [save] nome de slot inválido: 'a/b'
+PASS  integration/autoload/test_save_service.gd::test_rejects_invalid_slot_names  2 ms  (asserts: 11)
+PASS  integration/autoload/test_save_service.gd::test_round_trip_keeps_values  4 ms  (asserts: 6)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_exportacao_recarrega_os_mesmos_valores_e_nao_toca_em_content_data  26 ms  (asserts: 8)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_f4_solta_e_recaptura_o_mouse  11 ms  (asserts: 4)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_parametro_em_memoria_muda_o_dreno_do_sprint_e_volta_com_restaurar  25 ms  (asserts: 6)
+      nota: dreno do sprint em 0,5 s: padrão 6.000; com 24/s 12.000 (proporção 2.00)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_producao_desliga_o_painel_e_recusa_tudo  7 ms  (asserts: 9)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_slider_de_ameaca_altera_o_estresse_efetivo  22 ms  (asserts: 8)
+      nota: slider de inimigo visto em 1,0 por 1 s: estresse 15.000 (ganho 15/s)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_telemetria_mostra_estado_e_ameaca  7 ms  (asserts: 8)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/debug/test_debug_overlay.gd::test_f3_pela_acao_alterna_o_overlay  3 ms  (asserts: 2)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/debug/test_debug_overlay.gd::test_noclip_atravessa_parede_e_desliga  22 ms  (asserts: 5)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/debug/test_debug_overlay.gd::test_overlay_mostra_postura_marcha_e_esforco  12 ms  (asserts: 7)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/debug/test_debug_overlay.gd::test_producao_desliga_overlay_e_comandos  2 ms  (asserts: 8)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_para_o_chao_na_mira  3 ms  (asserts: 2)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/debug/test_debug_overlay.gd::test_teleporte_recusado_sem_chao_na_mira  2 ms  (asserts: 2)
+PASS  integration/debug/test_overlay_cena_jogavel.gd::test_overlay_da_cena_jogavel_acha_o_jogador_sem_injecao  289 ms  (asserts: 7)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_botao_do_mouse_persiste_depois_de_reiniciar  17 ms  (asserts: 2)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_conflito_e_avisado_e_nao_aplica  4 ms  (asserts: 5)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_esc_cancela_a_captura  2 ms  (asserts: 4)
+PASS  integration/input/test_acc05_remap.gd::test_acc05_remapeia_reinicia_e_a_ligacao_persiste  15 ms  (asserts: 6)
+PASS  integration/input/test_pause_menu.gd::test_controles_abre_a_tela_e_pause_volta_ao_menu_principal  2 ms  (asserts: 3)
+PASS  integration/input/test_pause_menu.gd::test_esc_abre_e_fecha_pela_acao_pause  2 ms  (asserts: 4)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/input/test_pause_menu.gd::test_pausa_e_continuar_devolvem_o_controle_ao_jogador  3 ms  (asserts: 6)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_foco_em_item_a_menos_de_2_m_na_altura_dos_olhos  2 ms  (asserts: 1)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_item_alem_do_alcance_nao_tem_foco  1 ms  (asserts: 1)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_mundo_sem_interactable_nao_tem_foco  2 ms  (asserts: 1)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_bloqueia_o_foco  1 ms  (asserts: 1)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_focus_e_oclusao.gd::test_parede_impede_o_aperto_e_o_item_fica  3 ms  (asserts: 2)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_pickup_e_toque.gd::test_item_de_segurar_conclui_so_depois_do_tempo  8 ms  (asserts: 2)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_pickup_e_toque.gd::test_maos_firmes_neutras_mantem_o_tempo_de_segurar  7 ms  (asserts: 1)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pegar_item_emite_item_picked_e_some  2 ms  (asserts: 6)
+2026-11-21 01:00:50 [ERROR] [interaction] pickup 'Pickup' sem persist_id; fica inerte e não é salvo
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_pickup_e_toque.gd::test_pickup_sem_persist_id_fica_inerte  2 ms  (asserts: 3)
+2026-11-21 01:00:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_porta.gd::test_porta_fechada_bloqueia_e_aberta_libera  45 ms  (asserts: 3)
+2026-11-21 01:00:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_porta.gd::test_porta_trancada_dá_feedback_e_nao_abre  14 ms  (asserts: 6)
+2026-11-21 01:00:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_porta.gd::test_segurar_abre_a_porta_devagar  35 ms  (asserts: 5)
+2026-11-21 01:00:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_porta.gd::test_toque_abre_a_porta_rapido  8 ms  (asserts: 5)
+PASS  integration/interaction/test_portas_sandbox.gd::test_portas_da_sandbox_abrem_por_inteiro_sem_corpo_no_arco  305 ms  (asserts: 17)
+2026-11-21 01:00:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_segurar_falha.gd::test_foco_que_sai_do_alvo_no_meio_do_segurar_falha  15 ms  (asserts: 3)
+2026-11-21 01:00:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/interaction/test_segurar_falha.gd::test_soltar_antes_do_tempo_falha_e_nao_conclui  14 ms  (asserts: 3)
+SCRIPT ERROR: Cannot call method 'get_node' on a previously freed instance.
+   at: _world (res://tests/integration/level/test_f3007_porta_playable.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] _world (res://tests/integration/level/test_f3007_porta_playable.gd:49)
+       [1] test_grafo_tem_as_seis_salas_e_o_piso_certo_em_cada_ponto (res://tests/integration/level/test_f3007_porta_playable.gd:57)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] before_all (res://tests/integration/level/test_f3007_porta_playable.gd:45)
+       [4] wait_physics_frames (res://tests/framework/test_case.gd:177)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_graph' in base 'Nil'.
+   at: test_grafo_tem_as_seis_salas_e_o_piso_certo_em_cada_ponto (res://tests/integration/level/test_f3007_porta_playable.gd:57)
+   GDScript backtrace (most recent call first):
+       [0] test_grafo_tem_as_seis_salas_e_o_piso_certo_em_cada_ponto (res://tests/integration/level/test_f3007_porta_playable.gd:57)
+       [1] _run_file (res://tests/run_all.gd:243)
+       [2] before_all (res://tests/integration/level/test_f3007_porta_playable.gd:45)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_porta_playable.gd::test_grafo_tem_as_seis_salas_e_o_piso_certo_em_cada_ponto  1 ms  (asserts: 0)
+      - erro de script em tempo de execucao: Cannot call method 'get_node' on a previously freed instance. (res://tests/integration/level/test_f3007_porta_playable.gd:49, funcao _world)
+      - erro de script em tempo de execucao: Invalid call. Nonexistent function 'get_graph' in base 'Nil'. (res://tests/integration/level/test_f3007_porta_playable.gd:57, funcao test_grafo_tem_as_seis_salas_e_o_piso_certo_em_cada_ponto)
+SCRIPT ERROR: Cannot call method 'get_node' on a previously freed instance.
+   at: _world (res://tests/integration/level/test_f3007_porta_playable.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] _world (res://tests/integration/level/test_f3007_porta_playable.gd:49)
+       [1] test_porta_fechada_reduz_15_db_entre_corredor_e_hall (res://tests/integration/level/test_f3007_porta_playable.gd:81)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_graph' in base 'Nil'.
+   at: test_porta_fechada_reduz_15_db_entre_corredor_e_hall (res://tests/integration/level/test_f3007_porta_playable.gd:81)
+   GDScript backtrace (most recent call first):
+       [0] test_porta_fechada_reduz_15_db_entre_corredor_e_hall (res://tests/integration/level/test_f3007_porta_playable.gd:81)
+       [1] _run_file (res://tests/run_all.gd:243)
+       [2] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_porta_playable.gd::test_porta_fechada_reduz_15_db_entre_corredor_e_hall  0 ms  (asserts: 0)
+      - erro de script em tempo de execucao: Cannot call method 'get_node' on a previously freed instance. (res://tests/integration/level/test_f3007_porta_playable.gd:49, funcao _world)
+      - erro de script em tempo de execucao: Invalid call. Nonexistent function 'get_graph' in base 'Nil'. (res://tests/integration/level/test_f3007_porta_playable.gd:81, funcao test_porta_fechada_reduz_15_db_entre_corredor_e_hall)
+SCRIPT ERROR: Cannot call method 'get_node' on a previously freed instance.
+   at: _world (res://tests/integration/level/test_f3007_porta_playable.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] _world (res://tests/integration/level/test_f3007_porta_playable.gd:49)
+       [1] test_portas_nascem_com_o_estado_do_slot_e_sincronizam_o_portal (res://tests/integration/level/test_f3007_porta_playable.gd:66)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_graph' in base 'Nil'.
+   at: test_portas_nascem_com_o_estado_do_slot_e_sincronizam_o_portal (res://tests/integration/level/test_f3007_porta_playable.gd:66)
+   GDScript backtrace (most recent call first):
+       [0] test_portas_nascem_com_o_estado_do_slot_e_sincronizam_o_portal (res://tests/integration/level/test_f3007_porta_playable.gd:66)
+       [1] _run_file (res://tests/run_all.gd:243)
+       [2] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_porta_playable.gd::test_portas_nascem_com_o_estado_do_slot_e_sincronizam_o_portal  1 ms  (asserts: 0)
+      - erro de script em tempo de execucao: Cannot call method 'get_node' on a previously freed instance. (res://tests/integration/level/test_f3007_porta_playable.gd:49, funcao _world)
+      - erro de script em tempo de execucao: Invalid call. Nonexistent function 'get_graph' in base 'Nil'. (res://tests/integration/level/test_f3007_porta_playable.gd:66, funcao test_portas_nascem_com_o_estado_do_slot_e_sincronizam_o_portal)
+SCRIPT ERROR: Cannot call method 'get_node' on a previously freed instance.
+   at: _world (res://tests/integration/level/test_f3007_porta_playable.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] _world (res://tests/integration/level/test_f3007_porta_playable.gd:49)
+       [1] test_trovao_eleva_o_limiar_em_cada_sala (res://tests/integration/level/test_f3007_porta_playable.gd:98)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_graph' in base 'Nil'.
+   at: test_trovao_eleva_o_limiar_em_cada_sala (res://tests/integration/level/test_f3007_porta_playable.gd:98)
+   GDScript backtrace (most recent call first):
+       [0] test_trovao_eleva_o_limiar_em_cada_sala (res://tests/integration/level/test_f3007_porta_playable.gd:98)
+       [1] _run_file (res://tests/run_all.gd:243)
+       [2] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_porta_playable.gd::test_trovao_eleva_o_limiar_em_cada_sala  0 ms  (asserts: 0)
+      - erro de script em tempo de execucao: Cannot call method 'get_node' on a previously freed instance. (res://tests/integration/level/test_f3007_porta_playable.gd:49, funcao _world)
+      - erro de script em tempo de execucao: Invalid call. Nonexistent function 'get_graph' in base 'Nil'. (res://tests/integration/level/test_f3007_porta_playable.gd:98, funcao test_trovao_eleva_o_limiar_em_cada_sala)
+SCRIPT ERROR: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class.
+   at: _rooms (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131)
+   GDScript backtrace (most recent call first):
+       [0] _rooms (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131)
+       [1] _room (res://tests/integration/level/test_f3007_sandbox_acustica.gd:148)
+       [2] test_area_exterior_tem_porta_para_dentro_e_sem_teto (res://tests/integration/level/test_f3007_sandbox_acustica.gd:98)
+       [3] _run_file (res://tests/run_all.gd:243)
+       [4] _execute (res://tests/run_all.gd:137)
+       [5] _run_file (res://tests/run_all.gd:277)
+       [6] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_sandbox_acustica.gd::test_area_exterior_tem_porta_para_dentro_e_sem_teto  0 ms  (asserts: 1)
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:99 -> assert_not_null: esperado um valor, obtido null | quintal existe
+      - erro de script em tempo de execucao: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class. (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131, funcao _rooms)
+SCRIPT ERROR: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class.
+   at: test_arremessaveis_tem_metadados_validos (res://tests/integration/level/test_f3007_sandbox_acustica.gd:115)
+   GDScript backtrace (most recent call first):
+       [0] test_arremessaveis_tem_metadados_validos (res://tests/integration/level/test_f3007_sandbox_acustica.gd:115)
+       [1] _run_file (res://tests/run_all.gd:243)
+       [2] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_sandbox_acustica.gd::test_arremessaveis_tem_metadados_validos  0 ms  (asserts: 0)
+      - erro de script em tempo de execucao: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class. (res://tests/integration/level/test_f3007_sandbox_acustica.gd:115, funcao test_arremessaveis_tem_metadados_validos)
+SCRIPT ERROR: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class.
+   at: _rooms (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131)
+   GDScript backtrace (most recent call first):
+       [0] _rooms (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131)
+       [1] test_cada_ponto_de_piso_cai_em_uma_so_sala (res://tests/integration/level/test_f3007_sandbox_acustica.gd:58)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_sandbox_acustica.gd::test_cada_ponto_de_piso_cai_em_uma_so_sala  0 ms  (asserts: 6)
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:65 -> assert_eq: esperado [&"sala"], obtido [] | ponto de piso de sala cai só nessa sala
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:65 -> assert_eq: esperado [&"cozinha"], obtido [] | ponto de piso de cozinha cai só nessa sala
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:65 -> assert_eq: esperado [&"corredor"], obtido [] | ponto de piso de corredor cai só nessa sala
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:65 -> assert_eq: esperado [&"hall"], obtido [] | ponto de piso de hall cai só nessa sala
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:65 -> assert_eq: esperado [&"mezanino"], obtido [] | ponto de piso de mezanino cai só nessa sala
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:65 -> assert_eq: esperado [&"quintal"], obtido [] | ponto de piso de quintal cai só nessa sala
+      - erro de script em tempo de execucao: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class. (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131, funcao _rooms)
+SCRIPT ERROR: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class.
+   at: _portals (res://tests/integration/level/test_f3007_sandbox_acustica.gd:140)
+   GDScript backtrace (most recent call first):
+       [0] _portals (res://tests/integration/level/test_f3007_sandbox_acustica.gd:140)
+       [1] test_portais_sao_portal_e_ligam_as_salas_certas (res://tests/integration/level/test_f3007_sandbox_acustica.gd:69)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_sandbox_acustica.gd::test_portais_sao_portal_e_ligam_as_salas_certas  0 ms  (asserts: 2)
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:70 -> assert_eq: esperado 6, obtido 0 | seis portais
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:80 -> assert_eq: esperado 6, obtido 0 | portal_id distintos
+      - erro de script em tempo de execucao: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class. (res://tests/integration/level/test_f3007_sandbox_acustica.gd:140, funcao _portals)
+SCRIPT ERROR: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class.
+   at: _portals (res://tests/integration/level/test_f3007_sandbox_acustica.gd:140)
+   GDScript backtrace (most recent call first):
+       [0] _portals (res://tests/integration/level/test_f3007_sandbox_acustica.gd:140)
+       [1] test_portas_apontam_para_o_no_que_o_levelslots_cria (res://tests/integration/level/test_f3007_sandbox_acustica.gd:85)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_sandbox_acustica.gd::test_portas_apontam_para_o_no_que_o_levelslots_cria  0 ms  (asserts: 0)
+      - erro de script em tempo de execucao: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class. (res://tests/integration/level/test_f3007_sandbox_acustica.gd:140, funcao _portals)
+SCRIPT ERROR: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class.
+   at: _rooms (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131)
+   GDScript backtrace (most recent call first):
+       [0] _rooms (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131)
+       [1] test_seis_salas_com_piso_de_ruido_e_reverb (res://tests/integration/level/test_f3007_sandbox_acustica.gd:46)
+       [2] _run_file (res://tests/run_all.gd:243)
+       [3] wait_physics_frames (res://tests/framework/test_case.gd:177)
+FAIL  integration/level/test_f3007_sandbox_acustica.gd::test_seis_salas_com_piso_de_ruido_e_reverb  0 ms  (asserts: 1)
+      - res://tests/integration/level/test_f3007_sandbox_acustica.gd:47 -> assert_eq: esperado 6, obtido 0 | seis RoomVolume
+      - erro de script em tempo de execucao: Invalid type in function '_in_group' in base 'Node (test_f3007_sandbox_acustica.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class. (res://tests/integration/level/test_f3007_sandbox_acustica.gd:131, funcao _rooms)
+PASS  integration/perception/test_light_exposure_probe.gd::test_alcance_zera_a_luz  0 ms  (asserts: 1)
+PASS  integration/perception/test_light_exposure_probe.gd::test_atras_de_parede_e_zero  1 ms  (asserts: 2)
+PASS  integration/perception/test_light_exposure_probe.gd::test_cone_do_spot_dentro_e_fora  0 ms  (asserts: 2)
+PASS  integration/perception/test_light_exposure_probe.gd::test_determinismo_com_cena_estatica  0 ms  (asserts: 2)
+PASS  integration/perception/test_light_exposure_probe.gd::test_escuro_total_da_zero  0 ms  (asserts: 2)
+PASS  integration/perception/test_light_exposure_probe.gd::test_luz_apagada_nao_ilumina  0 ms  (asserts: 1)
+PASS  integration/perception/test_light_exposure_probe.gd::test_luz_direta_proxima_e_alta_e_longe_e_menor  0 ms  (asserts: 2)
+PASS  integration/perception/test_light_exposure_probe.gd::test_piso_ambiente_sem_luz  0 ms  (asserts: 1)
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/perception/test_light_exposure_probe.gd::test_sandbox_sala_iluminada_acima_do_ponto_escuro  239 ms  (asserts: 4)
+PASS  integration/perception/test_light_exposure_probe.gd::test_vision_occluder_bloqueia_e_corpo_de_inimigo_nao  1 ms  (asserts: 2)
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/physiology/test_ameaca_stub_no_jogador.gd::test_fonte_padrao_e_zero_e_stub_forcado_sobe_o_estresse  13 ms  (asserts: 4)
+      nota: ameaça forçada (inimigo visto a 3 m) durante 1 s: estresse 15.000 (ganho 15/s)
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/physiology/test_firmeza_alonga_segurar.gd::test_estresse_alto_alonga_o_segurar_e_o_contexto_recebe_a_firmeza  30 ms  (asserts: 5)
+      nota: firmeza com estresse 100.0: 0.300; segurar necessário: 1.025 s (base 0,5 s)
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/physiology/test_firmeza_alonga_segurar.gd::test_firmeza_neutra_segurar_de_0_5_s_conclui  11 ms  (asserts: 2)
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/physiology/test_jogador_sprint_exaustao.gd::test_sprint_esgota_leva_a_laboured_e_o_limite_vale_no_tick_seguinte  117 ms  (asserts: 9)
+      nota: jogador: esgotamento no quadro 499 (8.333 s de sprint); LABORED no quadro 332 (5.550 s); estado no esgotamento LABORED
+      nota: jogador: sprint volta com stamina 25.024 (após 0.35 s de recuperação)
+PASS  integration/physiology/test_phy04_05_componente.gd::test_phy04_componente_bombinha_reduz_0_30_em_ate_3_s  1 ms  (asserts: 2)
+      nota: PHY-04 pelo componente: redução absoluta em 3 s = 0.4400
+PASS  integration/physiology/test_phy04_05_componente.gd::test_phy05_componente_bombinha_nao_mexe_na_stamina  0 ms  (asserts: 1)
+PASS  integration/physiology/test_phy04_05_componente.gd::test_phy05_componente_stamina_zerada_nao_altera_a_severidade  0 ms  (asserts: 2)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_carregar_estado_nao_emite_sinais  12 ms  (asserts: 2)
+2026-11-21 01:00:52 [ERROR] [physiology] StaminaConfig ausente; usando os padrões do código
+2026-11-21 01:00:52 [ERROR] [physiology] StressConfig ausente; usando os padrões do código
+2026-11-21 01:00:52 [ERROR] [physiology] RespiratoryConfig ausente; usando os padrões do código
+2026-11-21 01:00:52 [ERROR] [physiology] CouplingConfig ausente; usando os padrões do código
+PASS  integration/physiology/test_queda_e_sinais.gd::test_config_ausente_registra_erro_e_usa_padroes  0 ms  (asserts: 4)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_gasp_de_susto_exige_pico_e_estresse_previo  0 ms  (asserts: 3)
+2026-11-21 01:00:52 [ERROR] [physiology] apply_medication sem MedicationProfile; nada aplicado
+PASS  integration/physiology/test_queda_e_sinais.gd::test_medicacao_nula_registra_erro_e_nao_aplica  0 ms  (asserts: 2)
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/physiology/test_queda_e_sinais.gd::test_queda_de_3_m_fere_e_queda_de_1_m_nao  26 ms  (asserts: 2)
+      nota: estresse depois da queda de 3 m: 20.000; depois da queda de 1 m: 0.000 (pico de ferimento 20)
+PASS  integration/physiology/test_queda_e_sinais.gd::test_sinais_do_componente_acompanham_os_limiares  10 ms  (asserts: 5)
+      nota: sinais em 25 s de sprint sob ameaça: estados 3, faixas 3, avisos 1, tosses 1, canceladas 0
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_camera_rampa.gd::test_camera_rampa_10_graus  212 ms  (asserts: 8)
+      nota: erro máximo da câmera em regime: 0.0038 m (193 amostras)
+      nota: erro máximo da câmera em regime: 0.0001 m (64 amostras)
+      nota: erro máximo da câmera em regime: 0.0029 m (187 amostras)
+      nota: erro máximo da câmera em regime: 0.0029 m (187 amostras)
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_camera_rampa.gd::test_camera_rampa_20_graus  219 ms  (asserts: 8)
+      nota: erro máximo da câmera em regime: 0.0000 m (212 amostras)
+      nota: erro máximo da câmera em regime: 0.0002 m (70 amostras)
+      nota: erro máximo da câmera em regime: 0.0003 m (186 amostras)
+      nota: erro máximo da câmera em regime: 0.0003 m (186 amostras)
+2026-11-21 01:00:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_camera_rampa.gd::test_camera_rampa_30_graus  231 ms  (asserts: 8)
+      nota: erro máximo da câmera em regime: 0.0000 m (250 amostras)
+      nota: erro máximo da câmera em regime: 0.0002 m (83 amostras)
+      nota: erro máximo da câmera em regime: 0.0026 m (185 amostras)
+      nota: erro máximo da câmera em regime: 0.0026 m (185 amostras)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_efeitos_camera_acc.gd::test_acc01_reducao_total_deixa_a_camera_parada_mesmo_com_estresse  9 ms  (asserts: 2)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_efeitos_camera_acc.gd::test_acc01_sem_reducao_ha_tremor_com_estresse_alto  9 ms  (asserts: 1)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_efeitos_camera_acc.gd::test_acc02_intensidade_zero_zera_os_efeitos  10 ms  (asserts: 2)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_efeitos_camera_acc.gd::test_acc03_indicador_desligado_por_padrao  1 ms  (asserts: 1)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_efeitos_camera_acc.gd::test_acc03_indicador_reflete_o_estado_no_frame_seguinte  95 ms  (asserts: 3)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_efeitos_camera_acc.gd::test_f2_009_viewmodel_sobressalto_da_tosse  12 ms  (asserts: 3)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_efeitos_camera_acc.gd::test_f2_009_viewmodel_uso_da_bombinha_anima  19 ms  (asserts: 6)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_nao_dispara_no_ar  11 ms  (asserts: 2)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_sem_metadado_usa_default  17 ms  (asserts: 3)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_landed_and_footsteps.gd::test_footstep_usa_a_superficie_do_metadado  16 ms  (asserts: 5)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_informa_a_velocidade_de_impacto_de_uma_queda  9 ms  (asserts: 3)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_landed_and_footsteps.gd::test_landed_nao_dispara_quando_nasce_no_chao  6 ms  (asserts: 1)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_medicacao_inventario.gd::test_comeca_com_uma_bombinha_e_tres_cargas  2 ms  (asserts: 2)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_medicacao_inventario.gd::test_cooldown_recusa_sem_consumir  2 ms  (asserts: 4)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_medicacao_inventario.gd::test_pickup_soma_doses_pelo_eventbus  2 ms  (asserts: 2)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_medicacao_inventario.gd::test_sem_doses_recusa_com_feedback  1 ms  (asserts: 3)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_medicacao_inventario.gd::test_tecla_q_usa_a_bombinha  2 ms  (asserts: 1)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_medicacao_inventario.gd::test_usar_consome_uma_dose_e_atualiza_a_fisiologia  1 ms  (asserts: 4)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_agachado_nao_entra_sob_a_laje  22 ms  (asserts: 3)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_mot01_low_ceiling.gd::test_mot01_levantar_sob_a_laje_nao_muda_a_postura  32 ms  (asserts: 12)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_motor_controls.gd::test_exertion_ao_vivo_por_marcha_e_postura  36 ms  (asserts: 12)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_motor_controls.gd::test_fov_vem_das_opcoes_e_acompanha_a_mudanca  1 ms  (asserts: 2)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_motor_controls.gd::test_head_bob_zerado_com_reducao_total_de_movimento  26 ms  (asserts: 3)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_motor_controls.gd::test_mouse_look_usa_sensibilidade_inversao_e_limite_de_pitch  5 ms  (asserts: 4)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_step_up.gd::test_step_up_bloqueia_degraus_acima_de_0_30_m  41 ms  (asserts: 4)
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:00:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/player/test_step_up.gd::test_step_up_sobe_degraus_ate_0_30_m  38 ms  (asserts: 12)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_botao_do_mouse_fora_da_faixa_e_recusado  2 ms  (asserts: 4)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_clique_durante_captura_vira_ligacao_observacao  3 ms  (asserts: 2)
+      nota: clique durante a captura: status=applied; crouch agora=Mouse botão 1
+PASS  integration/qa/test_f1011_remap.gd::test_remap_conflito_com_a_pausa_e_recusado  2 ms  (asserts: 4)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_conflito_com_outra_acao_e_recusado  2 ms  (asserts: 2)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_esc_cancela_a_captura  1 ms  (asserts: 3)
+PASS  integration/qa/test_f1011_remap.gd::test_remap_tecla_sem_codigo_e_recusada  1 ms  (asserts: 3)
+PASS  integration/qa/test_f2011_audio_corpo.gd::test_cada_som_do_corpo_tem_um_evento_em_repouso_e_na_corrida  478 ms  (asserts: 10)
+      nota: repouso: eventos de respiração=1 (chiado=0), pontuais=0; sons: inspiração=1 expiração=1 camada=0 pontual=0
+      nota: corrida: eventos de respiração=2 (chiado=0), pontuais=0; sons: inspiração=2 expiração=2 camada=0 pontual=0
+2026-11-21 01:00:54 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/qa/test_f2011_bombinha_q.gd::test_cooldown_de_10_s_e_tres_doses_por_unidade  372 ms  (asserts: 8)
+2026-11-21 01:00:54 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/qa/test_f2011_bombinha_q.gd::test_q_real_pela_entrada_de_janela_gasta_uma_dose  1 ms  (asserts: 2)
+2026-11-21 01:00:54 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/qa/test_f2011_bombinha_q.gd::test_sem_unidades_nao_ha_dose_e_nada_negativo  1 ms  (asserts: 3)
+2026-11-21 01:00:54 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  integration/qa/test_f2011_bombinha_q.gd::test_spam_de_q_dentro_do_cooldown_gasta_uma_dose  2 ms  (asserts: 5)
+PASS  integration/world/test_level_slots.gd::test_closed_doors_block_the_opening_and_open_door_frees_it  0 ms  (asserts: 5)
+FAIL  integration/world/test_level_slots.gd::test_one_door_per_slot_with_slot_state  0 ms  (asserts: 10)
+      - res://tests/integration/world/test_level_slots.gd:39 -> assert_eq: esperado 4, obtido 5 | uma porta por door_slot
+      - res://tests/integration/world/test_level_slots.gd:42 -> assert_true: esperado verdadeiro | porta inesperada: door_hall_quintal
+PASS  integration/world/test_level_slots.gd::test_open_door_starts_with_panel_open  0 ms  (asserts: 5)
+2026-11-21 01:00:54 [ERROR] [level] vão de 1.20 m em /root/@Node@2094/@Node@2196/WideLevel/@Marker3D@2194, mas o painel da porta tem 0.90 m (sobra folga ou o painel atravessa a parede)
+PASS  integration/world/test_level_slots.gd::test_opening_width_different_from_panel_logs_error  0 ms  (asserts: 3)
+PASS  integration/world/test_level_slots.gd::test_pickups_have_unique_non_empty_ids  0 ms  (asserts: 7)
+PASS  integration/world/test_level_slots.gd::test_playable_scene_has_player_pause_menu_and_debug_overlay  0 ms  (asserts: 3)
+PASS  integration/world/test_playable_body_chain.gd::test_breathing_cycle_reaches_the_world_and_the_head_audio  87 ms  (asserts: 2)
+PASS  integration/world/test_playable_body_chain.gd::test_inhaler_use_emits_medication_puff  1 ms  (asserts: 4)
+PASS  integration/world/test_playable_body_chain.gd::test_presentation_is_bound_to_the_player  0 ms  (asserts: 4)
+PASS  integration/world/test_playable_body_chain.gd::test_startle_gasp_is_audible_body_sound  1 ms  (asserts: 1)
+2026-11-21 01:00:55 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  scenarios/test_mot04_route.gd::test_mot04_passa_pelo_vao_de_0_6_m_rastejando  42 ms  (asserts: 10)
+2026-11-21 01:00:55 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  scenarios/test_mot04_route.gd::test_mot04_sobe_escada_de_8_degraus_nao_atravessa_parede_e_desce  84 ms  (asserts: 8)
+PASS  architecture/test_arc01_perception_firewall.gd::test_firewall_sem_referencias_ao_jogador  8 ms  (asserts: 1)
+      nota: arquivos varridos pelo firewall: 1
+PASS  architecture/test_arc03_l1_purity.gd::test_sim_estende_apenas_classes_nao_node  25 ms  (asserts: 1)
+      nota: scripts de L1 verificados por reflexao: 23
+PASS  architecture/test_arc03_l1_purity.gd::test_sim_sem_dependencias_de_cena_dinamicas_ou_autoloads  81 ms  (asserts: 1)
+      nota: arquivos varridos em res://sim/: 23
+PASS  architecture/test_arc04_parse.gd::test_todos_os_scripts_compilam  728 ms  (asserts: 2)
+      nota: scripts verificados em res://: 193
+PASS  architecture/test_arc05_layers.gd::test_dependencias_so_para_baixo  312 ms  (asserts: 1)
+      nota: arquivos varridos nas camadas de origem: 51
+PASS  architecture/test_arc06_player_mediator.gd::test_componentes_do_jogador_nao_se_referenciam  69 ms  (asserts: 1)
+      nota: scripts em components/player: 9; componentes (base Node): 5; mediador: res://components/player/player_root.gd
+
+RESUMO: total=413 passou=402 falhou=11 sem_assert=6 tempo_total_ms=10518
+  falhou: integration/level/test_f3007_porta_playable.gd::test_grafo_tem_as_seis_salas_e_o_piso_certo_em_cada_ponto
+  falhou: integration/level/test_f3007_porta_playable.gd::test_porta_fechada_reduz_15_db_entre_corredor_e_hall
+  falhou: integration/level/test_f3007_porta_playable.gd::test_portas_nascem_com_o_estado_do_slot_e_sincronizam_o_portal
+  falhou: integration/level/test_f3007_porta_playable.gd::test_trovao_eleva_o_limiar_em_cada_sala
+  falhou: integration/level/test_f3007_sandbox_acustica.gd::test_area_exterior_tem_porta_para_dentro_e_sem_teto
+  falhou: integration/level/test_f3007_sandbox_acustica.gd::test_arremessaveis_tem_metadados_validos
+  falhou: integration/level/test_f3007_sandbox_acustica.gd::test_cada_ponto_de_piso_cai_em_uma_so_sala
+  falhou: integration/level/test_f3007_sandbox_acustica.gd::test_portais_sao_portal_e_ligam_as_salas_certas
+  falhou: integration/level/test_f3007_sandbox_acustica.gd::test_portas_apontam_para_o_no_que_o_levelslots_cria
+  falhou: integration/level/test_f3007_sandbox_acustica.gd::test_seis_salas_com_piso_de_ruido_e_reverb
+  falhou: integration/world/test_level_slots.gd::test_one_door_per_slot_with_slot_state
+RESULTADO: REPROVADO (codigo de saida 1)
+--- Etapa [runner]: codigo=1 SCRIPT_ERROR=14 ERROR_engine=9 tempo_ms=11105 -> FALHOU
+
+=== Etapa [runner-property] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --fixed-fps 60 --path D:\Dev\DeadBreath\game -s res://tests/run_all.gd -- --level=property
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-21 01:00:57 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 22 arquivo(s) de teste em: res://tests/property
+PASS  property/acoustics/test_noi02_porta_nunca_aumenta.gd::test_mesma_semente_mesmo_resultado_e_fechar_porta_nunca_aumenta  2109 ms  (asserts: 4)
+      nota: NOI-02 varredura: 1000 grafos, 6000 consultas, 1947 fechamentos de porta, 1567 consultas com rota por portal (estado inicial)
+      nota: NOI-02 máximo exato: 16590 conferências por enumeração em todos os estados de porta (5296 com rota por portal como melhor caminho), 1092 puladas (mais de 7 portais)
+PASS  property/balance/test_f2008_simulacao_determinismo.gd::test_f2008_duas_execucoes_geram_arquivos_identicos  1687 ms  (asserts: 15)
+      nota: determinismo: 6 de 6 arquivos idênticos entre duas execuções de processos separados
+PASS  property/balance/test_f2008_simulacao_determinismo.gd::test_f2008_saida_bate_com_a_referencia_de_evidencia  1210 ms  (asserts: 15)
+      nota: referência: 6 de 6 arquivos comparados byte a byte
+PASS  property/nivel/test_property_probe.gd::test_property_probe_descoberto  0 ms  (asserts: 1)
+PASS  property/perception/test_light_probe_taxa.gd::test_taxa_de_amostragem_segue_update_hz  1 ms  (asserts: 3)
+PASS  property/physiology/test_per07_longo.gd::test_per07_longo_aviso_agendado  37 ms  (asserts: 3)
+      nota: ponto (a) (longo): 1200 ticks após o carregamento, divergências 0; avisos 0, tosses 1, tosses canceladas 0
+PASS  property/physiology/test_per07_longo.gd::test_per07_longo_cooldown_de_tosse  37 ms  (asserts: 3)
+      nota: ponto (b) (longo): 1200 ticks após o carregamento, divergências 0; avisos 1, tosses 1, tosses canceladas 0
+PASS  property/physiology/test_phy06_07_09_sequencias.gd::test_phy06_07_09_duzentas_sequencias  4695 ms  (asserts: 2)
+      nota: 200 sequências (120 s ativos + 60 s de repouso, dt 0,1 s): avisos 180, tosses 180, tosses canceladas 0
+      nota: PHY-06: pior severidade no fim do repouso 0.0004 (limite 0,2); pior estresse 0.0000 (limite 25); sequências reprovadas 0
+PASS  property/physiology/test_phy08_11_longos.gd::test_phy08_longo_mesmo_rng_e_mesmas_entradas_geram_snapshots_identicos  130 ms  (asserts: 2)
+      nota: PHY-08 (longo, 90 s): 5400 ticks, 4 tosses no caminho exercitado pelo RNG, divergências: 0
+PASS  property/physiology/test_phy08_11_longos.gd::test_phy11_longo_severidade_independe_do_passo_de_tempo  39 ms  (asserts: 1)
+      nota: PHY-11 (longo, 60 s): diferença máxima de severidade entre dt 0,1 e 1/60 em checkpoints de 10 s: 0.00218 (limite 0,02)
+PASS  property/physiology/test_phy10_limiares_longos.gd::test_phy10_sete_limiares_30_s_sem_ping_pong  33 ms  (asserts: 7)
+      nota: PHY-10 (30 s) NORMAL→ACCELERATED em 0,20: 1 transição(ões)
+      nota: PHY-10 (30 s) LABORED→RECOVERING em 0,30: 1 transição(ões)
+      nota: PHY-10 (30 s) SYMPTOMATIC→LABORED em 0,55: 1 transição(ões)
+      nota: PHY-10 (30 s) LABORED→SYMPTOMATIC em 0,60: 1 transição(ões)
+      nota: PHY-10 (30 s) ACCELERATED→NORMAL em 0,15: 1 transição(ões)
+      nota: PHY-10 (30 s) ACCELERATED→LABORED em 0,35: 1 transição(ões)
+      nota: PHY-10 (30 s) RECOVERING sem saída em 0,30: 0 transição(ões)
+2026-11-21 01:01:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_28_fases_00_a_13  1178 ms  (asserts: 1)
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_28_fases_14_a_27  1219 ms  (asserts: 1)
+2026-11-21 01:01:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_28_fases_28_a_41  1224 ms  (asserts: 1)
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_28_fases_42_a_55  1247 ms  (asserts: 1)
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_30_fases_00_a_14  1274 ms  (asserts: 1)
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_30_fases_15_a_29  1216 ms  (asserts: 1)
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_30_fases_30_a_44  1245 ms  (asserts: 1)
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_piso_0_30_fases_45_a_59  1614 ms  (asserts: 1)
+2026-11-21 01:01:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_sandbox_fases_00_a_13  1294 ms  (asserts: 1)
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:19 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_sandbox_fases_14_a_27  1395 ms  (asserts: 1)
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:20 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:21 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_sandbox_fases_28_a_41  1356 ms  (asserts: 1)
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:22 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_propriedade.gd::test_ciclo_sandbox_fases_42_a_55  1368 ms  (asserts: 1)
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_sem_chao.gd::test_bug001_escada_da_sandbox_sem_ticks_no_ar  329 ms  (asserts: 6)
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_28_sem_ticks_no_ar  74 ms  (asserts: 4)
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_sem_chao.gd::test_bug001_escada_piso_0_30_sem_ticks_no_ar  71 ms  (asserts: 4)
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:23 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:24 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_28  430 ms  (asserts: 1)
+2026-11-21 01:01:24 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:24 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:24 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:24 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:24 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:24 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/player/test_escada_sem_chao.gd::test_bug001_varredura_de_fase_piso_0_30  449 ms  (asserts: 1)
+2026-11-21 01:01:24 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:25 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:25 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:25 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:26 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:26 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:26 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:27 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:27 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:27 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:28 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:28 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:28 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:29 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:29 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:30 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:30 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:30 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:31 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:31 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_agachado_varredura_de_fase  6857 ms  (asserts: 1)
+      nota: agachado: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+2026-11-21 01:01:31 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:32 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:32 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:32 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:32 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:33 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:33 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:33 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:34 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:34 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:34 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:35 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:35 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:35 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:36 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:36 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:36 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:36 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:37 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:37 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_andando_devagar_varredura_de_fase  6163 ms  (asserts: 1)
+      nota: devagar: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+2026-11-21 01:01:37 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:38 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:38 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:38 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:38 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:39 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:39 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:39 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:40 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:40 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:40 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:40 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:41 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:41 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:41 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:42 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:42 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:42 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:42 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:43 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_correndo_varredura_de_fase  5592 ms  (asserts: 1)
+      nota: correndo: 20 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+2026-11-21 01:01:43 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:43 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:44 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:44 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:44 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:45 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:45 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:45 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:46 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:46 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_bug002_rastejando_varredura_de_fase  3599 ms  (asserts: 1)
+      nota: rastejando: 10 fases; ticks sem chão=0; landed=0; penetrações=0; maior sequência sem chão=0
+2026-11-21 01:01:47 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:47 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:47 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:47 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:48 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:48 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_diagonal_suave_sobe_e_desce_sem_queda  1889 ms  (asserts: 1)
+      nota: diagonal 14°: 6 passagens; ticks sem chão=0; landed=0; penetrações=0
+2026-11-21 01:01:48 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:49 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:49 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:49 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_entrada_dentro_da_abertura_sobe_sem_queda  1140 ms  (asserts: 1)
+2026-11-21 01:01:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_entrada_pela_borda_e_guarda_do_mezanino  1645 ms  (asserts: 1)
+      nota: entrada x=16.30: parou em z=-2.388 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=16.45: parou em z=-2.394 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=17.55: parou em z=-2.394 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: entrada x=17.70: parou em z=-2.388 (y=1.08); depois de recentrar chegou=true; ticks=601 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:01:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_parada_no_meio_da_subida_nao_cai  343 ms  (asserts: 3)
+      nota: parada na subida: queda parado (após 12 ticks)=0.0000 m; subida[ticks=372 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+2026-11-21 01:01:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_parede_lateral_da_escada_bloqueia_sem_atravessar  266 ms  (asserts: 3)
+      nota: encosto lateral no degrau de 0,72 m: x final=16.150; ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:01:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug001_troca_de_postura_no_meio_da_subida  293 ms  (asserts: 3)
+      nota: troca de postura na subida: mudanças de postura=5; subida[ticks=179 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]; descida[ticks=137 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+2026-11-21 01:01:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:54 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:54 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:54 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:55 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:55 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:55 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:55 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:56 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:56 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:56 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:56 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:57 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:57 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:57 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_a_partir_do_mezanino_andando_devagar  5348 ms  (asserts: 1)
+      nota: descida devagar: 20 fases; ticks sem chão=0; landed=0; penetrações=0
+2026-11-21 01:01:57 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:58 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:58 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:58 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:59 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:59 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:59 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:01:59 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:00 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:00 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:00 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:00 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:01 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:01 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:01 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:02 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:02 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:02 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:02 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:03 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_agachado_a_partir_do_mezanino  5566 ms  (asserts: 1)
+      nota: descida agachado: 20 fases; ticks sem chão=0; landed=0; penetrações=0
+2026-11-21 01:02:03 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:03 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:04 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:04 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:04 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:05 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:05 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:05 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:06 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:06 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_descida_rastejando_a_partir_do_mezanino  3421 ms  (asserts: 1)
+      nota: descida rastejando: 10 fases; ticks sem chão=0; landed=0; penetrações=0
+2026-11-21 01:02:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_parada_no_meio_da_descida_nao_cai  382 ms  (asserts: 3)
+      nota: parada na descida: queda parado (após 12 ticks)=0.0000 m; descida[ticks=334 no_ar=0 (sequencia_max=0) landed=0 penetracao=0]
+2026-11-21 01:02:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug001_002_escadas.gd::test_bug002_saida_lateral_do_degrau_de_0_18_nao_gera_queda  349 ms  (asserts: 5)
+      nota: saída lateral do degrau de 0,18 m: x final=18.369 y=0.000; ticks=123 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_inversao_no_meio_da_rampa_30_graus  113 ms  (asserts: 2)
+      nota: inversão na rampa 30°: erro depois de inverter=0.0000 m (36 amostras); ticks=450 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_parada_na_rampa_30_graus_nao_escorrega  62 ms  (asserts: 4)
+      nota: parada na rampa 30° em z=-1.507 (y=1.049): erro da câmera parada=0.0000 m; deslize após assentar=0.0000 m; ticks=240 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_agachado_30_graus  214 ms  (asserts: 3)
+      nota: rampa 30° agachado: subida erro=0.0000 m (288 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0017 m (199 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+2026-11-21 01:02:07 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_andando_devagar_10_20_30_graus  630 ms  (asserts: 1)
+      nota: rampa 10° devagar: subida erro=0.0021 m (296 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0026 m (277 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+      nota: rampa 20° devagar: subida erro=0.0000 m (289 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0000 m (256 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+      nota: rampa 30° devagar: subida erro=0.0070 m (275 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); descida erro=0.0024 m (224 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+2026-11-21 01:02:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_diagonal_20_graus  113 ms  (asserts: 2)
+      nota: rampa 20° diagonal: subida erro=0.0001 m (285 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0); x final=1.068
+2026-11-21 01:02:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_rampa_rastejando_20_graus  112 ms  (asserts: 2)
+      nota: rampa 20° rastejando: subida erro=0.0025 m (187 amostras; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0)
+2026-11-21 01:02:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_saida_da_rampa_para_o_plano_30_graus  119 ms  (asserts: 4)
+      nota: saída para o plano 30°: chegou ao plano=true; z=-8.020 y=3.000; erro no plano=0.0000 m (69 amostras); ticks=459 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:08 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_bug003_camera.gd::test_bug003_troca_de_postura_no_meio_da_rampa_30_graus  96 ms  (asserts: 2)
+      nota: troca na rampa 30°: postura=1, olhos=1.00 m, erro=0.0000 m, amostras=31
+      nota: troca na rampa 30°: postura=2, olhos=0.45 m, erro=0.0000 m, amostras=31
+      nota: troca na rampa 30°: postura=2, olhos=0.45 m, erro=0.0000 m, amostras=31
+2026-11-21 01:02:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_borda_do_mezanino_com_spam_parado  361 ms  (asserts: 3)
+      nota: borda do mezanino parado com spam: y0=1.080 menor y=1.080; ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:09 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:10 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_cantos_nao_prendem_nem_atravessam  1567 ms  (asserts: 1)
+      nota: sala SO (0,0): canto em (0.351116, 0.000941, -0.351116); afastou 2.29 m ao voltar (mínimo 1.92 m = 80% de velocidade × tempo); ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: sala NO (0,-6): canto em (0.351116, 0.000941, -5.64888); afastou 2.29 m ao voltar (mínimo 1.92 m = 80% de velocidade × tempo); ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall NE (20,-6): canto em (19.65004, 0.000941, -5.253937); afastou 0.74 m ao voltar (mínimo 0.60 m = 80% de velocidade × tempo); ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall SE (20,0): canto em (19.64891, 0.000941, -0.351116); afastou 2.29 m ao voltar (mínimo 1.92 m = 80% de velocidade × tempo); ticks=330 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_entrada_do_vao_correndo_com_spam_de_postura  368 ms  (asserts: 2)
+      nota: correndo com spam na entrada do vão: postura errada dentro=0; z final=-4.086; ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:11 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_pilares_do_mezanino_rastejando  1323 ms  (asserts: 1)
+2026-11-21 01:02:12 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_sob_a_mesa_spam_de_postura_nao_levanta  411 ms  (asserts: 2)
+      nota: sob a mesa com spam: ticks dentro=300, postura errada=0; ticks=390 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:13 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_sob_o_mezanino_so_entra_rastejando  1067 ms  (asserts: 1)
+      nota: agachado em direção ao vão de 1,02 m: parou em z=-2.389; ticks=200 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: correndo em direção ao vão de 1,02 m: parou em z=-2.389; ticks=200 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: rastejando no vão, spam: ticks dentro=300, postura errada=0; z final=-3.197; ticks=420 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_spam_de_postura_em_espaco_aberto_sem_queda  426 ms  (asserts: 3)
+      nota: spam de postura na sala: ticks=600 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:14 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:15 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:16 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:17 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:18 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_exploits_geometria.gd::test_exploit_vao_aberto_passa_em_todas_as_posicoes_e_posturas  4604 ms  (asserts: 1)
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_painel_aberto_bloqueia_o_corpo  449 ms  (asserts: 2)
+      nota: painel aberto: corpo parou em z=-0.869; ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_com_corpo_no_arco_segurando_para_e_retoma  367 ms  (asserts: 12)
+      nota: segurando: no arco, ângulo=15.9°, eventos blocked=1, primeiro bloqueio=Player, corpo deslocou 0.0000 m, penetração=0, câmera dentro=0
+      nota: segurando: saiu do arco; ângulo final=90.0°; último bloqueio=Player; bloqueada=false; corpo em x=7.622; penetração total=0
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_com_corpo_no_arco_toque_para_e_retoma  332 ms  (asserts: 12)
+      nota: toque: no arco, ângulo=12.9°, eventos blocked=1, primeiro bloqueio=Player, corpo deslocou 0.0000 m, penetração=0, câmera dentro=0
+      nota: toque: saiu do arco; ângulo final=90.0°; último bloqueio=Player; bloqueada=false; corpo em x=7.622; penetração total=0
+PASS  property/qa/test_f1011_exploits_portas.gd::test_exploit_porta_fechada_bloqueia_com_spam_de_postura  385 ms  (asserts: 3)
+      nota: porta fechada com spam de postura: corpo x=6.282 (painel em x=6,03); ticks=300 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_interacao.gd::test_interacao_aperto_durante_a_pausa_e_ignorado  319 ms  (asserts: 3)
+PASS  property/qa/test_f1011_interacao.gd::test_interacao_controle_segurar_sem_pausa_abre_rapido  307 ms  (asserts: 2)
+      nota: controle sem pausa: estado=1; aberturas=[false]
+PASS  property/qa/test_f1011_interacao.gd::test_interacao_depois_da_pausa_um_toque_abre_rapido  296 ms  (asserts: 2)
+      nota: toque depois da pausa: estado=1; aberturas=[false]
+PASS  property/qa/test_f1011_interacao.gd::test_interacao_pickup_atras_da_porta_trancada_nao_e_alcancado  283 ms  (asserts: 6)
+PASS  property/qa/test_f1011_interacao.gd::test_interacao_raios_nao_atravessam_paredes_nem_portas_fechadas  294 ms  (asserts: 2)
+      nota: raios testados=1076; passando pelo vão aberto=124; vazamentos=0
+PASS  property/qa/test_f1011_interacao.gd::test_interacao_segurada_com_menu_de_pausa_cancela_o_segurar  321 ms  (asserts: 8)
+      nota: segurar com pausa: estado=0; aberturas=[]; interaction_failed=1; segurando=false
+PASS  property/qa/test_f1011_portas_quatro.gd::test_brecha_no_encontro_do_painel_com_o_batente_nao_existe  1941 ms  (asserts: 1)
+      nota: batente em z=-1,32, painel a 0°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 15°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 27°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 45°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 60°: x máximo 5.65; penetração=0
+      nota: batente em z=-1,32, painel a 90°: x máximo 5.65; penetração=0
+PASS  property/qa/test_f1011_portas_quatro.gd::test_geometria_estatica_no_arco_nao_bloqueia_o_giro_aceito  302 ms  (asserts: 2)
+      nota: caixa estática no arco: ângulo final 90.0°; bloqueada=false; intrusão do painel na caixa (aprox.) 25.0 mm
+PASS  property/qa/test_f1011_portas_quatro.gd::test_medicao_intrusao_do_painel_no_batente_por_angulo  268 ms  (asserts: 2)
+      nota: intrusão do painel no batente (encolhimento que libera a sobreposição): 0°: 0.0 mm; 10°: 4.5 mm; 20°: 8.0 mm; 27°: 10.1 mm; 35°: 12.4 mm; 45°: 15.0 mm; 60°: 19.0 mm; 75°: 23.7 mm; 90°: 25.0 mm | pior 25.0 mm a 90°
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_corredor_hall_corpo_no_arco_para_e_libera  727 ms  (asserts: 1)
+      nota: corredor-hall, corpo no arco: toque no arco: ângulo 12.9°, bloqueada=true, blocked emitido 1 vez(es), corpo deslocou 0.0000 m, penetração=0 | toque, depois de sair: ângulo 90.0°, bloqueada=false | segurar no arco: ângulo 15.9°, bloqueada=true, blocked emitido 1 vez(es), corpo deslocou 0.0000 m, penetração=0 | segurar, depois de sair: ângulo 90.0°, bloqueada=false
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_corredor_hall_sem_corpo_abre_por_inteiro  646 ms  (asserts: 1)
+      nota: corredor-hall, sem corpo: toque: 90.0°; segurar: 90.0°
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_cozinha_corredor_trancada_so_da_feedback  314 ms  (asserts: 3)
+      nota: cozinha-corredor (trancada): feedback=1, estado=2, ângulo 0.0 -> 0.0
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_sala_corredor_corpo_entra_no_arco_no_meio_da_abertura  347 ms  (asserts: 7)
+      nota: entrada no meio da abertura (segurar): entrou no arco em 6.96 m, bloqueou=true em 47.8°; deslocou 0.0000 m depois do contato; blocked emitido 1 vez(es); depois de sair: 90.0°, bloqueada=false; ticks=147 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_sala_corredor_segurar_sem_corpo_abre_por_inteiro  321 ms  (asserts: 1)
+      nota: sala-corredor, segurar, sem corpo: ângulo 90.0°; bloqueada=false
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_sala_corredor_toque_sem_corpo_abre_por_inteiro  321 ms  (asserts: 1)
+      nota: sala-corredor, toque, sem corpo: ângulo 90.0°; bloqueada=false
+PASS  property/qa/test_f1011_portas_quatro.gd::test_porta_sala_cozinha_aberta_nao_bloqueia  305 ms  (asserts: 3)
+      nota: sala-cozinha (aberta): estado=1, blocked=0, ângulo 90.0°
+2026-11-21 01:02:28 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:28 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:28 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:29 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:29 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:29 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:30 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_cantos_e_reversao_diagonal  2244 ms  (asserts: 1)
+      nota: sala SO (0,0): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: sala NO (0,-6): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall SE (20,0): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: hall NE (20,-6), sob o mezanino: canto; reversão afastou 0.724 m (mínimo 0.600); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: cozinha NE (14,-6): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: cozinha SE (14,-1,4): canto; reversão afastou 2.293 m (mínimo 1.920); ticks=210 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+      nota: reversão diagonal após 240 ticks no canto (BUG-004): deslocou 2.491 m em 300 ticks; ticks=540 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:30 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:30 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:31 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:31 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:31 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:31 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:32 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:32 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:32 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:33 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:33 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_empurrar_parede_todas_posturas_e_angulos  3060 ms  (asserts: 1)
+      nota: efeitos do contorno, parede norte da sala:
+em pé andando, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé andando, 30°: deslocou no contato 0.5200 m (1 footsteps), altura 0.0007 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé andando, 60°: deslocou no contato 0.9007 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé correndo, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+em pé correndo, 30°: deslocou no contato 1.5381 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=120 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 30°: deslocou no contato 0.3250 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+agachado, 60°: deslocou no contato 0.5629 m (1 footsteps), altura 0.0000 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 0°: deslocou no contato 0.0000 m (0 footsteps), altura 0.0010 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 30°: deslocou no contato 0.1625 m (0 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+rastejando, 60°: deslocou no contato 0.3042 m (1 footsteps), altura 0.0009 m, câmera 0.0000 m, ticks=121 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+2026-11-21 01:02:33 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:33 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:34 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:34 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:34 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:34 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_bug004_escada_parede_lateral_em_cada_degrau  1569 ms  (asserts: 1)
+      nota: escada, parede lateral:
+degrau 1 (face 0.18 m, z -1.14): x=16.529 y=0.360; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 2 (face 0.36 m, z -1.42): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 3 (face 0.54 m, z -1.70): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 4 (face 0.72 m, z -1.98): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 5 (face 0.90 m, z -2.26): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+degrau 6 (face 1.08 m, z -2.54): x=16.148 y=0.001; ticks=60 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_porta_parcial_com_corpo_parado_encostado  299 ms  (asserts: 6)
+      nota: porta parcial com corpo parado: parou em 12.9°; primeiro bloqueio=Player; depois de 60 ticks: ângulo 12.9°, corpo deslocou 0.0000 m; ticks=64 no_ar=0 (sequencia_max=0) landed=0 penetracao=0
+PASS  property/qa/test_f1011_verificacao_correcoes.gd::test_correcao_porta_sem_corpo_abre_por_inteiro  314 ms  (asserts: 1)
+      nota: porta sem corpo por perto: ângulo final 90.0°; bloqueada=false
+PASS  property/qa/test_f2011_crise_opcoes.gd::test_mudar_acessibilidade_no_meio_da_crise_nao_reseta_e_vale_no_quadro_seguinte  419 ms  (asserts: 9)
+      nota: crise: estresse 100.00, severidade 0.759, vinheta 0.139 -> 0.000
+PASS  property/qa/test_f2011_crise_opcoes.gd::test_noclip_na_crise_some_com_o_ruido_de_passo_e_a_fisiologia_segue  531 ms  (asserts: 4)
+      nota: passos andando fora do noclip: 37; passos com noclip: 0; estresse 100.00 -> 100.00
+PASS  property/qa/test_f2011_crise_opcoes.gd::test_spam_de_postura_na_crise_nao_aumenta_o_repouso  984 ms  (asserts: 4)
+      nota: agachar uma vez: repouso em 100.0% dos quadros, queda 0.0254/s; a cada quadro: repouso em 50.0%, queda 0.0253/s
+PASS  property/qa/test_f2011_estresse_10min.gd::test_bombinha_a_cada_aviso_sem_limite_de_doses_nao_zera_a_tosse  529 ms  (asserts: 3)
+      nota: com bombinha a cada aviso (sem limite de doses): avisos=10 tosses=6 suprimidas=4 aplicacoes=10
+PASS  property/qa/test_f2011_estresse_10min.gd::test_estresse_maximo_constante_por_10_min_sem_tratamento  539 ms  (asserts: 3)
+      nota: sem tratamento: avisos=66 tosses=66 suprimidas=0 exaustoes=1; estresse final=100.000; severidade final=1.0000
+PASS  property/qa/test_f2011_fisiologia.gd::test_acc01_reducao_total_zera_balanco_tremor_e_solavanco  0 ms  (asserts: 5)
+      nota: ACC-01: com redução 1: balanço 0.0000 m, tremor 0.0000 m, solavanco 0.000°; sem redução: balanço 0.0130 m, tremor 0.0040 m, solavanco 1.500°
+PASS  property/qa/test_f2011_fisiologia.gd::test_acc02_intensidade_dos_efeitos_e_linear  0 ms  (asserts: 4)
+      nota: ACC-02: balanço 1,0 = 0.01300, 0,5 = 0.00650, 0 = 0.00000; tremor 1,0 = 0.00400, 0,5 = 0.00200; vinheta 1,0 = 0.350, 0,5 = 0.175
+PASS  property/qa/test_f2011_fisiologia.gd::test_acc03_vinheta_so_na_crise_e_indicador_desligado_por_padrao  1 ms  (asserts: 3)
+      nota: ACC-03: vinheta com severidade 0,5 = 0.000; com 0,9 = 0.263
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy01_sprint_de_tanque_cheio_esgota_em_8_3_s_e_fica_labored  4 ms  (asserts: 2)
+      nota: PHY-01: esgotou em 8.333 s; severidade 0.453; estado LABORED
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy02_estresse_80_eleva_o_alvo_em_pelo_menos_0_25  42 ms  (asserts: 1)
+      nota: PHY-02: severidade com estresse 80 = 0.425; com 0 = 0.140; diferença 0.285
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy03_severidade_0_6_em_repouso_cai_abaixo_de_0_2_em_25_s  4 ms  (asserts: 1)
+      nota: PHY-03: de 0,6 a < 0,2 em 6.667 s
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy04_bombinha_em_sintomatico_reduz_0_30_absolutos_em_3_s  1 ms  (asserts: 2)
+      nota: PHY-04: aplicada=true; severidade 0.599 -> 0.068 em 3 s (queda absoluta 0.531)
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy05_bombinha_nao_altera_estamina_e_estamina_zero_nao_altera_severidade  1 ms  (asserts: 2)
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy06_09_sequencias_aleatorias_terminam_em_repouso_e_respeitam_limites  3974 ms  (asserts: 7)
+      nota: PHY-06: 200 sequências; severidade final máxima 0.0003; estresse final máximo 0.000
+      nota: PHY-09 (limites): estamina [0.00, 100.00]; estresse [0.00, 100.00]; severidade [0.0000, 1.0000]; frequência respiratória ok
+      nota: PHY-07: 530 tosses; menor intervalo aviso→tosse 1.5000 s
+      nota: PHY-10: menor permanência entre trocas de estado 1.000 s (mínimo 1.0 s)
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy08_mesmo_estado_do_rng_e_mesmas_entradas_dao_o_mesmo_resultado  156 ms  (asserts: 1)
+PASS  property/qa/test_f2011_fisiologia.gd::test_phy11_passo_de_1_60_e_0_1_dao_a_mesma_severidade_final  38 ms  (asserts: 1)
+      nota: PHY-11: severidade final dt 1/60 = 0.2195; dt 0,1 = 0.2195; diferença 0.0000
+PASS  property/qa/test_f2011_persistencia_aviso.gd::test_bombinha_no_aviso_so_cancela_pela_severidade  11 ms  (asserts: 5)
+      nota: sem bombinha: tosse ocorreu no quadro 579, severidade 0.7733; com bombinha no aviso: tosse suprimida no quadro 579, severidade 0.4333
+PASS  property/qa/test_f2011_persistencia_aviso.gd::test_salvar_e_restaurar_no_meio_do_aviso_repete_a_mesma_historia  96 ms  (asserts: 3)
+      nota: aviso no quadro 489; eventos após o salvamento: A=3 B=3; maior diferença de estado: 0.000000000
+PASS  property/scenarios/test_mot04_sandbox.gd::test_sandbox_contrato_de_marcadores_e_superficies  300 ms  (asserts: 59)
+2026-11-21 01:02:43 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_a_parede_do_corredor_fora_do_vao  361 ms  (asserts: 3)
+2026-11-21 01:02:43 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/scenarios/test_mot04_sandbox.gd::test_sandbox_nao_atravessa_paredes_da_sala_e_do_hall  386 ms  (asserts: 4)
+2026-11-21 01:02:44 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/scenarios/test_mot04_sandbox.gd::test_sandbox_nao_levanta_sob_a_mesa  329 ms  (asserts: 5)
+2026-11-21 01:02:44 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/scenarios/test_mot04_sandbox.gd::test_sandbox_rasteja_sob_a_mesa_de_0_6_m  366 ms  (asserts: 11)
+2026-11-21 01:02:45 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/scenarios/test_mot04_sandbox.gd::test_sandbox_sobe_a_escada_ate_o_mezanino_e_desce  342 ms  (asserts: 10)
+2026-11-21 01:02:45 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_corredor_hall  408 ms  (asserts: 5)
+2026-11-21 01:02:45 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  property/scenarios/test_mot04_sandbox.gd::test_sandbox_vaos_sala_cozinha_corredor  335 ms  (asserts: 4)
+
+RESUMO: total=110 passou=110 falhou=0 sem_assert=0 tempo_total_ms=108502
+RESULTADO: APROVADO (codigo de saida 0)
+WARNING: 60 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+--- Etapa [runner-property]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=1 tempo_ms=108892 -> OK
+
+=== Etapa [runner-meta] ===
+Comando: "D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe" --headless --fixed-fps 60 --path D:\Dev\DeadBreath\game -s res://tests/run_all.gd -- --level=meta
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+2026-11-21 01:02:46 [INFO] [settings] sem arquivo de opções válido em user://settings.cfg; usando padrões
+Descoberta: 7 arquivo(s) de teste em: res://tests/meta
+PASS  meta/test_arc03_regras_dinamicas.gd::test_autoload_injetado_e_pego  0 ms  (asserts: 1)
+PASS  meta/test_arc03_regras_dinamicas.gd::test_cada_dependencia_dinamica_e_pega  1 ms  (asserts: 1)
+PASS  meta/test_arc03_regras_dinamicas.gd::test_controles_negativos_nao_geram_achado  0 ms  (asserts: 1)
+PASS  meta/test_property_level.gd::test_execucao_padrao_nao_descobre_o_nivel_property  1664 ms  (asserts: 3)
+PASS  meta/test_property_level.gd::test_nivel_property_descobre_a_sonda_recursivamente  1223 ms  (asserts: 3)
+2026-11-21 01:02:49 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:49 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:49 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:49 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:50 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:51 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  meta/test_r107_historico_no_mundo.gd::test_r107_mundo_compartilhado_com_flush_nao_depende_do_historico  3400 ms  (asserts: 52)
+2026-11-21 01:02:52 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+2026-11-21 01:02:53 [WARN] [acoustics] BreathEmitter sem AcousticWorld no grupo 'acoustic_world'; sons do corpo não são emitidos
+PASS  meta/test_r107_historico_no_mundo.gd::test_r107_mundo_isolado_por_fase_nao_depende_do_historico  860 ms  (asserts: 4)
+PASS  meta/test_runner_context.gd::test_autoloads_registrados_estao_na_arvore  2 ms  (asserts: 1)
+      nota: autoloads registrados em project.godot: 5 (Log, EventBus, Settings, SaveService, GameState)
+PASS  meta/test_runner_context.gd::test_identificador_global_visivel_em_script_carregado  8 ms  (asserts: 4)
+PASS  meta/test_runner_outcomes.gd::test_aviso_tratado_como_erro_sai_com_1  367 ms  (asserts: 4)
+PASS  meta/test_runner_outcomes.gd::test_declaracoes_de_erro_esperado_no_runner  436 ms  (asserts: 9)
+PASS  meta/test_runner_outcomes.gd::test_erro_de_script_em_tempo_de_execucao_reprova_o_teste  395 ms  (asserts: 7)
+PASS  meta/test_runner_outcomes.gd::test_filtro_executa_so_o_teste_pedido  329 ms  (asserts: 5)
+PASS  meta/test_runner_outcomes.gd::test_fixture_que_falha_sai_com_1_e_mostra_a_mensagem  2022 ms  (asserts: 7)
+PASS  meta/test_runner_outcomes.gd::test_fixture_que_passa_sai_com_0_e_resume  317 ms  (asserts: 6)
+PASS  meta/test_runner_outcomes.gd::test_raiz_sem_testes_sai_com_1  308 ms  (asserts: 3)
+PASS  meta/test_runner_outcomes.gd::test_script_com_erro_de_parse_sai_com_1_e_vira_falha  362 ms  (asserts: 5)
+PASS  meta/test_runner_outcomes.gd::test_teste_sem_assert_reprova_e_watchdog_reprova_por_frames  937 ms  (asserts: 9)
+PASS  meta/test_runner_outcomes.gd::test_teto_de_tempo_de_parede_reprova_mesmo_com_progresso  2327 ms  (asserts: 4)
+PASS  meta/test_source_scan.gd::test_caminho_de_camada_so_aparece_com_strings_mantidas  0 ms  (asserts: 2)
+PASS  meta/test_source_scan.gd::test_class_name_declarado_e_extraido  0 ms  (asserts: 3)
+PASS  meta/test_source_scan.gd::test_comentarios_e_strings_nao_contam_como_codigo  0 ms  (asserts: 3)
+PASS  meta/test_source_scan.gd::test_regras_do_firewall_pegam_casos_proibidos  7 ms  (asserts: 7)
+PASS  meta/test_source_scan.gd::test_violacao_real_e_achada_com_numero_de_linha  0 ms  (asserts: 2)
+PASS  meta/test_testcase_contract.gd::test_asserts_registram_falhas_e_seguem  1 ms  (asserts: 3)
+PASS  meta/test_testcase_contract.gd::test_utilitarios_tmp_dir_autofree_e_frames  5 ms  (asserts: 8)
+
+RESUMO: total=26 passou=26 falhou=0 sem_assert=0 tempo_total_ms=15195
+RESULTADO: APROVADO (codigo de saida 0)
+--- Etapa [runner-meta]: codigo=0 SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=15590 -> OK
+
+=== Resumo do pipeline ===
+  importacao   codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=   3077  OK
+  arc04        codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=   2350  OK
+  runner       codigo=1    SCRIPT_ERROR=14 ERROR_engine=9 tempo_ms=  11105  FALHOU
+  runner-property codigo=0    SCRIPT_ERROR=0 ERROR_engine=1 tempo_ms= 108892  OK
+  runner-meta  codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=  15590  OK
+Tempo total do pipeline: 141.86 s
+RESULTADO DO PIPELINE: REPROVADO (codigo de saida 1)

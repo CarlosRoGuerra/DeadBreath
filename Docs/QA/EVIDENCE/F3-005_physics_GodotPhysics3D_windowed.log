@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.359 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+F3005 stack_5 {"all_sleeping_at_end":true,"jitter_mm_per_tick_last5s":0.0,"jitter_n":1505,"jitter_sum_m":0.0,"max_drift_xz_m":0.00955234561115503,"max_tilt_deg":0.345484255107005,"sleep_tick":35,"top_center_sink_m":0.0357177257537842}
+F3005 throw_wall {"final_sleeping":false,"final_speed":2.41637420654297,"final_x":-8.123122215271,"max_x":1.80262720584869,"min_y":0.49992373585701,"passed_through_wall":false,"penetrated_floor":false,"reached_wall":false,"rebound_ratio":0.0,"vx_prev":-2.41637420654297}
+F3005 drop_floor {"bounce_rise_m":0.47426962852478,"final_sleeping":true,"final_speed":0.0000345408916473389,"impact_y":0.0576388835906982,"min_y":0.0576388835906982,"penetrated_floor":false,"prev_y":0.0995291471481323,"rise_apex_y":0.531908512115479,"state":2}
+F3005 tunnel_15_nocd {"continuous_cd":false,"final_speed":0.000000910156586542143,"final_x":-0.0149999726563692,"max_x":-0.0149417072534561,"passed_through_wall":false,"speed_ms":15.0}
+F3005 tunnel_15_cd {"continuous_cd":true,"final_speed":0.0,"final_x":-0.0245999842882156,"max_x":-0.0245999842882156,"passed_through_wall":false,"speed_ms":15.0}
+F3005 tunnel_40_nocd {"continuous_cd":false,"final_speed":0.0,"final_x":-0.0149994660168886,"max_x":-0.00665909051895142,"passed_through_wall":false,"speed_ms":40.0}
+F3005 tunnel_40_cd {"continuous_cd":true,"final_speed":0.0,"final_x":-0.0245999693870544,"max_x":-0.0245999693870544,"passed_through_wall":false,"speed_ms":40.0}
+F3005 player_push {"box_displacement_m":-0.0000625848770141602,"box_max_speed_ms":0.118011727929115,"box_max_x":1.50010573863983,"box_x":1.49993741512299,"box_x0":1.5,"gap_min_m":0.39993679523468,"kick":false,"kicked":false,"player_on_floor":true,"player_passed_box":false,"player_x":1.09986817836761}
+F3005 player_kick {"box_displacement_m":3.34810352325439,"box_max_speed_ms":3.96455454826355,"box_max_x":4.84810352325439,"box_x":4.84810352325439,"box_x0":1.5,"gap_min_m":0.418301105499268,"kick":true,"kick_tick":39,"kicked":true,"player_on_floor":true,"player_passed_box":false,"player_x":4.41424942016602}
+F3005 cost_30 {"active_bodies":30,"sleeping_at_end":30,"step_ms_avg":45.1734481605352,"step_ms_max":49.263,"step_ms_sum":13506.861,"step_samples":299}
+F3005_DONE engine=GodotPhysics3D out=D:/Dev/DeadBreath/Docs/QA/EVIDENCE/F3-005_physics_GodotPhysics3D_windowed.json

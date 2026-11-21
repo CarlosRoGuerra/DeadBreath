@@ -1,0 +1,27 @@
+F3-005 / RSK-13: reavaliação da física com corpos dinâmicos (GodotPhysics3D x Jolt Physics)
+Godot 4.7.2, 60 ticks/s fixos (--fixed-fps 60). Spike: spikes/f3_physics/ (descartável). Motor escolhido por override.cfg.
+Arquivos: F3-005_physics_<motor>.json e .log (headless); F3-005_physics_<motor>_windowed.* (com janela, só custo);
+F3-005_physics_compile.log (verificação de compilação do spike).
+
+Cenário                      GodotPhysics3D                                   Jolt Physics
+-------------------------    -----------------------------------------------  -----------------------------------------------
+Pilha de 5 caixas (10 s)     afundamento do topo 35,7 mm; deriva xz 9,6 mm;    afundamento 2,1 mm; deriva 3,4 mm; inclinação 0,19°;
+                             inclinação 0,35°; dorme no tick 35                dorme no tick 30. Sem tremor após dormir (jitter 0).
+Arremesso contra parede      bateu (x=1,80); razão de quique 0,599; parou       bateu; razão de quique 0,598; parou
+(6 m/s, sem gravidade)       (velocidade final 2,42 m/s, sem atrito)           (idem)
+Queda de esfera (1 m)        quique até 0,505 m (elevação 0,47 m); repousa;    quique até 0,532 m (elevação 0,45 m); repousa;
+                             centro mínimo 0,058 m (margem de colisão)         centro mínimo 0,058 m (idem)
+Túnel 15 m/s, parede 1 cm    não atravessou (com e sem CCD)                    não atravessou (com e sem CCD)
+Túnel 40 m/s, parede 1 cm    não atravessou (com e sem CCD)                    não atravessou (com e sem CCD)
+Jogador empurra caixa 0,5 kg CharacterBody3D fica bloqueado em x=1,10; caixa   idem (bloqueado em x=1,10; caixa parada)
+                             não se move
+Jogador chuta caixa          caixa sai a 3,96 m/s; deslocamento 3,32 m          caixa sai a 3,96 m/s; deslocamento 3,35 m
+Custo, 30 caixas (com janela) média 45,2 ms; máximo 49,3 ms por passo          média 32,3 ms; máximo 51,4 ms por passo
+                             (valores acima de 16,7 ms: medida pouco confiável; o monitor inclui contenção com a janela)
+
+V6 (DISC-003, controlador CharacterBody3D, pistas de rampa/escada/vão/obstáculo): ALL_PASS=true nos dois motores (721 ticks cada).
+Reexecução (spikes/disc003/run_spike.sh) em F3-005_rerun_V6_<motor>.json/.log; a evidência original da F0 em DISC-003/ fica intacta.
+
+Limitações: o túnel não foi reproduzido em nenhum motor (parede de 1 cm); CCD não foi testado de fato. A medida de custo
+só foi possível com janela (em headless o monitor retorna 0 e PhysicsServer3D não expõe passo manual em 4.7).
+A razão de quique (~0,6) é maior que o bounce nominal do material (0,3) nos dois motores; não investigado.

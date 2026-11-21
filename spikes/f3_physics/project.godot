@@ -1,0 +1,8 @@
+; Projeto descartável do spike F3-005 (RSK-13: corpos dinâmicos). Não é o jogo.
+config_version=5
+
+[application]
+config/name="F3-005 Physics Spike"
+
+[physics]
+common/physics_ticks_per_second=60
