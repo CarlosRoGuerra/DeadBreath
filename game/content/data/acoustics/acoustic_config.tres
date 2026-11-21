@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AcousticConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://sim/acoustics/acoustic_config.gd" id="1_cfg"]
+
+[resource]
+script = ExtResource("1_cfg")
+portal_open_loss_db = 3.0
+portal_closed_loss_db = 18.0
+wall_transmission_loss_db = 25.0
+floor_transmission_loss_db = 30.0
+extra_loss_per_m_db = 0.1
+min_distance_m = 1.0
+position_error_per_db_lost = 0.05

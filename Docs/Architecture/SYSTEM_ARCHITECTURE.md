@@ -165,7 +165,7 @@ Física a 60 Hz. `process_physics_priority`: valores menores rodam antes.
 ## 7. Modelo acústico (ADR-004)
 
 - Grafo de **salas e portais** construído a partir dos nós `RoomVolume` e `Portal` do nível.
-- Perda por distância `20·log10(max(d,1)) + 0.1·d`. Portais: aberto 3 dB, fechado 18 dB. Parede 25 dB, piso 30 dB. Prevalece o melhor caminho (Dijkstra).
+- Perda por distância `20·log10(max(d,1)) + 0.1·d`. Portais: aberto 3 dB, fechado 18 dB. Parede 25 dB, piso 30 dB. Prevalece o caminho de **maior nível percebido** entre o direto (paredes e pisos atravessados) e os caminhos por portais. Como a perda por distância é logarítmica (não aditiva), a busca por portais é **multicritério**: Dijkstra com rótulos não dominados (comprimento, perda) por portal e sala de entrada (decisão D-05 da F3-001; verificada contra enumeração exaustiva).
 - Audibilidade com **piso de ruído ambiente** por sala (chuva) e offset climático (trovão), em DATA_STRUCTURES §2.3.
 - A posição estimada parte do último portal do caminho, com erro proporcional à atenuação.
 - Áudio: `AudioStreamPlayer3D` com **atenuação nativa desligada**. O `NoiseAudioRouter` define `volume_db` a partir do `PropagationResult` e usa só o *panning* espacial e o reverb da sala. Assim o que o jogador ouve e o que a IA ouve não divergem (teste NOI-04).
@@ -271,7 +271,7 @@ As medições começam na F4 (primeira cena com IA), e não só na F7.
 | Falha de gravação | Escrita atômica (`.tmp` e depois renomeia); o arquivo anterior permanece válido; `Log.error` | PER-09 |
 | `.tres` de config ausente | Falha imediata em build de debug (`assert`); em produção usa padrões do código e registra erro | ARC-07 |
 | `persist_id` vazio ou duplicado | Falha no teste ARC-02; em runtime, `Log.error` e a entidade não é salva | ARC-02 |
-| Erro interno em um modelo L1 | Nunca silencioso: `push_error` + `Log.error`, sem crash em produção | — |
+| Erro interno em um modelo L1 | Nunca silencioso: o L1 usa `push_error` e devolve valor de erro (o ARC-03 proíbe autoloads em `sim/`); o componente L2 que o chamou registra `Log.error`. Sem crash em produção (decisão D-04 da F3-001) | — |
 
 ## 15. Registros de decisão (ADRs)
 

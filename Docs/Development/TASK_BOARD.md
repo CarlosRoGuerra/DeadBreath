@@ -225,13 +225,13 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 - **Onda C:** F3-010 revisão, F3-011 QA, F3-012 documentação (STEALTH_SYSTEM.md, AUDIO_DESIGN.md).
 
 ### F3-001 · AcousticGraph (L1) + tipos de dados
-- **Responsável:** AI Engineer · **Esforço:** EXTRA HIGH · **Depende de:** Gate F2 · **Status:** IN_PROGRESS
+- **Responsável:** AI Engineer · **Esforço:** EXTRA HIGH · **Depende de:** Gate F2 · **Status:** REVIEW. Entregue com STL-07 dentro de ±0,2 m nos 7 casos e NOI-02 sem nenhuma subida em 1 000 grafos. Divergências D-01..D-09 decididas pelo Director (TEST_PLAN, SYSTEM §7/§14, DATA §2/§2.3)
 - **Descrição:** `sim/acoustics/acoustic_graph.gd` (§6.1): salas, portais com posição e estado aberto/fechado, Dijkstra pelo grafo, caminho através de paredes (perda por parede) e de pisos, `room_at`, `weather_offset`, regra de audibilidade (DATA §2.3). `AcousticConfig` (Resource, §2.2) + `.tres`. `HeardNoise` e `PlayerHeardNoise` (§2) em L1. Determinístico; fechar porta nunca aumenta o nível.
 - **Aceitação/Testes:** STL-01 (ordem das intensidades), STL-02, STL-03, STL-07 (7 exemplos de DATA §2.3, ±0,2 m), NOI-02, NOI-03 (reflexão dos campos permitidos). A assinatura de `propagate` é a mesma do `AcousticPropagation.perceive` da F2.
 
 ### F3-002 · AcousticWorld completo, RoomVolume, Portal, chuva e trovão, ponte de susto
 - **Responsável:** AI Engineer · **Esforço:** HIGH · **Depende de:** F3-001 · **Status:** BACKLOG
-- **Descrição:** o AcousticWorld troca a propagação provisória pelo grafo, construído a partir dos nós `RoomVolume`/`Portal` do nível. As portas atualizam o portal ligado (`Door.state_changed`). Clima com chuva por sala (`ambient_floor_db`) e trovão (+20 dB por 2,5 s, agendado por RNG próprio). Entrega de `PlayerHeardNoise` ao ouvinte do jogador (§6.5) para eventos de outra fonte. `NoiseEmitter` (§6.3) para fontes do mundo. A interface da F2 continua compatível.
+- **Descrição:** a tabela de intensidades de DATA §2.1 passa a ser um Resource (`NoiseLevels` + `.tres`), substituindo as constantes provisórias de `AcousticLevels` (decisão D-03). O AcousticWorld troca a propagação provisória pelo grafo, construído a partir dos nós `RoomVolume`/`Portal` do nível. As portas atualizam o portal ligado (`Door.state_changed`). Clima com chuva por sala (`ambient_floor_db`) e trovão (+20 dB por 2,5 s, agendado por RNG próprio). Entrega de `PlayerHeardNoise` ao ouvinte do jogador (§6.5) para eventos de outra fonte. `NoiseEmitter` (§6.3) para fontes do mundo. A interface da F2 continua compatível.
 - **Testes:** integração (porta fechando reduz o nível percebido; trovão eleva o limiar; o ouvinte do jogador só recebe eventos de outras fontes, sem posição nem id), NOI-05.
 
 ### F3-003 · Som do mundo

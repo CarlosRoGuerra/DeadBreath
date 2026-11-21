@@ -239,7 +239,9 @@ var sound_id: StringName       ## ex.: voice_chase_shout (para in_chase e legend
 var timestamp: float
 ```
 
-**Posição estimada:** parte de `entry_point` (o som parece vir da porta por onde entrou na sala) e soma um desvio aleatório de raio `position_error_per_db_lost × (intensity_db − perceived_db)`, usando o RNG do AcousticWorld. `confidence = clamp((perceived_db − limiar)/20, 0.1, 1)`.
+**Posição estimada:** parte de `entry_point` (o som parece vir da porta por onde entrou na sala) e soma um desvio aleatório de raio `position_error_per_db_lost × (intensity_db − perceived_db)`, usando o RNG do AcousticWorld. **Decisão D-07 (F3):** ponto uniforme num **disco horizontal** (plano XZ) de raio r centrado em `entry_point`, com o mesmo Y. `confidence = clamp((perceived_db − limiar)/20, 0.1, 1)`.
+
+**Decisões ratificadas na F3-001:** `through_wall` é verdadeiro quando o caminho escolhido é o direto com ao menos uma **parede** (piso não liga o campo; D-08). Um `Portal` nasce **aberto** e o AcousticWorld sincroniza o estado com a porta ligada (D-09). `NoiseEvent.room_id` é preenchido pelo AcousticWorld com `graph.room_at(position)` na emissão; a propagação usa a posição (observação da F3-001).
 
 ### 2.1 Intensidades iniciais (dB a 1 m)
 
@@ -286,6 +288,7 @@ audível  ⇔  perceived_db ≥ effective_threshold
 | Cômodo com janela para fora | 28 |
 | Exterior (quintal, garagem aberta) | 38 |
 | Trovão | `weather_offset` +20 dB por 2,5 s. Janela de oportunidade para se mover. |
+| Fora de qualquer sala | 38 (equivale ao exterior; decisão D-06 da F3-001) |
 
 Limiar efetivo por perfil:
 

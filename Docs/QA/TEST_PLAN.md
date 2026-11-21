@@ -71,9 +71,9 @@ Na F2 e na F3, os testes PHY usam `ThreatSample` construído no próprio teste o
 
 | ID | Requisito | Nível | Critério |
 |---|---|---|---|
-| STL-01 | Sons têm intensidades diferentes | Unit | Ordem crescente: rastejar < agachado < andar < correr < tosse < queda |
+| STL-01 | Sons têm intensidades diferentes | Unit | Com os valores base: rastejar < agachado < andar < correr < tosse < queda. Em cada superfície: rastejar < agachado < andar < correr. (Decisão D-01: o modificador de superfície pode reordenar categorias de propósito; correr em madeira solta, 66 dB, soa mais que a tosse, 65 dB) |
 | STL-02 | Paredes modificam a percepção | Unit | Mesma distância: através de parede ≥ 20 dB a menos que em linha livre |
-| STL-03 | Portas modificam a propagação | Unit | Porta fechada reduz ≥ 14,5 dB em relação a aberta (tolerância sobre os 15 dB nominais) |
+| STL-03 | Portas modificam a propagação | Unit | Com a porta na rota de menor perda, fechada reduz ≥ 14,5 dB em relação a aberta (tolerância sobre os 15 dB nominais). Com a porta longe da rota, o caminho pela parede pode vencer nos dois estados (redução 0; D-02) |
 | STL-04 | Esconderijos funcionam | Scenario | Jogador escondido, respiração calma, fora da visão → o inimigo passa a 2 m sem detectar (20 rodadas) |
 | STL-05 | É possível despistar | Scenario | Perseguição + quebra de linha de visão + esconderijo → RETURN sem captura em pelo menos uma rota da sandbox |
 | STL-06 | Entrada e saída de esconderijo | Integration | Entrar à vista do inimigo resulta em descoberta; fora da visão, não; ruídos de entrada e saída são emitidos |
