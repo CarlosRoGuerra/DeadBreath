@@ -4,6 +4,24 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
 ## [Não lançado]
 
+### Fase 3 — Furtividade e áudio (2026-11-21; Gate F3 aguardando o usuário)
+
+#### Adicionado
+- Mundo acústico: AcousticGraph (salas, portais, paredes e pisos, busca multicritério), AcousticWorld montado a partir dos `RoomVolume`/`Portal` do nível, portas que abafam 15 dB quando fechadas, chuva por sala e trovão (+20 dB por 2,5 s), NoiseEmitter para fontes do mundo.
+- Ruídos do jogador e do mundo: passos e corrida por marcha e superfície, queda, portas (abrir e **fechar**, trancada, batida no corpo), objetos arremessáveis com impacto de 50 a 80 dB.
+- Som do mundo em 3D com volume pelo nível percebido (NOI-04), reverb pela sala do ouvinte, ambiência de chuva por piso de sala e trovão; biblioteca procedural de 98 sons do mundo.
+- Susto por som alto de outra fonte (o próprio barulho não assusta) e legendas (ACC-04) com tamanho e liga/desliga.
+- Sandbox acústica (6 salas, quintal exterior, 5 objetos arremessáveis), LightExposureProbe para a visão da F4, posição estimada do som para a IA (D-07) e visão de debug acústica (F5).
+- STEALTH_SYSTEM.md e AUDIO_DESIGN.md.
+
+#### Corrigido
+- Achados da revisão F3-010 (R3-01..R3-08, N1, N3) e BUG-016 (objeto na mão atravessava a parede). BUG-014 (susto sem chamador) fechado.
+
+#### Decisões
+- Física mantida no GodotPhysics3D (com Jolt, 30 testes de escada falham; ENGINE_DECISION §7.2).
+- Regra de ganho comprimida acima de 45 dB (4:1 até +6 dB), com limitador no Master; trovão no nível do mascaramento.
+- Convenções de fonte: `enemy_<...>` é inimigo; `player_<...>` é causado pelo jogador.
+
 ### Fase 2 — Fisiologia (2026-11-20; Gate F2 aprovado pelo usuário)
 
 #### Adicionado

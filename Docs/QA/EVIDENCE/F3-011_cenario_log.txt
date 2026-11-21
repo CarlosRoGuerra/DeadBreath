@@ -1,0 +1,165 @@
+# F3-011 - log do roteiro "atravessar a casa em silencio" (sandbox_playable.tscn)
+# Gerado por tests/integration/qa/probes/f3011_cenario.gd (headless, --fixed-fps 60). Tempo = relogio do AcousticWorld.
+# Legenda das colunas de eventos:
+#   t: tempo (s); tick: tick de fisica; fase: etapa do roteiro; controle: rotulo do evento de controle (vazio = do jogo)
+#   categoria/fonte/som: NoiseEvent; sala: room_id na emissao; dB_1m: intensidade a 1 m (DATA 2.1)
+#   perceived_db: nivel no ouvido do jogador (propagate); limiar_db: limiar efetivo do jogador no ouvido
+#   audivel: perceived >= limiar; parede: caminho com parede; portais: portas no caminho
+#   roteador: o NoiseAudioRouter tocou o evento; ganho_db: volume aplicado (NoiseGain); arquivo: clip
+#   legenda: subtitle_requested emitido para o evento; salto_estresse: variacao do estresse no tick do evento
+
+EVENTOS
+t	tick	fase	controle	id	categoria	fonte	som	sala	dB_1m	perceived_db	limiar_db	audivel	parede	portais	roteador	ganho_db	arquivo	legenda	salto_estresse	pos
+1.700	103	01_sala_porta_corredor		2	FOOTSTEP	player	footstep_wood	sala	46.0	41.49	28.00	true	false		true	-3.51	footstep_wood_walk_v1.wav	false	0.00	3.71;0.00;-0.87
+2.133	129	01_sala_porta_corredor		3	FOOTSTEP	player	footstep_wood	sala	46.0	41.48	28.00	true	false		true	-3.52	footstep_wood_walk_v3.wav	false	0.00	4.39;0.00;-0.74
+2.317	140	01_sala_porta_corredor		4	DOOR	door_sala_corredor	door_normal	corredor	50.0	38.47	28.00	true	false	portal_sala_corredor	true	-6.53	door_normal_v1.wav	true	0.00	6.00;0.00;-1.15
+3.417	206	01_sala_porta_corredor		5	FOOTSTEP	player	footstep_wood	sala	46.0	41.56	28.00	true	false		true	-3.44	footstep_wood_walk_v1.wav	false	0.00	5.16;0.00;-0.68
+3.867	233	01_sala_porta_corredor		6	FOOTSTEP	player	footstep_wood	sala	46.0	41.42	28.00	true	false		true	-3.58	footstep_wood_walk_v3.wav	false	0.00	5.88;0.00;-0.69
+4.000	241	01_sala_porta_corredor		7	BREATHING	player	breath_calm	corredor	20.6	20.63	22.00	false	false		false	0.00		false	0.00	6.14;1.58;-0.69
+4.300	259	01_sala_porta_corredor		8	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.54	22.00	true	false		true	-9.46	footstep_concrete_walk_v3.wav	false	0.00	6.57;0.00;-0.70
+4.733	285	02_corredor_ate_porta_hall		9	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.40	22.00	true	false		true	-9.60	footstep_concrete_walk_v2.wav	false	0.00	7.26;0.00;-0.70
+5.167	311	02_corredor_ate_porta_hall		10	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.53	22.00	true	false		true	-9.47	footstep_concrete_walk_v3.wav	false	0.00	7.96;0.00;-0.70
+5.617	338	02_corredor_ate_porta_hall		11	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.41	22.00	true	false		true	-9.59	footstep_concrete_walk_v1.wav	false	0.00	8.68;0.00;-0.70
+6.050	364	02_corredor_ate_porta_hall		12	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.57	22.00	true	false		true	-9.43	footstep_concrete_walk_v3.wav	false	0.00	9.37;0.00;-0.70
+6.483	390	02_corredor_ate_porta_hall		13	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.45	22.00	true	false		true	-9.55	footstep_concrete_walk_v1.wav	false	0.00	10.06;0.00;-0.70
+6.917	416	02_corredor_ate_porta_hall		14	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.56	22.00	true	false		true	-9.44	footstep_concrete_walk_v3.wav	false	0.00	10.76;0.00;-0.70
+7.367	443	02_corredor_ate_porta_hall		15	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.41	22.00	true	false		true	-9.59	footstep_concrete_walk_v2.wav	false	0.00	11.48;0.00;-0.70
+7.617	458	02_corredor_ate_porta_hall		16	BREATHING	player	breath_labored	corredor	21.5	21.49	22.00	false	false		false	0.00		false	0.00	11.93;1.57;-0.70
+7.800	469	02_corredor_ate_porta_hall		17	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.53	22.00	true	false		true	-9.47	footstep_concrete_walk_v1.wav	false	0.00	12.17;0.00;-0.70
+8.233	495	02_corredor_ate_porta_hall		18	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.40	22.00	true	false		true	-9.60	footstep_concrete_walk_v3.wav	false	0.00	12.86;0.00;-0.70
+8.683	522	03_porta_hall_devagar		19	DOOR	door_corredor_hall	door_slow	hall	30.0	19.90	22.00	false	false	portal_corredor_hall	false	0.00		false	0.00	14.00;0.00;-1.15
+11.083	666	03_porta_hall_devagar		20	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.59	22.00	true	false		true	-9.41	footstep_concrete_walk_v1.wav	false	0.00	13.63;0.00;-0.70
+11.283	678	03_porta_hall_devagar		21	BREATHING	player	breath_calm	hall	21.3	16.98	22.00	false	false	portal_corredor_hall	false	0.00		false	0.00	14.00;1.53;-0.70
+11.533	693	03_porta_hall_devagar		22	FOOTSTEP	player	footstep_carpet	hall	32.0	27.35	22.00	true	false		true	-17.65	footstep_carpet_walk_v2.wav	false	0.00	14.35;0.00;-0.70
+11.967	719	03_porta_hall_devagar		23	FOOTSTEP	player	footstep_carpet	hall	32.0	27.58	22.00	true	false		true	-17.42	footstep_carpet_walk_v1.wav	false	0.00	15.05;0.00;-0.70
+12.417	746	03_porta_hall_devagar	porta_aberta	24	DOOR	controle	door_normal	corredor	50.0	36.55	22.00	true	false	portal_corredor_hall	true	-8.45	door_normal_v3.wav	true	0.00	12.50;1.00;-0.70
+12.417	746	03_porta_hall_devagar	porta_aberta_batida	25	DOOR	controle	door_normal	corredor	75.0	61.55	22.00	true	false	portal_corredor_hall	true	4.14	door_normal_v1.wav	false	13.28	12.50;1.00;-0.70
+12.767	767	04_fechar_porta_hall_atras		26	DOOR	door_corredor_hall	door_slow	hall	30.0	22.43	22.00	true	false		true	-22.57	door_slow_v2.wav	true	0.00	14.00;0.00;-1.15
+14.933	897	04_fechar_porta_hall_atras	porta_fechada	27	DOOR	controle	door_normal	corredor	50.0	21.56	22.00	false	false	portal_corredor_hall	false	0.00		false	0.00	12.50;1.00;-0.70
+14.933	897	04_fechar_porta_hall_atras	porta_fechada_batida	28	DOOR	controle	door_normal	corredor	75.0	46.56	22.00	true	false	portal_corredor_hall	true	0.39	door_normal_v2.wav	true	0.00	12.50;1.00;-0.70
+15.017	902	05_hall_correr		29	BREATHING	player	breath_calm	hall	21.2	21.23	22.00	false	false		false	0.00		false	0.00	15.71;1.55;-0.70
+15.267	917	05_hall_correr		30	RUNNING	player	footstep_carpet	hall	52.0	47.31	22.00	true	false		true	0.58	footstep_carpet_run_v2.wav	false	0.00	16.24;0.00;-0.70
+15.517	932	05_hall_correr		31	RUNNING	player	footstep_carpet	hall	52.0	47.64	22.00	true	false		true	0.66	footstep_carpet_run_v1.wav	false	0.00	17.34;0.00;-0.70
+15.750	946	05_hall_correr		32	RUNNING	player	footstep_carpet	hall	52.0	47.37	22.00	true	false		true	0.59	footstep_carpet_run_v2.wav	false	0.00	18.46;0.00;-0.70
+16.833	1011	06_volta_cozinha		33	FOOTSTEP	player	footstep_carpet	hall	32.0	27.33	22.00	true	false		true	-17.67	footstep_carpet_walk_v2.wav	false	-0.05	18.90;0.00;-0.70
+17.267	1037	06_volta_cozinha		34	FOOTSTEP	player	footstep_carpet	hall	32.0	27.61	22.00	true	false		true	-17.39	footstep_carpet_walk_v3.wav	false	-0.05	18.21;0.00;-0.70
+17.700	1063	06_volta_cozinha		35	FOOTSTEP	player	footstep_carpet	hall	32.0	27.31	22.00	true	false		true	-17.69	footstep_carpet_walk_v2.wav	false	-0.05	17.51;0.00;-0.70
+18.133	1089	06_volta_cozinha		36	FOOTSTEP	player	footstep_carpet	hall	32.0	27.64	22.00	true	false		true	-17.36	footstep_carpet_walk_v3.wav	false	-0.05	16.82;0.00;-0.70
+18.300	1099	06_volta_cozinha		37	BREATHING	player	breath_labored	hall	22.4	22.43	22.00	true	false		false	0.00		false	-0.05	16.50;1.55;-0.70
+18.583	1116	06_volta_cozinha		38	FOOTSTEP	player	footstep_carpet	hall	32.0	27.36	22.00	true	false		true	-17.64	footstep_carpet_walk_v1.wav	false	-0.05	16.10;0.00;-0.70
+19.000	1141	06_volta_cozinha		39	DOOR	door_corredor_hall	door_normal	hall	50.0	42.86	22.00	true	false		true	-2.14	door_normal_v1.wav	true	-0.05	14.00;0.00;-1.15
+19.850	1192	06_volta_cozinha		40	FOOTSTEP	player	footstep_carpet	hall	32.0	27.55	22.00	true	false		true	-17.45	footstep_carpet_walk_v3.wav	false	-0.05	15.34;0.00;-0.70
+20.300	1219	06_volta_cozinha		41	FOOTSTEP	player	footstep_carpet	hall	32.0	27.35	22.00	true	false		true	-17.65	footstep_carpet_walk_v2.wav	false	-0.05	14.64;0.00;-0.70
+20.733	1245	06_volta_cozinha		42	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.59	22.00	true	false		true	-9.41	footstep_concrete_walk_v3.wav	false	-0.05	13.94;0.00;-0.70
+21.183	1272	06_volta_cozinha		43	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.35	22.00	true	false		true	-9.65	footstep_concrete_walk_v2.wav	false	0.00	13.22;0.00;-0.70
+21.600	1297	06_volta_cozinha		44	BREATHING	player	breath_labored	corredor	22.4	22.40	22.00	true	false		false	0.00		false	0.00	12.51;1.53;-0.70
+21.617	1298	06_volta_cozinha		45	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.62	22.00	true	false		true	-9.38	footstep_concrete_walk_v1.wav	false	0.00	12.53;0.00;-0.70
+22.050	1324	06_volta_cozinha		46	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.39	22.00	true	false		true	-9.61	footstep_concrete_walk_v3.wav	false	0.00	11.84;0.00;-0.70
+22.483	1350	06_volta_cozinha		47	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.64	22.00	true	false		true	-9.36	footstep_concrete_walk_v2.wav	false	0.00	11.14;0.00;-0.70
+22.933	1377	06_volta_cozinha		48	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.37	22.00	true	false		true	-9.63	footstep_concrete_walk_v1.wav	false	0.00	10.42;0.00;-0.70
+23.367	1403	06_volta_cozinha		49	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.58	22.00	true	false		true	-9.42	footstep_concrete_walk_v3.wav	false	0.00	9.73;0.00;-0.70
+23.800	1429	06_volta_cozinha		50	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.34	22.00	true	false		true	-9.66	footstep_concrete_walk_v2.wav	false	0.00	9.04;0.00;-0.70
+24.233	1455	06_volta_cozinha		51	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.61	22.00	true	false		true	-9.39	footstep_concrete_walk_v3.wav	false	0.00	8.34;0.00;-0.70
+24.683	1482	06_volta_cozinha		52	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.38	22.00	true	false		true	-9.62	footstep_concrete_walk_v2.wav	false	0.00	7.62;0.00;-0.70
+24.833	1491	06_volta_cozinha		53	BREATHING	player	breath_labored	corredor	22.6	22.59	22.00	true	false		false	0.00		false	0.00	7.33;1.54;-0.70
+25.117	1508	06_volta_cozinha		54	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.64	22.00	true	false		true	-9.36	footstep_concrete_walk_v3.wav	false	0.00	6.93;0.00;-0.70
+25.550	1534	06_volta_cozinha		55	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.38	22.00	true	false		true	-9.62	footstep_concrete_walk_v1.wav	false	0.00	6.24;0.00;-0.70
+25.983	1560	06_volta_cozinha		56	FOOTSTEP	player	footstep_wood	sala	46.0	41.60	28.00	true	false		true	-3.40	footstep_wood_walk_v2.wav	false	0.00	5.54;0.00;-0.70
+26.450	1588	06_volta_cozinha		57	FOOTSTEP	player	footstep_wood	sala	46.0	41.37	28.00	true	false		true	-3.63	footstep_wood_walk_v1.wav	false	0.00	4.85;0.00;-0.75
+26.900	1615	06_volta_cozinha		58	FOOTSTEP	player	footstep_wood	sala	46.0	41.59	28.00	true	false		true	-3.41	footstep_wood_walk_v3.wav	false	0.00	4.82;0.00;-1.44
+27.350	1642	06_volta_cozinha		59	FOOTSTEP	player	footstep_wood	sala	46.0	41.37	28.00	true	false		true	-3.63	footstep_wood_walk_v2.wav	false	0.00	4.82;0.00;-2.16
+27.783	1668	06_volta_cozinha		60	FOOTSTEP	player	footstep_wood	sala	46.0	41.63	28.00	true	false		true	-3.37	footstep_wood_walk_v1.wav	false	0.00	4.83;0.00;-2.85
+28.033	1683	06_volta_cozinha		61	BREATHING	player	breath_labored	sala	22.7	22.72	28.00	false	false		false	0.00		false	0.00	4.97;1.56;-3.16
+28.267	1697	06_volta_cozinha		62	FOOTSTEP	player	footstep_wood	sala	46.0	41.39	28.00	true	false		true	-3.61	footstep_wood_walk_v3.wav	false	0.00	5.28;0.00;-3.18
+28.700	1723	06_volta_cozinha		63	FOOTSTEP	player	footstep_wood	sala	46.0	41.61	28.00	true	false		true	-3.39	footstep_wood_walk_v1.wav	false	0.00	5.97;0.00;-3.17
+29.133	1749	06_volta_cozinha		64	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.34	22.00	true	false		true	-6.66	footstep_tile_walk_v1.wav	false	0.00	6.66;0.00;-3.16
+29.567	1775	06_volta_cozinha		65	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.59	22.00	true	false		true	-6.41	footstep_tile_walk_v2.wav	false	0.00	7.35;0.00;-3.08
+30.017	1802	06_volta_cozinha		66	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.35	22.00	true	false		true	-6.65	footstep_tile_walk_v3.wav	false	0.00	8.07;0.00;-3.00
+30.450	1828	06_volta_cozinha		67	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.62	22.00	true	false		true	-6.38	footstep_tile_walk_v2.wav	false	0.00	8.76;0.00;-2.92
+30.883	1854	06_volta_cozinha		68	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.39	22.00	true	false		true	-6.61	footstep_tile_walk_v3.wav	false	0.00	9.45;0.00;-2.84
+31.217	1874	06_volta_cozinha		69	BREATHING	player	breath_labored	cozinha	22.8	22.81	22.00	true	false		false	0.00		false	0.00	10.03;1.52;-2.78
+31.317	1880	06_volta_cozinha		70	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.64	22.00	true	false		true	-6.36	footstep_tile_walk_v1.wav	false	0.00	10.14;0.00;-2.77
+31.767	1907	06_volta_cozinha		71	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.36	22.00	true	false		true	-6.64	footstep_tile_walk_v2.wav	false	0.00	10.85;0.00;-2.68
+32.200	1933	06_volta_cozinha		72	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.59	22.00	true	false		true	-6.41	footstep_tile_walk_v3.wav	false	0.00	11.54;0.00;-2.61
+32.783	1968	07_pegar_e_arremessar		73	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.37	22.00	true	false		true	-6.63	footstep_tile_walk_v1.wav	false	0.00	11.71;0.00;-3.18
+33.233	1995	07_pegar_e_arremessar		74	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.56	22.00	true	false		true	-6.44	footstep_tile_walk_v3.wav	false	0.00	11.68;0.00;-3.90
+33.667	2021	07_pegar_e_arremessar		75	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.42	22.00	true	false		true	-6.58	footstep_tile_walk_v2.wav	false	0.00	11.65;0.00;-4.59
+33.867	2033	07_pegar_e_arremessar		76	OBJECT_IMPACT	player_thrown_throwable_pot_cozinha	impact	cozinha	72.5	72.40	22.00	true	false		true	6.00	impact_heavy_v2.wav	false	0.00	11.54;1.42;-5.82
+34.417	2066	07_pegar_e_arremessar		77	OBJECT_IMPACT	player_thrown_throwable_pot_cozinha	impact	cozinha	67.3	61.05	22.00	true	false		true	4.01	impact_medium_v2.wav	false	0.00	10.25;0.19;-4.93
+34.450	2068	07_pegar_e_arremessar		78	BREATHING	player	breath_labored	cozinha	22.6	22.61	22.00	true	false		false	0.00		false	0.00	11.63;1.55;-4.94
+35.183	2112	08_rota_quintal		79	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.55	22.00	true	false		true	-6.45	footstep_tile_walk_v3.wav	false	0.00	11.19;0.00;-4.72
+35.617	2138	08_rota_quintal		80	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.46	22.00	true	false		true	-6.54	footstep_tile_walk_v1.wav	false	0.00	10.54;0.00;-4.47
+36.067	2165	08_rota_quintal		81	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.49	22.00	true	false		true	-6.51	footstep_tile_walk_v3.wav	false	0.00	9.86;0.00;-4.22
+36.500	2191	08_rota_quintal		82	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.43	22.00	true	false		true	-6.57	footstep_tile_walk_v1.wav	false	0.00	9.21;0.00;-3.98
+36.933	2217	08_rota_quintal		83	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.50	22.00	true	false		true	-6.50	footstep_tile_walk_v2.wav	false	0.00	8.56;0.00;-3.74
+37.367	2243	08_rota_quintal		84	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.46	22.00	true	false		true	-6.54	footstep_tile_walk_v3.wav	false	0.00	7.92;0.00;-3.49
+37.667	2261	08_rota_quintal		85	BREATHING	player	breath_labored	cozinha	22.7	22.64	22.00	true	false		false	0.00		false	0.00	7.42;1.52;-3.31
+37.817	2270	08_rota_quintal		86	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.54	22.00	true	false		true	-6.46	footstep_tile_walk_v2.wav	false	0.00	7.24;0.00;-3.24
+38.250	2296	08_rota_quintal		87	FOOTSTEP	player	footstep_tile	cozinha	43.0	38.47	22.00	true	false		true	-6.53	footstep_tile_walk_v3.wav	false	0.00	6.59;0.00;-3.00
+38.683	2322	08_rota_quintal		88	FOOTSTEP	player	footstep_wood	sala	46.0	41.51	28.00	true	false		true	-3.49	footstep_wood_walk_v3.wav	false	0.00	5.90;0.00;-2.99
+39.117	2348	08_rota_quintal		89	FOOTSTEP	player	footstep_wood	sala	46.0	41.42	28.00	true	false		true	-3.58	footstep_wood_walk_v2.wav	false	0.00	5.21;0.00;-2.99
+39.600	2377	08_rota_quintal		90	FOOTSTEP	player	footstep_wood	sala	46.0	41.50	28.00	true	false		true	-3.50	footstep_wood_walk_v1.wav	false	0.00	4.83;0.00;-2.60
+40.033	2403	08_rota_quintal		91	FOOTSTEP	player	footstep_wood	sala	46.0	41.45	28.00	true	false		true	-3.55	footstep_wood_walk_v2.wav	false	0.00	4.83;0.00;-1.90
+40.483	2430	08_rota_quintal		92	FOOTSTEP	player	footstep_wood	sala	46.0	41.54	28.00	true	false		true	-3.46	footstep_wood_walk_v1.wav	false	0.00	4.83;0.00;-1.18
+40.867	2453	08_rota_quintal		93	BREATHING	player	breath_labored	sala	22.8	22.76	28.00	false	false		false	0.00		false	0.00	4.91;1.56;-0.60
+40.950	2458	08_rota_quintal		94	FOOTSTEP	player	footstep_wood	sala	46.0	41.48	28.00	true	false		true	-3.52	footstep_wood_walk_v3.wav	false	0.00	4.94;0.00;-0.55
+41.400	2485	08_rota_quintal		95	FOOTSTEP	player	footstep_wood	sala	46.0	41.51	28.00	true	false		true	-3.49	footstep_wood_walk_v1.wav	false	0.00	5.65;0.00;-0.54
+41.833	2511	08_rota_quintal		96	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.43	22.00	true	false		true	-9.57	footstep_concrete_walk_v3.wav	false	0.00	6.34;0.00;-0.54
+42.267	2537	08_rota_quintal		97	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.49	22.00	true	false		true	-9.51	footstep_concrete_walk_v1.wav	false	0.00	7.04;0.00;-0.53
+42.717	2564	08_rota_quintal		98	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.45	22.00	true	false		true	-9.55	footstep_concrete_walk_v2.wav	false	0.00	7.76;0.00;-0.53
+43.150	2590	08_rota_quintal		99	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.53	22.00	true	false		true	-9.47	footstep_concrete_walk_v1.wav	false	0.00	8.45;0.00;-0.53
+43.583	2616	08_rota_quintal		100	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.48	22.00	true	false		true	-9.52	footstep_concrete_walk_v2.wav	false	0.00	9.14;0.00;-0.53
+44.017	2642	08_rota_quintal		101	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.54	22.00	true	false		true	-9.46	footstep_concrete_walk_v1.wav	false	0.00	9.84;0.00;-0.53
+44.033	2643	08_rota_quintal		102	BREATHING	player	breath_labored	corredor	22.8	22.83	22.00	true	false		false	0.00		false	0.00	9.91;1.55;-0.53
+44.467	2669	08_rota_quintal		103	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.46	22.00	true	false		true	-9.54	footstep_concrete_walk_v3.wav	false	0.00	10.56;0.00;-0.53
+44.900	2695	08_rota_quintal		104	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.49	22.00	true	false		true	-9.51	footstep_concrete_walk_v1.wav	false	0.00	11.25;0.00;-0.53
+45.333	2721	08_rota_quintal		105	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.43	22.00	true	false		true	-9.57	footstep_concrete_walk_v3.wav	false	0.00	11.94;0.00;-0.53
+45.767	2747	08_rota_quintal		106	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.52	22.00	true	false		true	-9.48	footstep_concrete_walk_v2.wav	false	0.00	12.64;0.00;-0.53
+46.217	2774	08_rota_quintal		107	FOOTSTEP	player	footstep_concrete	corredor	40.0	35.48	22.00	true	false		true	-9.52	footstep_concrete_walk_v3.wav	false	0.00	13.36;0.00;-0.56
+46.650	2800	08_rota_quintal		108	FOOTSTEP	player	footstep_carpet	hall	32.0	27.54	22.00	true	false		true	-17.46	footstep_carpet_walk_v3.wav	false	0.00	14.05;0.00;-0.60
+47.083	2826	08_rota_quintal		109	FOOTSTEP	player	footstep_carpet	hall	32.0	27.47	22.00	true	false		true	-17.53	footstep_carpet_walk_v1.wav	false	0.00	14.74;0.00;-0.65
+47.183	2832	08_rota_quintal		110	BREATHING	player	breath_labored	hall	22.9	22.88	22.00	true	false		false	0.00		false	0.00	14.95;1.54;-0.66
+47.517	2852	08_rota_quintal		111	FOOTSTEP	player	footstep_carpet	hall	32.0	27.51	22.00	true	false		true	-17.49	footstep_carpet_walk_v2.wav	false	0.00	15.43;0.00;-0.70
+47.967	2879	08_rota_quintal		112	FOOTSTEP	player	footstep_carpet	hall	32.0	27.43	22.00	true	false		true	-17.57	footstep_carpet_walk_v1.wav	false	0.00	16.15;0.00;-0.79
+48.383	2904	08_rota_quintal		113	FOOTSTEP	player	footstep_concrete	hall	40.0	35.50	22.00	true	false		true	-9.50	footstep_concrete_walk_v1.wav	false	0.00	16.84;0.18;-0.89
+48.817	2930	08_rota_quintal		114	FOOTSTEP	player	footstep_concrete	hall	40.0	35.46	22.00	true	false		true	-9.54	footstep_concrete_walk_v3.wav	false	0.00	17.52;0.18;-0.99
+49.250	2956	08_rota_quintal		115	FOOTSTEP	player	footstep_carpet	hall	32.0	27.48	22.00	true	false		true	-17.52	footstep_carpet_walk_v2.wav	false	0.00	18.21;0.00;-1.09
+49.683	2982	08_rota_quintal		116	FOOTSTEP	player	footstep_carpet	hall	32.0	27.47	22.00	true	false		true	-17.53	footstep_carpet_walk_v3.wav	false	0.00	18.89;0.00;-1.18
+49.800	2989	08_rota_quintal		117	DOOR	door_hall_quintal	door_normal	quintal	50.0	39.84	22.00	true	false	portal_hall_quintal	true	-5.16	door_normal_v3.wav	true	0.00	20.00;0.00;-1.65
+50.400	3025	08_rota_quintal		118	BREATHING	player	breath_labored	hall	22.7	22.69	22.00	true	false		false	0.00		false	0.00	19.15;1.55;-1.21
+50.983	3060	08_rota_quintal		119	FOOTSTEP	player	footstep_carpet	hall	32.0	27.48	22.00	true	false		true	-17.52	footstep_carpet_walk_v1.wav	false	0.00	19.69;0.00;-1.21
+51.417	3086	08_rota_quintal		120	FOOTSTEP	player	footstep_concrete	quintal	40.0	35.51	38.00	false	false		false	0.00		false	0.00	20.38;0.00;-1.21
+51.850	3112	08_rota_quintal		121	FOOTSTEP	player	footstep_concrete	quintal	40.0	35.44	38.00	false	false		false	0.00		false	0.00	21.08;0.00;-1.20
+52.283	3138	08_rota_quintal		122	FOOTSTEP	player	footstep_concrete	quintal	40.0	35.48	38.00	false	false		false	0.00		false	0.00	21.77;0.00;-1.20
+53.733	3225	09_quintal_trovao		123	BREATHING	player	breath_labored	quintal	22.3	22.30	38.00	false	false		false	0.00		false	0.00	22.14;1.55;-1.20
+54.433	3267	09_quintal_trovao	antes_trovao	124	DOOR	controle	door_normal	quintal	50.0	42.92	38.00	true	false		true	-2.08	door_normal_v2.wav	true	0.00	21.00;1.00;-3.00
+54.467	3269	09_quintal_trovao	durante_trovao	125	DOOR	controle	door_normal	quintal	50.0	42.92	58.00	false	false		false	0.00		false	0.00	21.00;1.00;-3.00
+56.967	3419	10_susto_outra_fonte	susto_outra_fonte	126	OBJECT_IMPACT	enemy_teste	impact	quintal	75.0	68.33	38.00	true	false		true	5.83	impact_heavy_v1.wav	false	16.66	22.00;1.00;-3.20
+57.350	3442	10_susto_outra_fonte		127	BREATHING	player	breath_labored	quintal	21.5	21.46	38.00	false	false		false	0.00		false	0.00	22.14;1.55;-1.20
+
+MARCAS (estado do jogo e do mundo em pontos do roteiro)
+{"fase":"00_sala_silencio","floor":28.0,"layer":"rain_window","limiar":28.0,"nome":"silencio_inicial","offset_trovao":0.0,"pos":"3.00;0.00;-1.00","t":1.183,"tick":72}
+{"angulo":90.0,"estado":1,"fase":"01_sala_porta_corredor","floor":28.0,"layer":"rain_window","limiar":28.0,"movendo":false,"nome":"porta_sala_corredor_aberta_tocar","offset_trovao":0.0,"porta":"door_sala_corredor","pos":"4.70;0.00;-0.68","t":3.067,"tick":185}
+{"angulo":90.0,"estado":1,"fase":"03_porta_hall_devagar","floor":22.0,"layer":"rain_interior","limiar":22.0,"movendo":false,"nome":"porta_hall_aberta_segurando","offset_trovao":0.0,"porta":"door_corredor_hall","pos":"13.10;0.00;-0.70","t":10.683,"tick":642}
+{"angulo":0.0,"estado":0,"fase":"04_fechar_porta_hall_atras","floor":22.0,"layer":"rain_interior","limiar":22.0,"movendo":false,"nome":"porta_hall_fechada_segurando","offset_trovao":0.0,"porta":"door_corredor_hall","pos":"15.58;0.00;-0.70","t":14.767,"tick":887}
+{"fase":"05_hall_correr","floor":22.0,"layer":"rain_interior","limiar":22.0,"nome":"hall_depois_da_corrida","offset_trovao":0.0,"pos":"19.41;0.00;-0.70","t":16.45,"tick":988}
+{"angulo":90.0,"estado":1,"fase":"06_volta_cozinha","floor":22.0,"layer":"rain_interior","limiar":22.0,"movendo":false,"nome":"porta_hall_aberta_tocar_volta","offset_trovao":0.0,"porta":"door_corredor_hall","pos":"15.41;0.00;-0.70","t":19.75,"tick":1186}
+{"fase":"07_pegar_e_arremessar","floor":22.0,"layer":"rain_interior","limiar":22.0,"nome":"objeto_na_mao","offset_trovao":0.0,"pos":"11.69;0.00;-2.59","segurando":true,"t":32.333,"tick":1941}
+{"fase":"07_pegar_e_arremessar","floor":22.0,"layer":"rain_interior","limiar":22.0,"nome":"arremesso_pote","offset_trovao":0.0,"pos":"11.64;0.00;-4.89","t":34.817,"tick":2090}
+{"angulo":90.0,"estado":1,"fase":"08_rota_quintal","floor":22.0,"layer":"rain_interior","limiar":22.0,"movendo":false,"nome":"porta_quintal_aberta_tocar","offset_trovao":0.0,"porta":"door_hall_quintal","pos":"19.10;0.00;-1.21","t":50.55,"tick":3034}
+{"fase":"09_quintal_trovao","floor":38.0,"layer":"rain_exterior","limiar":38.0,"nome":"quintal_antes_trovao","offset_trovao":0.0,"pos":"22.09;0.00;-1.20","t":54.433,"tick":3267}
+{"fase":"09_quintal_trovao","floor":38.0,"layer":"rain_exterior","limiar":58.0,"nome":"trovao_forcado","offset_trovao":20.0,"pos":"22.09;0.00;-1.20","t":54.433,"tick":3267}
+{"fase":"09_quintal_trovao","floor":38.0,"layer":"rain_exterior","limiar":38.0,"nome":"apos_trovao","offset_trovao":0.0,"pos":"22.09;0.00;-1.20","t":56.967,"tick":3419}
+{"fase":"10_susto_outra_fonte","floor":38.0,"layer":"rain_exterior","limiar":38.0,"nome":"apos_susto_outra_fonte","offset_trovao":0.0,"pos":"22.09;0.00;-1.20","t":57.467,"tick":3449}
+
+PEDIDOS DE LEGENDA
+{"chave":"subtitle.door_normal","duration":1.5,"evento":4,"tick":140}
+{"chave":"subtitle.door_normal","duration":1.5,"evento":24,"tick":746}
+{"chave":"subtitle.door_slow","duration":1.5,"evento":26,"tick":767}
+{"chave":"subtitle.door_normal","duration":1.5,"evento":28,"tick":897}
+{"chave":"subtitle.door_normal","duration":1.5,"evento":39,"tick":1141}
+{"chave":"subtitle.door_normal","duration":1.5,"evento":117,"tick":2989}
+{"chave":"subtitle.door_normal","duration":1.5,"evento":124,"tick":3267}
+
+DESVIOS DO ROTEIRO
+nenhum

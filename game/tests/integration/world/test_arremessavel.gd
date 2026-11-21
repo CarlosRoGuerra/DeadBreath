@@ -89,6 +89,8 @@ func test_soltar_so_quando_a_forma_cabe() -> void:
 	# A mão fica a 0,7 m à frente da câmera e 0,25 m abaixo dela: o bloco ocupa esse ponto.
 	PlayerWorld.add_box(root, Vector3(0.0, 1.4, -0.7), Vector3(0.6, 0.6, 0.6), &"wood")
 	await wait_physics_frames(2)
+	# Desde o BUG-016 a mão não entra na parede sozinha: o objeto é posto dentro do bloco no mesmo tick da soltura.
+	item.set_hold_transform(Transform3D(Basis(), Vector3(0.0, 1.4, -0.7)))
 	assert_false(player.get_hold().drop_held(), "dentro de uma parede não solta: continua segurando")
 	assert_true(item.is_held(), "segue na mão")
 
@@ -103,8 +105,25 @@ func test_arremessar_com_a_mao_dentro_de_parede_continua_segurando() -> void:
 	await wait_physics_frames(1)
 	PlayerWorld.add_box(root, Vector3(0.0, 1.4, -0.7), Vector3(0.6, 0.6, 0.6), &"wood")
 	await wait_physics_frames(2)
+	item.set_hold_transform(Transform3D(Basis(), Vector3(0.0, 1.4, -0.7)))
 	assert_false(player.get_hold().throw_held(), "dentro de uma parede não arremessa")
 	assert_true(item.is_held(), "segue na mão")
+
+
+## BUG-016 (F3-011): com uma parede antes da mão, o objeto segurado para na parede e não a atravessa.
+func test_objeto_na_mao_para_na_parede() -> void:
+	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
+	var player: PlayerRoot = PlayerWorld.spawn_player(root, Vector3.ZERO)
+	var item: Throwable = _spawn_item(root, Vector3(0.0, 1.65, -1.0))
+	await wait_physics_frames(SETTLE_FRAMES)
+	assert_true(player.get_hold().try_pick(item), "pega")
+	# Parede de 0,2 m com a face perto em z = -0,4 (a mão ficaria em z = -0,7, dentro dela).
+	PlayerWorld.add_box(root, Vector3(0.0, 1.5, -0.5), Vector3(3.0, 3.0, 0.2), &"wood")
+	await wait_physics_frames(3)
+	note("objeto segurado em z = %.3f; face da parede em z = -0,400" % item.global_position.z)
+	assert_true(item.global_position.z > -0.4, "o objeto fica do lado do jogador (z %.3f)" % item.global_position.z)
+	assert_true(item.can_place_at(item.global_transform, player), "o objeto não sobrepõe a parede")
+	assert_true(player.get_hold().throw_held(), "fora da parede, o arremesso funciona")
 
 
 ## Revisão F3-010, R3-04: o objeto volta a ser fonte própria quando é pego de novo e quando dorme.

@@ -2,11 +2,21 @@
 
 | Campo | Valor |
 |---|---|
-| Atualizado | 2026-11-20 (F2-011: BUG-012 a BUG-015 abertos pelo QA; F1-011 terceira rodada: correção da porta pelo Gameplay Engineer, verificada pelo QA) |
+| Atualizado | 2026-11-21 (F3-011: BUG-014 fechado pelo QA; BUG-016 aberto pelo QA; BUG-012 a BUG-015 da F2-011 inalterados) |
 | Severidades | CRÍTICO (bloqueia o jogo ou corrompe dados) · ALTO (quebra mecânica central ou gera informação falsa para a IA) · MÉDIO · BAIXO |
 | Estados | ABERTO · EM CORREÇÃO · CORRIGIDO (aguarda verificação) · FECHADO (verificado por quem não corrigiu) · ACEITO (decisão do Director, com reavaliação marcada) · REABERTO (verificação falhou) |
 
 ## Abertos
+
+### BUG-016: objeto na mão atravessa a parede quando o jogador encosta nela (o objeto segurado não colide com o mundo)
+| Campo | Valor |
+|---|---|
+| Severidade | BAIXO. Visual e de física: o objeto segue a câmera e aparece do outro lado da parede. Sem ganho de jogo direto: soltar e arremessar são recusados dentro de parede (R3-05, verificado). Vira MÉDIO se o objeto na mão permitir ver, ouvir ou alcançar o outro lado |
+| Estado | **CORRIGIDO pelo Director** (aguarda verificação do QA): `Throwable.safe_hold_transform` varre a forma da câmera até a mão e para no primeiro contato com o mundo (máscara 1 e 2, sem o jogador). Teste `tests/integration/world/test_arremessavel.gd::test_objeto_na_mao_para_na_parede`. O teste do QA agora mostra o objeto em z = −0,201, do lado do jogador |
+| Componente | `game/components/world/throwable.gd` (`set_hold_transform`: posição direta com `freeze` cinemático, sem checagem de colisão com o mundo); `game/components/player/player_hold.gd` (`step`, acompanha a câmera a 0,7 m) |
+| Reprodução | Pegar um objeto leve (`try_pick`) no corredor, virado para +Z (parede sul, z = 0, face externa em z = 0,1). Andar 3,0 m para a parede. Resultado medido: jogador parado em z = -0,352 (sem penetração do corpo); objeto em z = +0,348, do outro lado da parede. Esperado: o objeto para antes da parede (ou a mão recua) |
+| Teste que reproduz | `game/tests/property/qa/test_f3011_portas_arremessaveis.gd::test_objeto_na_mao_ao_encostar_na_parede` (registra o defeito em nota; o teste assere só o comportamento do jogador: recua e não penetra) |
+| Evidência | `Docs/QA/EVIDENCE/F3-011_suite_1.txt` (nota do teste) |
 
 ### BUG-010: a porta oscila ao sair do arco: libera e bloqueia de novo no tick seguinte, emitindo blocked duas vezes
 | Campo | Valor |
@@ -57,14 +67,6 @@
 | Medição (QA) | Corrida gravada (até 34,7 rpm): máximo de 2 chiados simultâneos (2,8 s); máximo de 4 vozes simultâneas contando tosse e puff; 5,2 s com 3 ou mais vozes. Simulação a 40 rpm (`chain_timing` e durações do manifesto): até 3 vozes (2 chiados e 1 expiração) em 40% do tempo. Cálculo, não escuta |
 | Evidência | `Docs/QA/EVIDENCE/F2-011_audio_analise.txt` (seções 1 e 3); `F2-011_cenario_played_log.json`; `F2-011_cenario_telemetria.csv` |
 
-### BUG-014: gasp de susto sem chamador de produção: `add_startle` não é chamado no jogo (R2-01)
-| Campo | Valor |
-|---|---|
-| Severidade | MÉDIO (classificação do revisor, R2-01 da F2-010). O caminho do gasp existe e está testado no componente (`startle_gasp` -> `emit_gasp`, 42 dB), mas nenhum fluxo de produção gera susto. A ponte de susto do AcousticWorld é da F3. Não reprova a F2 porque o caminho de produção é da F3 |
-| Estado | **CORRIGIDO na F3-004**, aguardando a validação F3-011: o PlayerRoot registra a ponte de susto no AcousticWorld, e um som de outra fonte a partir de 55 dB percebidos chama `add_startle` (teste `tests/integration/player/test_susto_por_som.gd`: 75 dB sobe o estresse e faz o gasp; o próprio som e 40 dB não assustam) |
-| Componente | `game/components/player/physiology_component.gd` (`add_startle`); sem chamador fora de testes (grep em `game/`) |
-| Evidência | `grep add_startle(` em `game/` (sem chamador de produção); `Docs/Development/TASK_BOARD.md` (F3-002) |
-
 ### BUG-015: noclip de desenvolvimento suprime o ruído de passo (atalho de debug; recusado em produção)
 | Campo | Valor |
 |---|---|
@@ -75,6 +77,15 @@
 | Evidência | `Docs/QA/EVIDENCE/F2-011_producao_producao.txt` (noclip recusado); saída do pipeline F2-011 |
 
 ## Fechados
+
+### BUG-014: gasp de susto sem chamador de produção: `add_startle` não é chamado no jogo (R2-01)
+| Campo | Valor |
+|---|---|
+| Severidade (original) | MÉDIO (classificação do revisor, R2-01 da F2-010). O caminho do gasp existe e está testado no componente (`startle_gasp` -> `emit_gasp`, 42 dB), mas nenhum fluxo de produção gera susto. A ponte de susto do AcousticWorld é da F3. Não reprova a F2 porque o caminho de produção é da F3 |
+| Estado | **FECHADO** em 2026-11-21 pelo QA (F3-011, verificação independente). Verificação: (1) cenário gravado na sandbox_playable.tscn: um evento de outra fonte (`enemy_teste`, impacto a 75 dB, 2 m do ouvido, 68,4 dB percebidos) sobe o estresse em 10 a 25 pela ponte de produção (teste `test_outra_fonte_a_75_db_assusta_pelo_caminho_de_producao`, ver F3-011_cenario_log.txt, evento de controle "susto_outra_fonte"); (2) os sons do próprio jogador (passos, corrida, queda, arremesso) não sobem o estresse (testes `test_passos_do_proprio_jogador_nao_assustam` e `test_arremesso_do_proprio_jogador_nao_assusta`); (3) gasp a partir do susto: `tests/integration/player/test_susto_por_som.gd` (F3-004), na pipeline. Nota: o gasp depende de estresse prévio mínimo (`gasp_min_stress`); o QA não exercitou o gasp no cenário, só o pico |
+| Componente | `game/components/player/physiology_component.gd` (`add_startle`); ponte em `game/components/player/player_root.gd` (`_on_heard_noise`) |
+| Evidência | `Docs/QA/EVIDENCE/F3-011_cenario_log.txt`; `Docs/QA/EVIDENCE/F3-011_suite_1.txt` e `_2.txt` |
+
 
 ### BUG-006: painel da porta empurra o corpo ao abrir devagar
 | Campo | Valor |

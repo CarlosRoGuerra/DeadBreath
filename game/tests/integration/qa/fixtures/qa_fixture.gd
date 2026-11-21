@@ -85,7 +85,9 @@ static func find_player(root: Node) -> PlayerRoot:
 
 
 ## Penetração: o colisor do jogador (com 1 cm de folga para dentro) cruza geometria de mundo?
-## Usa a forma atual do colisor (altura da postura) e exclui o próprio corpo.
+## Usa a forma atual do colisor (altura da postura) e exclui o próprio corpo e o objeto na mão (Director, BUG-016: desde
+## a correção, o objeto segurado para na parede, diante da câmera, e pode sobrepor o volume do próprio jogador; ele
+## não é geometria de mundo).
 static func body_overlaps_world(player: PlayerRoot) -> bool:
 	var height: float = player.get_motor().get_collider_height()
 	var shape: CylinderShape3D = CylinderShape3D.new()
@@ -95,7 +97,11 @@ static func body_overlaps_world(player: PlayerRoot) -> bool:
 	query.shape = shape
 	query.transform = player.global_transform * Transform3D(Basis.IDENTITY, Vector3(0.0, height * 0.5, 0.0))
 	query.collision_mask = WORLD_MASK
-	query.exclude = [player.get_rid()]
+	var exclude: Array[RID] = [player.get_rid()]
+	var held: Throwable = player.get_hold().get_held() if player.get_hold() != null else null
+	if held != null:
+		exclude.append(held.get_rid())
+	query.exclude = exclude
 	var hits: Array[Dictionary] = player.get_world_3d().direct_space_state.intersect_shape(query, 1)
 	return not hits.is_empty()
 

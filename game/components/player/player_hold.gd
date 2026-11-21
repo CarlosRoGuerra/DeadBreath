@@ -61,13 +61,14 @@ func drop_held() -> bool:
 	return true
 
 
-## Acompanha a câmera: o objeto segurado fica na posição da mão.
+## Acompanha a câmera: o objeto segurado fica na posição da mão. BUG-016 (F3-011): com uma parede antes da mão, o
+## objeto para na parede, mais perto da câmera, e nunca a atravessa.
 func step(_delta: float) -> void:
 	if not is_holding() or _camera == null:
 		return
 	var camera_transform: Transform3D = _camera.global_transform
 	var target: Transform3D = Transform3D(camera_transform.basis, camera_transform * HOLD_OFFSET)
-	_held.set_hold_transform(target)
+	_held.set_hold_transform(_held.safe_hold_transform(camera_transform.origin, target, _body))
 
 
 func _release(item: Throwable) -> void:

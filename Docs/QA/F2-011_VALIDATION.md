@@ -216,4 +216,4 @@ Os arquivos `.gd.uid` criados pelo import do Godot para os scripts novos são ar
 
 ## Fechamento pelo Project Director
 
-_Pendente._
+Ressalvas encaminhadas na integração da F2 (BUG-012 corrigido; BUG-013 aguardando escuta do usuário; BUG-014 levado para a F3 e fechado na F3-011; BUG-015 aceito). **Gate F2 aprovado pelo usuário em 2026-11-20.** Seção preenchida na F3 (estava pendente por esquecimento).

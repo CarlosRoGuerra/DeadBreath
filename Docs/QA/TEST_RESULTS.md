@@ -186,3 +186,25 @@ Validações independentes da fase:
 - Cenário gravado com janela: SYMPTOMATIC em 9,0 s, exaustão em 9,83 s, aviso de tosse em 13,88 s, tosse em 15,38 s, bombinha em 16,40 s, NORMAL em 22,12 s.
 - Exploits sem quebra: spam de Q, pausa no meio da crise (fisiologia e áudio param; tosse agendada dispara 1,5 s após retomar; inspirações e expirações pareadas), acessibilidade alterada na crise, estresse máximo por 10 min, salvar e restaurar no aviso (em memória).
 - Bugs: BUG-012 (F4 em produção) corrigido e fechado pelo probe do QA; BUG-015 aceito; BUG-013 (sobreposição do chiado a 40 rpm) aguarda a escuta; BUG-014 (ponte de susto) vai para a F3-002.
+
+---
+
+## F3-011 — validação independente da Fase 3 (QA)
+
+| Campo | Valor |
+|---|---|
+| Relatório | `Docs/QA/F3-011_VALIDATION.md` |
+| Data e commit | 2026-11-21, base `c32de8a` |
+| Pipeline (QA, 2×) | padrão **472/472** (9,8 s e 8,5 s), propriedade **156/156**, meta **26/26**, código 0 (`EVIDENCE/F3-011_suite_1.txt`, `_2.txt`). Testes `f3011`: 38/38 nas duas execuções (4 no padrão, 34 na propriedade) |
+| Comando | `powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_tests.ps1` |
+| Regeneração do áudio | `python -I tools/audio/check_regen.py --set world` e `--set body`: PASS bit a bit (`EVIDENCE/F3-011_regen_world.txt`, `_body.txt`) |
+| Filtro usado nos testes novos | `godot --headless --fixed-fps 60 --path game -s res://tests/run_all.gd -- --level=property --filter=f3011` (e sem `--level`, para o padrão) |
+| Veredito | **APROVADO COM RESSALVAS**. BUG-014 fechado; BUG-016 aberto (BAIXO) |
+
+- **Cenário gravado** na `sandbox_playable.tscn` (roteiro "atravessar a casa em silêncio", `EVIDENCE/F3-011_cenario_log.txt`, 126 eventos, 0 desvios): porta fechada 15,00 dB no ouvido; corrida 47,4 dB contra caminhada 35,5 dB; impacto do próprio arremesso a 72,4 dB sem susto; trovão eleva o limiar de 38 para 58 no quintal; camada de chuva muda de `rain_interior` para `rain_exterior` ao entrar no quintal; outra fonte a 75 dB sobe o estresse em 16,7.
+- **Achado de coerência (decisão do Director, DATA §2.4):** a porta batida (75 dB) tem corte perceptivo de 15 dB, mas o volume tocado cai só 3,75 dB (compressão acima de 45 dB). Fixado no teste `test_porta_batida_tem_corte_audivel_comprimido`.
+- **Achado de cobertura de nível:** o mezanino da sandbox não tem queda alcançável por entradas (guardas, paredes e degraus de 1,2 m). Queda de altura de 1,5 m gera FALL (4,90 m/s).
+- **Defeito novo:** BUG-016 (BAIXO): objeto segurado atravessa parede quando o jogador encosta nela (`test_objeto_na_mao_ao_encostar_na_parede`, registrado por nota).
+- **Testes que falham de propósito:** nenhum.
+- **Revisão do pipeline:** o `--import` regravou `game/default_bus_layout.tres` (só formato, sem mudança de comportamento); não revertido, para o Director decidir.
+

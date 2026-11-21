@@ -14,6 +14,8 @@ const HOLD_PATH: NodePath = ^"PlayerHold"
 const SHAPE_PATH: NodePath = ^"CollisionShape3D"
 ## Máscara do teste de soltura: mundo estático (1), dinâmico (2) e jogador (4).
 const DROP_MASK: int = 7
+## BUG-016: a mão não atravessa o mundo. A forma é varrida contra o mundo estático (1) e dinâmico (2).
+const HOLD_SWEEP_MASK: int = 3
 const NOISE_LEVELS: NoiseLevels = preload("res://content/data/acoustics/noise_levels.tres")
 ## Revisão F3-010, R3-04: depois que o jogador solta ou arremessa, os impactos são "causados pelo jogador" (prefixo
 ## AcousticWorld.PLAYER_CAUSED_PREFIX) até o objeto dormir ou ser pego de novo: não assustam o próprio jogador.
@@ -104,6 +106,27 @@ func set_held(held: bool, actor: Node) -> void:
 ## Posição da mão (chamada pelo PlayerHold a cada tick enquanto segura).
 func set_hold_transform(target: Transform3D) -> void:
 	global_transform = target
+
+
+## BUG-016 (F3-011): posição segura da mão. Varre a forma do objeto da câmera (from_position) até a posição desejada e
+## para no primeiro contato com o mundo; o jogador e o próprio objeto ficam de fora. Sem forma, devolve o alvo.
+func safe_hold_transform(from_position: Vector3, target: Transform3D, player: CollisionObject3D) -> Transform3D:
+	var shape_node: CollisionShape3D = get_node_or_null(SHAPE_PATH) as CollisionShape3D
+	if shape_node == null or shape_node.shape == null or not is_inside_tree():
+		return target
+	var motion: Vector3 = target.origin - from_position
+	var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
+	query.shape = shape_node.shape
+	query.transform = Transform3D(target.basis, from_position) * shape_node.transform
+	query.motion = motion
+	query.collision_mask = HOLD_SWEEP_MASK
+	var exclude: Array[RID] = [get_rid()]
+	if player != null:
+		exclude.append(player.get_rid())
+	query.exclude = exclude
+	var fractions: PackedFloat32Array = get_world_3d().direct_space_state.cast_motion(query)
+	var safe: float = fractions[0] if fractions.size() > 0 else 1.0
+	return Transform3D(target.basis, from_position + motion * safe)
 
 
 ## A forma cabe na posição dada, sem sobrepor mundo nem jogador? Usada antes de soltar.
