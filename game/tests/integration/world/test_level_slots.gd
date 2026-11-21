@@ -3,12 +3,13 @@ extends TestCase
 ## Autor: Project Director.
 
 const PLAYABLE_PATH: String = "res://content/levels/sandbox_playable.tscn"
-## door_id -> estado inicial, conforme os door_slot da sandbox (relatório da F1-009).
+## door_id -> estado inicial, conforme os door_slot da sandbox (relatórios da F1-009 e da F3-007).
 const EXPECTED_DOORS: Dictionary = {
 	"door_sala_corredor": Door.State.CLOSED,
 	"door_sala_cozinha": Door.State.OPEN,
 	"door_cozinha_corredor": Door.State.LOCKED,
 	"door_corredor_hall": Door.State.CLOSED,
+	"door_hall_quintal": Door.State.CLOSED,
 }
 const EXPECTED_PICKUP_COUNT: int = 2
 const WORLD_DYNAMIC_MASK: int = 2

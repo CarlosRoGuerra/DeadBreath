@@ -35,13 +35,6 @@ MAT_PATHS: dict[str, str] = {
 	"plaster": "res://content/materials/mat_wall_plaster.tres",
 }
 
-# Salas: id -> (x0, x1, z0, z1, superfície do piso). Coordenadas dos eixos de parede.
-ROOMS: dict[str, tuple[float, float, float, float, str]] = {
-	"sala": (0.0, 6.0, -6.0, 0.0, "wood"),
-	"cozinha": (6.0, 14.0, -6.0, -1.4, "tile"),
-	"corredor": (6.0, 14.0, -1.4, 0.0, "concrete"),
-	"hall": (14.0, 20.0, -6.0, 0.0, "carpet"),
-}
 
 # Aberturas (vãos de 0,9 m). axis "x": parede em x = fixed, o centro varia em z. axis "z": o contrário.
 OPENINGS: list[dict[str, object]] = [
@@ -49,6 +42,7 @@ OPENINGS: list[dict[str, object]] = [
 	{"door_id": "door_sala_cozinha", "axis": "x", "fixed": 6.0, "center": -3.0, "state": "open", "room_a": "sala", "room_b": "cozinha"},
 	{"door_id": "door_cozinha_corredor", "axis": "z", "fixed": -1.4, "center": 8.5, "state": "locked", "room_a": "cozinha", "room_b": "corredor"},
 	{"door_id": "door_corredor_hall", "axis": "x", "fixed": 14.0, "center": -0.7, "state": "closed", "room_a": "corredor", "room_b": "hall"},
+	{"door_id": "door_hall_quintal", "axis": "x", "fixed": 20.0, "center": -1.2, "state": "closed", "room_a": "hall", "room_b": "quintal"},
 ]
 OPENING_CENTER: dict[str, float] = {str(o["door_id"]): float(o["center"]) for o in OPENINGS}  # type: ignore[arg-type]
 
@@ -64,6 +58,28 @@ MEZZ_TOP: float = STAIR_RISE * STAIR_STEPS  # 1,08 m (6 × 0,18)
 MEZZ_SLAB_T: float = 0.06
 MEZZ_Z0: float = -6.0
 MEZZ_Z1: float = STAIR_NEAR_Z - STAIR_TREAD * STAIR_STEPS  # -2,68 (-1,0 - 6 × 0,28)
+
+# Salas: id -> (x0, x1, z0, z1, superficie do piso). Eixos de parede.
+# hall e so o terreo (a partir do pe da escada); mezanino e o vao sob a laje e a laje (sala propria).
+ROOMS: dict[str, tuple[float, float, float, float, str]] = {
+	"sala": (0.0, 6.0, -6.0, 0.0, "wood"),
+	"cozinha": (6.0, 14.0, -6.0, -1.4, "tile"),
+	"corredor": (6.0, 14.0, -1.4, 0.0, "concrete"),
+	"hall": (14.0, 20.0, MEZZ_Z1, 0.0, "carpet"),
+	"mezanino": (14.0, 20.0, -6.0, MEZZ_Z1, "carpet"),
+	"quintal": (20.0, 24.0, -6.0, 0.0, "concrete"),
+}
+# Acustica por sala (DATA 2.3, madrugada com chuva): piso de ruido e barramento de reverb (sugestao do
+# Director; o Audio Engineer cria os barramentos). Quintal: exterior, sem reverb.
+ROOM_ACOUSTICS: dict[str, tuple[float, str]] = {
+	"sala": (28.0, "reverb_small"),
+	"cozinha": (22.0, "reverb_small"),
+	"corredor": (22.0, "reverb_large"),
+	"hall": (22.0, "reverb_large"),
+	"mezanino": (22.0, "reverb_small"),
+	"quintal": (38.0, ""),
+}
+NO_CEILING: set[str] = {"quintal"}
 
 # Mesa com vão de 0,6 m: tampo em 0,60..0,65 m; pernas nos cantos (passagem livre de 0,7 m entre pernas).
 TABLE_X: float = 3.0
@@ -82,7 +98,8 @@ LIGHTS: list[tuple[str, str, tuple[float, float, float], tuple[float, float, flo
 	("Lamp_cozinha", "cozinha", (10.0, 2.6, -4.2), (0.50, 0.58, 0.66), 1.3, 7.0, True),
 	("Lamp_corredor", "corredor", (10.0, 2.5, -0.7), (0.91, 0.72, 0.48), 0.6, 4.0, False),
 	("Lamp_hall", "hall", (16.0, 2.6, -1.2), (0.91, 0.72, 0.48), 1.5, 8.0, True),
-	("Accent_sob_mezanino", "hall", (15.0, 0.8, -4.5), (0.50, 0.58, 0.66), 0.5, 3.0, False),
+	("Lamp_quintal", "quintal", (22.0, 2.4, -3.0), (0.91, 0.72, 0.48), 0.8, 6.0, False),
+	("Accent_sob_mezanino", "mezanino", (15.0, 0.8, -4.5), (0.50, 0.58, 0.66), 0.5, 3.0, False),
 ]
 
 FOG_DENSITY: float = 0.03
@@ -234,10 +251,11 @@ def build_geometry(scene: Scene) -> None:
 			(x1 - x0, 1.0, z1 - z0), surface, surface)
 
 	scene.node("Walls", "Node3D", "Geometry")
-	wall_h(scene, "Geometry/Walls", "Wall_norte", -6.0, 0.0, 20.0)
-	wall_h(scene, "Geometry/Walls", "Wall_sul", 0.0, 0.0, 20.0)
+	wall_h(scene, "Geometry/Walls", "Wall_norte", -6.0, 0.0, 24.0)
+	wall_h(scene, "Geometry/Walls", "Wall_sul", 0.0, 0.0, 24.0)
 	wall_v(scene, "Geometry/Walls", "Wall_oeste", 0.0, -6.0, 0.0)
-	wall_v(scene, "Geometry/Walls", "Wall_leste", 20.0, -6.0, 0.0)
+	wall_v(scene, "Geometry/Walls", "Div_hall_quintal", 20.0, -6.0, 0.0, "door_hall_quintal")
+	wall_v(scene, "Geometry/Walls", "Wall_quintal_leste", 24.0, -6.0, 0.0)
 	wall_v(scene, "Geometry/Walls", "Div_sala_cozinha", 6.0, -6.0, -1.4, "door_sala_cozinha")
 	wall_v(scene, "Geometry/Walls", "Div_sala_corredor", 6.0, -1.4, 0.0, "door_sala_corredor")
 	wall_h(scene, "Geometry/Walls", "Div_cozinha_corredor", -1.4, 6.0, 14.0, "door_cozinha_corredor")
@@ -246,6 +264,8 @@ def build_geometry(scene: Scene) -> None:
 
 	scene.node("Ceilings", "Node3D", "Geometry")
 	for room_id, (x0, x1, z0, z1, _surface) in ROOMS.items():
+		if room_id in NO_CEILING:
+			continue
 		static_box(scene, "Geometry/Ceilings", "Ceil_" + room_id, ((x0 + x1) / 2, CEIL_Y, (z0 + z1) / 2),
 			(x1 - x0, CEIL_T, z1 - z0), "plaster")
 
@@ -306,13 +326,19 @@ def build_fog(scene: Scene) -> None:
 
 
 def build_rooms(scene: Scene) -> None:
+	"""RoomVolume (components/acoustics/room_volume.gd): volume piso a teto de cada sala, com piso de ruído e reverb."""
+	script_id: str = scene.ext_res("Script", "res://components/acoustics/room_volume.gd")
 	scene.node("RoomVolumes", "Node3D", "")
 	for room_id, (x0, x1, z0, z1, _surface) in ROOMS.items():
+		floor_db, reverb = ROOM_ACOUSTICS[room_id]
 		props: list[str] = [
 			"position = %s" % vec((x0 + x1) / 2, WALL_H / 2, (z0 + z1) / 2),
 			"collision_layer = 128",
 			"collision_mask = 4",
-			"metadata/room_id = %s" % sname(room_id),
+			"script = ExtResource(\"%s\")" % script_id,
+			"room_id = %s" % sname(room_id),
+			"ambient_floor_db = %s" % f(floor_db),
+			"reverb_bus = %s" % sname(reverb),
 		]
 		area: str = scene.node("RoomVolume_" + room_id, "Area3D", "RoomVolumes", props, ["room_volume"])
 		shape_id: str = scene.sub_res("BoxShape3D", ["size = %s" % vec(x1 - x0, WALL_H, z1 - z0)])
@@ -320,6 +346,9 @@ def build_rooms(scene: Scene) -> None:
 
 
 def build_markers(scene: Scene) -> None:
+	"""door_slot (Openings), portal (Portals; door aponta para o nó da porta dentro do slot, criada pelo LevelSlots
+	com nome = door_id), pickup_slot e throwable_slot."""
+	portal_script: str = scene.ext_res("Script", "res://components/acoustics/portal.gd")
 	scene.node("Openings", "Node3D", "")
 	scene.node("Portals", "Node3D", "")
 	for opening in OPENINGS:
@@ -345,14 +374,21 @@ def build_markers(scene: Scene) -> None:
 		portal_id: str = "portal_" + door_id[len("door_"):]
 		portal_props: list[str] = [
 			"position = %s" % vec(*pos),
-			"rotation_degrees = %s" % vec(0.0, rot_y, 0.0),
-			"metadata/portal_id = %s" % sname(portal_id),
-			"metadata/room_a = %s" % sname(str(opening["room_a"])),
-			"metadata/room_b = %s" % sname(str(opening["room_b"])),
-			"metadata/door_id = %s" % sname(door_id),
-			"metadata/opening_width_m = %s" % f(DOOR_W),
+			"script = ExtResource(\"%s\")" % portal_script,
+			"portal_id = %s" % sname(portal_id),
+			"room_a = %s" % sname(str(opening["room_a"])),
+			"room_b = %s" % sname(str(opening["room_b"])),
+			"door = NodePath(\"../../Openings/DoorSlot_%s/%s\")" % (door_id, door_id),
 		]
-		scene.node("Portal_" + portal_id, "Marker3D", "Portals", portal_props, ["portal"])
+		scene.node("Portal_" + portal_id, "Node3D", "Portals", portal_props, ["portal"])
+	# Vão físico sem porta entre o hall (térreo) e o mezanino: portal aberto (sem door).
+	scene.node("Portal_portal_hall_mezanino", "Node3D", "Portals", [
+		"position = %s" % vec(17.0, 1.2, MEZZ_Z1),
+		"script = ExtResource(\"%s\")" % portal_script,
+		"portal_id = &\"portal_hall_mezanino\"",
+		"room_a = &\"hall\"",
+		"room_b = &\"mezanino\"",
+	], ["portal"])
 	scene.node("Pickups", "Node3D", "")
 	pickups: list[tuple[str, str, str, tuple[float, float, float]]] = [
 		("PickupSlot_kitchen_inhaler", "pickup_inhaler_kitchen", "inhaler", (12.5, 0.05, -4.6)),
@@ -365,6 +401,22 @@ def build_markers(scene: Scene) -> None:
 			"metadata/item_id = %s" % sname(item_id),
 		]
 		scene.node(node_name, "Marker3D", "Pickups", props, ["pickup_slot"])
+	# Objetos arremessáveis (F3-004 instancia). size: light / medium / heavy.
+	scene.node("Throwables", "Node3D", "")
+	throwables: list[tuple[str, str, str, tuple[float, float, float]]] = [
+		("ThrowableSlot_chair_sala", "throwable_chair_sala", "medium", (1.2, 0.1, -4.8)),
+		("ThrowableSlot_bottle_cozinha", "throwable_bottle_cozinha", "light", (9.0, 0.1, -4.8)),
+		("ThrowableSlot_pot_cozinha", "throwable_pot_cozinha", "medium", (12.6, 0.1, -2.6)),
+		("ThrowableSlot_stool_hall", "throwable_stool_hall", "light", (15.2, 0.1, -1.6)),
+		("ThrowableSlot_crate_quintal", "throwable_crate_quintal", "heavy", (22.0, 0.1, -4.5)),
+	]
+	for node_name, throwable_id, size, pos in throwables:
+		props: list[str] = [
+			"position = %s" % vec(*pos),
+			"metadata/throwable_id = %s" % sname(throwable_id),
+			"metadata/size = %s" % sname(size),
+		]
+		scene.node(node_name, "Marker3D", "Throwables", props, ["throwable_slot"])
 
 
 def build_player(scene: Scene) -> None:

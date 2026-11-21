@@ -31,9 +31,9 @@ const AXIS_X: int = 0
 const AXIS_Y: int = 1
 const AXIS_Z: int = 2
 
-const ROOM_IDS: Array[StringName] = [&"sala", &"cozinha", &"corredor", &"hall"]
+const ROOM_IDS: Array[StringName] = [&"sala", &"cozinha", &"corredor", &"hall", &"mezanino", &"quintal"]
 const SURFACE_IDS: Array[StringName] = [&"wood", &"carpet", &"tile", &"concrete"]
-const DOOR_IDS: Array[StringName] = [&"door_sala_corredor", &"door_sala_cozinha", &"door_cozinha_corredor", &"door_corredor_hall"]
+const DOOR_IDS: Array[StringName] = [&"door_sala_corredor", &"door_sala_cozinha", &"door_cozinha_corredor", &"door_corredor_hall", &"door_hall_quintal"]
 const STATE_IDS: Array[StringName] = [&"closed", &"locked", &"open"]
 
 var _previous: Dictionary = {}
@@ -194,7 +194,7 @@ func test_sandbox_vaos_sala_cozinha_corredor() -> void:
 func test_sandbox_contrato_de_marcadores_e_superficies() -> void:
 	var level: Node3D = _load_level()
 	var door_slots: Array[Node3D] = _in_group(level, &"door_slot")
-	assert_eq(door_slots.size(), 4, "quatro door_slot (uma por abertura)")
+	assert_eq(door_slots.size(), 5, "cinco door_slot (uma por abertura)")
 	var seen_doors: Array[StringName] = []
 	for slot: Node3D in door_slots:
 		var door_id: StringName = StringName(str(slot.get_meta(&"door_id")))
@@ -214,21 +214,23 @@ func test_sandbox_contrato_de_marcadores_e_superficies() -> void:
 		persist_ids.append(persist_id)
 
 	var volumes: Array[Node3D] = _in_group(level, &"room_volume")
-	assert_eq(volumes.size(), 4, "quatro room_volume (uma por sala)")
+	assert_eq(volumes.size(), 6, "seis room_volume (uma por sala, incluindo mezanino e quintal)")
 	for volume: Node3D in volumes:
-		var area: Area3D = volume as Area3D
-		assert_not_null(area, "room_volume é Area3D")
-		if area != null:
-			assert_eq(area.collision_layer, 128, "room_volume na camada 8 (trigger)")
-		var room_id: StringName = StringName(str(volume.get_meta(&"room_id")))
-		assert_true(ROOM_IDS.has(room_id), "room_id conhecido: %s" % room_id)
+		var room: RoomVolume = volume as RoomVolume
+		assert_not_null(room, "room_volume é RoomVolume")
+		if room == null:
+			continue
+		assert_eq(room.collision_layer, 128, "room_volume na camada 8 (trigger)")
+		assert_true(ROOM_IDS.has(room.room_id), "room_id conhecido: %s" % room.room_id)
 
 	var portals: Array[Node3D] = _in_group(level, &"portal")
-	assert_eq(portals.size(), 4, "quatro portais (uma por abertura entre salas)")
+	assert_eq(portals.size(), 6, "seis portais (cinco aberturas e o vão hall-mezanino)")
 	for portal: Node3D in portals:
-		var room_a: StringName = StringName(str(portal.get_meta(&"room_a")))
-		var room_b: StringName = StringName(str(portal.get_meta(&"room_b")))
-		assert_true(ROOM_IDS.has(room_a) and ROOM_IDS.has(room_b), "portal liga salas conhecidas")
+		var link: Portal = portal as Portal
+		assert_not_null(link, "portal é Portal")
+		if link == null:
+			continue
+		assert_true(ROOM_IDS.has(link.room_a) and ROOM_IDS.has(link.room_b), "portal liga salas conhecidas")
 
 	var floors: Array[String] = ["sala", "cozinha", "corredor", "hall"]
 	var expected_surfaces: Array[StringName] = [&"wood", &"tile", &"concrete", &"carpet"]

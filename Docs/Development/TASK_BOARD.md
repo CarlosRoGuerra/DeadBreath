@@ -254,7 +254,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 - **Testes:** ACC-04.
 
 ### F3-007 · Sandbox acústica
-- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F3-001 · **Status:** BACKLOG
+- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F3-001 · **Status:** REVIEW. Seis `RoomVolume` (sala 28 dB com janela; cozinha, corredor, hall e mezanino 22; quintal exterior 38, sem teto), seis `Portal` (cinco com porta real do `LevelSlots`, um vão aberto hall–mezanino), porta nova `door_hall_quintal`, cinco `throwable_slot`. Porta corredor–hall muda 15,0 dB no nível real. Achados: a janela só muda o piso de ruído (não há abertura para fora); o vão do mezanino conta como portal aberto
 - **Descrição:** trocar os marcadores de sala e portal da sandbox por `RoomVolume`/`Portal`, com `ambient_floor_db` coerente (DATA §2.3) e portas ligadas aos portais; uma área com janela/exterior para testar a chuva; pontos de objetos arremessáveis.
 
 ### F3-010 · Revisão técnica — Technical Reviewer · HIGH · BACKLOG
