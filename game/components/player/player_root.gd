@@ -8,8 +8,13 @@ extends CharacterBody3D
 ##   → interaction.step(steadiness). O BreathEmitter é o produtor único dos sons do corpo (F2-006b, §6.3).
 ## Uso da bombinha (F2-005, tecla use_item / Q): try_use_inhaler() consome uma dose do inventário e aplica o efeito na
 ## fisiologia. Os sinais item_use_failed e inhaler_used são para a apresentação (viewmodel, UI e som).
+## Sons do próprio jogador (F3-004): passos e corrida (motor.footstep → FootNoise), queda (landed, acima de
+## fall_noise.min_fall_speed_mps) e o susto: o PlayerRoot registra-se no AcousticWorld e, para 55 dB ou mais de outra
+## fonte, chama physiology.add_startle (COMPONENT_CONTRACTS §6.5). Arremessáveis: a mão (PlayerHold), tecla throw.
 
 const PHYSICS_PRIORITY: int = -90
+const NOISE_LEVELS: NoiseLevels = preload("res://content/data/acoustics/noise_levels.tres")
+const FALL_SOUND: StringName = &"fall_body"
 const HEADLESS_DISPLAY_NAME: String = "headless"
 ## Grupo usado pelo menu de pausa para devolver o controle ao jogador (captura do mouse).
 const PLAYER_GROUP: StringName = &"player"
@@ -22,6 +27,8 @@ signal inhaler_used()
 
 ## Perfil da bombinha (DATA_STRUCTURES §1.7). Vem da cena do jogador.
 @export var inhaler_profile: MedicationProfile
+## Limiar de queda que faz ruído (F3-004). Sem valor na cena, o padrão do Resource.
+@export var fall_noise: FallNoiseConfig = preload("res://content/data/player/fall_noise.tres")
 
 @onready var _motor: PlayerMotor = $PlayerMotor
 @onready var _interaction: InteractionComponent = $InteractionComponent
@@ -30,7 +37,10 @@ signal inhaler_used()
 @onready var _breath: BreathEmitter = $Head/BreathEmitter
 @onready var _head: Node3D = $Head
 @onready var _camera: Camera3D = $Head/Camera3D
+@onready var _foot_noise: NoiseEmitter = $FootNoise
+@onready var _hold: PlayerHold = $PlayerHold
 
+var _bound_world: AcousticWorld = null
 var _context: InteractionContext = null
 var _mouse_capture_requested: bool = false
 ## Fonte da ameaça percebida (F2: stub; F4: PlayerThreatMonitor). ThreatSource é RefCounted (ver threat_source.gd).
@@ -55,12 +65,19 @@ func _ready() -> void:
 	apply_limits(_physiology.get_coupling())
 	_camera.fov = Settings.get_float(&"fov")
 	Settings.changed.connect(_on_settings_changed)
+	_motor.footstep.connect(_on_footstep)
+	_hold.setup(self, _camera)
+	# O AcousticWorld do nível pode entrar na árvore depois do jogador: o registro vai no fim do quadro.
+	_bind_acoustic_world.call_deferred()
 	set_mouse_captured(true)
 
 
 func _exit_tree() -> void:
 	if Settings.changed.is_connected(_on_settings_changed):
 		Settings.changed.disconnect(_on_settings_changed)
+	if _bound_world != null and is_instance_valid(_bound_world):
+		_bound_world.unregister_player_listener()
+	_bound_world = null
 
 
 func _physics_process(delta: float) -> void:
@@ -74,12 +91,16 @@ func _physics_process(delta: float) -> void:
 	_context.steadiness = coupling.steadiness
 	_context.is_hidden = inputs.is_hidden
 	_interaction.step(delta, _context)
+	_hold.step(delta)
 
 
-## Tecla use_item (Q): tenta usar a bombinha.
+## Tecla use_item (Q): tenta usar a bombinha. Tecla throw: arremessa o objeto da mão, se houver um.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"use_item"):
 		try_use_inhaler()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed(InputBindings.THROW_ACTION) and _hold.is_holding():
+		_hold.throw_held()
 		get_viewport().set_input_as_handled()
 
 
@@ -208,6 +229,44 @@ func _on_motor_landed(fall_speed: float) -> void:
 	var fall_height: float = fall_speed * fall_speed / (2.0 * gravity)
 	if fall_height > _motor.config.fall_injury_height:
 		_physiology.add_injury(_physiology.get_stress_config().injury_spike)
+	# Ruído de queda (F3-004): só acima da velocidade mínima; escada e degrau nunca chegam aqui.
+	if fall_noise != null and absf(fall_speed) >= fall_noise.min_fall_speed_mps:
+		_foot_noise.emit_noise(Enums.NoiseCategory.FALL, NOISE_LEVELS.fall_db, 0.0, FALL_SOUND)
+
+
+## Passo ou corrida (F3-004): nível pela marcha e superfície (NoiseLevels), sound_id footstep_<superfície>.
+func _on_footstep(surface: StringName, gait: Enums.Gait, stance: Enums.Stance) -> void:
+	var level_surface: StringName = PlayerNoiseMap.level_surface(surface)
+	var sound: StringName = PlayerNoiseMap.footstep_sound(surface)
+	if gait == Enums.Gait.SPRINT:
+		_foot_noise.emit_noise(Enums.NoiseCategory.RUNNING, NOISE_LEVELS.running_level(level_surface), 0.0, sound)
+		return
+	var gait_key: StringName = PlayerNoiseMap.footstep_gait(gait, stance)
+	_foot_noise.emit_noise(Enums.NoiseCategory.FOOTSTEP, NOISE_LEVELS.footstep_level(gait_key, level_surface), 0.0, sound)
+
+
+## Registro no AcousticWorld do nível (grupo acoustic_world): o ouvido é a câmera. Sem mundo, aviso e sem susto.
+func _bind_acoustic_world() -> void:
+	if not is_inside_tree() or _bound_world != null:
+		return
+	var world: AcousticWorld = get_tree().get_first_node_in_group(AcousticWorld.GROUP) as AcousticWorld
+	if world == null:
+		Log.warn(&"player", "PlayerRoot sem AcousticWorld no nível; sem susto por som")
+		return
+	world.register_player_listener(_on_heard_noise, _camera)
+	_bound_world = world
+
+
+## Ponte de susto (BUG-014, COMPONENT_CONTRACTS §6.5): som de outra fonte, 55 dB percebidos ou mais.
+func _on_heard_noise(heard: PlayerHeardNoise) -> void:
+	if heard.perceived_db < PlayerNoiseMap.STARTLE_THRESHOLD_DB:
+		return
+	_physiology.add_startle(PlayerNoiseMap.startle_amount(heard.perceived_db))
+
+
+## Mão do jogador (arremessáveis, F3-004).
+func get_hold() -> PlayerHold:
+	return _hold
 
 
 func _is_headless() -> bool:

@@ -169,7 +169,8 @@ func _update_focus() -> void:
 			interaction_failed.emit(lost)
 
 
-## Primeiro collider atingido pelo raio da câmera. Só conta se ele (ou um ancestral) for Interactable.
+## Primeiro collider atingido pelo raio da câmera. Conta se ele (ou um ancestral) for Interactable, ou se o próprio
+## collider tiver um Interactable como filho direto (F3-004: arremessáveis são RigidBody3D com a "pega" como filho).
 func _raycast_interactable() -> Interactable:
 	if _camera == null or _body == null or not _camera.is_inside_tree() or not _body.is_inside_tree():
 		return null
@@ -180,7 +181,13 @@ func _raycast_interactable() -> Interactable:
 	var hit: Dictionary = _camera.get_world_3d().direct_space_state.intersect_ray(query)
 	if hit.is_empty():
 		return null
-	var node: Node = hit.get("collider") as Node
+	var collider: Node = hit.get("collider") as Node
+	if collider == null:
+		return null
+	for child: Node in collider.get_children():
+		if child is Interactable:
+			return child as Interactable
+	var node: Node = collider
 	while node != null:
 		var target: Interactable = node as Interactable
 		if target != null:

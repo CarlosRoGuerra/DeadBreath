@@ -56,10 +56,16 @@ func _ready() -> void:
 		_exclude.append((parent as CollisionObject3D).get_rid())
 	_query.exclude = _exclude
 	_query.collision_mask = OCCLUDER_MASK
+	_accum = 1.0 / maxf(update_hz, 0.001)  ## a primeira amostra sai no primeiro tick físico
+
+
+## As conexões da árvore ficam em _enter_tree/_exit_tree: se o probe sai e volta, a lista de luzes é refeita
+## (luzes criadas enquanto estava fora entram na próxima amostra).
+func _enter_tree() -> void:
 	var tree: SceneTree = get_tree()
 	tree.node_added.connect(_on_tree_changed)
 	tree.node_removed.connect(_on_tree_changed)
-	_accum = 1.0 / maxf(update_hz, 0.001)  ## a primeira amostra sai no primeiro tick físico
+	_lights_dirty = true
 
 
 func _exit_tree() -> void:

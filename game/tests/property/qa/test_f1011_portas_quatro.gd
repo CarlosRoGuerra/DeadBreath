@@ -243,7 +243,10 @@ func test_porta_sala_corredor_corpo_entra_no_arco_no_meio_da_abertura() -> void:
 # ---- Porta aberta e porta trancada ----
 
 ## door_sala_cozinha começa aberta: o corpo no arco dela não a bloqueia (não há giro) e o estado continua OPEN.
-func test_porta_sala_cozinha_aberta_nao_bloqueia() -> void:
+## Director, integração da F3-004: o toque numa porta aberta passou a FECHÁ-LA (decisão da F3-002). Antes, este teste
+## esperava que nada acontecesse. Com o jogador no arco do painel, o fechamento para no corpo (blocked), a porta
+## continua OPEN (o portal acústico segue aberto) e o jogador não é empurrado.
+func test_porta_sala_cozinha_aberta_toque_fecha_e_para_no_corpo() -> void:
 	var world: Dictionary = await _world(Vector3(6.45, 0.0, -3.0), 0.0)
 	var root: Node = world["root"] as Node
 	var player: PlayerRoot = world["player"] as PlayerRoot
@@ -251,11 +254,14 @@ func test_porta_sala_cozinha_aberta_nao_bloqueia() -> void:
 	var blocks: Array[Node] = []
 	door.blocked.connect(func(body: Node) -> void: blocks.append(body))
 	assert_eq(door.get_state(), Door.State.OPEN, "a porta começa aberta")
+	var start: Vector3 = player.global_position
 	await _tap(player)
 	await wait_physics_frames(OPEN_TICKS)
-	note("sala-cozinha (aberta): estado=%d, blocked=%d, ângulo %.1f°" % [int(door.get_state()), blocks.size(), door.get_panel_angle_deg()])
-	assert_eq(blocks.size(), 0, "porta aberta não emite blocked")
-	assert_eq(door.get_state(), Door.State.OPEN, "a porta continua OPEN")
+	note("sala-cozinha (aberta): estado=%d, blocked=%d, ângulo %.1f°, jogador deslocado %.3f m" % [int(door.get_state()),
+		blocks.size(), door.get_panel_angle_deg(), player.global_position.distance_to(start)])
+	assert_true(blocks.size() >= 1, "o painel parou no corpo do jogador (blocked)")
+	assert_eq(door.get_state(), Door.State.OPEN, "fechamento interrompido: a porta continua OPEN")
+	assert_true(player.global_position.distance_to(start) < 0.05, "o jogador não foi empurrado pelo painel")
 	await release_and_flush(world["container"] as Node3D)
 
 

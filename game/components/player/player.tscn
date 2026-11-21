@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://components/player/player_root.gd" id="1_root"]
 [ext_resource type="Script" path="res://components/player/player_motor.gd" id="2_motor"]
@@ -12,6 +12,9 @@
 [ext_resource type="Script" path="res://components/player/inventory_component.gd" id="10_inventory"]
 [ext_resource type="Resource" path="res://content/data/physiology/medication_inhaler.tres" id="11_inhaler"]
 [ext_resource type="Script" path="res://components/player/breath_emitter.gd" id="12_breath"]
+[ext_resource type="Script" path="res://components/acoustics/noise_emitter.gd" id="13_noise"]
+[ext_resource type="Script" path="res://components/player/player_hold.gd" id="14_hold"]
+[ext_resource type="Resource" path="res://content/data/player/fall_noise.tres" id="15_fall"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
 radius = 0.25
@@ -22,6 +25,7 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_root")
 inhaler_profile = ExtResource("11_inhaler")
+fall_noise = ExtResource("15_fall")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_body")
@@ -54,3 +58,10 @@ coupling_config = ExtResource("9_coupling")
 
 [node name="InventoryComponent" type="Node" parent="."]
 script = ExtResource("10_inventory")
+
+[node name="FootNoise" type="Node3D" parent="."]
+script = ExtResource("13_noise")
+source_id = &"player"
+
+[node name="PlayerHold" type="Node" parent="."]
+script = ExtResource("14_hold")

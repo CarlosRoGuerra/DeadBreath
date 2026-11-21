@@ -2,6 +2,7 @@ extends TestCase
 ## Integração da F3-003b na sandbox jogável (Director): o NoiseAudioRouter e a RainAmbience estão na cena e ligados
 ## ao AcousticWorld dela; um som do mundo perto do jogador toca no router com a regra de ganho compartilhada; a camada
 ## de chuva segue o piso da sala do ouvinte; o trovão está ligado no nível (contrato da F3-002) e chega à ambiência.
+## Integração da F3-006: a mesma porta gera a legenda na UI de legendas da cena (ACC-04).
 ## A cena é carregada uma vez: os testes só emitem eventos e leem registros (orçamento da suíte < 10 s).
 
 const PLAYABLE_PATH: String = "res://content/levels/sandbox_playable.tscn"
@@ -66,6 +67,11 @@ func test_porta_do_mundo_perto_do_jogador_toca_no_router_com_a_regra_de_ganho() 
 	assert_almost_eq(float(entry["gain_db"]), NoiseGain.gain_for_db(float(entry["perceived_db"])), TOL,
 		"volume = regra de ganho do nível percebido (NOI-04)")
 	assert_true(float(entry["gain_db"]) > 0.0, "50 dB a 30 cm: acima da referência, ganho positivo (não satura em 0)")
+	var subtitles: Subtitles = _root.get_node("Subtitles") as Subtitles
+	assert_not_null(subtitles, "a cena tem a UI de legendas")
+	if subtitles != null:
+		assert_true(subtitles.get_visible_texts().has(subtitles.text_for(&"subtitle.door_normal")),
+			"a porta do mundo aparece na legenda (ACC-04): %s" % [subtitles.get_visible_texts()])
 
 
 func test_camada_de_chuva_segue_o_piso_da_sala_do_ouvinte() -> void:

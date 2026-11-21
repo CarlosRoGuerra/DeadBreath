@@ -1,0 +1,64 @@
+F3-004 (ruídos do jogador e do mundo; objetos de distração) e F3-006 (legendas, ACC-04) — onda B da Fase 3
+Autor: Gameplay Engineer. Pipeline: F3-004_pipeline_run1.txt e F3-004_pipeline_run2.txt (tools/run_tests.ps1, 2x).
+
+RESULTADO: REPROVADO nas duas rodadas (código 1). Causas fora do escopo, aguardando decisão do Director:
+  1. integration/acoustics/test_acoustic_world.gd::test_noi_inv_1_only_listed_scripts_emit_or_create_body_noise
+     (lista ALLOWED_EMITTER_FILES não inclui door.gd, throwable.gd, player_root.gd, que emitem via NoiseEmitter).
+  2. integration/qa/test_f1011_remap.gd (2 testes): o padrão de throw é o botão esquerdo do mouse (botão 1), que o
+     teste de QA usa como caso "aceito" para crouch.
+  3. property/qa/test_f1011_portas_quatro.gd::test_porta_sala_cozinha_aberta_nao_bloqueia: o teste espera que tocar
+     numa porta aberta não faça nada; com o fechamento por interação, o toque fecha a porta e o corpo do jogador
+     bloqueia o painel (blocked=1, ângulo 77°).
+
+Tempo da suíte padrão: 8,75 s e 8,94 s (limite 10 s; alvo 9,5 s). Runner padrão: 446/446 com 3 falhas acima.
+Property: 117 testes, 116 passam (falha 3 acima). Meta: 26/26.
+
+Testes novos (todos verdes isolados):
+  unit/player/test_player_noise_map.gd ............ 8 testes (marcha, superfície, roteador, susto, impacto)
+  unit/player/test_acao_throw.gd .................. 3 testes (ação throw, botão esquerdo, idempotente)
+  unit/ui/test_legendas_tabela.gd ................. 3 testes (toda chave pedível tem texto; formato; ausente)
+  integration/interaction/test_porta_fechar.gd .... 5 testes (toque 50 dB, segurar 30 dB, trancada 45 dB,
+                                                    batida no corpo 40 dB, segunda interação em movimento)
+  integration/player/test_susto_por_som.gd ........ 3 testes (75 dB sobe o estresse e faz gasp; próprio som e
+                                                    40 dB não assustam)
+  integration/world/test_arremessavel.gd .......... 3 testes (pegar/arremessar/impacto 50-80 dB; soltar só se
+                                                    couber; cooldown 0,25 s e velocidade mínima)
+  integration/ui/test_legendas_ui.gd .............. 6 testes (aparece/some; sem texto; 3 linhas; desligar; tamanho)
+  integration/perception/test_light_exposure_probe.gd: + reentrar na árvore reconhece luz criada fora
+  property/interaction/test_porta_fechar_sandbox.gd  1 teste (sandbox jogável: fechar pela interação, -15 dB
+                                                    do corredor ao hall; portal fecha no fim do movimento)
+  property/player/test_ruido_stl01_queda.gd ....... 3 testes (STL-01 em concreto: 18/25/40/60 dB para rastejar,
+                                                    agachado, andar, correr; tosse 65; queda 80; queda de 2 m gera
+                                                    FALL; descida de escada não gera FALL)
+
+Asserção alterada de terceiros (liberada pelo Director):
+  integration/level/test_f3007_porta_playable.gd (linhas 93-95): a segunda interação durante o movimento não fecha.
+
+Decisões de implementação:
+  - door.gd: fechar pela interação (só porta OPEN e parada); estado OPEN durante o fechamento; closed(slow) e
+    sinais DOOR de 30/50 dB (door_slow/door_normal), 45 dB (door_locked) e 40 dB (batida). door_id vem do LevelSlots.
+    Os valores 45 e 40 dB são constantes locais em door.gd (não estão em DATA §2.1 / NoiseLevels): a acústica
+    deve confirmar.
+  - InteractionComponent: aceita um Interactable filho direto do colisor atingido (pega dos arremessáveis).
+  - InputBindings: a ação throw é criada em ensure_throw_action() (padrão botão esquerdo) sem tocar project.godot.
+  - PlayerNoiseMap (puro): marcha por postura (stance tem prioridade); superfície "wood" do nível vira wood_loose
+    no ruído (+6 dB, igual ao roteador); sem metadado ("default") vira concrete (0 dB).
+  - Queda: FallNoiseConfig.min_fall_speed_mps = 2,5 m/s (content/data/player/fall_noise.tres). Queda de 2 m: 6,3 m/s
+    (gera). Degrau de 0,18 m: ~1,9 m/s (não gera). A descida sintética não produziu aterrissagens; o limiar é
+    justificado pelo cálculo, não por medida na escada.
+  - Impacto: intensidade = lerp(50, 80, 0,5·fator_velocidade + 0,5·fator_tamanho); velocidade lida antes do passo
+    (body_entered chega depois da resolução do contato). Cooldown 0,25 s por objeto; abaixo de 0,8 m/s, sem ruído.
+  - Susto: PlayerRoot registra-se no AcousticWorld do grupo (diferido 1 quadro); 55 dB ou mais, add_startle com
+    clamp((dB-55)/2+10, 10, 25).
+  - Legendas: tabela content/data/subtitles/subtitles_pt_br.json; até 3 linhas; subtitles_size e subtitles_enabled
+    com efeito imediato; chave sem texto não aparece e gera Log.warn uma vez.
+
+Limitações registradas:
+  - Empurrar com o corpo não está implementado: o CharacterBody3D do jogador só bloqueia o objeto (ver STL/V6).
+  - Falas (VOICE) não têm produtor no jogo; sem legenda de fala ainda.
+  - door_slam (75 dB) fica reservado para os inimigos (F4); a legenda existe na tabela.
+  - Medida de custo e limiar de queda na escada não medidos em janela; ver o cálculo acima.
+
+Instanciar na sandbox_playable.tscn (não escrevi cenas):
+  - Um nó CanvasLayer com o script res://presentation/ui/subtitles.gd (classe Subtitles) para as legendas.
+  - Nada mais: os cinco ThrowableSlot já existem na sandbox e o LevelSlots instancia os arremessáveis.

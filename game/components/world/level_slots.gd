@@ -8,11 +8,20 @@ extends Node
 ## - grupo `door_slot`: centro do vão, 1,0 m acima do piso, +Z local ao longo da largura do vão.
 ##   Metadados: `door_id` (StringName), `start_state` (`closed`/`open`/`locked`), `opening_width_m` (float).
 ## - grupo `pickup_slot`: posição do item. Metadados: `persist_id`, `item_id` (StringName).
+## - grupo `throwable_slot` (F3-004): objeto arremessável. Metadados: `throwable_id` (StringName), `size`
+##   (`light`/`medium`/`heavy`). A cena do objeto vem de content/props/throwables/.
 
 const DOOR_SCENE: PackedScene = preload("res://components/world/door.tscn")
 const PICKUP_SCENE: PackedScene = preload("res://components/world/pickup.tscn")
+const THROWABLE_SCENES: Dictionary = {
+	&"light": preload("res://content/props/throwables/throwable_light.tscn"),
+	&"medium": preload("res://content/props/throwables/throwable_medium.tscn"),
+	&"heavy": preload("res://content/props/throwables/throwable_heavy.tscn"),
+}
 const DOOR_SLOT_GROUP: StringName = &"door_slot"
 const PICKUP_SLOT_GROUP: StringName = &"pickup_slot"
+const THROWABLE_SLOT_GROUP: StringName = &"throwable_slot"
+const DEFAULT_THROWABLE_SIZE: StringName = &"light"
 const SLOT_HEIGHT_ABOVE_FLOOR_M: float = 1.0
 const DEFAULT_OPENING_WIDTH_M: float = 0.9
 ## Largura fixa do painel de door.tscn. Vãos com outra largura geram Log.error (F1-010, R1-14).
@@ -25,6 +34,7 @@ const LOG_CATEGORY: StringName = &"level"
 
 var _doors: Array[Door] = []
 var _pickups: Array[Pickup] = []
+var _throwables: Array[Throwable] = []
 
 
 func _ready() -> void:
@@ -41,6 +51,18 @@ func _ready() -> void:
 		var slot: Marker3D = node as Marker3D
 		if slot != null and level.is_ancestor_of(slot):
 			_spawn_pickup(slot, seen_ids)
+	for node: Node in get_tree().get_nodes_in_group(THROWABLE_SLOT_GROUP):
+		var slot: Marker3D = node as Marker3D
+		if slot != null and level.is_ancestor_of(slot):
+			_spawn_throwable(slot)
+
+
+func get_throwables() -> Array[Throwable]:
+	var alive: Array[Throwable] = []
+	for item: Throwable in _throwables:
+		if is_instance_valid(item):
+			alive.append(item)
+	return alive
 
 
 func get_doors() -> Array[Door]:
@@ -61,6 +83,7 @@ func _spawn_door(slot: Marker3D) -> void:
 	if absf(width - DOOR_PANEL_WIDTH_M) > WIDTH_TOLERANCE_M:
 		Log.error(LOG_CATEGORY, "vão de %.2f m em %s, mas o painel da porta tem %.2f m (sobra folga ou o painel atravessa a parede)" % [width, slot.get_path(), DOOR_PANEL_WIDTH_M])
 	door.name = str(slot.get_meta(&"door_id", slot.name))
+	door.door_id = StringName(door.name)
 	door.initial_state = _parse_state(str(slot.get_meta(&"start_state", "closed")), slot)
 	# O painel cresce em +X local da porta; girar -90° em Y alinha esse eixo ao +Z do marcador.
 	# A dobradiça fica na borda -Z do vão, no nível do piso.
@@ -80,6 +103,18 @@ func _spawn_pickup(slot: Marker3D, seen_ids: Dictionary) -> void:
 	pickup.name = String(persist_id) if not String(persist_id).is_empty() else "Pickup"
 	slot.add_child(pickup)
 	_pickups.append(pickup)
+
+
+func _spawn_throwable(slot: Marker3D) -> void:
+	var size: StringName = StringName(str(slot.get_meta(&"size", DEFAULT_THROWABLE_SIZE)))
+	if not THROWABLE_SCENES.has(size):
+		Log.error(LOG_CATEGORY, "tamanho de arremessável desconhecido '%s' em %s; usando light" % [size, slot.get_path()])
+		size = DEFAULT_THROWABLE_SIZE
+	var item: Throwable = (THROWABLE_SCENES[size] as PackedScene).instantiate() as Throwable
+	item.throwable_id = StringName(str(slot.get_meta(&"throwable_id", slot.name)))
+	item.name = String(item.throwable_id)
+	slot.add_child(item)
+	_throwables.append(item)
 
 
 func _parse_state(value: String, slot: Node) -> Door.State:

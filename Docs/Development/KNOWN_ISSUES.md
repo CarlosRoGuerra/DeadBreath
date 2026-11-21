@@ -51,6 +51,8 @@
 | GAME-004 | **Câmera com pico transitório na entrada de rampa em sprint** (verificação F1-010, ressalva do R1-03): até 3,8 cm por alguns ticks; em regime o erro é zero | Baixa | Aceito; reavaliar com a câmera de efeitos (F2) |
 
 | GAME-005 | **Pickup de água sem efeito até a F5** (F2-010, R2-08): o item entra no inventário, mas não há como usá-lo (comprimido e água ficam com a tela de inventário) | Baixa | Aceito |
+| GAME-007 | **O jogador não empurra objetos com o corpo** (F3-004): o CharacterBody3D só bloqueia o RigidBody3D (spike F3-005). Esbarrar num objeto não o derruba nem faz ruído | Baixa | Aceito na F3. Se o design pedir, o impulso é aplicado pelo código (ENGINE_DECISION §7.2) |
+| GAME-008 | **Clique do mouse durante a captura de tecla vira ligação** (achado de QA da F1-011): o clique esquerdo agora é recusado por conflito com o `throw` (F3-004), mas o direito e os demais botões livres continuam virando ligação, inclusive sobre o botão "Voltar" | Baixa | Aberto; rever com a UI de opções (F7) |
 | GAME-006 | **Áudio do corpo a conferir no playtest** (F2-010, R2-03/R2-05): a camada de chiado de 2,4 s pode sobrepor duas vozes a 40 rpm; as vozes são agendadas pelo relógio de quadro, não pelo de física | Baixa | A F2-011 mediu até 3 vozes simultâneas de chiado a 40 rpm (BUG-013). Decisão depois da escuta do usuário |
 
 ## Testes e ferramentas

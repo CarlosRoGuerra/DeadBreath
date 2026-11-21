@@ -458,6 +458,8 @@ signal thunder_started(duration_s: float)   ## para a ambiência (NoiseAudioRout
   - Legendas: a tosse (não o pigarro), as portas e a fala, sempre que audíveis; passos ou corrida de outra fonte só quando `perceived_db ≥ limiar do jogador + 10 dB`. O mesmo `sound_id` não repete antes de 2 s, e a duração mínima é 1,5 s.
   - Sem `RoomVolume` no nível, o AcousticWorld volta à propagação provisória da F2.
   - `RoomVolume` usa o AABB do `BoxShape3D` filho: as salas ficam alinhadas aos eixos.
+- **Porta que fecha (F3-004, decisão do Director na F3-002):** interagir com a porta OPEN e parada começa o fechamento; segurar fecha devagar. Durante o movimento o estado continua OPEN (o portal segue aberto) e vira CLOSED no fim. O fechamento usa o mesmo bloqueio com histerese da abertura: para no corpo, emite `blocked` e não empurra.
+- **Ponte de susto implementada (F3-004):** o PlayerRoot registra-se com `register_player_listener` e o ouvido é a câmera.
 - **Decisões da F3-003b (Director):**
   - Posição da voz 3D = `PropagationResult.entry_point`. No caminho direto é a fonte; por portal, é o portal por onde o som entra na sala do ouvinte.
   - Reverb = barramento da sala do **ouvinte** (`RoomVolume.reverb_bus`: `reverb_small`, `reverb_large` ou vazio = Master).

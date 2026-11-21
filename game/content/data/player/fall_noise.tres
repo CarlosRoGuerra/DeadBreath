@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="FallNoiseConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://components/player/fall_noise_config.gd" id="1_fall"]
+
+[resource]
+script = ExtResource("1_fall")
+min_fall_speed_mps = 2.5

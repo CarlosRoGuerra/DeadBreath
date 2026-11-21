@@ -14,6 +14,9 @@ const TEST_KEY_NONE: int = 0
 const TEST_KEY_E: int = KEY_E
 const MOUSE_OUT_OF_RANGE: int = 10
 const MOUSE_LEFT: int = 1
+## Botões livres por padrão (o esquerdo é do throw desde a F3-004).
+const MOUSE_RIGHT: int = 2
+const MOUSE_FREE: int = 8
 
 var _saved_autosave: bool = true
 
@@ -71,14 +74,17 @@ func test_remap_tecla_sem_codigo_e_recusada() -> void:
 	assert_true(menu.is_capturing(), "a captura continua aberta depois de uma tecla inválida")
 
 
-## Botão do mouse fora de 1..9 é recusado; botão 1 é aceito.
+## Botão do mouse fora de 1..9 é recusado; botão livre dentro da faixa é aceito.
+## Director, integração da F3-004: o botão 1 virou o padrão do throw; o caso "aceito" usa o botão 8 (livre) e o
+## botão 1 passa a ser recusado por conflito.
 func test_remap_botao_do_mouse_fora_da_faixa_e_recusado() -> void:
 	var menu: ControlsMenu = _menu()
 	menu.begin_capture(ACTION_CROUCH)
 	assert_eq(menu.capture_event(_mouse(MOUSE_OUT_OF_RANGE)), ControlsMenu.STATUS_INVALID, "botão 10 é recusado")
 	assert_false(_has_key(ACTION_CROUCH, TEST_KEY_NONE), "nenhuma ligação inválida foi gravada")
-	assert_eq(menu.capture_event(_mouse(MOUSE_LEFT)), ControlsMenu.STATUS_APPLIED, "botão 1 é aceito")
-	assert_eq(InputBindings.describe(InputBindings.action_entries(ACTION_CROUCH)[0] as Dictionary), "Mouse botão 1", "crouch passou a usar o botão 1")
+	assert_eq(menu.capture_event(_mouse(MOUSE_LEFT)), ControlsMenu.STATUS_CONFLICT, "botão 1 é do throw: conflito")
+	assert_eq(menu.capture_event(_mouse(MOUSE_FREE)), ControlsMenu.STATUS_APPLIED, "botão 8 é aceito")
+	assert_eq(InputBindings.describe(InputBindings.action_entries(ACTION_CROUCH)[0] as Dictionary), "Mouse botão 8", "crouch passou a usar o botão 8")
 
 
 ## Conflito com a pausa (Esc não pode ser capturado; usa F12 como tecla da pausa): crouch não pode usar F12.
@@ -115,12 +121,16 @@ func test_remap_esc_cancela_a_captura() -> void:
 
 ## Achado de uso (observação): durante a captura, um clique do mouse vira a nova ligação, inclusive sobre o botão
 ## "Voltar". O jogador que quer sair só com o mouse troca a tecla sem perceber. Documentado com o comportamento real.
+## Director, integração da F3-004: o clique esquerdo agora é recusado por conflito com o throw, o que atenua o achado
+## para o botão "Voltar". O clique direito (livre) continua virando ligação: o achado segue aberto para ele.
 func test_remap_clique_durante_captura_vira_ligacao_observacao() -> void:
 	var menu: ControlsMenu = _menu()
 	menu.begin_capture(ACTION_CROUCH)
-	var status: String = menu.capture_event(_mouse(MOUSE_LEFT))
-	note("clique durante a captura: status=%s; crouch agora=%s" % [status, InputBindings.describe(InputBindings.action_entries(ACTION_CROUCH)[0] as Dictionary)])
-	assert_eq(status, ControlsMenu.STATUS_APPLIED, "clique esquerdo durante a captura é gravado como ligação (comportamento atual)")
+	var left_status: String = menu.capture_event(_mouse(MOUSE_LEFT))
+	assert_eq(left_status, ControlsMenu.STATUS_CONFLICT, "clique esquerdo durante a captura: conflito com o throw")
+	var status: String = menu.capture_event(_mouse(MOUSE_RIGHT))
+	note("clique direito durante a captura: status=%s; crouch agora=%s" % [status, InputBindings.describe(InputBindings.action_entries(ACTION_CROUCH)[0] as Dictionary)])
+	assert_eq(status, ControlsMenu.STATUS_APPLIED, "clique direito durante a captura é gravado como ligação (comportamento atual)")
 	assert_true(_has_key(ACTION_CROUCH, TEST_KEY_NONE) == false, "nenhuma tecla inválida")
 
 

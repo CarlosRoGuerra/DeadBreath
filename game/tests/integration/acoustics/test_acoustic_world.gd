@@ -113,6 +113,9 @@ func test_propagation_is_deterministic_and_farther_is_quieter() -> void:
 func test_noi_inv_1_only_listed_scripts_emit_or_create_body_noise() -> void:
 	# NOI-INV-1 (na F2): o som do corpo só nasce no BreathEmitter e só chega à IA por AcousticWorld.emit_noise.
 	# Varre o código de game/ (sem testes) à procura de chamadas e criações fora da lista.
+	# Director, integração da F3-004: fontes do mundo (porta, arremessável, passos e queda do jogador) emitem pelo
+	# NoiseEmitter (§6.3), o caminho autorizado. Fora da lista, emit_noise só vale com receptor declarado como
+	# NoiseEmitter; qualquer outro receptor (o AcousticWorld direto, um get_node(...), uma variável sem tipo) viola.
 	var violations: PackedStringArray = PackedStringArray()
 	var scanned: int = 0
 	for path: String in SourceScan.list_gd_files("res://"):
@@ -120,9 +123,29 @@ func test_noi_inv_1_only_listed_scripts_emit_or_create_body_noise() -> void:
 			continue
 		scanned += 1
 		var code: String = SourceScan.code_of(SourceScan.read(path), true)
-		if not SourceScan.find_all(code, "\\.emit_noise\\(").is_empty() and not ALLOWED_EMITTER_FILES.has(path):
-			violations.append("%s chama emit_noise" % path)
+		if not ALLOWED_EMITTER_FILES.has(path):
+			for receiver: String in _emit_noise_receivers(code):
+				if not _declared_as_noise_emitter(code, receiver):
+					violations.append("%s chama emit_noise em '%s' (fora da lista, só em NoiseEmitter)" % [path, receiver])
 		if not SourceScan.find_all(code, "NoiseEvent\\.create\\(").is_empty() and not ALLOWED_EVENT_CREATORS.has(path):
 			violations.append("%s cria NoiseEvent" % path)
 	note("arquivos de game/ varridos (sem testes): %d" % scanned)
 	assert_eq(violations.size(), 0, "violações de NOI-INV-1: " + "; ".join(violations))
+
+
+## Receptor de cada chamada ".emit_noise(" (identificador logo antes do ponto; vazio se for outra expressão).
+func _emit_noise_receivers(code: String) -> PackedStringArray:
+	var out: PackedStringArray = PackedStringArray()
+	var regex: RegEx = RegEx.new()
+	regex.compile("(\\w*)\\s*\\.emit_noise\\(")
+	for found: RegExMatch in regex.search_all(code):
+		out.append(found.get_string(1))
+	return out
+
+
+func _declared_as_noise_emitter(code: String, receiver: String) -> bool:
+	if receiver.is_empty():
+		return false
+	var regex: RegEx = RegEx.new()
+	regex.compile("var\\s+" + receiver + "\\s*:\\s*NoiseEmitter\\b")
+	return regex.search(code) != null

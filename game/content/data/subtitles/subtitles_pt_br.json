@@ -1,0 +1,11 @@
+{
+	"subtitle.cough": "[tosse]",
+	"subtitle.door_slow": "[porta rangendo]",
+	"subtitle.door_normal": "[porta]",
+	"subtitle.door_locked": "[porta trancada]",
+	"subtitle.door_slam": "[porta batendo]",
+	"subtitle.footstep_wood": "[passos próximos]",
+	"subtitle.footstep_carpet": "[passos próximos]",
+	"subtitle.footstep_tile": "[passos próximos]",
+	"subtitle.footstep_concrete": "[passos próximos]"
+}

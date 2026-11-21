@@ -23,9 +23,24 @@ static func capture_defaults() -> void:
 		return
 	_captured = true
 	_defaults = {}
+	ensure_throw_action()
 	for action: StringName in InputMap.get_actions():
 		if not String(action).begins_with(UI_PREFIX):
 			_defaults[String(action)] = _serialize_action(action)
+
+
+## Ação "throw" (F3-004: arremessar objeto), com padrão botão esquerdo do mouse. Fica fora do project.godot de
+## propósito: o arquivo de projeto não é deste escopo; a ação é criada aqui se ainda não existe. Idempotente.
+const THROW_ACTION: StringName = &"throw"
+const THROW_DEFAULT_BUTTON: int = MOUSE_BUTTON_LEFT
+
+static func ensure_throw_action() -> void:
+	if InputMap.has_action(THROW_ACTION):
+		return
+	InputMap.add_action(THROW_ACTION, 0.2)
+	var button: InputEventMouseButton = InputEventMouseButton.new()
+	button.button_index = THROW_DEFAULT_BUTTON
+	InputMap.action_add_event(THROW_ACTION, button)
 
 
 ## Ações que o jogador pode remapear (sem ui_*), em ordem alfabética.

@@ -61,7 +61,7 @@
 | Campo | Valor |
 |---|---|
 | Severidade | MÉDIO (classificação do revisor, R2-01 da F2-010). O caminho do gasp existe e está testado no componente (`startle_gasp` -> `emit_gasp`, 42 dB), mas nenhum fluxo de produção gera susto. A ponte de susto do AcousticWorld é da F3. Não reprova a F2 porque o caminho de produção é da F3 |
-| Estado | ABERTO, rastreado em F3-002 (R2-01 da revisão F2-010). A aceitação "gasp a partir do susto" do card F2-006b fica verificada só no componente |
+| Estado | **CORRIGIDO na F3-004**, aguardando a validação F3-011: o PlayerRoot registra a ponte de susto no AcousticWorld, e um som de outra fonte a partir de 55 dB percebidos chama `add_startle` (teste `tests/integration/player/test_susto_por_som.gd`: 75 dB sobe o estresse e faz o gasp; o próprio som e 40 dB não assustam) |
 | Componente | `game/components/player/physiology_component.gd` (`add_startle`); sem chamador fora de testes (grep em `game/`) |
 | Evidência | `grep add_startle(` em `game/` (sem chamador de produção); `Docs/Development/TASK_BOARD.md` (F3-002) |
 

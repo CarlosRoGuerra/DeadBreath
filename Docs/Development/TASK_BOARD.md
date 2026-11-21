@@ -239,7 +239,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 - **F3-003b (Audio Eng., onda B, EXTRA HIGH, REVIEW; integrada pelo Director na `sandbox_playable.tscn`, com trovão ligado):** `NoiseAudioRouter` (L3, §14): toca os eventos que não são do corpo do jogador em 3D (só panning), com `volume_db` derivado de `perceived_db` (NOI-04: ≤ 0,5 dB), atenuação nativa desligada (NOI-INV-2) e reverb por sala (barramento do `RoomVolume`). Ambiência de chuva e trovão guiada pelo estado de clima do AcousticWorld.
 
 ### F3-004 · Ruídos do jogador e do mundo; objetos de distração
-- **Responsável:** Gameplay Eng. (+ Audio) · **Esforço:** HIGH · **Depende de:** F3-002 · **Status:** BACKLOG
+- **Responsável:** Gameplay Eng. (+ Audio) · **Esforço:** HIGH · **Depende de:** F3-002 · **Status:** REVIEW. Pipeline verde (padrão 446/446 em 8,9 s, propriedade 117/117). Porta que fecha (fechada pela interação: −15 dB do corredor ao hall), passos e corrida pelo contrato da F3-003b, queda (acima de 2,5 m/s), ruídos de porta, 5 arremessáveis, ponte de susto (BUG-014) e STL-01 no jogo. Três conflitos resolvidos pelo Director: varredura do NOI-INV-1 precisa (só receptor NoiseEmitter), `throw` no botão esquerdo (teste de remapeamento usa botão livre) e porta aberta que fecha ao toque (teste de QA atualizado)
 - **Descrição:** **porta que fecha** (decisão do Director na F3-002: hoje a Door só abre; acrescentar OPEN → CLOSED por interação, segurar = fechar devagar 30 dB, tocar = normal 50 dB, e o teste "porta fechando reduz o percebido"); passos e corrida (sinal `footstep` → evento FOOTSTEP/RUNNING com modificador de superfície, DATA §2.1), queda (`landed` → FALL), portas (`opened`, `blocked`, `locked_feedback`, `interaction_failed` → DOOR), objetos arremessáveis (RigidBody3D; pegar, arremessar, impacto → OBJECT_IMPACT 50–80 dB por velocidade). Ponte de susto no PlayerRoot (§6.5).
 - **Testes:** STL-01 no jogo (rastejar < agachado < andar < correr < tosse < queda), integração de cada fonte; reavaliação da física (abaixo).
 
@@ -249,7 +249,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §6.1–§6.5 e §14 (Nois
 - **Testes:** exposição no escuro ≈ 0, sob luz direta alta, atrás de parede ≈ 0; resultados do spike.
 
 ### F3-006 · Legendas (ACC-04)
-- **Responsável:** Gameplay Eng. + Audio · **Esforço:** MEDIUM · **Depende de:** F3-002 · **Status:** BACKLOG
+- **Responsável:** Gameplay Eng. + Audio · **Esforço:** MEDIUM · **Depende de:** F3-002 · **Status:** REVIEW. UI `Subtitles` na sandbox jogável; tabela pt-BR própria (`content/data/subtitles/subtitles_pt_br.json`), sem infraestrutura de tradução por enquanto
 - **Descrição:** o AcousticWorld emite `EventBus.subtitle_requested(text_key, duration)` para sons relevantes ouvidos pelo jogador (tosse, porta, passos próximos, falas); UI de legendas com `subtitles_enabled` e `subtitles_size`.
 - **Testes:** ACC-04.
 

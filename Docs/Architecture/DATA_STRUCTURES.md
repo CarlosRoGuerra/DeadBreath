@@ -261,6 +261,14 @@ var timestamp: float
 
 Superfícies: madeira solta +6, tapete −8, azulejo +3, concreto 0. Jogador escondido: −`Hideable.muffle_db`.
 
+**Acréscimos da F3-004 (decisões do Director):**
+- Porta trancada sacudida: DOOR 45 dB (`door_locked`).
+- Painel batendo num corpo: DOOR 40 dB (`door_normal`).
+- Fechar a porta usa os mesmos níveis da abertura: segurar 30, tocar 50. Porta batida (75) fica para os inimigos (F4).
+- Queda: FALL só com velocidade de aterrissagem ≥ 2,5 m/s (`content/data/player/fall_noise.tres`). Escada e degrau não geram queda.
+- Objeto arremessado: OBJECT_IMPACT de 50 a 80 dB, metade pela velocidade (0,8 a 8 m/s) e metade pelo tamanho (leve, médio, pesado). Silêncio abaixo de 0,8 m/s; no máximo 1 evento a cada 0,25 s por objeto.
+- No nível, o piso `wood` é madeira solta (+6).
+
 ### 2.2 AcousticConfig
 
 | Parâmetro | Valor |

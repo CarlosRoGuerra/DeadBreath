@@ -90,9 +90,10 @@ func test_portas_nascem_com_o_estado_do_slot_e_a_porta_real_muda_15_db() -> void
 	assert_almost_eq(opened.perceived_db - closed.perceived_db, DELTA_DB, TOL, "fechada -> aberta: 18 - 3 = 15 dB")
 	assert_eq(closed.path_portals, [&"portal_corredor_hall"] as Array[StringName], "fechada: a rota passa pela porta")
 	assert_eq(opened.path_portals, [&"portal_corredor_hall"] as Array[StringName], "aberta: a rota passa pela porta")
-	# A Door ainda só abre (fechar entra na F3-004): uma segunda interação não muda o estado.
+	# F3-004: a porta fecha pela interação, mas só com ela aberta e parada. Durante o movimento de abertura, uma
+	# segunda interação não inverte: o portal segue aberto (o fechamento completo é testado na F3-004).
 	door.interact(InteractionContext.new())
-	assert_true(graph.is_portal_open(&"portal_corredor_hall"), "segunda interação não fecha: o portal segue aberto")
+	assert_true(graph.is_portal_open(&"portal_corredor_hall"), "segunda interação durante o movimento não fecha: o portal segue aberto")
 
 
 func test_trovao_eleva_o_limiar_em_cada_sala() -> void:

@@ -123,6 +123,23 @@ func test_cone_do_spot_dentro_e_fora() -> void:
 	assert_almost_eq(outside.get_exposure(), 0.0, TOL, "51° do eixo, fora do cone de 30°: 0")
 
 
+func test_reentrar_na_arvore_reconhece_luz_criada_fora() -> void:
+	var world: Node3D = add_isolated_world()
+	var holder: Node3D = Node3D.new()
+	holder.position = Vector3(0.0, 1.0, 0.0)
+	world.add_child(holder)
+	var probe: LightExposureProbe = LightExposureProbe.new()
+	probe.update_hz = 60.0
+	holder.add_child(probe)
+	await wait_physics_frames(SETTLE_FRAMES)
+	assert_almost_eq(probe.get_exposure(), 0.0, TOL, "sem luz no início")
+	holder.remove_child(probe)
+	_omni(world, Vector3(0.0, 2.5, 0.0), 1.6, 8.0)
+	holder.add_child(probe)
+	await wait_physics_frames(SETTLE_FRAMES)
+	assert_true(probe.get_exposure() > 0.9, "ao voltar à árvore, a luz criada fora conta (%.3f)" % probe.get_exposure())
+
+
 func test_piso_ambiente_sem_luz() -> void:
 	var world: Node3D = add_isolated_world()
 	var probe: LightExposureProbe = _probe(world, Vector3(0.0, 1.0, 0.0))
