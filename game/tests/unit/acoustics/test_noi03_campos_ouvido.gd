@@ -29,7 +29,9 @@ func test_heard_noise_tem_exatamente_os_campos_permitidos() -> void:
 	var fields: PackedStringArray = _script_fields(HeardNoise.new())
 	var expected: PackedStringArray = _sorted(PackedStringArray([
 		"category:int", "perceived_db:float", "estimated_position:Vector3", "confidence:float", "timestamp:float",
+		"effective_threshold_db:float",
 	]))
+	# D4-08 (F4): o limiar efetivo do ouvinte entra no HeardNoise (dado do ouvinte, não da fonte).
 	assert_eq(fields, expected, "HeardNoise: campos e tipos de DATA §2")
 	for name: String in FORBIDDEN_SOURCE_FIELDS:
 		for field: String in fields:
@@ -50,5 +52,5 @@ func test_player_heard_noise_tem_exatamente_os_campos_permitidos() -> void:
 
 func test_campos_sao_os_unicos_com_variavel_de_script() -> void:
 	# Garante que a varredura por reflexão não deixou de fora nenhuma variável de script.
-	assert_eq(_script_fields(HeardNoise.new()).size(), 5, "HeardNoise: 5 campos")
+	assert_eq(_script_fields(HeardNoise.new()).size(), 6, "HeardNoise: 6 campos (D4-08 acrescentou effective_threshold_db)")
 	assert_eq(_script_fields(PlayerHeardNoise.new()).size(), 5, "PlayerHeardNoise: 5 campos")

@@ -648,6 +648,8 @@ func messages_for(enemy_id: StringName, now: float) -> Array[SquadMessage]
 
 Transições e limiares numéricos: DATA_STRUCTURES §3.
 
+**Decisão D4-08 (Director, onda A da F4):** `HeardNoise.effective_threshold_db` (o limiar do ouvinte entra no som entregue; a suspeita por audição de DATA §3.3 usa esse campo) e timeout de INVESTIGATE (pista inalcançável ou 15 s sem chegar → SEARCH).
+
 **Decisões de abertura da F4 (Director):** D4-07, `BrainWorldQuery.self_position()` (o cérebro precisa saber quando chegou a um destino; é a posição do próprio inimigo, não do jogador); `VisualPercept` criado pelo Director em `sim/ai/visual_percept.gd` para os dois agentes da onda A; D4-02, um inimigo na F4 e o `SquadCoordinator` na F6 (`PerceptBatch.squad` vazio); D4-03, o inimigo abre a porta fechada e destrancada na rota (`Door.interact` com o inimigo como ator) e porta trancada nunca é rota; D4-04, captura provisória (tela e reinício da sandbox) até a F5.
 
 **SquadCoordinator:** só aceita mensagens criadas a partir de percepts do próprio remetente. A entrega respeita latência (`deliver_at`). Toda mensagem é acompanhada de fala (VOICE) audível ao jogador.

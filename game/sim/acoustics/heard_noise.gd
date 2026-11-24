@@ -12,6 +12,9 @@ var estimated_position: Vector3 = Vector3.ZERO
 ## 0..1: clamp((perceived_db − limiar) / 20; 0,1; 1) (DATA §2).
 var confidence: float = 0.0
 var timestamp: float = 0.0
+## Limiar efetivo do OUVINTE neste som (DATA §2.3; decisão D4-08 da F4): a suspeita por audição usa
+## perceived_db − effective_threshold_db (DATA §3.3). É dado de quem ouve, não da fonte (NOI-INV-4 continua).
+var effective_threshold_db: float = 0.0
 
 ## Revisão F3-010, R3-01: a estimativa de D-07 (DATA §2) fica pronta em L1 para o HearingSensor da F4.
 const CONFIDENCE_SPAN_DB: float = 20.0
@@ -30,6 +33,7 @@ static func from_propagation(event: NoiseEvent, result: PropagationResult, thres
 	var lost_db: float = maxf(event.intensity_db - result.perceived_db, 0.0)
 	heard.estimated_position = result.entry_point + disk_offset(config.position_error_per_db_lost * lost_db, rng)
 	heard.confidence = confidence_for(result.perceived_db, threshold_db)
+	heard.effective_threshold_db = threshold_db
 	return heard
 
 

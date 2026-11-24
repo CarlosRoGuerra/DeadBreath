@@ -35,6 +35,7 @@ func test_campos_copiados_e_posicao_parte_do_entry_point() -> void:
 	assert_almost_eq(heard.perceived_db, 40.0, TOL, "nível percebido")
 	assert_almost_eq(heard.timestamp, 12.5, TOL, "timestamp do evento")
 	assert_almost_eq(heard.confidence, 0.5, TOL, "confiança (40 − 30)/20")
+	assert_almost_eq(heard.effective_threshold_db, 30.0, TOL, "limiar efetivo do ouvinte (D4-08)")
 	var radius: float = CONFIG.position_error_per_db_lost * 20.0
 	assert_true(heard.estimated_position.distance_to(ENTRY) <= radius + TOL, "dentro do disco em volta do entry_point")
 	assert_true(heard.estimated_position.distance_to(SOURCE) > 5.0, "longe da posição real da fonte")

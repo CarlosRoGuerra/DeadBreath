@@ -228,6 +228,7 @@ var perceived_db: float
 var estimated_position: Vector3
 var confidence: float          ## 0..1
 var timestamp: float
+var effective_threshold_db: float  ## limiar efetivo do OUVINTE (§2.3) neste som; decisão D4-08 (F4), para a suspeita de §3.3
 ```
 
 ```gdscript
@@ -456,6 +457,8 @@ confirm   += visibility · dt   se visibility ≥ min_visibility_for_confirm;  s
 | PATROL, SUSPICIOUS, SEARCH, RETURN | INVESTIGATE | novo ruído leva `suspicion ≥ 0.5` |
 
 Transições em cascata no mesmo tick são permitidas (PATROL → SUSPICIOUS → INVESTIGATE).
+
+**Decisão D4-08 (F4):** o limiar efetivo usado na suspeita por audição vem do próprio `HeardNoise.effective_threshold_db`, preenchido pelo AcousticWorld na entrega. Se a pista de INVESTIGATE não for alcançável (`is_reachable` falso) ou se passarem 15 s sem chegar a ela, o estado passa a SEARCH a partir da posição atual (evita travar com navegação impossível).
 
 **Falas do Observer (D4-06, F4):** `EnemyIntent.voice_line` é o `sound_id` da fala, posto uma vez na transição (não a cada tick). O controlador emite VOICE pelo NoiseEmitter filho com a intensidade de §2.1.
 

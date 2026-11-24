@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="AIProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://sim/ai/ai_profile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+sight_range_m = 16.0
+fov_deg = 110.0
+hearing_threshold_db = 15.0
+masking_margin_db = -3.0
+vision_suspicion_gain_per_s = 1.6
+hearing_suspicion_per_db = 0.04
+hearing_suspicion_cap_per_event = 0.6
+suspicion_decay_per_s = 0.05
+suspicious_threshold = 0.25
+investigate_threshold = 0.5
+visual_confirm_time_s = 0.6
+min_visibility_for_confirm = 0.4
+patrol_speed = 1.2
+investigate_speed = 1.8
+chase_speed = 4.2
+lost_contact_pursuit_s = 6.0
+search_duration_s = 60.0
+search_duration_multiplier = 1.0
+inspect_hideable_chance = 0.6
+memory_confidence_decay_per_s = 0.02
+squad_latency_s = 1.5
+squad_obedience = 1.0

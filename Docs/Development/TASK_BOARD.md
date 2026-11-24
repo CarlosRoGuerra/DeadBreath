@@ -299,7 +299,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 - **Testes:** NOI-01 (só o AcousticWorld chama `receive`); o sensor só recebe o que é audível para ele; posição estimada e confiança chegam conforme D-07; NOI-03 continua.
 
 ### F4-003 · EnemyBrain (FSM) + PerceptionMemory (L1)
-- **Responsável:** AI Engineer (cérebro) · **Esforço:** EXTRA HIGH · **Depende de:** contratos §8.2 e DATA §3 · **Status:** BACKLOG
+- **Responsável:** AI Engineer (cérebro) · **Esforço:** EXTRA HIGH · **Depende de:** contratos §8.2 e DATA §3 · **Status:** REVIEW. Tipos de DATA §3, `AIProfile` com os 3 `.tres`, `PerceptionMemory` e `EnemyBrain` com a tabela de transições completa (inclui audição pela D4-08 e o timeout de 15 s de INVESTIGATE). AI-02..06 em L1; AI-06 com 50 pares, visão e ruídos. Decisões no relatório: raio de chegada 1 m, critério do `best_lead`, velocidades de SEARCH/RETURN/LOST_CONTACT
 - **Descrição:** `sim/ai/`: tipos de DATA §3 (VisualPercept, PerceptBatch, PerceptionRecord, EnemyIntent, BrainWorldQuery abstrata, HideableInfo, EnemyInitialState, SquadMessage só como tipo), `AIProfile` (Resource) com os 3 perfis de DATA §3.1 em `.tres`, `PerceptionMemory`, `EnemyBrain` com a tabela de transições e as fórmulas de DATA §3.3. Determinístico pelo RNG injetado.
 - **Testes:** cada transição da tabela; cascata no mesmo tick; conferência AI-03 em L1 (CHASE em 0,8 s); AI-06 em L1 (percepts iguais → intent idêntico); AI-08 em L1 (inspeção como percept); ARC-01 e ARC-03.
 
