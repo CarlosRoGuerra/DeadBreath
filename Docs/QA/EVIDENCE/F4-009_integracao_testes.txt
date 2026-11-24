@@ -1,0 +1,37 @@
+# F4-009 — integração do jogador, painel F2-008 e F4-005 (captura), evidência da onda B
+
+## Captura (runner padrão)
+PASS  integration/ui/test_captura_tela.gd::test_captura_mostra_a_tela_e_trava_a_entrada  2 ms  (asserts: 7)
+PASS  integration/ui/test_captura_tela.gd::test_captura_repetida_durante_o_fade_nao_reinicia_duas_vezes  2 ms  (asserts: 2)
+PASS  integration/ui/test_captura_tela.gd::test_reinicio_e_chamado_uma_unica_vez_depois_de_2_5_s  2 ms  (asserts: 4)
+PASS  integration/ui/test_captura_tela.gd::test_tela_funciona_em_pausa  3 ms  (asserts: 2)
+
+## Integração do jogador (runner padrão)
+PASS  integration/player/test_threat_monitor_jogador.gd::test_exposicao_de_luz_vem_da_sonda  6 ms  (asserts: 4)
+PASS  integration/player/test_threat_monitor_jogador.gd::test_fator_de_postura_acompanha_agachar_e_rastejar  4 ms  (asserts: 5)
+PASS  integration/player/test_threat_monitor_jogador.gd::test_fonte_padrao_e_a_do_monitor_por_composicao  2 ms  (asserts: 5)
+PASS  integration/player/test_threat_monitor_jogador.gd::test_grito_de_perseguicao_chega_ao_monitor_e_sai_por_threat_changed  3 ms  (asserts: 3)
+PASS  integration/player/test_threat_monitor_jogador.gd::test_inimigo_visto_em_chase_liga_a_perseguicao  3 ms  (asserts: 3)
+PASS  integration/player/test_threat_monitor_jogador.gd::test_perceivable_tem_tres_pontos_cabeca_tronco_e_pes  2 ms  (asserts: 4)
+
+## Painel F2-008 com o monitor (runner padrão)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_exportacao_recarrega_os_mesmos_valores_e_nao_toca_em_content_data  28 ms  (asserts: 8)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_f4_solta_e_recaptura_o_mouse  12 ms  (asserts: 4)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_parametro_em_memoria_muda_o_dreno_do_sprint_e_volta_com_restaurar  24 ms  (asserts: 6)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_producao_desliga_o_painel_e_recusa_tudo  5 ms  (asserts: 9)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_restaurar_e_fechar_devolvem_o_monitor  10 ms  (asserts: 8)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_slider_de_ameaca_altera_o_estresse_efetivo  24 ms  (asserts: 9)
+PASS  integration/balance/test_f2008_painel_no_jogador.gd::test_telemetria_mostra_estado_e_ameaca  12 ms  (asserts: 8)
+
+## Pipeline completo (resumo real)
+=== Resumo do pipeline ===
+  importacao   codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=   2969  OK
+  arc04        codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=   3134  OK
+  runner       codigo=0    SCRIPT_ERROR=0 ERROR_engine=15 tempo_ms=   9716  OK
+  runner-property codigo=0    SCRIPT_ERROR=0 ERROR_engine=1 tempo_ms= 177504  OK
+  runner-meta  codigo=0    SCRIPT_ERROR=0 ERROR_engine=0 tempo_ms=  14598  OK
+Tempo total do pipeline: 209.17 s
+RESULTADO DO PIPELINE: APROVADO (codigo de saida 0)
+
+## Falhas no runner padrão
+nenhuma

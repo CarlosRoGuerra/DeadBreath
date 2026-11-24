@@ -6,7 +6,7 @@ extends RefCounted
 ## DESVIO DO CONTRATO (relatório F2-004, para ratificação do Software Architect): o contrato §5 diz
 ## `extends Node`. Com base Node, esta classe seria um componente do jogador, e StubThreatSource, que a estende,
 ## referenciaria outro componente, o que ARC-06 reprova. Por isso a base é RefCounted (dado + método, sem cena).
-## A F4 (PlayerThreatMonitor é Node) precisará de decisão de arquitetura sobre a base.
+## F4 (D4-01): o PlayerThreatMonitor é Node e expõe a fonte por composição, com MonitoredThreatSource (RefCounted).
 
 
 ## Ameaça atual. Chamado pelo PlayerRoot uma vez por tick.

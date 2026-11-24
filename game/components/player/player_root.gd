@@ -9,8 +9,11 @@ extends CharacterBody3D
 ## Uso da bombinha (F2-005, tecla use_item / Q): try_use_inhaler() consome uma dose do inventário e aplica o efeito na
 ## fisiologia. Os sinais item_use_failed e inhaler_used são para a apresentação (viewmodel, UI e som).
 ## Sons do próprio jogador (F3-004): passos e corrida (motor.footstep → FootNoise), queda (landed, acima de
-## fall_noise.min_fall_speed_mps) e o susto: o PlayerRoot registra-se no AcousticWorld e, para 55 dB ou mais de outra
-## fonte, chama physiology.add_startle (COMPONENT_CONTRACTS §6.5). Arremessáveis: a mão (PlayerHold), tecla throw.
+## fall_noise.min_fall_speed_mps). Arremessáveis: a mão (PlayerHold), tecla throw.
+## Ameaça e susto (F4-009, D4-01): o PlayerThreatMonitor é a fonte da ameaça (get_threat_source) e recebe os sons do
+## AcousticWorld (register_player_listener); o susto dele (startled) vai a physiology.add_startle. O monitor é atualizado
+## no tick, antes das entradas da fisiologia. Sonda de luz e PerceivableTarget (F4-009): a postura vem do motor.
+## Captura (F4-005, D4-04): ao EventBus.player_captured, a entrada do jogador é travada (set_input_locked).
 
 const PHYSICS_PRIORITY: int = -90
 const NOISE_LEVELS: NoiseLevels = preload("res://content/data/acoustics/noise_levels.tres")
@@ -19,6 +22,8 @@ const HEADLESS_DISPLAY_NAME: String = "headless"
 ## Grupo usado pelo menu de pausa para devolver o controle ao jogador (captura do mouse).
 const PLAYER_GROUP: StringName = &"player"
 const INHALER_ITEM: StringName = &"inhaler"
+## Altura do marcador do tronco em relação à altura dos olhos (o tronco fica a meia altura da cabeça).
+const TORSO_HEIGHT_RATIO: float = 0.5
 
 ## Uso da bombinha falhou: &"no_doses" (sem cargas) ou &"cooldown" (em cooldown; nada é consumido).
 signal item_use_failed(reason: StringName)
@@ -39,11 +44,20 @@ signal inhaler_used()
 @onready var _camera: Camera3D = $Head/Camera3D
 @onready var _foot_noise: NoiseEmitter = $FootNoise
 @onready var _hold: PlayerHold = $PlayerHold
+@onready var _threat_monitor: PlayerThreatMonitor = $PlayerThreatMonitor
+@onready var _light_probe: LightExposureProbe = $LightExposureProbe
+@onready var _perceivable: PerceivableTarget = $PerceivableTarget
+@onready var _sample_head: Marker3D = $PerceivableTarget/SampleHead
+@onready var _sample_torso: Marker3D = $PerceivableTarget/SampleTorso
+@onready var _sample_feet: Marker3D = $PerceivableTarget/SampleFeet
 
 var _bound_world: AcousticWorld = null
 var _context: InteractionContext = null
 var _mouse_capture_requested: bool = false
-## Fonte da ameaça percebida (F2: stub; F4: PlayerThreatMonitor). ThreatSource é RefCounted (ver threat_source.gd).
+## Entrada do jogador travada (captura, F4-005). O motor recebe a mesma trava.
+var _input_locked: bool = false
+## Fonte da ameaça percebida. O _ready troca este valor pela fonte do PlayerThreatMonitor (F4-009, D4-01).
+## ThreatSource é RefCounted (threat_source.gd).
 var _threat_source: ThreatSource = StubThreatSource.new()
 var _physiology_inputs: PhysiologyInputs = PhysiologyInputs.new()
 
@@ -67,6 +81,9 @@ func _ready() -> void:
 	Settings.changed.connect(_on_settings_changed)
 	_motor.footstep.connect(_on_footstep)
 	_hold.setup(self, _camera)
+	_wire_threat_monitor()
+	_wire_perceivable()
+	EventBus.player_captured.connect(_on_player_captured)
 	# O AcousticWorld do nível pode entrar na árvore depois do jogador: o registro vai no fim do quadro.
 	_bind_acoustic_world.call_deferred()
 	set_mouse_captured(true)
@@ -75,6 +92,8 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	if Settings.changed.is_connected(_on_settings_changed):
 		Settings.changed.disconnect(_on_settings_changed)
+	if EventBus.player_captured.is_connected(_on_player_captured):
+		EventBus.player_captured.disconnect(_on_player_captured)
 	if _bound_world != null and is_instance_valid(_bound_world):
 		_bound_world.unregister_player_listener()
 	_bound_world = null
@@ -82,6 +101,9 @@ func _exit_tree() -> void:
 
 func _physics_process(delta: float) -> void:
 	_motor.step(delta)
+	# Ameaça percebida (F4-006b): o monitor atualiza a amostra antes de as entradas deste tick serem montadas.
+	_threat_monitor.step(delta)
+	_update_perceivable()
 	var inputs: PhysiologyInputs = _build_physiology_inputs()
 	_physiology.step(delta, inputs)
 	# Limites do acoplamento deste tick: o motor os usa a partir do próximo tick (COMPONENT_CONTRACTS §1).
@@ -96,6 +118,8 @@ func _physics_process(delta: float) -> void:
 
 ## Tecla use_item (Q): tenta usar a bombinha. Tecla throw: arremessa o objeto da mão, se houver um.
 func _unhandled_input(event: InputEvent) -> void:
+	if _input_locked:
+		return
 	if event.is_action_pressed(&"use_item"):
 		try_use_inhaler()
 		get_viewport().set_input_as_handled()
@@ -162,9 +186,59 @@ func get_threat_source() -> ThreatSource:
 	return _threat_source
 
 
-## Troca a fonte da ameaça (F4: PlayerThreatMonitor). null volta ao StubThreatSource com ameaça zero.
+## Troca a fonte da ameaça. null volta ao StubThreatSource com ameaça zero (testes e depuração).
 func set_threat_source(source: ThreatSource) -> void:
 	_threat_source = source if source != null else StubThreatSource.new()
+
+
+func get_threat_monitor() -> PlayerThreatMonitor:
+	return _threat_monitor
+
+
+func get_perceivable_target() -> PerceivableTarget:
+	return _perceivable
+
+
+func get_light_probe() -> LightExposureProbe:
+	return _light_probe
+
+
+## Trava a entrada do jogador (captura, F4-005): o motor zera a entrada e os atalhos do PlayerRoot são ignorados.
+func set_input_locked(locked: bool) -> void:
+	_input_locked = locked
+	_motor.set_input_locked(locked)
+
+
+func is_input_locked() -> bool:
+	return _input_locked
+
+
+## Captura do Observer (EventBus.player_captured): trava a entrada. A tela de captura cuida do fade e do reinício.
+func _on_player_captured(_enemy_id: StringName) -> void:
+	set_input_locked(true)
+
+
+## Liga o monitor à fisiologia e à fonte da ameaça (D4-01). O susto do monitor vira add_startle (COMPONENT §6.5).
+func _wire_threat_monitor() -> void:
+	_threat_monitor.setup(_camera)
+	set_threat_source(_threat_monitor.get_threat_source())
+	_threat_monitor.startled.connect(_physiology.add_startle)
+
+
+## Liga a sonda de luz e os marcadores de amostra ao PerceivableTarget (PLR-INV-1: só o mediador faz a ligação).
+func _wire_perceivable() -> void:
+	_perceivable.set_light_probe(_light_probe)
+	_perceivable.set_concealment(0.0)
+	var samples: Array[Marker3D] = [_sample_head, _sample_torso, _sample_feet]
+	_perceivable.sample_points = samples
+
+
+## Atualiza a postura e a altura dos marcadores de amostra (cabeça, tronco e pés) com a altura dos olhos do tick.
+func _update_perceivable() -> void:
+	_perceivable.set_stance(_motor.get_stance())
+	var eye_height: float = _head.position.y
+	_sample_head.position.y = eye_height
+	_sample_torso.position.y = eye_height * TORSO_HEIGHT_RATIO
 
 
 func get_camera() -> Camera3D:
@@ -246,6 +320,7 @@ func _on_footstep(surface: StringName, gait: Enums.Gait, stance: Enums.Stance) -
 
 
 ## Registro no AcousticWorld do nível (grupo acoustic_world): o ouvido é a câmera. Sem mundo, aviso e sem susto.
+## O ouvinte é o PlayerThreatMonitor, que também faz o susto por som (F4-009, substitui a ponte da F3).
 func _bind_acoustic_world() -> void:
 	if not is_inside_tree() or _bound_world != null:
 		return
@@ -253,15 +328,8 @@ func _bind_acoustic_world() -> void:
 	if world == null:
 		Log.warn(&"player", "PlayerRoot sem AcousticWorld no nível; sem susto por som")
 		return
-	world.register_player_listener(_on_heard_noise, _camera)
+	world.register_player_listener(_threat_monitor.receive_heard, _camera)
 	_bound_world = world
-
-
-## Ponte de susto (BUG-014, COMPONENT_CONTRACTS §6.5): som de outra fonte, 55 dB percebidos ou mais.
-func _on_heard_noise(heard: PlayerHeardNoise) -> void:
-	if heard.perceived_db < PlayerNoiseMap.STARTLE_THRESHOLD_DB:
-		return
-	_physiology.add_startle(PlayerNoiseMap.startle_amount(heard.perceived_db))
 
 
 ## Mão do jogador (arremessáveis, F3-004).

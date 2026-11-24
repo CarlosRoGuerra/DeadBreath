@@ -32,7 +32,7 @@ func test_fonte_padrao_e_zero_e_stub_forcado_sobe_o_estresse() -> void:
 	PlayerWorld.add_box(root, Vector3(0.0, -0.5, -5.0), Vector3(6.0, 1.0, 16.0), &"wood")
 	var player: PlayerRoot = PlayerWorld.spawn_player(root, Vector3.ZERO)
 	await wait_physics_frames(SETTLE_FRAMES)
-	assert_true(player.get_threat_source() is StubThreatSource, "a fonte padrão da F2 é o StubThreatSource")
+	assert_true(player.get_threat_source() is MonitoredThreatSource, "a fonte padrão da F4 é a do PlayerThreatMonitor (D4-01)")
 	assert_almost_eq(player.get_physiology().get_snapshot().stress, 0.0, TOLERANCE, "sem ameaça, sem estresse")
 	var stub: StubThreatSource = StubThreatSource.new()
 	stub.forced = _seen_threat(1.0)

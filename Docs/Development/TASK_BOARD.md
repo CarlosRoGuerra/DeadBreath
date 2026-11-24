@@ -315,7 +315,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 
 ### F4-006 · PlayerThreatMonitor + AdaptiveMusic básica + falas
 - **F4-006a (Audio Engineer, onda A, HIGH, REVIEW: 4 falas × 3 variações e 3 camadas de música procedurais, `AdaptiveMusic` com crossfade de potência constante, barramento `music`; legendas das falas no formato "[Falante] texto", regra do teste ajustada pelo Director):** música adaptativa básica (camadas procedurais calma, tensão e perseguição, com crossfade guiado por `ThreatSample`) e biblioteca de falas provisórias do Observer (VOICE: murmúrio, "quem está aí?", grito de perseguição) com legendas.
-- **F4-006b (Physiological Eng., onda B, HIGH):** `PlayerThreatMonitor` (D4-01): ameaça percebida pelo jogador, por visão (inimigo na tela com linha de visão, distância) e por audição (`PlayerHeardNoise`; `in_chase` pelo grito de perseguição), em janelas de 3 s (DATA §5 e §6.1). Alimenta o estresse e a música.
+- **F4-006b (Gameplay Engineer no papel de Physiological Eng., onda B, HIGH, REVIEW: monitor como Node com `MonitoredThreatSource` (D4-01), visão pela câmera com linha de visão, audição pela janela de 3 s, `in_chase` por grito, corrida ou inimigo visto em CHASE (`get_state`), susto migrado para o monitor; painel de balanceamento troca a fonte enquanto o slider de ameaça está em uso):** `PlayerThreatMonitor` (D4-01): ameaça percebida pelo jogador, por visão (inimigo na tela com linha de visão, distância) e por audição (`PlayerHeardNoise`; `in_chase` pelo grito de perseguição), em janelas de 3 s (DATA §5 e §6.1). Alimenta o estresse e a música.
 - **Testes:** PHY-12 (visível a 3 m → +10 de estresse em 1 s; só audível ≥ 30 dB → sobe; fora de percepção → não sobe); TMN-INV-1 (ARC-01).
 
 ### F4-007 · Medição de desempenho
@@ -328,7 +328,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 - **Testes:** pontos da rota alcançáveis pela navmesh; caminho entre as salas pelas portas; nenhuma rota pela porta trancada.
 
 ### F4-009 · Integração do jogador
-- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F4-001, F4-006b · **Status:** BACKLOG
+- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F4-001, F4-006b · **Status:** REVIEW. `LightExposureProbe` e `PerceivableTarget` (cabeça, tronco e pés acompanhando a altura dos olhos) no `player.tscn`; monitor no lugar do stub e da ponte de susto; trava de entrada na captura
 - **Descrição:** `LightExposureProbe` e `PerceivableTarget` no `player.tscn` (fator de postura pelo motor), `PlayerThreatMonitor` no lugar do `StubThreatSource` (D4-01) e da ponte de susto.
 
 ### F4-010 · Revisão técnica — Technical Reviewer · HIGH · BACKLOG

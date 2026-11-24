@@ -76,9 +76,10 @@ func test_slider_de_ameaca_altera_o_estresse_efetivo() -> void:
 	var player: PlayerRoot = _world(root)
 	var panel: BalancePanel = _panel_for(root, player)
 	await wait_physics_frames(SETTLE_FRAMES)
-	var stub: StubThreatSource = player.get_threat_source() as StubThreatSource
-	assert_not_null(stub, "a fonte padrão é o StubThreatSource")
+	assert_true(player.get_threat_source() is MonitoredThreatSource, "a fonte padrão é a do PlayerThreatMonitor (F4-009)")
 	assert_true(panel.set_threat("seen_proximity", 1.0), "o slider de inimigo visto aplica")
+	var stub: StubThreatSource = player.get_threat_source() as StubThreatSource
+	assert_not_null(stub, "aplicar a ameaça põe o StubThreatSource do painel no lugar do monitor")
 	assert_almost_eq(stub.forced.seen_proximity, 1.0, 0.0001, "a amostra forçada recebeu o valor do slider")
 	await wait_physics_frames(SECOND_FRAMES)
 	var stress: float = player.get_physiology().get_snapshot().stress
@@ -88,6 +89,27 @@ func test_slider_de_ameaca_altera_o_estresse_efetivo() -> void:
 	assert_true(panel.set_threat("in_chase", 1.0), "a perseguição liga pelo interruptor")
 	assert_true(stub.forced.in_chase, "a amostra forçada está em perseguição")
 	assert_almost_eq(stub.forced.threat_level, 1.0, 0.0001, "perseguição vale 1 no nível")
+
+
+## F4-009 + F2-008: a ameaça do painel é provisória. Restaurar padrões e fechar o painel devolvem a fonte que o jogador
+## tinha antes (o MonitoredThreatSource do PlayerThreatMonitor), e não um stub.
+func test_restaurar_e_fechar_devolvem_o_monitor() -> void:
+	var root: Node3D = add_child_autofree(Node3D.new()) as Node3D
+	var player: PlayerRoot = _world(root)
+	var panel: BalancePanel = _panel_for(root, player)
+	await wait_physics_frames(SETTLE_FRAMES)
+	var monitor_source: ThreatSource = player.get_threat_source()
+	panel.toggle_panel()
+	assert_true(panel.set_threat("seen_proximity", 0.5), "o slider aplica com o painel aberto")
+	assert_true(player.get_threat_source() is StubThreatSource, "o painel põe o stub no lugar do monitor")
+	assert_true(panel.restore_defaults(), "restaurar padrões funciona com o debug ligado")
+	assert_true(player.get_threat_source() == monitor_source, "restaurar devolve a fonte guardada")
+	assert_true(player.get_threat_source() is MonitoredThreatSource, "a fonte devolvida é o MonitoredThreatSource")
+	panel.set_threat("heard_factor", 0.3)
+	assert_true(player.get_threat_source() is StubThreatSource, "um novo ajuste volta a usar o stub")
+	panel.toggle_panel()
+	assert_false(panel.is_panel_open(), "fechar o painel")
+	assert_true(player.get_threat_source() == monitor_source, "fechar o painel devolve o MonitoredThreatSource")
 
 
 func test_parametro_em_memoria_muda_o_dreno_do_sprint_e_volta_com_restaurar() -> void:

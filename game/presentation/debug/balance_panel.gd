@@ -3,7 +3,9 @@ extends CanvasLayer
 ## Painel de balanceamento (L3, F2-008). Abre e fecha com F4 (tecla fixa de debug, como F3 no overlay).
 ## Mostra o estado fisiológico do jogador (estamina, estresse, faixa, severidade, estado, frequência, chiado,
 ## risco de tosse e acoplamento) e controla:
-##   - a ameaça do StubThreatSource (visto, ouvido, perseguição), pelo PlayerRoot.get_threat_source();
+##   - a ameaça (visto, ouvido, perseguição). Ao aplicar um slider, o painel guarda a fonte atual do jogador e põe
+##     um StubThreatSource no lugar (PlayerRoot.set_threat_source). Fechar o painel, "Restaurar padrões" e sair da
+##     cena devolvem a fonte guardada (o PlayerThreatMonitor, F4-009);
 ##   - parâmetros das configs da fisiologia EM MEMÓRIA: são os recursos vivos que os modelos leem a cada tick,
 ##     então valem na hora. Os recursos são compartilhados pelo processo (ResourceCache), então a mudança vale
 ##     para todas as instâncias que os usam nesta sessão. "Restaurar padrões" volta aos valores dos .tres;
@@ -65,6 +67,10 @@ var _defaults: Dictionary = {}
 var _threat_seen: float = 0.0
 var _threat_heard: float = 0.0
 var _threat_chase: bool = false
+## Stub criado pelo painel ao aplicar ameaça, a fonte que o jogador tinha antes e o jogador dono dessa ligação.
+var _threat_stub: StubThreatSource = null
+var _saved_threat_source: ThreatSource = null
+var _threat_player: PlayerRoot = null
 
 
 func _ready() -> void:
@@ -112,8 +118,10 @@ func toggle_panel() -> bool:
 		_sync_all_sliders()
 		if player != null:
 			player.set_mouse_captured(false)
-	elif player != null:
-		player.set_mouse_captured(true)
+	else:
+		_release_threat()
+		if player != null:
+			player.set_mouse_captured(true)
 	return visible
 
 
@@ -187,6 +195,7 @@ func restore_defaults() -> bool:
 		var id: String = String(definition["id"])
 		if _defaults.has(id):
 			set_param(id, float(_defaults[id]))
+	_release_threat()
 	return true
 
 
@@ -297,17 +306,43 @@ func _ensure_defaults() -> void:
 				_defaults[String(definition["id"])] = float(fresh.get(String(definition["prop"])))
 
 
+## Aplica a ameaça do painel. Na primeira vez (ou se o jogador mudou), guarda a fonte atual e troca por um stub.
 func _apply_threat() -> bool:
 	var player: PlayerRoot = get_player()
 	if player == null:
 		_set_status("sem jogador: ameaça não aplicada")
 		return false
-	var stub: StubThreatSource = player.get_threat_source() as StubThreatSource
-	if stub == null:
-		_set_status("a fonte de ameaça não é o StubThreatSource: só leitura")
-		return false
-	stub.forced = threat_from(_threat_seen, _threat_heard, _threat_chase)
+	if _threat_stub == null or _threat_player != player:
+		_restore_source()
+		_saved_threat_source = player.get_threat_source()
+		_threat_stub = StubThreatSource.new()
+		_threat_player = player
+		player.set_threat_source(_threat_stub)
+	_threat_stub.forced = threat_from(_threat_seen, _threat_heard, _threat_chase)
 	return true
+
+
+## Devolve ao jogador a fonte guardada (o monitor) e zera os controles de ameaça. Sem stub do painel, só zera.
+func _release_threat() -> void:
+	_restore_source()
+	_threat_seen = 0.0
+	_threat_heard = 0.0
+	_threat_chase = false
+	if visible:
+		_sync_all_sliders()
+
+
+## Põe de volta a fonte que o jogador tinha antes do painel. Não mexe nos valores dos controles.
+func _restore_source() -> void:
+	if _threat_stub != null and is_instance_valid(_threat_player) and _saved_threat_source != null:
+		_threat_player.set_threat_source(_saved_threat_source)
+	_threat_stub = null
+	_saved_threat_source = null
+	_threat_player = null
+
+
+func _exit_tree() -> void:
+	_release_threat()
 
 
 static func _definition_of(id: String) -> Dictionary:
@@ -363,7 +398,7 @@ func _build_ui() -> void:
 	column.add_child(_telemetry)
 	_status = Label.new()
 	column.add_child(_status)
-	column.add_child(_section_title("Ameaça (StubThreatSource)"))
+	column.add_child(_section_title("Ameaça (fonte do painel; fechar devolve a fonte do jogador)"))
 	for definition: Dictionary in THREAT_PARAMS:
 		column.add_child(_slider_row(definition, true))
 	_chase_toggle = CheckButton.new()
