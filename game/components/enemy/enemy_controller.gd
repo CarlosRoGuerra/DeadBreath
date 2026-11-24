@@ -44,7 +44,6 @@ const GROUP: StringName = &"enemy"
 const PROCESS_PRIORITY: int = -40
 const LOG_CATEGORY: StringName = &"enemy"
 const SOURCE_PREFIX: String = "enemy_"
-const PERCEIVABLE_GROUP: StringName = &"perceivable"
 const PATROL_GROUP: StringName = &"patrol_point"
 const HIDEABLE_GROUP: StringName = &"hideable"
 const ROUTE_META: StringName = &"route_id"
@@ -289,14 +288,8 @@ func _navigation_ready() -> bool:
 ## Percepts do tick (passos 1 a 3 do tick de IA).
 func _build_batch() -> PerceptBatch:
 	var batch: PerceptBatch = PerceptBatch.new()
-	var scope: Node = _scope()
-	for node: Node in get_tree().get_nodes_in_group(PERCEIVABLE_GROUP):
-		var target: PerceivableTarget = node as PerceivableTarget
-		if target == null or scope == null or not scope.is_ancestor_of(target):
-			continue
-		var percept: VisualPercept = _eye.evaluate(target)
-		if percept.visibility > 0.0:
-			batch.visual.append(percept)
+	# Verificação F4-010, N1: só o VisionSensor conhece os alvos perceptíveis (FW-INV-1).
+	batch.visual = _eye.evaluate_all(_scope())
 	batch.heard = _hearing.drain()
 	for percept: VisualPercept in _pending_percepts:
 		batch.visual.append(percept)

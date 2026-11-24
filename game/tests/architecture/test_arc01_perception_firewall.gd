@@ -7,7 +7,10 @@ extends TestCase
 ## A varredura não pega todo acesso indireto: o teste comportamental AI-06 é a rede final. Desde a revisão F4-010
 ## (R4-04, Director), test_firewall_sem_acesso_indireto fecha as burlas mostradas pelo revisor: identificadores e
 ## literais "player" em minúsculo, grupos fora da lista, autoloads além de Log e do EventBus só emitindo, e acesso à
-## raiz da árvore, ao viewport e a caminhos absolutos.
+## raiz da árvore, ao viewport e a caminhos absolutos. Verificação F4-010 (N1): só o sensor de visão e o próprio alvo
+## conhecem PerceivableTarget e o grupo "perceivable"; "player" em qualquer caixa; get_root, get_child e Engine.get_*.
+## Burlas que restam (alias de autoload, concatenação de texto, máscara de raio com a camada do jogador) ficam para o
+## AI-06, que mede o comportamento: o texto não prova a ausência de leitura, só a torna improvável.
 ## Pastas vazias ou inexistentes: passam por vacuidade, e a saída diz isso.
 
 const SCAN_DIRS: Array[String] = [
@@ -25,19 +28,22 @@ const FORBIDDEN_IDENTIFIERS: String = "\\b(PlayerRoot|PlayerMotor|PhysiologyComp
 const FORBIDDEN_LITERALS: String = "[\"']player[\"']|[\"'][^\"'\\n]*Player[^\"'\\n]*[\"']|\\$[^\\s]*Player"
 
 ## R4-04: identificadores que começam com "player" (minúsculo). Só os sinais de captura que a IA EMITE são permitidos.
-const LOWER_PLAYER_IDENTIFIER: String = "\\bplayer[A-Za-z0-9_]*"
+const LOWER_PLAYER_IDENTIFIER: String = "\\b[Pp][Ll][Aa][Yy][Ee][Rr][A-Za-z0-9_]*"
 const ALLOWED_LOWER_PLAYER: Array[String] = ["player_caught", "player_captured"]
 ## R4-04: literal de string que contém "player" em qualquer caixa.
 const ANY_CASE_PLAYER_LITERAL: String = "[\"'][^\"'\\n]*[Pp][Ll][Aa][Yy][Ee][Rr][^\"'\\n]*[\"']"
 ## R4-04: grupos que a IA pode consultar ou usar. Literal ou constante do próprio arquivo com um destes valores.
-const ALLOWED_GROUPS: Array[String] = ["perceivable", "patrol_point", "hideable", "enemy", "hearing_sensor"]
+const ALLOWED_GROUPS: Array[String] = ["patrol_point", "hideable", "enemy", "hearing_sensor"]
+## Verificação F4-010, N1: só o sensor de visão (isento) e o próprio alvo conhecem PerceivableTarget e o grupo dele.
+const TARGET_FILES: Array[String] = ["res://components/perception/perceivable_target.gd"]
+const TARGET_IDENTIFIER: String = "\\bPerceivableTarget\\b|[\"']perceivable[\"']"
 const GROUP_CALL: String = "\\b(get_nodes_in_group|get_first_node_in_group|is_in_group|add_to_group|call_group|has_group)\\(\\s*([^),]+)"
 const CONST_STRING: String = "const\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*(?::\\s*[A-Za-z_][A-Za-z0-9_]*)?\\s*=\\s*&?\"([^\"]*)\""
 ## R4-04: autoloads proibidos e uso do EventBus que não seja emitir.
 const FORBIDDEN_AUTOLOADS: String = "\\b(GameState|Settings|SaveService)\\b"
 const EVENT_BUS_USE: String = "\\bEventBus\\.[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)?"
 ## R4-04: raiz da árvore, viewport e caminhos absolutos. A sonda de luz percorre a árvore só para achar luzes.
-const TREE_ESCAPE: String = "\\.root\\b|\\bget_viewport\\(|get_node(_or_null)?\\(\\s*&?\"/"
+const TREE_ESCAPE: String = "\\.root\\b|\\bget_root\\(|\\bget_viewport\\(|\\bget_child\\(|\\bEngine\\.get_(main_loop|singleton)\\(|get_node(_or_null)?\\(\\s*&?\"/"
 const TREE_ESCAPE_EXEMPT: Array[String] = ["res://components/perception/light_exposure_probe.gd"]
 
 
@@ -76,7 +82,10 @@ func test_firewall_sem_acesso_indireto() -> void:
 					violations.append("%s identificador '%s'" % [path, found.get_string()])
 			for hit: String in SourceScan.find_all(with_strings, ANY_CASE_PLAYER_LITERAL):
 				violations.append("%s literal com player: %s" % [path, hit])
-			violations.append_array(_group_violations(path, with_strings))
+			if not TARGET_FILES.has(path):
+				violations.append_array(_group_violations(path, with_strings))
+				for hit: String in SourceScan.find_all(with_strings, TARGET_IDENTIFIER):
+					violations.append("%s alvo perceptível fora do sensor de visão: %s" % [path, hit])
 			for hit: String in SourceScan.find_all(code, FORBIDDEN_AUTOLOADS):
 				violations.append("%s autoload proibido: %s" % [path, hit])
 			for found: RegExMatch in _matches(code, EVENT_BUS_USE):

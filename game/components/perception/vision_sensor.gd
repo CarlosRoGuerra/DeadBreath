@@ -64,6 +64,22 @@ static func visibility_of(los: float, distance: float, light: float, stance: flo
 
 
 ## Avalia o alvo. Com visibilidade > 0, o percept traz a visibilidade e o centro do alvo; sem ela, sai zerado.
+## Verificação F4-010, N1 (Director): o sensor é o único que conhece os alvos. Avalia cada PerceivableTarget do grupo
+## dentro de scope (o nível do inimigo) e devolve só os percepts com visibilidade > 0. O controlador nunca toca no alvo.
+func evaluate_all(scope: Node) -> Array[VisualPercept]:
+	var out: Array[VisualPercept] = []
+	if scope == null or not is_inside_tree():
+		return out
+	for node: Node in get_tree().get_nodes_in_group(PerceivableTarget.GROUP):
+		var target: PerceivableTarget = node as PerceivableTarget
+		if target == null or not scope.is_ancestor_of(target):
+			continue
+		var percept: VisualPercept = evaluate(target)
+		if percept.visibility > 0.0:
+			out.append(percept)
+	return out
+
+
 func evaluate(target: PerceivableTarget) -> VisualPercept:
 	var now_s: float = _now_s()
 	if not is_instance_valid(target) or not is_inside_tree() or not target.is_inside_tree():

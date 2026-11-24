@@ -678,6 +678,7 @@ func last_batch() -> PerceptBatch; func last_intent() -> EnemyIntent   ## teste
 
 ## Percepção (§7)
 VisionSensor: @export sight_range_m, fov_deg; func evaluate(target: PerceivableTarget) -> VisualPercept
+              func evaluate_all(scope: Node) -> Array[VisualPercept]   ## N1: só o sensor percorre os alvos; o controlador usa este
               static distance_factor, light_factor, visibility_of (DATA §3.2)
 HearingSensor: @export owner_id, hearing_threshold_db, masking_margin_db; func receive(heard) (só o AcousticWorld); func drain()
 PerceivableTarget: @export sample_points; set_light_probe, set_stance, set_concealment; get_sample_points, get_light_exposure,

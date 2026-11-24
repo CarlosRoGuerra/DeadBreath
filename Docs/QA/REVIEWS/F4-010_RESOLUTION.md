@@ -5,6 +5,7 @@
 | Revisão | `Docs/QA/REVIEWS/F4-010.md` (commit revisado `69d382c`): **REPROVADO** (1 ALTO, 3 MÉDIO, 4 BAIXO, 4 INFO) |
 | Decisão do Director (2026-11-24) | Corrigir o ALTO, os 3 MÉDIO e os 4 BAIXO antes da F4-007 (desempenho) e da F4-011 (QA). Os INFO vão para KNOWN_ISSUES (GAME-014) ou já estão tratados. Depois, nova verificação focada pelo mesmo revisor |
 | Correções | Feitas pelo Director, com teste para cada uma; mutações de verificação quando cabem |
+| Nova verificação | `Docs/QA/REVIEWS/F4-010_VERIFICATION.md` (commit `019a893`): **APROVADO COM RESSALVAS**. R4-01..R4-08 resolvidos, exceto R4-04 (parcial, N1); achados novos: 1 MÉDIO (N1), 1 BAIXO (N2), 3 INFO (N3..N5) |
 
 | ID | Sev. | Decisão | Situação |
 |---|---|---|---|
@@ -20,3 +21,8 @@
 | R4-10 | INFO | Suíte padrão sem ARC-xx | Mantido; documentado em TEST_PLAN §4 (etapa `estatico`) |
 | R4-11 | INFO | Tela de captura sem rearme | GAME-014 (F5, com o `reset_to`) |
 | R4-12 | INFO | Status da F3 | Registrado; nada a fazer |
+| N1 | MÉDIO | O ARC-01 por texto deixava passar 9 de 10 burlas; a mais grave era ler o alvo pelo grupo `perceivable` | **Corrigido na estrutura:** o `VisionSensor.evaluate_all(scope)` é o único que percorre os alvos; o controlador não conhece mais `PerceivableTarget` nem o grupo. O ARC-01 proíbe os dois fora do sensor e do próprio alvo, `player` em qualquer caixa (pega `PLAYER_*`), `get_root`, `get_child` e `Engine.get_main_loop`/`get_singleton`. Mutações: alvo pelo grupo, tipo do alvo, `PLAYER_*`, `get_root` e `get_main_loop` reprovam. **Aceito como resíduo** (KNOWN_ISSUES GAME-015): alias de autoload, concatenação de texto e máscara de raio com a camada do jogador. A varredura por texto torna a leitura improvável; o AI-06 (comportamental) é a prova |
+| N2 | BAIXO | Falso positivo: texto de log ou variável com "player" reprova código legítimo | **Aceito como política** (falha fechada): nas pastas do firewall, a palavra não aparece |
+| N3 | INFO | Custo da sonda de luz no inimigo (percorre a árvore) | Medido na F4-007 (desempenho) |
+| N4 | INFO | O tempo limite da perna de patrulha conta tempo, não progresso | Aceito: pernas da sandbox ≤ 7,5 m; rever com níveis maiores |
+| N5 | INFO | Zerar a confirmação em LOST_CONTACT é redundante com o teto | Mantido como defesa em profundidade |
