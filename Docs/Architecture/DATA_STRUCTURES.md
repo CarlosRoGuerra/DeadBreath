@@ -382,6 +382,7 @@ var inspect_hideable: StringName
 var voice_line: StringName
 
 class_name BrainWorldQuery extends RefCounted   ## base abstrata; implementada por EnemyWorldQuery
+func self_position() -> Vector3                 ## posição do próprio inimigo (acréscimo D4-07; não é dado do jogador)
 func is_reachable(point: Vector3) -> bool
 func search_points_near(center: Vector3, radius: float) -> PackedVector3Array
 func hideables_near(center: Vector3, radius: float) -> Array[HideableInfo]
@@ -455,6 +456,17 @@ confirm   += visibility · dt   se visibility ≥ min_visibility_for_confirm;  s
 | PATROL, SUSPICIOUS, SEARCH, RETURN | INVESTIGATE | novo ruído leva `suspicion ≥ 0.5` |
 
 Transições em cascata no mesmo tick são permitidas (PATROL → SUSPICIOUS → INVESTIGATE).
+
+**Falas do Observer (D4-06, F4):** `EnemyIntent.voice_line` é o `sound_id` da fala, posto uma vez na transição (não a cada tick). O controlador emite VOICE pelo NoiseEmitter filho com a intensidade de §2.1.
+
+| Transição | `voice_line` | Intensidade | Legenda |
+|---|---|---|---|
+| → SUSPICIOUS | `voice_suspicious` | 55 (fala) | murmúrio |
+| → INVESTIGATE | `voice_investigate` | 55 (fala) | "Quem está aí?" |
+| → CHASE | `voice_chase_shout` | 75 (grito) | grito; o PlayerThreatMonitor usa este id para `in_chase` |
+| → SEARCH | `voice_search` | 55 (fala) | "Cadê você?" |
+
+Os textos das legendas são provisórios até as respostas de narrativa (N-01..N-05).
 
 Conferência AI-03 (Observer, jogador em pé, iluminado, a 8 m, no FOV): visibilidade = 1 × 0,75 × 1 × 1 = 0,75 → `confirm` chega a 0,6 em 0,8 s → CHASE (limite do teste: 1,5 s).
 
