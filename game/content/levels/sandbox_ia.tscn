@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://content/levels/sandbox_playable.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://content/enemies/observer.tscn" id="2_observer"]
+[ext_resource type="Script" path="res://presentation/ui/capture_screen.gd" id="3_capture"]
+[ext_resource type="Script" path="res://presentation/audio/adaptive_music.gd" id="4_music"]
+
+[node name="SandboxIA" instance=ExtResource("1_base")]
+
+[node name="Observer" parent="." instance=ExtResource("2_observer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, -1)
+
+[node name="CaptureScreen" type="CanvasLayer" parent="."]
+script = ExtResource("3_capture")
+
+[node name="AdaptiveMusic" type="Node" parent="."]
+script = ExtResource("4_music")
+bind_player_monitor = true

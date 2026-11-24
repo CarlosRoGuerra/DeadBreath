@@ -8,7 +8,7 @@ config_version=5
 
 config/name="DEAD BREATH"
 config/description="Survival horror psicológico em primeira pessoa."
-run/main_scene="res://content/levels/sandbox_playable.tscn"
+run/main_scene="res://content/levels/sandbox_ia.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]

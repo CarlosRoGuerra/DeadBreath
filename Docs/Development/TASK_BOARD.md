@@ -327,6 +327,9 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 - **Descrição:** `NavigationRegion3D` com navmesh da sandbox (gerada pelo `gen_sandbox.py`), rota de patrulha do Observer (marcadores ordenados), ponto de surgimento do inimigo, e a navegação coerente com as portas (D4-03).
 - **Testes:** pontos da rota alcançáveis pela navmesh; caminho entre as salas pelas portas; nenhuma rota pela porta trancada.
 
+### F4-008b · Cena da IA (Director)
+- `content/levels/sandbox_ia.tscn` herda a sandbox jogável e acrescenta o Observer no surgimento, a tela de captura e a `AdaptiveMusic` ligada ao monitor de ameaça. É a cena principal. A `sandbox_playable.tscn` continua sem inimigo, para os testes das fases 1 a 3. Cenário de ponta a ponta em `tests/property/scenarios/test_sandbox_ia.gd`: visto, perseguido e capturado em cerca de 1 s, com a tela e o reinício.
+
 ### F4-009 · Integração do jogador
 - **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F4-001, F4-006b · **Status:** REVIEW. `LightExposureProbe` e `PerceivableTarget` (cabeça, tronco e pés acompanhando a altura dos olhos) no `player.tscn`; monitor no lugar do stub e da ponte de susto; trava de entrada na captura
 - **Descrição:** `LightExposureProbe` e `PerceivableTarget` no `player.tscn` (fator de postura pelo motor), `PlayerThreatMonitor` no lugar do `StubThreatSource` (D4-01) e da ponte de susto.

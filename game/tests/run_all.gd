@@ -31,10 +31,11 @@ const LEVEL_DIRS: Dictionary = {
 	"meta": "res://tests/meta",
 	"property": "res://tests/property",
 }
-## Execução padrão. property (varreduras longas e determinísticas), meta e arc04 ficam fora dela: rodam com
-## --level=property, --level=meta e --level=arc04 (tools/run_tests.ps1 tem uma etapa para cada um). O ARC-04 (compilar
-## todos os scripts, ~1 s) já tem etapa própria no pipeline; rodar de novo na suíte padrão só dobrava o custo (F4).
-const DEFAULT_LEVELS: Array[String] = ["unit", "integration", "scenarios", "architecture"]
+## Execução padrão: comportamento (unit, integration, scenarios). Ficam fora dela e têm etapa própria no pipeline
+## (tools/run_tests.ps1): as verificações estáticas do código (architecture e arc04, etapa "estatico"), property
+## (varreduras longas e determinísticas) e meta. Decisão do Director na F4: as varreduras de código passaram de 2 s na
+## suíte padrão e não precisam rodar a cada iteração; o pipeline continua rodando todas.
+const DEFAULT_LEVELS: Array[String] = ["unit", "integration", "scenarios"]
 ## Pastas com este nome não são descobertas (fixtures de teste, nunca executadas direto).
 const FIXTURE_DIR_NAME: String = "fixtures"
 ## Frames de física sem progresso até o watchdog reprovar o teste (600 = 10 s de física a 60 Hz).

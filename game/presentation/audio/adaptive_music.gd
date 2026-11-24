@@ -31,6 +31,11 @@ const MIN_DB: float = -80.0
 
 ## Liga as camadas no _ready. Com false, o Director chama start() quando quiser.
 @export var autostart: bool = true
+## Integração da F4 (Director): liga set_threat ao threat_changed do PlayerThreatMonitor do jogador do nível
+## (grupo "player"). Desligado por padrão, para não mudar cenas e testes que não querem a música guiada.
+@export var bind_player_monitor: bool = false
+
+var _bound_monitor: PlayerThreatMonitor = null
 
 var _players: Dictionary = {}
 var _target: Dictionary = {&"calm": 1.0, &"tension": 0.0, &"chase": 0.0}
@@ -45,6 +50,25 @@ func _ready() -> void:
 	_build_players()
 	if autostart:
 		start()
+	if bind_player_monitor:
+		call_deferred("_bind_player_monitor")
+
+
+## A música está ligada ao monitor de ameaça do jogador?
+func is_bound_to_monitor() -> bool:
+	return _bound_monitor != null and is_instance_valid(_bound_monitor)
+
+
+func _bind_player_monitor() -> void:
+	if not is_inside_tree():
+		return
+	var player: PlayerRoot = get_tree().get_first_node_in_group(&"player") as PlayerRoot
+	if player == null or player.get_threat_monitor() == null:
+		Log.warn(LOG_CATEGORY, "AdaptiveMusic sem jogador com monitor de ameaça; a música fica calma")
+		return
+	_bound_monitor = player.get_threat_monitor()
+	if not _bound_monitor.threat_changed.is_connected(set_threat):
+		_bound_monitor.threat_changed.connect(set_threat)
 
 
 func _process(delta: float) -> void:
