@@ -1,0 +1,23 @@
+F4-008 - bake da navmesh da sandbox (tools/level/bake_navmesh.gd, execucao headless)
+Comando: godot --headless --path D:\Dev\DeadBreath\game --script res://bake_navmesh.gd (script copiado para game\ e removido depois)
+Saida util da ultima execucao (celula 0,05 m, agente 0,35 m / 1,8 m / degrau 0,3 m, inclinacao 45 graus):
+
+fonte: 3384 vertices, 1692 indices de colisao no grupo navigation_source
+bake aberto (sem vaos bloqueados): 126 poligonos, 9 ms
+vao door_sala_corredor: faixa livre de 0.10 m (meia largura 0.05 m) OK
+vao door_sala_cozinha: faixa livre de 0.10 m (meia largura 0.05 m) OK
+vao door_cozinha_corredor: faixa livre de 0.10 m (meia largura 0.05 m) OK
+vao door_corredor_hall: faixa livre de 0.10 m (meia largura 0.05 m) OK
+vao door_hall_quintal: faixa livre de 0.10 m (meia largura 0.05 m) OK
+bake final (5 vaos fechados): 69 poligonos, 77 vertices, 9 ms
+altura maxima da malha: 1.15 m (mezanino esperado em 1,08 m)
+gravado: res://content/levels/sandbox_navmesh.tres
+exit=0
+
+Comparacoes medidas antes de fixar 0,05 m (mesma ferramenta):
+- celula 0,25 m: malha aberta com 23 poligonos; centro dos cinco vaos fora da malha; rotas da sandbox falham (4 de 6 pontos da rota).
+- celula 0,10 m (com colisores): centro dos cinco vaos fora da malha.
+- celula 0,05 m: faixa livre de 0,10 m em cada vao (ver acima).
+
+Medicao no .tres final (amostragem de 0,01 m, sem o motor):
+- corredor, x = 10: trecho livre de z -0,90 a -0,46 (interior de parede a parede: -1,3 a -0,1).

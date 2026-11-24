@@ -323,7 +323,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 - **Descrição:** primeira medição contra SYSTEM_ARCHITECTURE §13 na sandbox (1 Observer real e um teste de carga com 3 inimigos): sensores + cérebro + navegação, propagação de um `NoiseEvent`, fisiologia, LightExposureProbe (GAME-010). Ao menos 3 execuções (RSK-14). Registro em `Docs/QA/PERFORMANCE.md`.
 
 ### F4-008 · Sandbox para a IA
-- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F3-007 · **Status:** BACKLOG
+- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F3-007 · **Status:** REVIEW. Navmesh assada em headless (`tools/level/bake_navmesh.gd` → `sandbox_navmesh.tres`, célula 0,05 m, agente 0,35 × 1,8 m, degrau 0,3 m), vãos de porta fechados na malha e atravessados por `NavLink_<door_id>`, rota do Observer com 8 pontos em 5 salas (3 portas fechadas no caminho, nunca a trancada), surgimento no quintal, corredor escurecido. Mapa do projeto alinhado à célula de 0,05 m pelo Director
 - **Descrição:** `NavigationRegion3D` com navmesh da sandbox (gerada pelo `gen_sandbox.py`), rota de patrulha do Observer (marcadores ordenados), ponto de surgimento do inimigo, e a navegação coerente com as portas (D4-03).
 - **Testes:** pontos da rota alcançáveis pela navmesh; caminho entre as salas pelas portas; nenhuma rota pela porta trancada.
 

@@ -12,6 +12,13 @@ Convenções:
 - Colisores de piso (StaticBody3D) levam o metadado `surface` (StringName) lido pelo PlayerMotor.
 - Colisão de geometria na camada 1 (world_static). Áreas de sala na camada 8 (trigger), máscara 4 (jogador).
 - Portas e pickups não existem ainda: aqui entram só Marker3D de encaixe (grupos door_slot, pickup_slot).
+- F4-008 (Level Designer): NavigationRegion3D (malha em sandbox_navmesh.tres, assada por
+  tools/level/bake_navmesh.gd), um NavigationLink3D por porta (NavLink_<door_id>, bidirecional, meta door_id),
+  a rota do Observer (grupo patrol_point, metas route_id e order) e o surgimento (grupo enemy_slot).
+
+Duas etapas para a navmesh (o gerador não muda entre elas):
+    python tools/level/gen_sandbox.py     (cria o .tres vazio se faltar e escreve a cena)
+    bake_navmesh.gd                       (assa o .tres; instruções no cabeçalho do próprio arquivo)
 """
 
 import os
@@ -19,6 +26,8 @@ import sys
 
 ROOT: str = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT_PATH: str = os.path.join(ROOT, "game", "content", "levels", "sandbox.tscn")
+NAVMESH_PATH: str = os.path.join(ROOT, "game", "content", "levels", "sandbox_navmesh.tres")
+NAVMESH_RES: str = "res://content/levels/sandbox_navmesh.tres"
 
 WALL_T: float = 0.2
 WALL_H: float = 3.0
@@ -96,7 +105,8 @@ PLAYER_SPAWN: tuple[float, float, float] = (3.0, 0.0, -1.0)
 LIGHTS: list[tuple[str, str, tuple[float, float, float], tuple[float, float, float], float, float, bool]] = [
 	("Lamp_sala", "sala", (1.5, 2.6, -4.5), (0.91, 0.72, 0.48), 1.6, 8.0, True),
 	("Lamp_cozinha", "cozinha", (10.0, 2.6, -4.2), (0.50, 0.58, 0.66), 1.3, 7.0, True),
-	("Lamp_corredor", "corredor", (10.0, 2.5, -0.7), (0.91, 0.72, 0.48), 0.6, 4.0, False),
+	# F4-008: corredor escuro (0,15; antes 0,6) para o contraste de light_exposure (DATA 3.2).
+	("Lamp_corredor", "corredor", (10.0, 2.5, -0.7), (0.91, 0.72, 0.48), 0.15, 4.0, False),
 	("Lamp_hall", "hall", (16.0, 2.6, -1.2), (0.91, 0.72, 0.48), 1.5, 8.0, True),
 	("Lamp_quintal", "quintal", (22.0, 2.4, -3.0), (0.91, 0.72, 0.48), 0.8, 6.0, False),
 	("Accent_sob_mezanino", "mezanino", (15.0, 0.8, -4.5), (0.50, 0.58, 0.66), 0.5, 3.0, False),
@@ -104,6 +114,30 @@ LIGHTS: list[tuple[str, str, tuple[float, float, float], tuple[float, float, flo
 
 FOG_DENSITY: float = 0.03
 FOG_ALBEDO: tuple[float, float, float] = (0.55, 0.57, 0.62)
+
+# F4-008: links de porta. Cada ponta fica a 0,6 m do centro do vão, dos dois lados (a navmesh fecha o vão e o
+# link o atravessa; a parede de 0,2 m e a folga do agente de 0,35 m ficam dentro dos 0,6 m).
+NAV_LINK_OFFSET_M: float = 0.6
+NAV_LINK_PREFIX: str = "NavLink_"
+
+# Rota de patrulha do Observer (laço: o último ponto volta ao primeiro). Ordem e sala em comentário.
+# Atravessa três portas que nascem fechadas (quintal-hall, corredor-hall, sala-corredor) e a aberta sala-cozinha.
+# Nunca cruza door_cozinha_corredor (trancada): a cozinha só é alcançada pela sala.
+OBSERVER_ROUTE_ID: str = "observer"
+OBSERVER_ROUTE: list[tuple[str, tuple[float, float, float]]] = [
+	("quintal", (21.0, 0.0, -2.0)),
+	("hall", (16.0, 0.0, -0.5)),
+	("corredor", (10.0, 0.0, -0.7)),
+	("sala", (4.5, 0.0, -1.5)),
+	("cozinha", (9.5, 0.0, -3.5)),
+	("sala", (4.5, 0.0, -4.5)),
+	("corredor", (11.0, 0.0, -0.7)),
+	("hall", (15.0, 0.0, -0.5)),
+]
+# Surgimento do Observer no quintal: atrás de duas portas fechadas, sem linha de visão para o spawn do jogador (sala).
+OBSERVER_SPAWN: tuple[float, float, float] = (23.0, 0.0, -1.0)
+OBSERVER_ID: str = "observer"
+OBSERVER_PROFILE: str = "observer"
 
 
 def f(value: float) -> str:
@@ -419,6 +453,59 @@ def build_markers(scene: Scene) -> None:
 		scene.node(node_name, "Marker3D", "Throwables", props, ["throwable_slot"])
 
 
+def link_ends(opening: dict[str, object]) -> tuple[tuple[float, float, float], tuple[float, float, float]]:
+	"""Pontas do NavigationLink3D de uma abertura, a NAV_LINK_OFFSET_M de cada lado do centro do vão, no piso."""
+	fixed: float = float(opening["fixed"])  # type: ignore[arg-type]
+	center: float = float(opening["center"])  # type: ignore[arg-type]
+	if str(opening["axis"]) == "x":
+		return ((fixed - NAV_LINK_OFFSET_M, 0.0, center), (fixed + NAV_LINK_OFFSET_M, 0.0, center))
+	return ((center, 0.0, fixed - NAV_LINK_OFFSET_M), (center, 0.0, fixed + NAV_LINK_OFFSET_M))
+
+
+def build_navigation(scene: Scene) -> None:
+	"""F4-008: região de navegação (malha no .tres assado), links de porta, rota do Observer e surgimento."""
+	nav_id: str = scene.ext_res("NavigationMesh", NAVMESH_RES)
+	scene.node("NavigationRegion", "NavigationRegion3D", "", ["navigation_mesh = ExtResource(\"%s\")" % nav_id])
+	scene.node("NavLinks", "Node3D", "")
+	for opening in OPENINGS:
+		door_id: str = str(opening["door_id"])
+		start, end = link_ends(opening)
+		props: list[str] = [
+			"start_position = %s" % vec(*start),
+			"end_position = %s" % vec(*end),
+			"bidirectional = true",
+			"enabled = true",
+			"metadata/door_id = %s" % sname(door_id),
+		]
+		scene.node(NAV_LINK_PREFIX + door_id, "NavigationLink3D", "NavLinks", props)
+	scene.node("Patrol", "Node3D", "")
+	for order, (room_id, pos) in enumerate(OBSERVER_ROUTE):
+		props = [
+			"position = %s" % vec(*pos),
+			"metadata/route_id = %s" % sname(OBSERVER_ROUTE_ID),
+			"metadata/order = %d" % order,
+			"metadata/room = %s" % sname(room_id),
+		]
+		scene.node("PatrolPoint_%02d" % order, "Marker3D", "Patrol", props, ["patrol_point"])
+	scene.node("EnemySpawn", "Node3D", "")
+	spawn_props: list[str] = [
+		"position = %s" % vec(*OBSERVER_SPAWN),
+		"metadata/enemy_id = %s" % sname(OBSERVER_ID),
+		"metadata/profile = %s" % sname(OBSERVER_PROFILE),
+		"metadata/route_id = %s" % sname(OBSERVER_ROUTE_ID),
+	]
+	scene.node("EnemySpawn_observer", "Marker3D", "EnemySpawn", spawn_props, ["enemy_slot"])
+
+
+def ensure_navmesh_file() -> None:
+	"""Cria o .tres vazio se faltar, para a cena carregar antes do bake. O bake o preenche."""
+	if os.path.exists(NAVMESH_PATH):
+		return
+	os.makedirs(os.path.dirname(NAVMESH_PATH), exist_ok=True)
+	with open(NAVMESH_PATH, "w", encoding="utf-8", newline="\n") as handle:
+		handle.write("[gd_resource type=\"NavigationMesh\" format=3]\n\n[resource]\n")
+
+
 def build_player(scene: Scene) -> None:
 	scene.node("PlayerSpawn", "Marker3D", "", ["position = %s" % vec(*PLAYER_SPAWN)])
 	player_ext: str = scene.ext_res("PackedScene", "res://components/player/player.tscn")
@@ -450,11 +537,13 @@ def build() -> str:
 	build_fog(scene)
 	build_rooms(scene)
 	build_markers(scene)
+	build_navigation(scene)
 	build_player(scene)
 	return scene.text()
 
 
 def main() -> int:
+	ensure_navmesh_file()
 	text: str = build()
 	os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
 	with open(OUT_PATH, "w", encoding="utf-8", newline="\n") as handle:

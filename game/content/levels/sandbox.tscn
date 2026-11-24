@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3]
+[gd_scene load_steps=117 format=3]
 
 [ext_resource type="Material" path="res://content/materials/mat_floor_wood.tres" id="ext_4"]
 [ext_resource type="Material" path="res://content/materials/mat_floor_tile.tres" id="ext_7"]
@@ -7,7 +7,8 @@
 [ext_resource type="Material" path="res://content/materials/mat_wall_plaster.tres" id="ext_20"]
 [ext_resource type="Script" path="res://components/acoustics/room_volume.gd" id="ext_107"]
 [ext_resource type="Script" path="res://components/acoustics/portal.gd" id="ext_114"]
-[ext_resource type="PackedScene" path="res://components/player/player.tscn" id="ext_115"]
+[ext_resource type="NavigationMesh" path="res://content/levels/sandbox_navmesh.tres" id="ext_115"]
+[ext_resource type="PackedScene" path="res://components/player/player.tscn" id="ext_116"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -866,7 +867,7 @@ shadow_enabled = true
 [node name="Lamp_corredor" type="OmniLight3D" parent="Lights"]
 position = Vector3(10, 2.5, -0.7)
 light_color = Color(0.91, 0.72, 0.48, 1)
-light_energy = 0.6
+light_energy = 0.15
 omni_range = 4
 shadow_enabled = false
 
@@ -1128,8 +1129,106 @@ position = Vector3(22, 0.1, -4.5)
 metadata/throwable_id = &"throwable_crate_quintal"
 metadata/size = &"heavy"
 
+[node name="NavigationRegion" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("ext_115")
+
+[node name="NavLinks" type="Node3D" parent="."]
+
+[node name="NavLink_door_sala_corredor" type="NavigationLink3D" parent="NavLinks"]
+start_position = Vector3(5.4, 0, -0.7)
+end_position = Vector3(6.6, 0, -0.7)
+bidirectional = true
+enabled = true
+metadata/door_id = &"door_sala_corredor"
+
+[node name="NavLink_door_sala_cozinha" type="NavigationLink3D" parent="NavLinks"]
+start_position = Vector3(5.4, 0, -3)
+end_position = Vector3(6.6, 0, -3)
+bidirectional = true
+enabled = true
+metadata/door_id = &"door_sala_cozinha"
+
+[node name="NavLink_door_cozinha_corredor" type="NavigationLink3D" parent="NavLinks"]
+start_position = Vector3(8.5, 0, -2)
+end_position = Vector3(8.5, 0, -0.8)
+bidirectional = true
+enabled = true
+metadata/door_id = &"door_cozinha_corredor"
+
+[node name="NavLink_door_corredor_hall" type="NavigationLink3D" parent="NavLinks"]
+start_position = Vector3(13.4, 0, -0.7)
+end_position = Vector3(14.6, 0, -0.7)
+bidirectional = true
+enabled = true
+metadata/door_id = &"door_corredor_hall"
+
+[node name="NavLink_door_hall_quintal" type="NavigationLink3D" parent="NavLinks"]
+start_position = Vector3(19.4, 0, -1.2)
+end_position = Vector3(20.6, 0, -1.2)
+bidirectional = true
+enabled = true
+metadata/door_id = &"door_hall_quintal"
+
+[node name="Patrol" type="Node3D" parent="."]
+
+[node name="PatrolPoint_00" type="Marker3D" parent="Patrol" groups=["patrol_point"]]
+position = Vector3(21, 0, -2)
+metadata/route_id = &"observer"
+metadata/order = 0
+metadata/room = &"quintal"
+
+[node name="PatrolPoint_01" type="Marker3D" parent="Patrol" groups=["patrol_point"]]
+position = Vector3(16, 0, -0.5)
+metadata/route_id = &"observer"
+metadata/order = 1
+metadata/room = &"hall"
+
+[node name="PatrolPoint_02" type="Marker3D" parent="Patrol" groups=["patrol_point"]]
+position = Vector3(10, 0, -0.7)
+metadata/route_id = &"observer"
+metadata/order = 2
+metadata/room = &"corredor"
+
+[node name="PatrolPoint_03" type="Marker3D" parent="Patrol" groups=["patrol_point"]]
+position = Vector3(4.5, 0, -1.5)
+metadata/route_id = &"observer"
+metadata/order = 3
+metadata/room = &"sala"
+
+[node name="PatrolPoint_04" type="Marker3D" parent="Patrol" groups=["patrol_point"]]
+position = Vector3(9.5, 0, -3.5)
+metadata/route_id = &"observer"
+metadata/order = 4
+metadata/room = &"cozinha"
+
+[node name="PatrolPoint_05" type="Marker3D" parent="Patrol" groups=["patrol_point"]]
+position = Vector3(4.5, 0, -4.5)
+metadata/route_id = &"observer"
+metadata/order = 5
+metadata/room = &"sala"
+
+[node name="PatrolPoint_06" type="Marker3D" parent="Patrol" groups=["patrol_point"]]
+position = Vector3(11, 0, -0.7)
+metadata/route_id = &"observer"
+metadata/order = 6
+metadata/room = &"corredor"
+
+[node name="PatrolPoint_07" type="Marker3D" parent="Patrol" groups=["patrol_point"]]
+position = Vector3(15, 0, -0.5)
+metadata/route_id = &"observer"
+metadata/order = 7
+metadata/room = &"hall"
+
+[node name="EnemySpawn" type="Node3D" parent="."]
+
+[node name="EnemySpawn_observer" type="Marker3D" parent="EnemySpawn" groups=["enemy_slot"]]
+position = Vector3(23, 0, -1)
+metadata/enemy_id = &"observer"
+metadata/profile = &"observer"
+metadata/route_id = &"observer"
+
 [node name="PlayerSpawn" type="Marker3D" parent="."]
 position = Vector3(3, 0, -1)
 
-[node name="Player" parent="." instance=ExtResource("ext_115")]
+[node name="Player" parent="." instance=ExtResource("ext_116")]
 position = Vector3(3, 0, -1)
