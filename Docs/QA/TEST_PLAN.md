@@ -18,6 +18,8 @@
 | Performance | Frame time médio e p95, vsync desligado, 600 frames após 120 de aquecimento | Com janela | A partir da F4, em todo gate |
 | Playtest | Testes de experiência | Usuário + questionário + métricas automáticas | Fim das F5 e F7 |
 
+**Níveis desde a F4 (Director):** o ARC-04 (compilar todos os scripts) tem nível próprio, `arc04`, rodado pela etapa `arc04` do pipeline e fora da suíte padrão, onde só dobrava o custo (~1 s). A listagem de scripts das varreduras de arquitetura é feita uma vez por processo (cache em `SourceScan`).
+
 **Comando padrão (criado em F1-005):** `tools/run_tests.ps1` → importação headless → ARC-04 (compilação de todos os scripts no processo, com autoloads; `--check-only` não enxerga autoloads) → `<godot> --headless --fixed-fps 60 --path game -s res://tests/run_all.gd` → mesma chamada com `--level=meta`. Sai com código 0 ou 1.
 
 **Regras de evidência**

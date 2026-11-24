@@ -27,11 +27,13 @@ const LEVEL_DIRS: Dictionary = {
 	"integration": "res://tests/integration",
 	"scenarios": "res://tests/scenarios",
 	"architecture": "res://tests/architecture",
+	"arc04": "res://tests/arc04",
 	"meta": "res://tests/meta",
 	"property": "res://tests/property",
 }
-## Execução padrão. property (varreduras longas e determinísticas) e meta ficam fora dela: rodam com
-## --level=property e --level=meta (tools/run_tests.ps1 tem uma etapa para cada um).
+## Execução padrão. property (varreduras longas e determinísticas), meta e arc04 ficam fora dela: rodam com
+## --level=property, --level=meta e --level=arc04 (tools/run_tests.ps1 tem uma etapa para cada um). O ARC-04 (compilar
+## todos os scripts, ~1 s) já tem etapa própria no pipeline; rodar de novo na suíte padrão só dobrava o custo (F4).
 const DEFAULT_LEVELS: Array[String] = ["unit", "integration", "scenarios", "architecture"]
 ## Pastas com este nome não são descobertas (fixtures de teste, nunca executadas direto).
 const FIXTURE_DIR_NAME: String = "fixtures"
@@ -146,7 +148,7 @@ func _parse_args() -> bool:
 		elif arg.begins_with("--level="):
 			var level: String = arg.trim_prefix("--level=")
 			if not LEVEL_DIRS.has(level):
-				_arg_error = "nivel desconhecido '%s' (use unit, integration, scenarios, architecture, property ou meta)" % level
+				_arg_error = "nivel desconhecido '%s' (use unit, integration, scenarios, architecture, arc04, property ou meta)" % level
 				return false
 			levels_given.append(level)
 		elif arg.begins_with("--root="):

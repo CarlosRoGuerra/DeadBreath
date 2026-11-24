@@ -79,7 +79,7 @@ Write-Host ('Godot: ' + $Godot)
 Write-Host ('Projeto: ' + $GamePath)
 
 $ok1 = Invoke-Step -Name 'importacao' -Arguments @('--headless', '--path', $GamePath, '--import')
-$ok2 = Invoke-Step -Name 'arc04' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=architecture', '--filter=arc04')
+$ok2 = Invoke-Step -Name 'arc04' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=arc04')
 $ok3 = Invoke-Step -Name 'runner' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd')
 $ok4 = Invoke-Step -Name 'runner-property' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=property')
 $ok5 = Invoke-Step -Name 'runner-meta' -Arguments @('--headless', '--fixed-fps', '60', '--path', $GamePath, '-s', 'res://tests/run_all.gd', '--', '--level=meta')

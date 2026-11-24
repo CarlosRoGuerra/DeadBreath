@@ -4,11 +4,19 @@ extends RefCounted
 ## Só lê arquivos (FileAccess/DirAccess); não depende de cena nem de autoload.
 
 
+## Listas já feitas neste processo, por raiz (Director, F4: listar o projeto custava ~0,44 s por varredura, e várias
+## varreduras rodam na mesma execução). Os scripts do jogo não mudam durante uma execução de testes.
+static var _list_cache: Dictionary = {}
+
+
 ## Todos os .gd sob root, em ordem. Ignora pastas ocultas (ex.: .godot).
 static func list_gd_files(root: String) -> PackedStringArray:
+	if _list_cache.has(root):
+		return _list_cache[root]
 	var out: PackedStringArray = PackedStringArray()
 	_collect(root, out)
 	out.sort()
+	_list_cache[root] = out
 	return out
 
 
