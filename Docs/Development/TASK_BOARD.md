@@ -289,12 +289,12 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 - **Onda C:** F4-005 captura, F4-007 desempenho; depois F4-010 revisão, F4-011 QA (com playtest curto), F4-012 documentação (ENEMY_AI.md).
 
 ### F4-001 · PerceivableTarget + VisionSensor
-- **Responsável:** AI Engineer (percepção) · **Esforço:** EXTRA HIGH · **Depende de:** F3-005 · **Status:** BACKLOG
+- **Responsável:** AI Engineer (percepção) · **Esforço:** EXTRA HIGH · **Depende de:** F3-005 · **Status:** REVIEW. `PerceivableTarget` e `VisionSensor` (DATA §3.2 em funções puras; linha de visão contra as camadas 1, 2 e 7; percept sem visibilidade sai com posição zero). 6 mutações pegas pelos testes
 - **Descrição:** `PerceivableTarget` (§7.1; filho do jogador, grupo `perceivable`, pontos de amostra cabeça, tronco e pés; exposição do LightExposureProbe, fator de postura, ocultação 0 até a F5). `VisionSensor` (§7.2) com a fórmula de DATA §3.2 (FOV, alcance, fração de linha de visão contra mundo e props, distância, luz, postura, ocultação). A ligação no `player.tscn` é da F4-009.
 - **Testes:** fórmula com casos calculados à mão; oclusão por parede e `vision_occluder`; fora do FOV e do alcance = 0; ARC-01 (só `vision_sensor.gd` conhece o alvo).
 
 ### F4-002 · HearingSensor + entrega do AcousticWorld
-- **Responsável:** AI Engineer (percepção) · **Esforço:** HIGH · **Depende de:** F3-002 · **Status:** BACKLOG
+- **Responsável:** AI Engineer (percepção) · **Esforço:** HIGH · **Depende de:** F3-002 · **Status:** REVIEW. `HearingSensor` e entrega pelo AcousticWorld (limiar efetivo com clima, D-07, RNG acústico semeado, sem o próprio som). NOI-01 com alvo real (varredura de receptor único). Falta para a F5: acessor do estado do RNG acústico (snapshot)
 - **Descrição:** `HearingSensor` (§7.2; limiar do AIProfile). O AcousticWorld entrega a cada sensor (grupo) um `HeardNoise` criado por `HeardNoise.from_propagation` com o limiar efetivo do perfil (DATA §2.3: `max(hearing_threshold, piso + clima + masking_margin)`) e o RNG do mundo. NOI-01 passa a ter alvo real.
 - **Testes:** NOI-01 (só o AcousticWorld chama `receive`); o sensor só recebe o que é audível para ele; posição estimada e confiança chegam conforme D-07; NOI-03 continua.
 

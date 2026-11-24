@@ -7,11 +7,14 @@ extends Node
 ##   - entrega PlayerHeardNoise ao ouvinte do jogador (register_player_listener) para eventos de OUTRA fonte audíveis
 ##     no ouvido, com o limiar efetivo do jogador (10 dB, margem 0, piso da sala);
 ##   - pede legendas (EventBus.subtitle_requested) para os sons relevantes audíveis no ouvido do jogador.
+##   - entrega HeardNoise a cada HearingSensor do nível (grupo hearing_sensor) para o qual o som é audível, com o
+##     limiar efetivo do sensor (DATA §2.3) e o RNG próprio da acústica (acoustics_seed), não o do clima (F4-002).
 ## Geometria: com RoomVolume no nível, a propagação é AcousticGraph.propagate, e as portas com door sincronizam os
 ## portais. Sem RoomVolume (cena mínima e testes da F2), volta à regra provisória: AcousticPropagation.perceive, só
 ## distância. Clima: piso por sala no grafo e trovão (+20 dB por 2,5 s) com RNG próprio semeável.
 ## Invariantes: NOI-INV-1 (emit_noise é o único caminho para a IA), NOI-INV-2 (o nível do jogador vem de propagate),
-## NOI-INV-3 (propagação pura), NOI-INV-4 (PlayerHeardNoise sem posição, id nem sala da fonte).
+## NOI-INV-3 (propagação pura), NOI-INV-4 (PlayerHeardNoise sem posição, id nem sala da fonte; HeardNoise só traz a
+## posição estimada, nunca a real) e NOI-01 (só este arquivo chama HearingSensor.receive).
 
 signal noise_resolved_for_player(event: NoiseEvent, result: PropagationResult)
 ## Trovão começou (COMPONENT_CONTRACTS §6.5): para a ambiência (NoiseAudioRouter) e para o level design.
@@ -47,6 +50,9 @@ const NEAR_MARGIN_DB: float = 10.0
 @export var thunder_interval_max_s: float = 180.0
 ## Semente do RNG próprio do clima. O mesmo valor dá o mesmo calendário de trovões.
 @export var weather_seed: int = 1
+## Semente do RNG próprio da acústica (estimativa de posição dos HeardNoise, F4-002). Separado do RNG do clima: o
+## snapshot da F5 guarda cada um em rng_states (DATA §6).
+@export var acoustics_seed: int = 1
 
 var _queue: Array[NoiseEvent] = []
 var _ear: Node3D = null
@@ -60,6 +66,7 @@ var _linked_doors: Array[Door] = []
 var _link_callbacks: Array[Callable] = []
 var _player_on_heard: Callable = Callable()
 var _weather_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var _acoustics_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _weather_offset_db: float = 0.0
 var _thunder_remaining_s: float = 0.0
 var _next_thunder_in_s: float = -1.0
@@ -70,6 +77,7 @@ func _ready() -> void:
 	add_to_group(GROUP)
 	process_physics_priority = PROCESS_PRIORITY
 	_weather_rng.seed = weather_seed
+	_acoustics_rng.seed = acoustics_seed
 
 
 func _physics_process(delta: float) -> void:
@@ -144,6 +152,7 @@ func flush() -> void:
 		var result: PropagationResult = _propagate(event, listener)
 		noise_resolved_for_player.emit(event, result)
 		_deliver_to_player(event, result)
+		_deliver_to_sensors(event)
 
 
 ## Grafo do nível (constrói se preciso). Sem RoomVolume, o grafo existe mas está vazio (has_geometry() = false).
@@ -212,6 +221,33 @@ func _deliver_to_player(event: NoiseEvent, result: PropagationResult) -> void:
 		heard.timestamp = event.timestamp
 		_player_on_heard.call(heard)
 	_maybe_subtitle(event, result.perceived_db, threshold)
+
+
+## Entrega a cada HearingSensor do nível (grupo hearing_sensor, mesmo escopo de RoomVolume e Portal) o HeardNoise do
+## evento, quando audível para ele (F4-002). A propagação vai até a posição do sensor e o limiar é o efetivo dele
+## (DATA §2.3). Não entrega o som da própria fonte (source_id igual ao owner_id do sensor). O RNG é o da acústica.
+func _deliver_to_sensors(event: NoiseEvent) -> void:
+	var sensors: Array[Node] = _level_nodes(HearingSensor.GROUP)
+	if sensors.is_empty():
+		return
+	var sensor_config: AcousticConfig = _resolved_config()
+	for node: Node in sensors:
+		var sensor: HearingSensor = node as HearingSensor
+		if sensor == null or event.source_id == sensor.owner_id:
+			continue
+		var result: PropagationResult = _propagate(event, sensor.global_position)
+		var threshold: float = _sensor_threshold_db(sensor)
+		if result.perceived_db < threshold:
+			continue
+		sensor.receive(HeardNoise.from_propagation(event, result, threshold, sensor_config, _acoustics_rng))
+
+
+## Limiar efetivo do sensor (DATA §2.3): com geometria, max(limiar de audição; piso da sala + clima + margem). Sem
+## geometria, só o limiar de audição, como o ouvido do jogador na regra provisória da F2 (player_threshold_db).
+func _sensor_threshold_db(sensor: HearingSensor) -> float:
+	if _has_geometry:
+		return _graph.effective_threshold_db(sensor.global_position, sensor.hearing_threshold_db, sensor.masking_margin_db)
+	return sensor.hearing_threshold_db
 
 
 ## Legendas (decisão F3-002): tosse (sound_id cough), porta e falas sempre que audíveis; passos e corrida só de outra
