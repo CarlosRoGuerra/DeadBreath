@@ -304,12 +304,12 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 - **Testes:** cada transição da tabela; cascata no mesmo tick; conferência AI-03 em L1 (CHASE em 0,8 s); AI-06 em L1 (percepts iguais → intent idêntico); AI-08 em L1 (inspeção como percept); ARC-01 e ARC-03.
 
 ### F4-004 · EnemyController + EnemyWorldQuery + navegação + THE OBSERVER
-- **Responsável:** AI Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F4-001..003, F4-008 · **Status:** BACKLOG
+- **Responsável:** AI Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F4-001..003, F4-008 · **Status:** REVIEW. `EnemyController` (tick −40), `EnemyWorldQuery` (`is_reachable` com cache por célula), `EnemyDoorLinkGate` (link de porta trancada desligado), portas pelo `link_reached` com recuo se o painel bate, passos do inimigo audíveis, Observer greybox. AI-01 na sandbox real; AI-02..06 em mundo de teste com navmesh própria; AI-08 com esconderijo falso. Ponto para a revisão: prontidão do mapa de navegação (AI-02 falhava 3 em 6 antes da correção; 11/11 depois)
 - **Descrição:** `EnemyController` (§8.1, prioridade −40): coleta os percepts, chama o brain e aplica o intent com `NavigationAgent3D`; `EnemyWorldQuery` sem dado do jogador; portas pela D4-03; falas pelo `NoiseEmitter` filho. Cena do Observer (greybox) com o perfil OBSERVER, colocada na sandbox jogável pelo Director.
 - **Testes:** AI-01 (rota em ordem), AI-02, AI-03, AI-04, AI-05 (cenários), AI-06 no controlador (invariância com o jogador em posições diferentes fora de percepção), porta destrancada aberta na rota e trancada evitada.
 
 ### F4-005 · Captura básica
-- **Responsável:** AI Engineer + Gameplay · **Esforço:** MEDIUM · **Depende de:** F4-004 · **Status:** BACKLOG
+- **Responsável:** AI Engineer + Gameplay · **Esforço:** MEDIUM · **Depende de:** F4-004 · **Status:** REVIEW. `EnemyCaptureArea` (−30; só sobreposição na camada 3 e CHASE; AI-07) e `CaptureScreen` (escurece, "Capturado", trava a entrada, reinicia uma vez). Limitação provisória: o mundo não pausa durante a captura
 - **Descrição:** `EnemyCaptureArea` (Area3D, prioridade −30) emite `player_caught` só com sobreposição **e** estado CHASE; o controlador repassa `EventBus.player_captured`; tela "capturado" e reinício (D4-04).
 - **Testes:** AI-07 (a captura não entra no `PerceptBatch`); captura só em CHASE.
 
