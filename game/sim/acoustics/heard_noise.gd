@@ -1,8 +1,9 @@
 class_name HeardNoise
 extends RefCounted
 ## HeardNoise (L1, DATA_STRUCTURES §2; NOI-INV-4): o que a IA recebe de um som. Exatamente estes cinco campos:
-## sem posição real, sem id e sem sala da fonte. NOI-03 confere a lista por reflexão. Proibido em sim/ai/,
-## components/enemy/ e components/perception/ (ARC-01). Só o AcousticWorld cria e entrega este tipo.
+## sem posição real, sem id e sem sala da fonte. NOI-03 confere a lista por reflexão. É o único dado de som que a IA
+## pode ler (sim/ai/, components/enemy/, components/perception/); NoiseEvent e PlayerHeardNoise são proibidos lá (ARC-01).
+## Só o AcousticWorld cria e entrega este tipo (pela HearingSensor.receive, F4).
 
 var category: Enums.NoiseCategory = Enums.NoiseCategory.BREATHING
 var perceived_db: float = 0.0
