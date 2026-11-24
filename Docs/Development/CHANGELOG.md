@@ -4,7 +4,7 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
 ## [Não lançado]
 
-### Fase 3 — Furtividade e áudio (2026-11-21; Gate F3 aguardando o usuário)
+### Fase 3 — Furtividade e áudio (2026-11-21; Gate F3 aprovado pelo usuário em 2026-11-24)
 
 #### Adicionado
 - Mundo acústico: AcousticGraph (salas, portais, paredes e pisos, busca multicritério), AcousticWorld montado a partir dos `RoomVolume`/`Portal` do nível, portas que abafam 15 dB quando fechadas, chuva por sala e trovão (+20 dB por 2,5 s), NoiseEmitter para fontes do mundo.

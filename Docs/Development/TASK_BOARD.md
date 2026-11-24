@@ -270,16 +270,78 @@ STEALTH_SYSTEM.md e AUDIO_DESIGN.md.
 
 ---
 
-## 5. Backlog das Fases 4–6 (resumo; cards completos ao abrir cada fase — DIR-02)
+## 4d. FASE 4 — IA inimiga (detalhada, aberta em 2026-11-24)
+
+Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01), §6.5–§6.6, §7, §8 e §16; DATA_STRUCTURES §2.3, §3–§3.3 e §5. Critério do gate (ROADMAP): AI-01..08, PHY-12 e ARC-01 verdes; medição de desempenho registrada; playtest curto na sandbox; ENEMY_AI.md escrito.
+
+**Decisões de abertura (Director)**
+- **D4-01 (pendente desde a F2):** o `PlayerThreatMonitor` é um componente `Node` do jogador e expõe a fonte de ameaça por composição: `get_threat_source() -> ThreatSource` (RefCounted). O PlayerRoot faz `set_threat_source(monitor.get_threat_source())`. O monitor substitui a ponte de susto da F3 no `register_player_listener` (o susto vira sinal do monitor, ligado pelo PlayerRoot à fisiologia).
+- **D4-02:** um inimigo na F4 (THE OBSERVER). `SquadCoordinator` e fala de esquadrão ficam para a F6; o `PerceptBatch.squad` vem vazio.
+- **D4-03:** portas na rota: o inimigo abre a porta fechada e destrancada que está no caminho (`Door.interact` com o inimigo como ator; ruído normal de 50 dB). Porta trancada nunca é rota.
+- **D4-04:** captura provisória até os checkpoints da F5: tela "capturado" e reinício da sandbox.
+- **D4-05:** o Observer é greybox (cápsula com cabeça e lanterna, se o GDD pedir). Blender (D-05) fica para quando houver arte de personagem.
+- **D4-06:** falas (VOICE) do Observer com voz procedural provisória e legenda; a escuta do usuário decide se troca por gravação ou CC0.
+- **Pendências da F3 tratadas aqui:** NOI-01 com alvo real (HearingSensor), D-07 em uso (`HeardNoise.from_propagation`), custo do LightExposureProbe (GAME-010), falas e legendas de fala (R3-11).
+
+**Ondas e escritores**
+- **Onda A (paralela):** F4-001/002 (AI Engineer "percepção") ∥ F4-003 (AI Engineer "cérebro") ∥ F4-008 (Level Designer) ∥ F4-006a (Audio Engineer). Só o Level Designer altera `sandbox.tscn`/`tools/level/`; só o AI Engineer "percepção" altera `acoustic_world.gd`.
+- **Onda B:** F4-004 (AI Engineer) ∥ F4-009 integração do jogador + F4-006b monitor (Gameplay e Physiological Eng.; só o Gameplay altera `player_root.gd`/`player.tscn`).
+- **Onda C:** F4-005 captura, F4-007 desempenho; depois F4-010 revisão, F4-011 QA (com playtest curto), F4-012 documentação (ENEMY_AI.md).
+
+### F4-001 · PerceivableTarget + VisionSensor
+- **Responsável:** AI Engineer (percepção) · **Esforço:** EXTRA HIGH · **Depende de:** F3-005 · **Status:** BACKLOG
+- **Descrição:** `PerceivableTarget` (§7.1; filho do jogador, grupo `perceivable`, pontos de amostra cabeça, tronco e pés; exposição do LightExposureProbe, fator de postura, ocultação 0 até a F5). `VisionSensor` (§7.2) com a fórmula de DATA §3.2 (FOV, alcance, fração de linha de visão contra mundo e props, distância, luz, postura, ocultação). A ligação no `player.tscn` é da F4-009.
+- **Testes:** fórmula com casos calculados à mão; oclusão por parede e `vision_occluder`; fora do FOV e do alcance = 0; ARC-01 (só `vision_sensor.gd` conhece o alvo).
+
+### F4-002 · HearingSensor + entrega do AcousticWorld
+- **Responsável:** AI Engineer (percepção) · **Esforço:** HIGH · **Depende de:** F3-002 · **Status:** BACKLOG
+- **Descrição:** `HearingSensor` (§7.2; limiar do AIProfile). O AcousticWorld entrega a cada sensor (grupo) um `HeardNoise` criado por `HeardNoise.from_propagation` com o limiar efetivo do perfil (DATA §2.3: `max(hearing_threshold, piso + clima + masking_margin)`) e o RNG do mundo. NOI-01 passa a ter alvo real.
+- **Testes:** NOI-01 (só o AcousticWorld chama `receive`); o sensor só recebe o que é audível para ele; posição estimada e confiança chegam conforme D-07; NOI-03 continua.
+
+### F4-003 · EnemyBrain (FSM) + PerceptionMemory (L1)
+- **Responsável:** AI Engineer (cérebro) · **Esforço:** EXTRA HIGH · **Depende de:** contratos §8.2 e DATA §3 · **Status:** BACKLOG
+- **Descrição:** `sim/ai/`: tipos de DATA §3 (VisualPercept, PerceptBatch, PerceptionRecord, EnemyIntent, BrainWorldQuery abstrata, HideableInfo, EnemyInitialState, SquadMessage só como tipo), `AIProfile` (Resource) com os 3 perfis de DATA §3.1 em `.tres`, `PerceptionMemory`, `EnemyBrain` com a tabela de transições e as fórmulas de DATA §3.3. Determinístico pelo RNG injetado.
+- **Testes:** cada transição da tabela; cascata no mesmo tick; conferência AI-03 em L1 (CHASE em 0,8 s); AI-06 em L1 (percepts iguais → intent idêntico); AI-08 em L1 (inspeção como percept); ARC-01 e ARC-03.
+
+### F4-004 · EnemyController + EnemyWorldQuery + navegação + THE OBSERVER
+- **Responsável:** AI Engineer · **Esforço:** EXTRA HIGH · **Depende de:** F4-001..003, F4-008 · **Status:** BACKLOG
+- **Descrição:** `EnemyController` (§8.1, prioridade −40): coleta os percepts, chama o brain e aplica o intent com `NavigationAgent3D`; `EnemyWorldQuery` sem dado do jogador; portas pela D4-03; falas pelo `NoiseEmitter` filho. Cena do Observer (greybox) com o perfil OBSERVER, colocada na sandbox jogável pelo Director.
+- **Testes:** AI-01 (rota em ordem), AI-02, AI-03, AI-04, AI-05 (cenários), AI-06 no controlador (invariância com o jogador em posições diferentes fora de percepção), porta destrancada aberta na rota e trancada evitada.
+
+### F4-005 · Captura básica
+- **Responsável:** AI Engineer + Gameplay · **Esforço:** MEDIUM · **Depende de:** F4-004 · **Status:** BACKLOG
+- **Descrição:** `EnemyCaptureArea` (Area3D, prioridade −30) emite `player_caught` só com sobreposição **e** estado CHASE; o controlador repassa `EventBus.player_captured`; tela "capturado" e reinício (D4-04).
+- **Testes:** AI-07 (a captura não entra no `PerceptBatch`); captura só em CHASE.
+
+### F4-006 · PlayerThreatMonitor + AdaptiveMusic básica + falas
+- **F4-006a (Audio Engineer, onda A, HIGH):** música adaptativa básica (camadas procedurais calma, tensão e perseguição, com crossfade guiado por `ThreatSample`) e biblioteca de falas provisórias do Observer (VOICE: murmúrio, "quem está aí?", grito de perseguição) com legendas.
+- **F4-006b (Physiological Eng., onda B, HIGH):** `PlayerThreatMonitor` (D4-01): ameaça percebida pelo jogador, por visão (inimigo na tela com linha de visão, distância) e por audição (`PlayerHeardNoise`; `in_chase` pelo grito de perseguição), em janelas de 3 s (DATA §5 e §6.1). Alimenta o estresse e a música.
+- **Testes:** PHY-12 (visível a 3 m → +10 de estresse em 1 s; só audível ≥ 30 dB → sobe; fora de percepção → não sobe); TMN-INV-1 (ARC-01).
+
+### F4-007 · Medição de desempenho
+- **Responsável:** Director + QA · **Esforço:** MEDIUM · **Depende de:** F4-004 · **Status:** BACKLOG
+- **Descrição:** primeira medição contra SYSTEM_ARCHITECTURE §13 na sandbox (1 Observer real e um teste de carga com 3 inimigos): sensores + cérebro + navegação, propagação de um `NoiseEvent`, fisiologia, LightExposureProbe (GAME-010). Ao menos 3 execuções (RSK-14). Registro em `Docs/QA/PERFORMANCE.md`.
+
+### F4-008 · Sandbox para a IA
+- **Responsável:** Level Designer · **Esforço:** MEDIUM · **Depende de:** F3-007 · **Status:** BACKLOG
+- **Descrição:** `NavigationRegion3D` com navmesh da sandbox (gerada pelo `gen_sandbox.py`), rota de patrulha do Observer (marcadores ordenados), ponto de surgimento do inimigo, e a navegação coerente com as portas (D4-03).
+- **Testes:** pontos da rota alcançáveis pela navmesh; caminho entre as salas pelas portas; nenhuma rota pela porta trancada.
+
+### F4-009 · Integração do jogador
+- **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F4-001, F4-006b · **Status:** BACKLOG
+- **Descrição:** `LightExposureProbe` e `PerceivableTarget` no `player.tscn` (fator de postura pelo motor), `PlayerThreatMonitor` no lugar do `StubThreatSource` (D4-01) e da ponte de susto.
+
+### F4-010 · Revisão técnica — Technical Reviewer · HIGH · BACKLOG
+### F4-011 · Validação de QA (com playtest curto) — QA Engineer · EXTRA HIGH · BACKLOG
+### F4-012 · Documentação — Director · LOW · BACKLOG
+ENEMY_AI.md.
+
+---
+
+## 5. Backlog das Fases 5–6 (resumo; cards completos ao abrir cada fase — DIR-02)
 
 | ID | Tarefa | Responsável | Esforço | Depende de |
 |---|---|---|---|---|
-| F4-001 | PerceivableTarget + VisionSensor | AI Eng. | EXTRA HIGH | F3-005 |
-| F4-002 | HearingSensor | AI Eng. | HIGH | F3-002 |
-| F4-003 | EnemyBrain (FSM) + PerceptionMemory (L1) | AI Eng. | EXTRA HIGH | F4-001, F4-002 |
-| F4-004 | EnemyController + EnemyWorldQuery + navegação + THE OBSERVER | AI Eng. | EXTRA HIGH | F4-003 |
-| F4-005 | Captura básica (`EnemyCaptureArea` → `player_captured`) | AI Eng. + Gameplay | MEDIUM | F4-004 |
-| F4-006 | PlayerThreatMonitor (`PlayerHeardNoise`) + AdaptiveMusic básica; PHY-12 | Physiological Eng. + Audio | HIGH | F4-004 |
 | F5-001 | Planta e greybox do térreo parcial (2 rotas, 3 esconderijos) | Level Designer | HIGH | F4 |
 | F5-002 | Hideable + HidingComponent + inspeção pela IA | Gameplay + AI | EXTRA HIGH | F4-004 |
 | F5-003 | InventoryModel básico + UI mínima | Gameplay Eng. | MEDIUM | F2-005 |

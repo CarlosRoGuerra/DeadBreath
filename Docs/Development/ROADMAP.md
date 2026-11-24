@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Atualizado | 2026-11-20 |
-| Fase atual | **FASE 3 — Furtividade e áudio** (Gate F2 aprovado em 2026-11-20) |
+| Fase atual | **FASE 4 — IA inimiga** (Gate F3 aprovado em 2026-11-24) |
 | Responsável | Project Director |
 
 Cada fase termina num **gate**. A fase seguinte só começa com o gate aprovado: critérios cumpridos, testes executados com evidência, revisão técnica concluída, documentação atualizada e aprovação do usuário.
@@ -103,7 +103,7 @@ Protótipo controlável em primeira pessoa numa sandbox greybox.
 
 **Gate F3:** NOI-01..05, STL-01..03, STL-07 e ACC-04 verdes; STEALTH_SYSTEM.md e AUDIO_DESIGN.md escritos.
 
-**Gate F3: AGUARDANDO aprovação do usuário** (2026-11-21).
+**Gate F3: APROVADO pelo usuário em 2026-11-24** ("pode continuar", em resposta ao pedido de aprovação do gate; critérios abaixo cumpridos, com as ressalvas registradas).
 1. NOI-01..05: ✔ NOI-02..05 verdes; NOI-01 com a varredura estática verde (o alvo real, o HearingSensor, é da F4).
 2. STL-01..03 e STL-07: ✔ (unitários, nível real e cenário: porta fechada −15,00 dB).
 3. ACC-04: ✔ tosse, portas e passos próximos; falas sem emissor até a F4.

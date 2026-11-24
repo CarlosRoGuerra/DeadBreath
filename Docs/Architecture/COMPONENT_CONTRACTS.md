@@ -367,6 +367,8 @@ func from_dict(data: Dictionary) -> void
 
 **Decisão F2 (Architect, ratificada):** `ThreatSource` é `RefCounted`, não `Node`. Como Node, ele seria um componente do jogador, e a herança `StubThreatSource extends ThreatSource` violaria o ARC-06. O PlayerRoot guarda a fonte por `set_threat_source()`. **Pendente para a F4:** o `PlayerThreatMonitor` precisa de Node (recebe ruídos, tem janelas de tempo). A opção preferida é o monitor (Node) expor um `ThreatSource` RefCounted via composição; decidir ao abrir a F4.
 
+**Decisão D4-01 (Director, abertura da F4):** o `PlayerThreatMonitor` é um componente `Node` do jogador (`components/player/player_threat_monitor.gd`) e **não** estende `ThreatSource`. Ele expõe `get_threat_source() -> ThreatSource`, um RefCounted que lê o estado do monitor (composição). O PlayerRoot faz `set_threat_source(monitor.get_threat_source())` e registra o monitor no `AcousticWorld.register_player_listener(monitor.receive_heard, ouvido)`, no lugar da ponte de susto da F3. O monitor emite `startled(amount)`, e o PlayerRoot liga esse sinal a `physiology.add_startle`. A interface acima vale com essa leitura: `receive_heard`, `threat_changed`, `to_dict` e `from_dict` ficam no monitor; `sample()` fica na fonte.
+
 **Invariante TMN-INV-1:** nenhuma informação do PlayerThreatMonitor nem `PlayerHeardNoise` é lida por scripts de IA (ARC-01).
 
 ## 6. Acústica — AI Engineer + Audio Engineer (contrato conjunto) — Fase 3
@@ -645,6 +647,8 @@ func messages_for(enemy_id: StringName, now: float) -> Array[SquadMessage]
 `BrainWorldQuery` é declarado em L1 como classe base abstrata com métodos que falham se não forem sobrescritos. O EnemyController a fornece por meio de um objeto adaptador (`EnemyWorldQuery extends BrainWorldQuery`), já que o controlador não pode herdar de duas classes.
 
 Transições e limiares numéricos: DATA_STRUCTURES §3.
+
+**Decisões de abertura da F4 (Director):** D4-02, um inimigo na F4 e o `SquadCoordinator` na F6 (`PerceptBatch.squad` vazio); D4-03, o inimigo abre a porta fechada e destrancada na rota (`Door.interact` com o inimigo como ator) e porta trancada nunca é rota; D4-04, captura provisória (tela e reinício da sandbox) até a F5.
 
 **SquadCoordinator:** só aceita mensagens criadas a partir de percepts do próprio remetente. A entrega respeita latência (`deliver_at`). Toda mensagem é acompanhada de fala (VOICE) audível ao jogador.
 
