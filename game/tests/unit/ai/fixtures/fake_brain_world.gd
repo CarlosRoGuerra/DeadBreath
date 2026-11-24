@@ -8,6 +8,8 @@ var route: PackedVector3Array = PackedVector3Array()
 var search_candidates: PackedVector3Array = PackedVector3Array()
 var hideables: Array[HideableInfo] = []
 var reachable: bool = true
+## Pontos inalcançáveis um a um (raio de 0,5 m), além do interruptor geral `reachable` (revisão F4-010, R4-03).
+var unreachable_points: PackedVector3Array = PackedVector3Array()
 ## Centro da última consulta de busca (para conferir a âncora da SEARCH).
 var last_search_center: Vector3 = Vector3.ZERO
 
@@ -16,8 +18,13 @@ func self_position() -> Vector3:
 	return position
 
 
-func is_reachable(_point: Vector3) -> bool:
-	return reachable
+func is_reachable(point: Vector3) -> bool:
+	if not reachable:
+		return false
+	for blocked: Vector3 in unreachable_points:
+		if blocked.distance_to(point) <= 0.5:
+			return false
+	return true
 
 
 func search_points_near(center: Vector3, _radius: float) -> PackedVector3Array:

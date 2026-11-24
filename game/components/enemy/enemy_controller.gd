@@ -200,6 +200,8 @@ func reset_to(initial: EnemyInitialState) -> void:
 	global_position = initial.spawn_position
 	velocity = Vector3.ZERO
 	_pending_percepts.clear()
+	# Revisão F4-010, R4-07: sons ouvidos antes do reset não chegam ao cérebro novo.
+	_hearing.drain()
 	_clear_passage()
 	_has_nav_target = false
 	_stride_m = 0.0

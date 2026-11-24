@@ -7,7 +7,9 @@ extends RefCounted
 
 var category: Enums.NoiseCategory = Enums.NoiseCategory.BREATHING
 var perceived_db: float = 0.0
-## Posição estimada (entry_point mais erro proporcional aos dB perdidos). Nunca é a posição real da fonte.
+## Posição estimada (entry_point mais erro proporcional aos dB perdidos). Revisão F4-010, R4-06: no caminho direto o
+## entry_point é a posição da fonte, então sem perda (fonte a até min_distance_m, sem parede nem piso) a estimativa é
+## a posição real: a IA ouve com precisão o que está colado nela. Com perda, o erro cresce com os dB perdidos.
 var estimated_position: Vector3 = Vector3.ZERO
 ## 0..1: clamp((perceived_db − limiar) / 20; 0,1; 1) (DATA §2).
 var confidence: float = 0.0

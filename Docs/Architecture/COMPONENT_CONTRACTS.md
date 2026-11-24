@@ -654,6 +654,45 @@ Transições e limiares numéricos: DATA_STRUCTURES §3.
 
 **SquadCoordinator:** só aceita mensagens criadas a partir de percepts do próprio remetente. A entrega respeita latência (`deliver_at`). Toda mensagem é acompanhada de fala (VOICE) audível ao jogador.
 
+### 8.3 API pública acrescentada na Fase 4 (revisão F4-010, R4-08) — v1.0
+
+Métodos marcados com `## teste` servem a testes e depuração.
+
+```gdscript
+## EnemyController (§8.1)
+@export var enemy_id: StringName; @export var profile: AIProfile; @export var route_id: StringName; @export var brain_seed: int
+func tick(delta: float) -> void                       ## o _physics_process chama; testes também
+func get_state() -> Enums.EnemyState
+func patrol_route() -> PackedVector3Array
+func reset_to(initial: EnemyInitialState) -> void      ## cérebro novo, RNG na semente, sons pendentes descartados (R4-07)
+func inspect_hideable(persist_id: StringName) -> void  ## F5: usa grupo "hideable", meta persist_id e inspect(by_enemy_id)
+static func percepts_from_inspection(found: bool, hideable_position: Vector3, time_s: float) -> Array[VisualPercept]  ## AI-08
+func last_batch() -> PerceptBatch; func last_intent() -> EnemyIntent   ## teste
+
+## EnemyWorldQuery extends BrainWorldQuery (sem dado do jogador)
+## _init(controller, navigation_map, sampling_rng): o terceiro parâmetro é o RNG de amostragem dos pontos de busca.
+## is_reachable com cache por célula de 0,1 m, zerado quando o mapa muda.
+
+## EnemyDoorLinkGate: @export var scope_path; func is_link_enabled(door_id: StringName) -> bool  ## D4-03
+## EnemyCaptureArea (−30): signal player_caught(); @export var controller; func rearm(); func is_latched(); func evaluate()
+
+## Percepção (§7)
+VisionSensor: @export sight_range_m, fov_deg; func evaluate(target: PerceivableTarget) -> VisualPercept
+              static distance_factor, light_factor, visibility_of (DATA §3.2)
+HearingSensor: @export owner_id, hearing_threshold_db, masking_margin_db; func receive(heard) (só o AcousticWorld); func drain()
+PerceivableTarget: @export sample_points; set_light_probe, set_stance, set_concealment; get_sample_points, get_light_exposure,
+                   get_stance_factor, get_concealment
+
+## PlayerThreatMonitor (§5, D4-01)
+signal threat_changed(level: float, in_chase: bool); signal startled(amount: float)
+func setup(camera: Camera3D); func get_threat_source() -> ThreatSource; func step(delta); func receive_heard(heard)
+static seen_proximity_for, heard_factor_for, threat_level_for (DATA §1.5); func to_dict() / from_dict()
+
+## CaptureScreen (L3): func advance(delta), is_capturing(), get_fade_alpha(), get_caption_text(), get_restart_count() ## teste
+##                     var restart_callable (teste: substitui o reload_current_scene)
+## AdaptiveMusic (L3): func set_threat(level, in_chase); @export autostart, bind_player_monitor; func is_bound_to_monitor()
+```
+
 ## 9. Esconderijos (L2) — Gameplay Engineer + AI Engineer — Fase 5
 
 ```gdscript

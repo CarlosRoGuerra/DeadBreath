@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://components/enemy/enemy_controller.gd" id="1_controller"]
 [ext_resource type="Resource" path="res://content/data/ai/observer.tres" id="2_profile"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://components/acoustics/noise_emitter.gd" id="5_noise"]
 [ext_resource type="Script" path="res://components/enemy/enemy_capture_area.gd" id="6_capture"]
 [ext_resource type="Script" path="res://components/enemy/enemy_door_link_gate.gd" id="7_gate"]
+[ext_resource type="Script" path="res://components/perception/light_exposure_probe.gd" id="8_probe"]
 
 [sub_resource type="CapsuleShape3D" id="Shape_body"]
 radius = 0.3
@@ -101,6 +102,10 @@ script = ExtResource("6_capture")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CaptureArea"]
 shape = SubResource("Shape_capture")
 position = Vector3(0, 0.9, 0)
+
+[node name="LightExposureProbe" type="Node3D" parent="."]
+script = ExtResource("8_probe")
+sample_offsets = PackedVector3Array(0, 0.1, 0, 0, 0.9, 0, 0, 1.6, 0)
 
 [node name="DoorLinkGate" type="Node" parent="."]
 script = ExtResource("7_gate")

@@ -13,7 +13,9 @@ extends Node
 ## Amplitude de cada camada = raiz(peso). A soma das potências é 1 em todo ponto: o volume percebido não afunda
 ## na transição (potência constante). Exemplos: level 0 → calma 1; level 0,5 sem perseguição → calma e tensão 0,707
 ## cada; level 1 → tensão 1; perseguição → perseguição 1.
-## O alvo é atingido em CROSSFADE_S = 2 s: a amplitude desliza linearmente em tick() (chamado por _process).
+## O alvo é atingido em CROSSFADE_S = 2 s. Revisão F4-010 (R4-05, Director): o deslize é feito nos PESOS (potência),
+## normalizados para somar 1 a cada tick, e a amplitude é a raiz; antes a amplitude deslizava linearmente e a potência
+## afundava 3 dB no meio da transição.
 
 const MANIFEST_PATH: String = "res://content/audio/music/manifest.json"
 const MUSIC_DIR: String = "res://content/audio/music/"
@@ -40,6 +42,8 @@ var _bound_monitor: PlayerThreatMonitor = null
 var _players: Dictionary = {}
 var _target: Dictionary = {&"calm": 1.0, &"tension": 0.0, &"chase": 0.0}
 var _gain: Dictionary = {&"calm": 1.0, &"tension": 0.0, &"chase": 0.0}
+## Pesos (potência) atuais de cada camada; somam 1. A amplitude é a raiz.
+var _weight: Dictionary = {&"calm": 1.0, &"tension": 0.0, &"chase": 0.0}
 var _threat_level: float = 0.0
 var _in_chase: bool = false
 var _started: bool = false
@@ -114,11 +118,19 @@ func start() -> void:
 			player.play()
 
 
-## Um passo do crossfade: cada amplitude anda até o alvo, no máximo 1 unidade em CROSSFADE_S segundos.
+## Um passo do crossfade: cada peso anda até o peso-alvo (alvo ao quadrado), no máximo 1 unidade em CROSSFADE_S
+## segundos; os pesos são normalizados para somar 1 (potência constante) e a amplitude é a raiz.
 func tick(delta: float) -> void:
 	var step: float = delta / maxf(CROSSFADE_S, 0.0001)
+	var total: float = 0.0
 	for layer: StringName in LAYERS:
-		var gain: float = move_toward(float(_gain[layer]), float(_target[layer]), step)
+		var target_amplitude: float = float(_target[layer])
+		var weight: float = move_toward(float(_weight[layer]), target_amplitude * target_amplitude, step)
+		_weight[layer] = weight
+		total += weight
+	for layer: StringName in LAYERS:
+		var normalized: float = float(_weight[layer]) / total if total > 0.0 else 0.0
+		var gain: float = sqrt(normalized)
 		_gain[layer] = gain
 		var player: AudioStreamPlayer = _players.get(layer) as AudioStreamPlayer
 		if player != null:

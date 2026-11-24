@@ -334,7 +334,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 - **Responsável:** Gameplay Engineer · **Esforço:** MEDIUM · **Depende de:** F4-001, F4-006b · **Status:** REVIEW. `LightExposureProbe` e `PerceivableTarget` (cabeça, tronco e pés acompanhando a altura dos olhos) no `player.tscn`; monitor no lugar do stub e da ponte de susto; trava de entrada na captura
 - **Descrição:** `LightExposureProbe` e `PerceivableTarget` no `player.tscn` (fator de postura pelo motor), `PlayerThreatMonitor` no lugar do `StubThreatSource` (D4-01) e da ponte de susto.
 
-### F4-010 · Revisão técnica — Technical Reviewer · HIGH · BACKLOG
+### F4-010 · Revisão técnica — Technical Reviewer · HIGH · REVIEW (REPROVADO: 1 ALTO, 3 MÉDIO, 4 BAIXO, 4 INFO; correções em `Docs/QA/REVIEWS/F4-010_RESOLUTION.md`, aguardando nova verificação)
 ### F4-011 · Validação de QA (com playtest curto) — QA Engineer · EXTRA HIGH · BACKLOG
 ### F4-012 · Documentação — Director · LOW · BACKLOG
 ENEMY_AI.md.

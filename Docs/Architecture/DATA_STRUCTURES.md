@@ -458,6 +458,8 @@ confirm   += visibility · dt   se visibility ≥ min_visibility_for_confirm;  s
 
 Transições em cascata no mesmo tick são permitidas (PATROL → SUSPICIOUS → INVESTIGATE).
 
+**Decisão D4-09 (F4, revisão F4-010):** a confirmação tem teto em `visual_confirm_time_s` e zera ao entrar em LOST_CONTACT; voltar a CHASE exige visão nova (antes, a confirmação sem teto devolvia o inimigo a CHASE logo depois de perder a visão, e a perseguição durava 4,5 s em vez de 1,5 s). RETURN e PATROL também não ficam presos: destino inalcançável ou 30 s sem chegar levam RETURN a PATROL e PATROL ao ponto seguinte; sem ponto alcançável, o inimigo fica parado.
+
 **Decisão D4-08 (F4):** o limiar efetivo usado na suspeita por audição vem do próprio `HeardNoise.effective_threshold_db`, preenchido pelo AcousticWorld na entrega. Se a pista de INVESTIGATE não for alcançável (`is_reachable` falso) ou se passarem 15 s sem chegar a ela, o estado passa a SEARCH a partir da posição atual (evita travar com navegação impossível).
 
 **Falas do Observer (D4-06, F4):** `EnemyIntent.voice_line` é o `sound_id` da fala, posto uma vez na transição (não a cada tick). O controlador emite VOICE pelo NoiseEmitter filho com a intensidade de §2.1.

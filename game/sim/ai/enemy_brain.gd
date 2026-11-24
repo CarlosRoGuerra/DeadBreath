@@ -18,7 +18,10 @@ extends RefCounted
 ## - Confirmação: += visibilidade · dt se visibilidade ≥ min_visibility_for_confirm; senão −2 · dt (piso 0).
 ## - Pista de INVESTIGATE: PerceptionMemory.best_lead() a cada tick; sem pista útil, mantém o último destino.
 ## - SEARCH: pontos de search_points_near(âncora, SEARCH_RADIUS_M), filtrados por is_reachable e embaralhados pelo
-##   RNG; recomeçam embaralhados quando a lista acaba. Pista nova (visão) reinicia o cronômetro da busca.
+##   RNG; recomeçam embaralhados quando a lista acaba. Pista nova (visão ou ruído audível) reinicia o cronômetro da
+##   busca (DATA §3.3, "nova pista").
+## - D4-09 (revisão F4-010): a confirmação tem teto em visual_confirm_time_s e zera ao entrar em LOST_CONTACT; RETURN
+##   e PATROL desistem de destino inalcançável ou depois de 30 s sem chegar.
 ## - Inspeção (SEARCH): ao chegar a um ponto, se hideables_near(ponto, HIDEABLE_RADIUS_M) não for vazio, sorteia
 ##   inspect_hideable_chance. Se der certo, vai ao esconderijo e, ao chegar, posta inspect_hideable uma vez.
 ## - Falas: a voice_line é a da última transição do tick (em cascata, vale a fala final).
@@ -47,6 +50,10 @@ const LOST_CONTACT_NO_SIGHT_S: float = 1.5
 const INVESTIGATE_WATCH_S: float = 3.0
 ## INVESTIGATE → SEARCH sem chegar à pista (D4-08). Tempo desde a entrada em INVESTIGATE.
 const INVESTIGATE_TIMEOUT_S: float = 15.0
+## D4-09 (revisão F4-010, R4-03): RETURN e PATROL também não ficam presos. Destino inalcançável ou este tempo sem
+## chegar: RETURN passa a PATROL (que pula pontos inalcançáveis) e PATROL passa ao ponto seguinte.
+const RETURN_TIMEOUT_S: float = 30.0
+const PATROL_LEG_TIMEOUT_S: float = 30.0
 ## Suspeita decai só depois deste tempo sem estímulo visual (DATA §3.3).
 const SUSPICION_DECAY_DELAY_S: float = 2.0
 ## SUSPICIOUS → PATROL: suspeita abaixo deste valor (DATA §3.3; constante, não é do perfil).
@@ -90,6 +97,8 @@ var _anchor: Vector3 = Vector3.ZERO
 ## Destino atual de INVESTIGATE, LOST_CONTACT e RETURN.
 var _target: Vector3 = Vector3.ZERO
 var _patrol_index: int = 0
+## Segundos indo ao ponto de patrulha atual (D4-09). Zera ao trocar de ponto e ao entrar em PATROL.
+var _patrol_leg_s: float = 0.0
 var _return_index: int = 0
 var _search_points: PackedVector3Array = PackedVector3Array()
 var _search_index: int = 0
@@ -112,6 +121,7 @@ func tick(dt: float, percepts: PerceptBatch, world: BrainWorldQuery) -> EnemyInt
 	_pending_voice = &""
 	var here: Vector3 = world.self_position()
 	_state_time += step
+	_patrol_leg_s += step
 	_update_perception(step, percepts)
 	if state == Enums.EnemyState.INVESTIGATE:
 		_follow_best_lead()
@@ -182,9 +192,11 @@ func _update_watch(step: float, here: Vector3) -> void:
 		_watch_s = 0.0
 
 
+## D4-09 (revisão F4-010, R4-01): a confirmação tem teto em visual_confirm_time_s. Sem teto, ela crescia durante a
+## perseguição e devolvia o inimigo a CHASE logo depois de LOST_CONTACT, sem visão nova.
 func _add_confirmation(visibility: float, step: float) -> void:
 	if visibility > 0.0 and visibility >= _profile.min_visibility_for_confirm:
-		confirmation += visibility * step
+		confirmation = minf(confirmation + visibility * step, _profile.visual_confirm_time_s)
 	else:
 		confirmation = maxf(0.0, confirmation - CONFIRM_LOSS_PER_S * step)
 
@@ -252,10 +264,12 @@ func _try_transition(world: BrainWorldQuery, here: Vector3) -> bool:
 			_enter(Enums.EnemyState.RETURN, world, here, &"")
 			return true
 		return false
-	if state == Enums.EnemyState.RETURN and _is_at(here, _target):
-		_patrol_index = _return_index
-		_enter(Enums.EnemyState.PATROL, world, here, &"")
-		return true
+	if state == Enums.EnemyState.RETURN:
+		if _is_at(here, _target) or not world.is_reachable(_target) or _state_time >= RETURN_TIMEOUT_S:
+			_patrol_index = _return_index
+			_enter(Enums.EnemyState.PATROL, world, here, &"")
+			return true
+		return false
 	return false
 
 
@@ -268,6 +282,7 @@ func _enter(next: Enums.EnemyState, world: BrainWorldQuery, here: Vector3, voice
 		Enums.EnemyState.PATROL:
 			suspicion = 0.0
 			confirmation = 0.0
+			_patrol_leg_s = 0.0
 			_memory.clear()
 		Enums.EnemyState.INVESTIGATE:
 			_watch_s = 0.0
@@ -281,6 +296,8 @@ func _enter(next: Enums.EnemyState, world: BrainWorldQuery, here: Vector3, voice
 		Enums.EnemyState.CHASE:
 			_no_sight_s = 0.0
 		Enums.EnemyState.LOST_CONTACT:
+			# D4-09 (R4-01): voltar a CHASE exige visão nova.
+			confirmation = 0.0
 			_target = _last_seen
 			_anchor = _last_seen
 		Enums.EnemyState.SEARCH:
@@ -366,7 +383,8 @@ func _build_intent(world: BrainWorldQuery, here: Vector3) -> EnemyIntent:
 	return intent
 
 
-## Patrulha em laço. Ao chegar a um ponto, passa ao seguinte.
+## Patrulha em laço. Ao chegar a um ponto, passa ao seguinte. D4-09 (R4-03): ponto inalcançável ou
+## PATROL_LEG_TIMEOUT_S sem chegar também passam ao seguinte; sem nenhum ponto alcançável, fica parado.
 func _build_patrol_intent(intent: EnemyIntent, world: BrainWorldQuery, here: Vector3) -> void:
 	var route: PackedVector3Array = world.patrol_points()
 	if route.is_empty():
@@ -375,9 +393,19 @@ func _build_patrol_intent(intent: EnemyIntent, world: BrainWorldQuery, here: Vec
 		return
 	if _patrol_index >= route.size():
 		_patrol_index = 0
-	if _is_at(here, route[_patrol_index]):
-		_patrol_index = (_patrol_index + 1) % route.size()
-	_head_to(intent, route[_patrol_index], _profile.patrol_speed)
+	if _is_at(here, route[_patrol_index]) or _patrol_leg_s >= PATROL_LEG_TIMEOUT_S:
+		_next_patrol_point(route.size())
+	for _skip: int in range(route.size()):
+		if world.is_reachable(route[_patrol_index]):
+			_head_to(intent, route[_patrol_index], _profile.patrol_speed)
+			return
+		_next_patrol_point(route.size())
+	_head_to(intent, here, 0.0)
+
+
+func _next_patrol_point(route_size: int) -> void:
+	_patrol_index = (_patrol_index + 1) % route_size
+	_patrol_leg_s = 0.0
 
 
 ## Busca: visita os pontos embaralhados e, se houver esconderijo sorteado, vai inspecioná-lo antes de seguir.

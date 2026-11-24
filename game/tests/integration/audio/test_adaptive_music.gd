@@ -49,8 +49,10 @@ func test_sem_ameaca_so_o_volume_da_calma_sobe() -> void:
 func test_crossfade_avanca_no_tempo_ate_o_alvo() -> void:
 	_music.set_threat(1.0, false)
 	_music.tick(1.0)
-	assert_almost_eq(_music.layer_gain(&"tension"), 0.5, TOL, "após 1 s (de 2 s), tensão em 0,5")
-	assert_almost_eq(_music.layer_gain(&"calm"), 0.5, TOL, "após 1 s, calma em 0,5")
+	# Revisão F4-010, R4-05: potência constante. Após 1 s (de 2 s), pesos 0,5 e 0,5: amplitudes √0,5.
+	assert_almost_eq(_music.layer_gain(&"tension"), sqrt(0.5), TOL, "após 1 s (de 2 s), tensão em √0,5")
+	assert_almost_eq(_music.layer_gain(&"calm"), sqrt(0.5), TOL, "após 1 s, calma em √0,5")
+	assert_almost_eq(_power(), 1.0, TOL, "potência total 1 no meio da transição")
 	_music.tick(1.0)
 	assert_almost_eq(_music.layer_gain(&"tension"), 1.0, TOL, "após 2 s, tensão em 1")
 	assert_almost_eq(_music.layer_gain(&"calm"), 0.0, TOL, "após 2 s, calma em 0")
@@ -62,6 +64,8 @@ func test_meia_ameaca_e_depois_perseguicao() -> void:
 	assert_almost_eq(_music.layer_gain(&"calm"), sqrt(0.5), TOL, "meia ameaça: calma √0,5")
 	assert_almost_eq(_music.layer_gain(&"tension"), sqrt(0.5), TOL, "meia ameaça: tensão √0,5")
 	_music.set_threat(0.5, true)
+	_music.tick(0.5)
+	assert_almost_eq(_power(), 1.0, TOL, "potência total 1 no meio de calma+tensão → perseguição (R4-05)")
 	_music.tick(5.0)
 	assert_almost_eq(_music.layer_gain(&"chase"), 1.0, TOL, "perseguição: perseguição em 1")
 	assert_almost_eq(_music.layer_gain(&"calm"), 0.0, TOL, "perseguição: calma em 0")
@@ -74,3 +78,11 @@ func test_trocar_o_volume_nao_para_nem_dessincroniza() -> void:
 	_music.tick(5.0)
 	assert_true(_music.is_synced(), "as camadas continuam juntas depois da troca de volume")
 	assert_almost_eq(_music.layer_volume_db(&"chase"), 0.0, TOL, "perseguição em 0 dB")
+
+
+## Soma das potências das três camadas (amplitude ao quadrado).
+func _power() -> float:
+	var total: float = 0.0
+	for layer: StringName in [&"calm", &"tension", &"chase"]:
+		total += _music.layer_gain(layer) * _music.layer_gain(layer)
+	return total
