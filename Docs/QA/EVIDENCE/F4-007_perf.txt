@@ -1,0 +1,68 @@
+﻿F4-007 medicao de desempenho - 2026-11-24 08:51:55
+Godot: D:/DevTools/Godot/4.7.2/Godot_v4.7.2-stable_win64_console.exe
+PERF run=1 inimigos=1 bucket=total_fisica n=600 media_ms=0.1832 p95_ms=0.3090 max_ms=0.7170
+PERF run=1 inimigos=1 bucket=jogador n=600 media_ms=0.0934 p95_ms=0.1250 max_ms=0.1520
+PERF run=1 inimigos=1 bucket=acustica n=600 media_ms=0.0060 p95_ms=0.0030 max_ms=0.3980
+PERF run=1 inimigos=1 bucket=inimigos n=600 media_ms=0.0597 p95_ms=0.0950 max_ms=0.1420
+PERF run=1 inimigos=1 bucket=captura n=600 media_ms=0.0017 p95_ms=0.0030 max_ms=0.0050
+PERF run=1 inimigos=1 bucket=total_processo n=600 media_ms=0.0597 p95_ms=0.0790 max_ms=0.1100
+PERF run=1 inimigos=1 estados_observer={"0":222,"1":379}
+PERF run=1 inimigos=1 micro=propagacao_por_evento n=5 media_ms=0.1496 p95_ms=0.1568 max_ms=0.1568
+PERF run=1 inimigos=1 micro=sonda_jogador n=300 media_ms=0.0158 p95_ms=0.0160 max_ms=0.0440
+PERF run=1 inimigos=1 micro=sonda_observer n=300 media_ms=0.0217 p95_ms=0.0230 max_ms=0.0310
+PERF run=1 inimigos=1 micro=fisiologia_tick n=1000 media_ms=0.0058 p95_ms=0.0060 max_ms=0.0330
+PERF run=2 inimigos=1 bucket=total_fisica n=600 media_ms=0.1835 p95_ms=0.3010 max_ms=0.6060
+PERF run=2 inimigos=1 bucket=jogador n=600 media_ms=0.0943 p95_ms=0.1270 max_ms=0.1590
+PERF run=2 inimigos=1 bucket=acustica n=600 media_ms=0.0054 p95_ms=0.0030 max_ms=0.3870
+PERF run=2 inimigos=1 bucket=inimigos n=600 media_ms=0.0604 p95_ms=0.0940 max_ms=0.1830
+PERF run=2 inimigos=1 bucket=captura n=600 media_ms=0.0017 p95_ms=0.0030 max_ms=0.0030
+PERF run=2 inimigos=1 bucket=total_processo n=600 media_ms=0.0603 p95_ms=0.0790 max_ms=0.1250
+PERF run=2 inimigos=1 estados_observer={"0":222,"1":379}
+PERF run=2 inimigos=1 micro=propagacao_por_evento n=5 media_ms=0.1489 p95_ms=0.1545 max_ms=0.1545
+PERF run=2 inimigos=1 micro=sonda_jogador n=300 media_ms=0.0157 p95_ms=0.0160 max_ms=0.0440
+PERF run=2 inimigos=1 micro=sonda_observer n=300 media_ms=0.0214 p95_ms=0.0240 max_ms=0.0320
+PERF run=2 inimigos=1 micro=fisiologia_tick n=1000 media_ms=0.0058 p95_ms=0.0060 max_ms=0.0320
+PERF run=3 inimigos=1 bucket=total_fisica n=600 media_ms=0.1840 p95_ms=0.3060 max_ms=0.6960
+PERF run=3 inimigos=1 bucket=jogador n=600 media_ms=0.0940 p95_ms=0.1260 max_ms=0.1660
+PERF run=3 inimigos=1 bucket=acustica n=600 media_ms=0.0058 p95_ms=0.0030 max_ms=0.3920
+PERF run=3 inimigos=1 bucket=inimigos n=600 media_ms=0.0602 p95_ms=0.0960 max_ms=0.1870
+PERF run=3 inimigos=1 bucket=captura n=600 media_ms=0.0017 p95_ms=0.0030 max_ms=0.0040
+PERF run=3 inimigos=1 bucket=total_processo n=600 media_ms=0.0600 p95_ms=0.0780 max_ms=0.1090
+PERF run=3 inimigos=1 estados_observer={"0":222,"1":379}
+PERF run=3 inimigos=1 micro=propagacao_por_evento n=5 media_ms=0.1475 p95_ms=0.1521 max_ms=0.1521
+PERF run=3 inimigos=1 micro=sonda_jogador n=300 media_ms=0.0157 p95_ms=0.0160 max_ms=0.0400
+PERF run=3 inimigos=1 micro=sonda_observer n=300 media_ms=0.0215 p95_ms=0.0240 max_ms=0.0300
+PERF run=3 inimigos=1 micro=fisiologia_tick n=1000 media_ms=0.0057 p95_ms=0.0060 max_ms=0.0300
+PERF run=1 inimigos=3 bucket=total_fisica n=600 media_ms=0.3161 p95_ms=0.5990 max_ms=1.0540
+PERF run=1 inimigos=3 bucket=jogador n=600 media_ms=0.1030 p95_ms=0.1510 max_ms=0.2650
+PERF run=1 inimigos=3 bucket=acustica n=600 media_ms=0.0259 p95_ms=0.2400 max_ms=0.7500
+PERF run=1 inimigos=3 bucket=inimigos n=600 media_ms=0.1488 p95_ms=0.2360 max_ms=0.4980
+PERF run=1 inimigos=3 bucket=captura n=600 media_ms=0.0026 p95_ms=0.0040 max_ms=0.0240
+PERF run=1 inimigos=3 bucket=total_processo n=600 media_ms=0.0643 p95_ms=0.0860 max_ms=0.1830
+PERF run=1 inimigos=3 estados_observer={"2":597,"3":4}
+PERF run=1 inimigos=3 micro=propagacao_por_evento n=5 media_ms=0.2917 p95_ms=0.2986 max_ms=0.2986
+PERF run=1 inimigos=3 micro=sonda_jogador n=300 media_ms=0.0160 p95_ms=0.0160 max_ms=0.0400
+PERF run=1 inimigos=3 micro=sonda_observer n=300 media_ms=0.0219 p95_ms=0.0250 max_ms=0.0580
+PERF run=1 inimigos=3 micro=fisiologia_tick n=1000 media_ms=0.0059 p95_ms=0.0060 max_ms=0.0330
+PERF run=2 inimigos=3 bucket=total_fisica n=600 media_ms=0.3113 p95_ms=0.5740 max_ms=1.0240
+PERF run=2 inimigos=3 bucket=jogador n=600 media_ms=0.1000 p95_ms=0.1450 max_ms=0.1650
+PERF run=2 inimigos=3 bucket=acustica n=600 media_ms=0.0244 p95_ms=0.2440 max_ms=0.7350
+PERF run=2 inimigos=3 bucket=inimigos n=600 media_ms=0.1479 p95_ms=0.2230 max_ms=0.5040
+PERF run=2 inimigos=3 bucket=captura n=600 media_ms=0.0026 p95_ms=0.0040 max_ms=0.0450
+PERF run=2 inimigos=3 bucket=total_processo n=600 media_ms=0.0620 p95_ms=0.0820 max_ms=0.1100
+PERF run=2 inimigos=3 estados_observer={"2":597,"3":4}
+PERF run=2 inimigos=3 micro=propagacao_por_evento n=5 media_ms=0.2917 p95_ms=0.2978 max_ms=0.2978
+PERF run=2 inimigos=3 micro=sonda_jogador n=300 media_ms=0.0162 p95_ms=0.0160 max_ms=0.0500
+PERF run=2 inimigos=3 micro=sonda_observer n=300 media_ms=0.0218 p95_ms=0.0220 max_ms=0.0310
+PERF run=2 inimigos=3 micro=fisiologia_tick n=1000 media_ms=0.0059 p95_ms=0.0060 max_ms=0.0300
+PERF run=3 inimigos=3 bucket=total_fisica n=600 media_ms=0.3133 p95_ms=0.5720 max_ms=1.3190
+PERF run=3 inimigos=3 bucket=jogador n=600 media_ms=0.1012 p95_ms=0.1480 max_ms=0.1930
+PERF run=3 inimigos=3 bucket=acustica n=600 media_ms=0.0259 p95_ms=0.2510 max_ms=0.9200
+PERF run=3 inimigos=3 bucket=inimigos n=600 media_ms=0.1479 p95_ms=0.2330 max_ms=0.4890
+PERF run=3 inimigos=3 bucket=captura n=600 media_ms=0.0026 p95_ms=0.0040 max_ms=0.0130
+PERF run=3 inimigos=3 bucket=total_processo n=600 media_ms=0.0633 p95_ms=0.0830 max_ms=0.1060
+PERF run=3 inimigos=3 estados_observer={"2":597,"3":4}
+PERF run=3 inimigos=3 micro=propagacao_por_evento n=5 media_ms=0.2906 p95_ms=0.2977 max_ms=0.2977
+PERF run=3 inimigos=3 micro=sonda_jogador n=300 media_ms=0.0157 p95_ms=0.0160 max_ms=0.0390
+PERF run=3 inimigos=3 micro=sonda_observer n=300 media_ms=0.0216 p95_ms=0.0250 max_ms=0.0300
+PERF run=3 inimigos=3 micro=fisiologia_tick n=1000 media_ms=0.0058 p95_ms=0.0060 max_ms=0.0320

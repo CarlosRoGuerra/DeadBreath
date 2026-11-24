@@ -319,7 +319,7 @@ Contratos congelados para a fase: COMPONENT_CONTRACTS §5 (com a decisão D4-01)
 - **Testes:** PHY-12 (visível a 3 m → +10 de estresse em 1 s; só audível ≥ 30 dB → sobe; fora de percepção → não sobe); TMN-INV-1 (ARC-01).
 
 ### F4-007 · Medição de desempenho
-- **Responsável:** Director + QA · **Esforço:** MEDIUM · **Depende de:** F4-004 · **Status:** BACKLOG
+- **Responsável:** Director + QA · **Esforço:** MEDIUM · **Depende de:** F4-004 · **Status:** DONE (Director; a QA confere na F4-011). `Docs/QA/PERFORMANCE.md`: 3 inimigos em 0,148 ms/quadro (orçamento 1,0), fisiologia 0,006 ms (0,1), total de scripts ≈ 0,38 ms (3,0); propagação por evento 0,149 ms com 1 inimigo e **0,291 ms com 3** (orçamento 0,2: PERF-001, GAME-016). Achado: inimigos ouvem os passos uns dos outros (GAME-017)
 - **Descrição:** primeira medição contra SYSTEM_ARCHITECTURE §13 na sandbox (1 Observer real e um teste de carga com 3 inimigos): sensores + cérebro + navegação, propagação de um `NoiseEvent`, fisiologia, LightExposureProbe (GAME-010). Ao menos 3 execuções (RSK-14). Registro em `Docs/QA/PERFORMANCE.md`.
 
 ### F4-008 · Sandbox para a IA
