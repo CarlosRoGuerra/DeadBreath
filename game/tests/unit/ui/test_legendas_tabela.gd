@@ -3,7 +3,10 @@ extends TestCase
 ## com os sound_id vindos dos próprios produtores (constantes), e os textos seguem o padrão curto entre colchetes.
 ## Autor: Gameplay Engineer.
 
+
 const TABLE_PATH: String = "res://content/data/subtitles/subtitles_pt_br.json"
+const VOICE_PREFIX: String = "subtitle.voice_"
+const VOICE_MAX_CHARS: int = 40
 
 
 func _table() -> Dictionary:
@@ -31,10 +34,18 @@ func test_toda_chave_pedivel_tem_texto() -> void:
 			assert_false(str(table[key]).strip_edges().is_empty(), "%s não é vazio" % key)
 
 
+## Sons: texto curto entre colchetes ("[tosse]"). Falas (subtitle.voice_*; Director, D4-06 da F4): "[Falante] texto",
+## com o nome de quem fala entre colchetes e a fala depois.
 func test_textos_curtos_entre_colchetes() -> void:
 	var table: Dictionary = _table()
 	for key: Variant in table.keys():
 		var text: String = str(table[key])
+		if String(key).begins_with(VOICE_PREFIX):
+			var close: int = text.find("] ")
+			assert_true(text.begins_with("[") and close > 1 and text.length() > close + 2,
+				"%s é fala com falante: %s" % [key, text])
+			assert_true(text.length() <= VOICE_MAX_CHARS, "%s curto (%d caracteres)" % [key, text.length()])
+			continue
 		assert_true(text.begins_with("[") and text.ends_with("]"), "%s entre colchetes: %s" % [key, text])
 		assert_true(text.length() <= 32, "%s curto (%d caracteres)" % [key, text.length()])
 

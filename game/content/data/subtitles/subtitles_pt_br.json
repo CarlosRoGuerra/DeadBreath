@@ -7,5 +7,9 @@
 	"subtitle.footstep_wood": "[passos próximos]",
 	"subtitle.footstep_carpet": "[passos próximos]",
 	"subtitle.footstep_tile": "[passos próximos]",
-	"subtitle.footstep_concrete": "[passos próximos]"
+	"subtitle.footstep_concrete": "[passos próximos]",
+	"subtitle.voice_suspicious": "[Observador] Hm?",
+	"subtitle.voice_investigate": "[Observador] Quem está aí?",
+	"subtitle.voice_chase_shout": "[Observador] Ali!",
+	"subtitle.voice_search": "[Observador] Cadê você?"
 }

@@ -1,7 +1,9 @@
-# DEAD BREATH - audicao dos sons procedurais (F2-006a: corpo; F3-003a: mundo).
-# Toca cada WAV de game/content/audio/body (-Set body, padrao) ou de game/content/audio/world (-Set world),
-# na ordem do manifest.json, com o nome e os metadados na tela. Usa o player nativo do Windows
-# (System.Media.SoundPlayer). Os loops de chuva tocam uma vez (o SoundPlayer nao repete).
+# DEAD BREATH - audicao dos sons procedurais (F2-006a: corpo; F3-003a: mundo; F4-006a: musica e falas).
+# Toca cada WAV de game/content/audio/body (-Set body, padrao), de game/content/audio/world (-Set world) ou de
+# game/content/audio/music (-Set music), na ordem do manifest.json, com o nome e os metadados na tela. Usa o player
+# nativo do Windows (System.Media.SoundPlayer). Os loops (chuva e musica) tocam uma vez (o SoundPlayer nao repete).
+# Na musica, as tres camadas tocam uma apos a outra: para ouvir a soma, use o jogo com AdaptiveMusic.
+# As falas do Observer (world, sound_id voice_*) sao PROVISORIAS (D4-06): -Set world -Filter voice_.
 #
 # Uso:
 #   powershell -ExecutionPolicy Bypass -File tools\audio\audition.ps1
@@ -9,9 +11,11 @@
 #   powershell -ExecutionPolicy Bypass -File tools\audio\audition.ps1 -Filter breath_calm -Pause 1.5
 #   powershell -ExecutionPolicy Bypass -File tools\audio\audition.ps1 -Set world -Filter footstep_wood
 #   powershell -ExecutionPolicy Bypass -File tools\audio\audition.ps1 -Set world -Filter rain
+#   powershell -ExecutionPolicy Bypass -File tools\audio\audition.ps1 -Set world -Filter voice_
+#   powershell -ExecutionPolicy Bypass -File tools\audio\audition.ps1 -Set music
 #   powershell -ExecutionPolicy Bypass -File tools\audio\audition.ps1 -ListOnly
 #
-# -Set     : body (F2-006a, padrao) ou world (F3-003a)
+# -Set     : body (F2-006a, padrao), world (F3-003a) ou music (F4-006a)
 # -Filter  : trecho do nome do arquivo ou do sound_id (padrao: todos)
 # -Pause   : segundos de silencio entre dois sons (padrao: 0.8)
 # -ListOnly: so mostra a lista, sem tocar nada
@@ -21,7 +25,7 @@
 
 [CmdletBinding()]
 param(
-    [ValidateSet('body', 'world')]
+    [ValidateSet('body', 'world', 'music')]
     [string]$Set = 'body',
     [string]$Dir = '',
     [string]$Filter = '',

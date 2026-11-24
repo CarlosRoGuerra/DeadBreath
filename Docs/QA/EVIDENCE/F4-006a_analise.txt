@@ -1,0 +1,30 @@
+F4-006a - analise objetiva das falas (provisorias) e da musica. Gerado por script a partir dos WAV commitados.
+
+Falas do Observer (game/content/audio/world/voice_*):
+  arquivo                        dur(s)   RMS(dBFS)  pico(dBFS)  f0 em 20/40/60% (Hz, autocorrelacao)
+  voice_suspicious_v1.wav         0.668     -24.00     -15.45   [130.5, 131.6, 137.4]
+  voice_suspicious_v2.wav         0.778     -24.00     -15.70   [110.8, 112.8, 117.3]
+  voice_suspicious_v3.wav         0.616     -24.00     -16.94   [142.7, 145.1, 152.1]
+  voice_investigate_v1.wav        1.198     -24.00     -12.65   [239.7, 232.1, 139.6]
+  voice_investigate_v2.wav        1.129     -24.00     -12.96   [142.3, 142.3, 165.2]
+  voice_investigate_v3.wav        1.303     -24.00     -13.48   [166.4, 249.2, 193.4]
+  voice_chase_shout_v1.wav        0.936     -24.00     -16.75   [253.4, 272.2, 273.9]
+  voice_chase_shout_v2.wav        0.886     -24.00     -16.74   [279.1, 302.1, 302.1]
+  voice_chase_shout_v3.wav        0.978     -24.00     -16.71   [315.0, 339.2, 341.9]
+  voice_search_v1.wav             0.942     -24.00     -11.54   [99.5, 95.9, 97.4]
+  voice_search_v2.wav             1.058     -24.00     -12.17   [114.2, 109.7, 111.6]
+  voice_search_v3.wav             0.897     -24.00     -12.58   [129.3, 124.6, 126.7]
+
+Musica (game/content/audio/music/), do manifesto:
+  camada   dur(s)   BPM   RMS(dBFS)  pico(dBFS)  emenda (salto / maior diferenca entre vizinhos)
+  calm     12.000     80     -20.00     -10.71   0.365
+  tension  12.000     80     -20.00      -6.69   0.616
+  chase    12.000     80     -20.00      -5.87   0.000
+
+Leitura (medidas grosseiras; nao substituem a escuta):
+  - duracao, RMS (-24 dBFS, como os one-shots), pico (abaixo de -3 dBFS) e emenda dos loops: conferem com o
+    desenho. Musica: RMS -20 dBFS nas tres camadas, pico abaixo de -3 dBFS, emenda com razao <= 1.
+  - altura por autocorrelacao: murmurios, gritos e resmungos seguem o contorno desenhado (ex.: grito 250-340 Hz).
+  - voice_investigate: no ponto de 20% a autocorrelacao da 239 Hz (o dobro dos ~120 Hz desenhados). A causa
+    nao foi investigada; nesse trecho a medida nao e conclusiva.
+  - se a escuta reprovar a caracteristica de voz, a troca e por gravacao ou CC0 (ASSET_LICENSES.md).

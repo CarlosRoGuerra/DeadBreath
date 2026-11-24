@@ -24,6 +24,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import body_synth as bs  # noqa: E402
+import music_synth as ms  # noqa: E402
 import world_synth as ws  # noqa: E402
 
 
@@ -32,13 +33,13 @@ def list_names(folder):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Regera os sons do corpo e compara os hashes (F2-006a).")
-    ap.add_argument("--set", choices=("body", "world"), default="body",
-                    help="conjunto a verificar: body (F2-006a) ou world (F3-003a)")
+    ap = argparse.ArgumentParser(description="Regera os sons e compara os hashes (F2-006a, F3-003a, F4-006a).")
+    ap.add_argument("--set", choices=("body", "world", "music"), default="body",
+                    help="conjunto a verificar: body (F2-006a), world (F3-003a) ou music (F4-006a)")
     ap.add_argument("--target", default=None, help="pasta commitada (padrao depende de --set)")
     ap.add_argument("--runs", type=int, default=2, help="numero de geracoes independentes (padrao: 2)")
     args = ap.parse_args(argv)
-    gen = ws if args.set == "world" else bs
+    gen = {"body": bs, "world": ws, "music": ms}[args.set]
     target = os.path.abspath(args.target or gen.DEFAULT_OUT)
 
     committed_names = list_names(target)

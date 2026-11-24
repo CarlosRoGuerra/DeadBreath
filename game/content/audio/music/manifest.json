@@ -1,0 +1,70 @@
+{
+  "bars": 4,
+  "beats_per_bar": 4,
+  "bit_depth": 16,
+  "bpm": 80.0,
+  "channels": 1,
+  "files": [
+    {
+      "bpm": 80.0,
+      "duration_s": 12.0,
+      "file": "music_calm.wav",
+      "layer": "calm",
+      "loop": true,
+      "peak_dbfs": -10.71,
+      "rms_dbfs": -20.0,
+      "role": "layer",
+      "samples": 529200,
+      "seam_ratio": 0.365,
+      "sha256": "03f80a80dd619a24d92767651432c31a48a724867c5c7e26f6d40cd030ef00bd",
+      "sound_id": "music_calm",
+      "variation": 1
+    },
+    {
+      "bpm": 80.0,
+      "duration_s": 12.0,
+      "file": "music_tension.wav",
+      "layer": "tension",
+      "loop": true,
+      "peak_dbfs": -6.69,
+      "rms_dbfs": -20.0,
+      "role": "layer",
+      "samples": 529200,
+      "seam_ratio": 0.616,
+      "sha256": "090c97417a2005d6bd3cf76e79c7c58ae6ccb0391bc73fab1e15e8da200c5211",
+      "sound_id": "music_tension",
+      "variation": 1
+    },
+    {
+      "bpm": 80.0,
+      "duration_s": 12.0,
+      "file": "music_chase.wav",
+      "layer": "chase",
+      "loop": true,
+      "peak_dbfs": -5.87,
+      "rms_dbfs": -20.0,
+      "role": "layer",
+      "samples": 529200,
+      "seam_ratio": 0.0,
+      "sha256": "8c770ed315ca700e279a62a2c08b0fcc76d6ae95fe5a2018b8e39f62f49c62b1",
+      "sound_id": "music_chase",
+      "variation": 1
+    }
+  ],
+  "generator": "tools/audio/music_synth.py",
+  "generator_version": "f4-006a.1",
+  "layers": [
+    "calm",
+    "tension",
+    "chase"
+  ],
+  "loop_seconds": 12.0,
+  "normalization": {
+    "measure": "RMS da camada inteira; pico sobre as amostras int16 (divisor 32768)",
+    "peak_ceiling_dbfs": -3.0,
+    "target_rms_dbfs": -20.0
+  },
+  "sample_rate": 44100,
+  "seed_base": "DEADBREATH|F4-006a|music|v1",
+  "sync": "As tres camadas tem a mesma duracao e o mesmo tempo. Tocam juntas desde o inicio em loop; so o volume muda (AdaptiveMusic)."
+}

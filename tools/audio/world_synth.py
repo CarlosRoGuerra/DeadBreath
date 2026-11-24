@@ -8,6 +8,12 @@ passos por superfície e marcha, portas (lenta, normal, batida, trancada), impac
 externa) e trovões (rolagem longa e estalo próximo). Grava game/content/audio/world/ junto com
 manifest.json, no mesmo formato de body/.
 
+F4-006a (D4-06): falas do Observer (VOICE), quatro sound_id com três variações cada: voice_suspicious
+(murmúrio), voice_investigate (pergunta), voice_chase_shout (grito) e voice_search (resmungo de busca).
+São síntese PROVISÓRIA, com caráter de voz humana (fonte glotal com contorno de altura, formantes que
+deslizam entre vogais, aspiração e consoantes em rajada). Não precisam ser inteligíveis: a legenda dá o
+texto. O manifesto marca essas entradas com provisional=true.
+
 Regras:
   - usa as primitivas DSP de body_synth.py (mesma biblioteca da F2-006a); só biblioteca padrão;
   - PRNG SplitMix64 e semente por arquivo (SHA-256 com a base "DEADBREATH|F3-003a|v1");
@@ -15,6 +21,7 @@ Regras:
   - one-shots: RMS de referência -24 dBFS (o nível de jogo vem do evento, DATA §2.1);
   - loops: RMS-alvo por camada, costurados por cross-fade de potência constante (sem estalo);
   - pico final sempre abaixo de -3 dBFS.
+  - Os arquivos antigos não mudam: cada um tem a própria semente, e as falas só acrescentam entradas.
 
 Uso:
     python tools/audio/world_synth.py                 (grava em game/content/audio/world)
@@ -33,7 +40,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import body_synth as bs  # noqa: E402
 
-GENERATOR_VERSION = "f3-003a.1"
+GENERATOR_VERSION = "f4-006a.1"
 SEED_BASE = "DEADBREATH|F3-003a|v1"
 SR = bs.SR
 TWO_PI = 2.0 * math.pi
@@ -420,6 +427,120 @@ def rain_loop(rng, name):
 
 
 # ---------------------------------------------------------------------------
+# Falas do Observer (VOICE, F4-006a; D4-06): PROVISÓRIAS
+# ---------------------------------------------------------------------------
+# Caráter de voz humana, não inteligibilidade: fonte glotal com contorno de altura (f0), formantes de vogal que
+# deslizam entre um segmento e outro, aspiração (sopro) e consoantes como rajadas curtas de ruído. O texto vem da
+# legenda (subtitles_pt_br.json, chaves subtitle.voice_*). Trocar por gravação ou CC0 se a escuta reprovar.
+
+VOICE_FORMANTS = {  # (F1, F2, F3) em Hz, valores típicos de voz adulta
+    "a": (730.0, 1090.0, 2440.0),
+    "e": (530.0, 1840.0, 2480.0),
+    "i": (270.0, 2290.0, 3010.0),
+    "o": (570.0, 840.0, 2410.0),
+    "u": (300.0, 870.0, 2240.0),
+    "m": (250.0, 1000.0, 2300.0),  # nasal: boca fechada, ressonância grave
+}
+VOICE_FORMANT_WEIGHTS = (1.0, 0.6, 0.3)
+VOICE_HARMONICS = 9
+
+# Cada fala: tokens ("v", duração, altura inicial × base, altura final × base, vogal inicial, vogal final,
+# fator de aspiração, saturação) | ("k", frequência da rajada, amplitude) | ("g", duração de silêncio).
+# Por variação: base de altura (Hz), tempo (×), aspiração e corte do agudo (Hz).
+VOICE_PHRASES = {
+    "voice_suspicious": dict(  # murmúrio de desconfiança: "Hm?"
+        tokens=[("v", 0.34, 1.00, 1.04, "m", "m", 0.4, 0.0),
+                ("g", 0.04),
+                ("v", 0.30, 1.04, 1.34, "m", "i", 1.0, 0.0)],
+        base=(128.0, 112.0, 142.0), tempo=(1.00, 1.15, 0.90), asp=(0.05, 0.20, 0.10), lp=(3800.0, 3200.0, 4200.0)),
+    "voice_investigate": dict(  # pergunta: "Quem está aí?"
+        tokens=[("k", 1600.0, 0.35),
+                ("v", 0.09, 1.00, 1.00, "u", "e", 0.3, 0.0),
+                ("v", 0.10, 1.00, 1.02, "e", "e", 0.2, 0.0),
+                ("v", 0.11, 1.02, 1.00, "m", "m", 0.2, 0.0),
+                ("g", 0.07),
+                ("v", 0.10, 1.04, 1.02, "e", "e", 0.3, 0.0),
+                ("k", 2600.0, 0.40),
+                ("v", 0.30, 1.10, 1.22, "a", "a", 0.2, 0.0),
+                ("v", 0.10, 1.20, 1.10, "a", "a", 0.3, 0.0),
+                ("v", 0.28, 1.12, 1.40, "a", "i", 0.4, 0.0)],
+        base=(118.0, 140.0, 160.0), tempo=(1.00, 0.92, 1.08), asp=(0.10, 0.16, 0.08), lp=(3600.0, 4200.0, 3200.0)),
+    "voice_chase_shout": dict(  # grito de perseguição: "Ali!"
+        tokens=[("v", 0.40, 1.00, 1.18, "a", "a", 0.5, 3.0),
+                ("v", 0.08, 1.18, 1.25, "a", "i", 0.5, 3.0),
+                ("v", 0.46, 1.25, 0.90, "i", "i", 0.4, 3.0)],
+        base=(230.0, 260.0, 290.0), tempo=(1.00, 0.95, 1.05), asp=(0.20, 0.25, 0.15), lp=(4500.0, 5000.0, 4200.0)),
+    "voice_search": dict(  # resmungo de busca, abafado: "Cadê você?"
+        tokens=[("k", 1500.0, 0.30),
+                ("v", 0.12, 1.00, 1.00, "a", "a", 0.3, 0.0),
+                ("v", 0.08, 1.00, 0.98, "a", "e", 0.3, 0.0),
+                ("k", 1100.0, 0.25),
+                ("v", 0.22, 0.98, 0.92, "e", "e", 0.5, 0.0),
+                ("g", 0.05),
+                ("v", 0.12, 0.96, 0.96, "o", "o", 0.5, 0.0),
+                ("v", 0.30, 1.00, 1.22, "e", "i", 0.4, 0.0)],
+        base=(104.0, 118.0, 132.0), tempo=(1.00, 1.10, 0.95), asp=(0.25, 0.30, 0.20), lp=(2200.0, 1900.0, 2400.0)),
+}
+VOICE_SOUND_IDS = ("voice_suspicious", "voice_investigate", "voice_chase_shout", "voice_search")
+VOICE_VARIATIONS = (1, 2, 3)
+
+
+def _vseg(rng, dur, f0a, f0b, va, vb, asp, drive):
+    """Trecho sonoro: fonte glotal com altura de f0a a f0b, formantes de vogal va a vb (deslizam), sopro `asp`
+    (fração) e, se drive > 0, saturação (grito). Envelope de ataque e liberação de 15 ms."""
+    n = n_of(dur)
+    nb = bs.blocks(n)
+    glot = bs.unit(bs.harmonic_source(bs.lin(f0a, f0b, n), VOICE_HARMONICS, rng, 1.1))
+    fa = VOICE_FORMANTS[va]
+    fb = VOICE_FORMANTS[vb]
+    forms = [(fa[k], fb[k], 4.0, VOICE_FORMANT_WEIGHTS[k]) for k in range(3)]
+    vowel = bs.formant_mix(glot, nb, forms)
+    hiss = bs.unit(bs.biquad(bs.white(rng, n), "bp", bs.const(1800.0, nb), 1.0))
+    sig = [(1.0 - asp) * vowel[i] + asp * hiss[i] for i in range(n)]
+    if drive > 0.0:
+        k = math.tanh(drive)
+        sig = [math.tanh(drive * v) / k for v in sig]
+    env = bs.tcurve([(0.0, 0.0), (0.015, 1.0), (dur - 0.02, 1.0), (dur, 0.0)], dur, n)
+    return [sig[i] * env[i] for i in range(n)]
+
+
+def _vstop(rng, freq, amp):
+    """Consoante oclusiva: rajada curta de ruído filtrado."""
+    n = n_of(0.03)
+    burst = bs.unit(bs.biquad(bs.white(rng, n), "bp", bs.const(freq, bs.blocks(n)), 1.5))
+    return [amp * v for v in decay(burst, 0.006)]
+
+
+def _vfinish(sig, lp_hz):
+    """Banda de voz à distância: corta o grave abaixo de 110 Hz e o agudo acima de lp_hz."""
+    nb = bs.blocks(len(sig))
+    y = bs.biquad(sig, "hp", bs.const(110.0, nb), 0.707)
+    return bs.biquad(y, "lp", bs.const(lp_hz, nb), 0.707)
+
+
+def voice_clip(rng, sound_id, variation):
+    """Uma fala do Observer (provisória). Variação 1..3: altura base, tempo, aspiração e corte do agudo mudam."""
+    spec = VOICE_PHRASES[sound_id]
+    i = variation - 1
+    base = spec["base"][i] * (1.0 + 0.03 * rng.bipolar())
+    tempo = spec["tempo"][i] * (1.0 + 0.02 * rng.bipolar())
+    asp = spec["asp"][i]
+    parts = []
+    for tok in spec["tokens"]:
+        if tok[0] == "v":
+            _, dur, m0, m1, va, vb, af, drive = tok
+            parts.append(_vseg(rng, dur * tempo, base * m0, base * m1, va, vb, asp * af, drive))
+        elif tok[0] == "k":
+            parts.append(_vstop(rng, tok[1] * (1.0 + 0.03 * rng.bipolar()), tok[2]))
+        else:
+            parts.append([0.0] * n_of(tok[1] * tempo))
+    sig = []
+    for part in parts:
+        sig.extend(part)
+    return _vfinish(sig, spec["lp"][i])
+
+
+# ---------------------------------------------------------------------------
 # Catálogo, normalização e escrita
 # ---------------------------------------------------------------------------
 
@@ -463,6 +584,10 @@ def catalog():
                             (lambda vv: lambda rng: thunder_rumble(rng, vv))(v)))
         items.append(_entry("thunder_crack_v%d" % v, "thunder_crack", "one_shot", v, "one_shot",
                             (lambda vv: lambda rng: thunder_crack(rng, vv))(v)))
+    for sound_id in VOICE_SOUND_IDS:
+        for v in VOICE_VARIATIONS:
+            items.append(_entry("%s_v%d" % (sound_id, v), sound_id, "voice", v, "one_shot",
+                                (lambda sd, vv: lambda rng: voice_clip(rng, sd, vv))(sound_id, v)))
     return items
 
 
@@ -529,6 +654,7 @@ def generate(out_dir, verbose=True):
             surface=item["surface"],
             gait=item["gait"],
             loop=item["loop"],
+            provisional=(item["role"] == "voice"),
             **{"class": item["cls"]},
             duration_s=round(n / float(SR), 6),
             samples=n,
@@ -559,6 +685,12 @@ def generate(out_dir, verbose=True):
             loop_crossfade_s=LOOP_CROSSFADE_S,
             loop_seconds=LOOP_SECONDS,
             measure="RMS da clip inteira; pico sobre as amostras int16 (divisor 32768)",
+        ),
+        provisional=dict(
+            roles=["voice"],
+            sound_ids=list(VOICE_SOUND_IDS),
+            note=("D4-06 (F4-006a): falas do Observer sintetizadas, PROVISORIAS. Ficam ate a escuta do usuario "
+                  "decidir se trocam por gravacao ou CC0 (ASSET_LICENSES.md). Legendas em subtitles_pt_br.json."),
         ),
         files=files,
     )

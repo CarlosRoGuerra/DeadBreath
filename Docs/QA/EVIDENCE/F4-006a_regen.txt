@@ -1,0 +1,45 @@
+F4-006a - check_regen (saida real, sem edicao)
+Comando: python tools/audio/check_regen.py --set world | --set music | --set body
+
+=== --set world ===
+pasta commitada: D:\Dev\DeadBreath\game\content\audio\world
+arquivos commitados: 111 (WAV + manifest.json)
+manifest.json: sha256 de todos os WAV conferem com os arquivos commitados
+execucao 1: 111 arquivos gerados em 9.7 s (pasta temporaria apagada ao fim)
+  identicos ao commitado (bytes): 111/111
+execucao 2: 111 arquivos gerados em 9.7 s (pasta temporaria apagada ao fim)
+  identicos ao commitado (bytes): 111/111
+execucao 1 e execucao 2: identicas (111 arquivos)
+
+SHA-256 (arquivos commitados):
+
+RESULTADO: PASS - geracao deterministica, bit a bit
+
+=== --set music ===
+pasta commitada: D:\Dev\DeadBreath\game\content\audio\music
+arquivos commitados: 4 (WAV + manifest.json)
+manifest.json: sha256 de todos os WAV conferem com os arquivos commitados
+execucao 1: 4 arquivos gerados em 1.0 s (pasta temporaria apagada ao fim)
+  identicos ao commitado (bytes): 4/4
+execucao 2: 4 arquivos gerados em 1.0 s (pasta temporaria apagada ao fim)
+  identicos ao commitado (bytes): 4/4
+execucao 1 e execucao 2: identicas (4 arquivos)
+
+SHA-256 (arquivos commitados):
+
+RESULTADO: PASS - geracao deterministica, bit a bit
+
+=== --set body ===
+pasta commitada: D:\Dev\DeadBreath\game\content\audio\body
+arquivos commitados: 42 (WAV + manifest.json)
+manifest.json: sha256 de todos os WAV conferem com os arquivos commitados
+execucao 1: 42 arquivos gerados em 7.4 s (pasta temporaria apagada ao fim)
+  identicos ao commitado (bytes): 42/42
+execucao 2: 42 arquivos gerados em 7.7 s (pasta temporaria apagada ao fim)
+  identicos ao commitado (bytes): 42/42
+execucao 1 e execucao 2: identicas (42 arquivos)
+
+SHA-256 (arquivos commitados):
+
+RESULTADO: PASS - geracao deterministica, bit a bit
+

@@ -1,0 +1,28 @@
+F4-006a - testes (saidas reais das rodadas; resumos e falhas)
+
+Runner filtrado (Godot headless, --fixed-fps 60):
+  --filter=audio (nivel padrao)            -> RESUMO total=104 passou=104 falhou=0 (inclui os 32 testes novos)
+  --level=property --filter=audio          -> RESUMO total=7 passou=7 falhou=0 (inclui test_music_peaks e test_regen_sons)
+  --filter=legendas (nivel padrao)         -> RESUMO total=14 passou=13 falhou=1
+      FALHA: unit/ui/test_legendas_tabela.gd::test_textos_curtos_entre_colchetes
+      motivo: exige que toda legenda termine em ']'. As 4 legendas de voz pedidas na especificacao da F4-006a terminam em '?' ou '!':
+      "[Observador] Hm?", "[Observador] Quem está aí?", "[Observador] Ali!", "[Observador] Cadê você?".
+      Conflito de regra, nao de codigo. Decisao pendente do Director (ver relatorio da F4-006a).
+
+Pipeline completo (tools/run_tests.ps1), uma execucao:
+  importacao      OK
+  arc04           OK (total=1)
+  runner          REPROVADO: total=607 passou=605 falhou=2, tempo_total=10520 ms
+      FALHA 1 (minha, conflito acima): unit/ui/test_legendas_tabela.gd::test_textos_curtos_entre_colchetes
+      FALHA 2 (nao minha, transitoria): integration/ai/test_ai_cenarios_l1.gd::test_ai04_ai05_perde_o_jogador_e_chega_a_ultima_posicao_antes_do_limite
+        (AI Engineer, em edicao paralela). Repetida isolada com --filter=ai04: PASS. Registrada, nao corrigida.
+  runner-property OK (total=185 passou=185; 172 s, inclui check_regen world ~29 s)
+  runner-meta     OK (total=26 passou=26)
+  Resultado do pipeline: REPROVADO por causa da FALHA 1.
+
+Tempo do nivel padrao (suite completa, sem os meus testes pesados):
+  rodada do pipeline: 10520 ms (soma dos tempos dos testes: 6212 ms)
+  rodada isolada posterior: 13651 ms (unica falha: a legenda; o teste da IA passou nessa rodada)
+  Os meus 32 testes do nivel padrao somam 22 ms de corpo. Outros processos Godot de outros agentes estavam ativos
+  (dois processos Godot no Task Manager durante a medida). O limite de 10 s nao foi confirmado nestas rodadas;
+  o numero depende da carga da maquina. Re-medir com a maquina ociosa.
